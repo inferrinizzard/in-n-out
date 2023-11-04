@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - gh-actions
+
 jobs:
   update:
     runs-on: ubuntu-latest
