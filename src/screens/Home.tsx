@@ -6,7 +6,6 @@ export interface HomeProps {}
 
 const Home: React.FC<HomeProps & StackScreenProps<"Home">> = ({
   navigation,
-  route,
 }) => {
   return (
     <View>
