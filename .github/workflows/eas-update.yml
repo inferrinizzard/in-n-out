@@ -1,11 +1,11 @@
-name: Expo Build
+name: Expo Update
 on:
   push:
     branches:
       - master
       - gh-actions
 jobs:
-  build:
+  update:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -26,5 +26,5 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🚀 Create build
-        run: eas build --non-interactive --platform=all
+      - name: 🚀 Create update
+        run: eas update --auto --platform=all
