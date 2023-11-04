@@ -5,7 +5,7 @@ on:
       - master
       - gh-actions
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -26,5 +26,5 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🚀 Create update
-        run: eas build --non-interactive
+      - name: 🚀 Create build
+        run: eas build --non-interactive --platform=all
