@@ -7517,10 +7517,10 @@ react-native-screens@~3.22.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-ui-lib@^7.9.1:
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-7.9.1.tgz#e502905bea31dc1a4b03209f11e238ef95fb770d"
-  integrity sha512-i0puQVFZ6QrwJmxwgGmeeA5AGoSvGkVkD0MVXD4dnxjamkWXXvAFPLIPb7n5bUL/axj50oCIJGL/7BN2cm7v5Q==
+react-native-ui-lib@~7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-7.8.0.tgz#da3c6a30c0864eae3b6085b109b6bc1eecf24dac"
+  integrity sha512-MC+8s6KWt/Z5hDfaWaK7TAXLsTecPVpR3CdrogMFO5+sU7ktxPsE5rQjwM58xeJWoMqgJu8k7ErJX4uMZMiTpQ==
   dependencies:
     babel-plugin-transform-inline-environment-variables "^0.0.2"
     color "^3.1.0"
