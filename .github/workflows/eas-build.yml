@@ -1,3 +1,4 @@
+name: Expo Build
 on:
   push:
     branches:
@@ -26,4 +27,4 @@ jobs:
         run: yarn install
 
       - name: 🚀 Create update
-        run: eas build --auto --non-interactive
+        run: eas build --non-interactive
