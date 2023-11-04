@@ -33,6 +33,12 @@
         "projectId": "3c193648-bae8-40aa-8b6f-86607875c625"
       }
     },
-    "owner": "inferrinizzard"
+    "owner": "inferrinizzard",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/3c193648-bae8-40aa-8b6f-86607875c625"
+    }
   }
 }
