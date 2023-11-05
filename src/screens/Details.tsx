@@ -1,4 +1,5 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 
 import { type StackScreenProps } from './routes';
 
@@ -11,7 +12,9 @@ const Details: React.FC<DetailsProps & StackScreenProps<'Details'>> = ({
     <View>
       <Text>Details Screen</Text>
 
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button onPress={() => navigation.navigate('Home')}>
+        {'Go to Home'}
+      </Button>
     </View>
   );
 };
