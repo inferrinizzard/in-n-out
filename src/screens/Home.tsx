@@ -1,10 +1,10 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-import { type StackScreenProps } from "./routes";
+import { type StackScreenProps } from './routes';
 
 export interface HomeProps {}
 
-const Home: React.FC<HomeProps & StackScreenProps<"Home">> = ({
+const Home: React.FC<HomeProps & StackScreenProps<'Home'>> = ({
   navigation,
   route,
 }) => {
@@ -14,7 +14,7 @@ const Home: React.FC<HomeProps & StackScreenProps<"Home">> = ({
 
       <Button
         title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
+        onPress={() => navigation.navigate('Details')}
       />
     </View>
   );
@@ -25,8 +25,8 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
