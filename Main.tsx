@@ -1,6 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PaperProvider as ThemeProvider } from 'react-native-paper';
+import {
+  PaperProvider as ThemeProvider,
+  adaptNavigationTheme,
+} from 'react-native-paper';
 
 import theme from './src/styles/theme';
 import routes, { RootStackParamList } from './src/screens/routes';
@@ -8,10 +11,14 @@ import { type ValueOf } from './src/types/util';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const { LightTheme } = adaptNavigationTheme({
+  reactNavigationLight: DefaultTheme,
+});
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer theme={LightTheme}>
         <Stack.Navigator initialRouteName="Home">
           {Object.entries<ValueOf<typeof routes>>(routes).map(
             ([screen, component]) => (
