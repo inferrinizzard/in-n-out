@@ -5,8 +5,9 @@ import {
   adaptNavigationTheme,
 } from 'react-native-paper';
 
-import { theme, navigationTheme } from './src/styles/theme';
+import ReduxProvider from './src/redux/Provider';
 import routes, { RootStackParamList } from './src/screens/routes';
+import { theme, navigationTheme } from './src/styles/theme';
 import { type ValueOf } from './src/types/util';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -17,22 +18,24 @@ const { LightTheme } = adaptNavigationTheme({
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer theme={LightTheme}>
-        <Stack.Navigator initialRouteName="Home">
-          {Object.entries<ValueOf<typeof routes>>(routes).map(
-            ([screen, component]) => (
-              <Stack.Screen
-                key={screen}
-                name={screen as keyof typeof routes}
-                // @ts-expect-error
-                component={component}
-              />
-            )
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ThemeProvider>
+    <ReduxProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer theme={LightTheme}>
+          <Stack.Navigator initialRouteName="Home">
+            {Object.entries<ValueOf<typeof routes>>(routes).map(
+              ([screen, component]) => (
+                <Stack.Screen
+                  key={screen}
+                  name={screen as keyof typeof routes}
+                  // @ts-expect-error
+                  component={component}
+                />
+              )
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ThemeProvider>
+    </ReduxProvider>
   );
 };
 
