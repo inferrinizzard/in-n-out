@@ -4,15 +4,17 @@ module.exports = function (api) {
 
   return {
     presets: [
-      'babel-preset-expo',
-      {
-        native: {
-          disableImportExportTransform,
+      [
+        'babel-preset-expo',
+        {
+          native: {
+            disableImportExportTransform,
+          },
+          web: {
+            disableImportExportTransform,
+          },
         },
-        web: {
-          disableImportExportTransform,
-        },
-      },
+      ],
     ],
     env: {
       production: {
