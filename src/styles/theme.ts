@@ -1,12 +1,16 @@
-import { MD3LightTheme as DefaultTheme } from 'react-native-paper';
+import {
+  DefaultTheme,
+  type Theme as NavigationTheme,
+} from '@react-navigation/native';
+import { MD3LightTheme } from 'react-native-paper';
 
-const theme = {
-  ...DefaultTheme,
+export const theme = {
+  ...MD3LightTheme,
   colors: {
-    ...DefaultTheme.colors,
+    ...MD3LightTheme.colors,
     primary: 'tomato',
     secondary: 'yellow',
   },
 };
 
-export default theme;
+export const navigationTheme: NavigationTheme = DefaultTheme;
