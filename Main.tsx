@@ -6,12 +6,12 @@ import {
 } from 'react-native-paper';
 
 import ReduxProvider from './src/redux/Provider';
-import routes, { RootStackParamList } from './src/screens/routes';
+// import routes, { RootStackParamList } from './src/screens/routes';
 import { theme, navigationTheme } from './src/styles/theme';
 import { type ValueOf } from './src/types/util';
 import BottomTabs from './src/navigators/BottomTabs';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+// const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: navigationTheme,

@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, BottomNavigation, Icon } from 'react-native-paper';
-import Home from '../screens/Home';
-import Details from '../screens/Details';
-import { type RootStackParamList } from '../screens/routes';
 import { CommonActions } from '@react-navigation/native';
+import { BottomNavigation, Icon } from 'react-native-paper';
 
-const Tab = createBottomTabNavigator<RootStackParamList>();
+import { BaseTabParamList } from '../screens/routes';
+import Account from '../screens/Account';
+import Cart from '../screens/Cart';
+import Menu from '../screens/Menu';
+
+const Tab = createBottomTabNavigator<BaseTabParamList>();
 
 export interface BottomTabsProps {}
 
@@ -61,20 +62,30 @@ const BottomTabs: React.FC<BottomTabsProps> = () => {
       )}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Menu"
+        component={Menu}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Menu',
           tabBarIcon: ({ color, size }) => {
             return <Icon source="home" size={size} color={color} />;
           },
         }}
       />
       <Tab.Screen
-        name="Details"
-        component={Details}
+        name="Cart"
+        component={Cart}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Cart',
+          tabBarIcon: ({ color, size }) => {
+            return <Icon source="cog" size={size} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={Account}
+        options={{
+          tabBarLabel: 'Account',
           tabBarIcon: ({ color, size }) => {
             return <Icon source="cog" size={size} color={color} />;
           },
