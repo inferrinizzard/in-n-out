@@ -9,6 +9,7 @@ import ReduxProvider from './src/redux/Provider';
 import routes, { RootStackParamList } from './src/screens/routes';
 import { theme, navigationTheme } from './src/styles/theme';
 import { type ValueOf } from './src/types/util';
+import BottomTabs from './src/navigators/BottomTabs';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,7 +22,8 @@ const App = () => {
     <ReduxProvider>
       <ThemeProvider theme={theme}>
         <NavigationContainer theme={LightTheme}>
-          <Stack.Navigator initialRouteName="Home">
+          <BottomTabs />
+          {/* <Stack.Navigator initialRouteName="Home">
             {Object.entries<ValueOf<typeof routes>>(routes).map(
               ([screen, component]) => (
                 <Stack.Screen
@@ -32,7 +34,7 @@ const App = () => {
                 />
               )
             )}
-          </Stack.Navigator>
+          </Stack.Navigator> */}
         </NavigationContainer>
       </ThemeProvider>
     </ReduxProvider>
