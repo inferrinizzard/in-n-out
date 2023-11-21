@@ -4,12 +4,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation, Icon } from 'react-native-paper';
 
-import { BaseTabParamList } from '../screens/routes';
-import Account from '../screens/Account';
-import Cart from '../screens/Cart';
-import Menu from '../screens/Menu';
+import { type BaseTabParamList, baseTabRoutes } from '../screens/routes';
 
 const Tab = createBottomTabNavigator<BaseTabParamList>();
+
+const baseTabsIcons: Record<keyof BaseTabParamList, string> = {
+  Menu: 'silverware',
+  Cart: 'cart-outline',
+  Account: 'account',
+};
 
 export interface BottomTabsProps {}
 
@@ -49,48 +52,29 @@ const BottomTabs: React.FC<BottomTabsProps> = () => {
           }}
           getLabelText={({ route }) => {
             const { options } = descriptors[route.key];
-            const label =
-              options.tabBarLabel !== undefined
-                ? (options.tabBarLabel as string)
-                : options.title !== undefined
-                ? options.title
-                : route.name;
-
-            return label;
+            return options.tabBarLabel as string;
           }}
         />
       )}
     >
-      <Tab.Screen
-        name="Menu"
-        component={Menu}
-        options={{
-          tabBarLabel: 'Menu',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon source="home" size={size} color={color} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Cart"
-        component={Cart}
-        options={{
-          tabBarLabel: 'Cart',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon source="cog" size={size} color={color} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Account"
-        component={Account}
-        options={{
-          tabBarLabel: 'Account',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon source="cog" size={size} color={color} />;
-          },
-        }}
-      />
+      {/* // todo: memo */}
+      {(
+        Object.entries(baseTabRoutes) as [keyof typeof baseTabRoutes, any][]
+      ).map(([name, component]) => (
+        <Tab.Screen
+          key={`BottomTabs:${name}`}
+          name={name}
+          component={component}
+          options={{
+            tabBarLabel: name,
+            tabBarIcon: ({ color, size }) => {
+              return (
+                <Icon source={baseTabsIcons[name]} size={size} color={color} />
+              );
+            },
+          }}
+        />
+      ))}
     </Tab.Navigator>
   );
 };
