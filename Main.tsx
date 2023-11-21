@@ -1,17 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   PaperProvider as ThemeProvider,
   adaptNavigationTheme,
 } from 'react-native-paper';
 
 import ReduxProvider from './src/redux/Provider';
-// import routes, { RootStackParamList } from './src/screens/routes';
 import { theme, navigationTheme } from './src/styles/theme';
-import { type ValueOf } from './src/types/util';
-import BottomTabs from './src/navigators/BottomTabs';
-
-// const Stack = createNativeStackNavigator<RootStackParamList>();
+import BottomTabsNavigator from './src/navigators/BottomTabs';
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: navigationTheme,
@@ -22,19 +17,7 @@ const App = () => {
     <ReduxProvider>
       <ThemeProvider theme={theme}>
         <NavigationContainer theme={LightTheme}>
-          <BottomTabs />
-          {/* <Stack.Navigator initialRouteName="Home">
-            {Object.entries<ValueOf<typeof routes>>(routes).map(
-              ([screen, component]) => (
-                <Stack.Screen
-                  key={screen}
-                  name={screen as keyof typeof routes}
-                  // @ts-expect-error
-                  component={component}
-                />
-              )
-            )}
-          </Stack.Navigator> */}
+          <BottomTabsNavigator />
         </NavigationContainer>
       </ThemeProvider>
     </ReduxProvider>

@@ -12,8 +12,8 @@ const Menu: React.FC<
     <View>
       <Text>Menu Screen</Text>
 
-      <Button onPress={() => navigation.navigate('Cart')}>
-        {'Go to Cart'}
+      <Button onPress={() => navigation.navigate('Item')}>
+        {'Go to Item'}
       </Button>
     </View>
   );

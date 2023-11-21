@@ -14,9 +14,9 @@ const baseTabsIcons: Record<keyof BaseTabParamList, string> = {
   Account: 'account',
 };
 
-export interface BottomTabsProps {}
+export interface BottomTabsNavigatorProps {}
 
-const BottomTabs: React.FC<BottomTabsProps> = () => {
+const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -62,7 +62,7 @@ const BottomTabs: React.FC<BottomTabsProps> = () => {
         Object.entries(baseTabRoutes) as [keyof typeof baseTabRoutes, any][]
       ).map(([name, component]) => (
         <Tab.Screen
-          key={`BottomTabs:${name}`}
+          key={`BottomTabsNavigator:${name}`}
           name={name}
           component={component}
           options={{
@@ -79,4 +79,4 @@ const BottomTabs: React.FC<BottomTabsProps> = () => {
   );
 };
 
-export default BottomTabs;
+export default BottomTabsNavigator;
