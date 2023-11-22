@@ -16,6 +16,12 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
           key={screen}
           name={screen as keyof typeof menuStackRoutes}
           component={component}
+          options={({ route }) => ({
+            title:
+              route.params && 'name' in route.params
+                ? route.params.name
+                : screen,
+          })}
         />
       ))}
     </Stack.Navigator>

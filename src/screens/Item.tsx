@@ -1,25 +1,24 @@
-import { View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Image, View } from 'react-native';
+import { Text } from 'react-native-paper';
 
 import { type StackScreenProps } from './routes';
 
 export interface ItemProps {
+  id: string;
   name: string;
+  image: string;
 }
 
 const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   navigation,
   route,
 }) => {
-  const { name } = route.params!;
+  const { name, image } = route.params!;
 
   return (
     <View>
-      <Text>{`Item: ${name}`}</Text>
-
-      <Button onPress={() => navigation.navigate('Menu')}>
-        {'Go to Menu'}
-      </Button>
+      <Image source={{ uri: image, height: 240, width: 320 }} />
+      <Text>{name}</Text>
     </View>
   );
 };

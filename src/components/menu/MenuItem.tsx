@@ -1,16 +1,18 @@
-import { View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
-export interface MenuItemProps {
-  name: string;
+import { type ItemProps } from '../../screens/Item';
+import { Image } from 'react-native';
+
+export interface MenuItemProps extends ItemProps {
   onPress: () => void;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ name, onPress }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ onPress, ...item }) => {
   return (
-    <Card onPress={() => onPress()}>
-      <Card.Content>
-        <Text>{name}</Text>
+    <Card onPress={onPress}>
+      <Card.Content style={{ display: 'flex', flexDirection: 'row' }}>
+        <Image source={{ uri: item.image, height: 120, width: 160 }} />
+        <Text>{item.name}</Text>
       </Card.Content>
     </Card>
   );
