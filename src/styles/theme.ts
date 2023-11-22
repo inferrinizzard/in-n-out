@@ -8,8 +8,8 @@ export const theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    primary: 'tomato',
-    secondary: 'yellow',
+    primary: '#e02a27',
+    secondary: '#ffcb05',
   },
 };
 

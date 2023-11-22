@@ -1,7 +1,8 @@
-import { View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { FlatList, View } from 'react-native';
+import { Text } from 'react-native-paper';
 
 import { type TabScreenProps, type StackScreenProps } from './routes';
+import MenuItem from '../components/menu/MenuItem';
 
 export interface MenuProps {}
 
@@ -12,9 +13,18 @@ const Menu: React.FC<
     <View>
       <Text>Menu Screen</Text>
 
-      <Button onPress={() => navigation.navigate('Item')}>
-        {'Go to Item'}
-      </Button>
+      <FlatList
+        data={[
+          { id: 'foo', name: 'burgr' },
+          { id: 'bar', name: 'frys :)' },
+        ]}
+        renderItem={({ item }) => (
+          <MenuItem
+            onPress={() => navigation.navigate('Item', item)}
+            {...item}
+          />
+        )}
+      />
     </View>
   );
 };
