@@ -28,9 +28,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
       <Button
         onPress={() =>
           dispatch(
-            addItem(
-              new Burger({ id, name, price: '1' }, { meat: 1, cheese: 1 })
-            )
+            addItem(Burger({ id, name, price: '1' }, { meat: 1, cheese: 1 }))
           )
         }
       >
