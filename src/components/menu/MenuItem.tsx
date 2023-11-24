@@ -1,15 +1,17 @@
 import { Image } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
-import { type ItemProps } from '../../screens/Item';
+import { useAppSelector } from '../../redux/store';
+import { selectImages } from '../../redux/slices/dataSlice';
 
-import images from '../../../data/images.json';
+import { type ItemProps } from '../../screens/Item';
 
 export interface MenuItemProps extends ItemProps {
   onPress: () => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ onPress, ...item }) => {
+  const images = useAppSelector(selectImages);
   // TODO: fix
   const imageUrl = images[item.id as keyof typeof images];
 

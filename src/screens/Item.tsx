@@ -1,12 +1,12 @@
 import { Image, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { type StackScreenProps } from './routes';
-import { useAppDispatch } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import { addItem } from '../redux/slices/orderSlice';
-import { Burger } from '../models/Burger';
+import { selectImages } from '../redux/slices/dataSlice';
 
-import images from '../../data/images.json';
+import { type StackScreenProps } from './routes';
+import { Burger } from '../models/Burger';
 
 export interface ItemProps {
   id: string;
@@ -17,6 +17,8 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   navigation,
   route,
 }) => {
+  const images = useAppSelector(selectImages);
+
   const { id, name } = route.params!;
   // TODO: fix
   const imageUrl = images[id as keyof typeof images];
