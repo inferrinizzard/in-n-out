@@ -4,6 +4,7 @@ import { Card, Text } from 'react-native-paper';
 import { useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
 
+import { type SkuId } from '../../data/types';
 import { type ItemProps } from '../../screens/Item';
 
 export interface MenuItemProps extends ItemProps {
@@ -12,8 +13,7 @@ export interface MenuItemProps extends ItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ onPress, ...item }) => {
   const images = useAppSelector(selectImages);
-  // TODO: fix
-  const imageUrl = images[item.id as keyof typeof images];
+  const imageUrl = images[item.id as SkuId];
 
   return (
     <Card onPress={onPress}>

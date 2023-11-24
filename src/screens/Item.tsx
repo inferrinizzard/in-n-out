@@ -8,6 +8,8 @@ import { selectImages } from '../redux/slices/dataSlice';
 import { type StackScreenProps } from './routes';
 import { Burger } from '../models/Burger';
 
+import { type SkuId } from '../data/types';
+
 export interface ItemProps {
   id: string;
   name: string;
@@ -20,8 +22,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   const images = useAppSelector(selectImages);
 
   const { id, name } = route.params!;
-  // TODO: fix
-  const imageUrl = images[id as keyof typeof images];
+  const imageUrl = images[id as SkuId];
 
   const dispatch = useAppDispatch();
 

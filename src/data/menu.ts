@@ -2,17 +2,25 @@ const MenuData = Object.freeze({
   DblDblCombo: {
     id: 'DblDblCombo',
     name: 'Double-Double Combo',
-    next: ['fry', 'drink'],
+    has: ['Fries', 'Drink'],
   },
   CheeseburgerCombo: {
     id: 'CheeseburgerCombo',
     name: 'Cheeseburger Combo',
-    next: ['fry', 'drink'],
+    has: ['Fries', 'Drink'],
   },
   HamburgerCombo: {
     id: 'HamburgerCombo',
     name: 'Hamburger Combo',
-    next: ['fry', 'drink'],
+    has: ['Fries', 'Drink'],
+  },
+  Fries: {
+    id: 'Fries',
+    name: 'French Fries',
+  },
+  Drink: {
+    id: 'Drink',
+    name: 'Beverage',
   },
 } as const);
 
