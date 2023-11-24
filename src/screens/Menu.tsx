@@ -1,19 +1,22 @@
 import { FlatList, View } from 'react-native';
 
+import { useAppSelector } from '../redux/store';
+import { selectMenu } from '../redux/slices/dataSlice';
+
 import { type TabScreenProps, type StackScreenProps } from './routes';
 import MenuItem from '../components/menu/MenuItem';
-
-import menu from '../../data/tempMenu.json';
 
 export interface MenuProps {}
 
 const Menu: React.FC<
   MenuProps & TabScreenProps<'Menu'> & StackScreenProps<'Menu'>
 > = ({ navigation }) => {
+  const menu = useAppSelector(selectMenu);
+
   return (
     <View>
       <FlatList
-        data={menu}
+        data={Object.values(menu)}
         renderItem={({ item }) => (
           <MenuItem
             onPress={() => navigation.navigate('Item', item)}

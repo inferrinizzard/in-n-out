@@ -1,26 +1,15 @@
-import { Sku, type SkuParams } from './Sku';
+import { Sku } from './Sku';
 
 export interface BurgerParams {
   meat: number;
   cheese: number;
 }
 
-export class Burger extends Sku {
-  burgerName: string;
-  meat: number;
-  cheese: number;
-
-  public constructor(
-    { id, name, price }: SkuParams,
-    { meat, cheese }: BurgerParams
-  ) {
-    super({ id, name, price });
-
-    this.meat = meat;
-    this.cheese = cheese;
-    this.burgerName = getBurgerName(meat, cheese);
-  }
-}
+export const Burger = (skuParams: Sku, burgerParams: BurgerParams) => {
+  const sku = Sku(skuParams);
+  const burgerName = getBurgerName(burgerParams.meat, burgerParams.cheese);
+  return { ...sku, ...burgerParams, burgerName };
+};
 
 const getBurgerName = (meat: number, cheese: number) => {
   if (cheese === 0 && meat === 1) {
