@@ -1,10 +1,11 @@
 import { FlatList, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { type TabScreenProps } from './routes';
-
 import { useAppSelector } from '../redux/store';
 import { selectItems } from '../redux/slices/orderSlice';
+
+import { type TabScreenProps } from './routes';
+import CartItem from '../components/cart/CartItem';
 
 export interface CartProps {}
 
@@ -18,7 +19,7 @@ const Cart: React.FC<CartProps & TabScreenProps<'Cart'>> = ({ navigation }) => {
       <FlatList
         data={order}
         renderItem={({ item, index }) => (
-          <Text key={`${item.id}-${index}`}>{item.name}</Text>
+          <CartItem key={`${item.id}-${index}`} {...item} />
         )}
       />
       <Text>{`Subtotal: ${order.reduce(
