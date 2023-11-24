@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
 import { Image, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { addItem } from '../redux/slices/orderSlice';
+import { addActiveToList, updateActiveItem } from '../redux/slices/orderSlice';
 import { selectImages, selectMenu } from '../redux/slices/dataSlice';
 
 import { type StackScreenProps } from './routes';
-import { Burger } from '../models/Burger';
+import { Sku } from '../models/Sku';
 
 import { type MenuItem, type SkuId } from '../data/types';
 
@@ -18,6 +19,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   navigation,
   route,
 }) => {
+  const dispatch = useAppDispatch();
   const menu = useAppSelector(selectMenu);
   const images = useAppSelector(selectImages);
 
@@ -25,9 +27,9 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
 
   const imageUrl = images[id as SkuId];
 
-  const dispatch = useAppDispatch();
-
-  console.log(nextItems);
+  useEffect(() => {
+    dispatch(updateActiveItem({ id, item: Sku({ ...menu[id], price: 1 }) }));
+  }, [id]);
 
   return (
     <View>
@@ -40,11 +42,10 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
             const [nextItemId, ...rest] = nextItems;
             const nextItem = menu[nextItemId];
             navigation.navigate('Item', { ...nextItem, nextItems: rest });
-            return;
+          } else {
+            dispatch(addActiveToList());
+            // navigation.navigate('Cart');
           }
-          dispatch(
-            addItem(Burger({ id, name, price: '1' }, { meat: 1, cheese: 1 }))
-          );
         }}
       >
         <Text>{nextItems?.length ? 'Go to next Item' : 'Add to Order'}</Text>

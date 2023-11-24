@@ -1,5 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { useAppDispatch } from '../redux/store';
+import { clearActiveItem } from '../redux/slices/orderSlice';
+
 import { type MenuStackParamList, menuStackRoutes } from '../screens/routes';
 
 const Stack = createNativeStackNavigator<MenuStackParamList>();
@@ -7,6 +10,8 @@ const Stack = createNativeStackNavigator<MenuStackParamList>();
 export interface MenuStackNavigatorProps {}
 
 const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <Stack.Navigator initialRouteName="Menu">
       {(
@@ -16,6 +21,9 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
           key={screen}
           name={screen as keyof typeof menuStackRoutes}
           component={component}
+          listeners={{
+            beforeRemove: () => dispatch(clearActiveItem()),
+          }}
           options={({ route }) => ({
             title:
               route.params && 'name' in route.params
