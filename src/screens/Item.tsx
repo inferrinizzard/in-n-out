@@ -41,7 +41,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
           if (nextItems?.length) {
             const [nextItemId, ...rest] = nextItems;
             const nextItem = menu[nextItemId];
-            navigation.navigate('StackItem', { ...nextItem, nextItems: rest });
+            navigation.push('StackItem', { ...nextItem, nextItems: rest });
           } else {
             dispatch(addActiveToList());
             navigation.navigate('StackMenu');
