@@ -7,9 +7,9 @@ import { selectImages } from '../../redux/slices/dataSlice';
 import { type SkuId } from '../../data/types';
 import { type ItemProps } from '../../screens/Item';
 
-export interface MenuItemProps extends ItemProps {
+export type MenuItemProps = ItemProps & {
   onPress: () => void;
-}
+};
 
 const MenuItem: React.FC<MenuItemProps> = ({ onPress, ...item }) => {
   const images = useAppSelector(selectImages);
