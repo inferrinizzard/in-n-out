@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../redux/store';
@@ -18,7 +18,7 @@ const Menu: React.FC<
   const menuItems = useAppSelector(selectMenuItems);
 
   return (
-    <View>
+    <ScrollView>
       <FlatList
         data={menuItems}
         renderItem={({ item }) => {
@@ -38,13 +38,13 @@ const Menu: React.FC<
       />
 
       {orderItems.length ? (
-        <View>
+        <View style={{ position: 'absolute', bottom: 0 }}>
           <Button onPress={() => navigation.navigate('Cart')}>
             <Text>{`Checkout ${orderItems.length} Items now`}</Text>
           </Button>
         </View>
       ) : null}
-    </View>
+    </ScrollView>
   );
 };
 
