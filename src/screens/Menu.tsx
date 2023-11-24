@@ -18,33 +18,42 @@ const Menu: React.FC<
   const menuItems = useAppSelector(selectMenuItems);
 
   return (
-    <ScrollView>
-      <FlatList
-        data={menuItems}
-        renderItem={({ item }) => {
-          const [baseItem, ...next] = item.has;
-          return (
-            <MenuItem
-              onPress={() => {
-                navigation.navigate('Item', {
-                  ...menu[baseItem],
-                  nextItems: next,
-                });
-              }}
-              {...item}
-            />
-          );
-        }}
-      />
+    <View>
+      <ScrollView style={{ height: 650 }}>
+        <FlatList
+          data={menuItems}
+          renderItem={({ item }) => {
+            const [baseItem, ...next] = item.has;
+            return (
+              <MenuItem
+                onPress={() => {
+                  navigation.navigate('Item', {
+                    ...menu[baseItem],
+                    nextItems: next,
+                  });
+                }}
+                {...item}
+              />
+            );
+          }}
+        />
+      </ScrollView>
 
       {orderItems.length ? (
-        <View style={{ position: 'absolute', bottom: 0 }}>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            backgroundColor: 'red',
+            width: '100%',
+          }}
+        >
           <Button onPress={() => navigation.navigate('Cart')}>
             <Text>{`Checkout ${orderItems.length} Items now`}</Text>
           </Button>
         </View>
       ) : null}
-    </ScrollView>
+    </View>
   );
 };
 
