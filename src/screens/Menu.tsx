@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, SafeAreaView, ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../redux/store';
@@ -19,8 +19,8 @@ const Menu: React.FC<
   const menuItems = useAppSelector(selectMenuItems);
 
   return (
-    <View>
-      <ScrollView style={{ height: 650 }}>
+    <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, flexGrow: 1 }}>
         <FlatList
           data={menuItems}
           renderItem={({ item }) => {
@@ -38,13 +38,11 @@ const Menu: React.FC<
             );
           }}
         />
-      </ScrollView>
+      </SafeAreaView>
 
       {orderItems.length ? (
         <View
           style={{
-            position: 'absolute',
-            bottom: 0,
             backgroundColor: 'red',
             width: '100%',
           }}
