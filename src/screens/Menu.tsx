@@ -1,8 +1,8 @@
-import { FlatList, SafeAreaView, ScrollView, View } from 'react-native';
+import { FlatList, SafeAreaView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../redux/store';
-import { selectMenu, selectMenuItems } from '../redux/slices/dataSlice';
+import { selectMenu } from '../redux/slices/dataSlice';
 import { selectItems } from '../redux/slices/orderSlice';
 
 import MenuItem from '../components/menu/MenuItem';
@@ -16,13 +16,12 @@ const Menu: React.FC<
 > = ({ navigation }) => {
   const orderItems = useAppSelector(selectItems);
   const menu = useAppSelector(selectMenu);
-  const menuItems = useAppSelector(selectMenuItems);
 
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, flexGrow: 1 }}>
         <FlatList
-          data={menuItems}
+          data={Object.values(menu)}
           renderItem={({ item }) => {
             const [baseItem, ...next] = item.has;
             return (
