@@ -13,7 +13,7 @@ const Menu: React.FC<
   return (
     <View>
       <FlatList
-        data={menu}
+        data={Object.values(menu)}
         renderItem={({ item }) => (
           <MenuItem
             onPress={() => navigation.navigate('Item', item)}

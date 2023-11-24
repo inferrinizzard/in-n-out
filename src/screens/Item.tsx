@@ -6,23 +6,26 @@ import { useAppDispatch } from '../redux/store';
 import { addItem } from '../redux/slices/orderSlice';
 import { Burger } from '../models/Burger';
 
+import images from '../../data/images.json';
+
 export interface ItemProps {
   id: string;
   name: string;
-  image: string;
 }
 
 const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   navigation,
   route,
 }) => {
-  const { id, name, image } = route.params!;
+  const { id, name } = route.params!;
+  // TODO: fix
+  const imageUrl = images[id as keyof typeof images];
 
   const dispatch = useAppDispatch();
 
   return (
     <View>
-      <Image source={{ uri: image, height: 240, width: 320 }} />
+      <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
       <Text>{name}</Text>
 
       <Button
