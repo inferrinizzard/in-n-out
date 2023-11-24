@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { type RootState } from '../store';
 
-import menu from '../../data/tempMenu';
+import menu from '../../data/menu';
 import images from '../../data/images';
 
 export interface DataState {
