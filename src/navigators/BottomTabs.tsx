@@ -1,10 +1,33 @@
 import React from 'react';
-
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomNavigation, Icon, MenuProps } from 'react-native-paper';
 import { CommonActions } from '@react-navigation/native';
-import { BottomNavigation, Icon } from 'react-native-paper';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {
+  BottomTabScreenProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 
-import { type BaseTabParamList, baseTabRoutes } from '../screens/routes';
+import MenuStackNavigator from './MenuStack';
+import Account, { AccountProps } from '../screens/Account';
+import Cart, { CartProps } from '../screens/Cart';
+
+// #region types
+export const baseTabRoutes = {
+  Menu: MenuStackNavigator,
+  Cart: Cart,
+  Account: Account,
+} as const;
+
+export type BaseTabParamList = {
+  Menu?: MenuProps;
+  Cart?: CartProps;
+  Account?: AccountProps;
+};
+
+export type BaseTabScreenProps = NativeStackScreenProps<BaseTabParamList>;
+export type TabScreenProps<Screen extends keyof BaseTabParamList> =
+  BottomTabScreenProps<BaseTabParamList, Screen>;
+// #endregion
 
 const Tab = createBottomTabNavigator<BaseTabParamList>();
 

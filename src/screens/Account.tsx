@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { type TabScreenProps } from './routes';
+import { type TabScreenProps } from '../navigators/BottomTabs';
 
 export interface AccountProps {}
 

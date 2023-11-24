@@ -5,8 +5,9 @@ import { useAppSelector } from '../redux/store';
 import { selectMenu, selectMenuItems } from '../redux/slices/dataSlice';
 import { selectItems } from '../redux/slices/orderSlice';
 
-import { type TabScreenProps, type StackScreenProps } from './routes';
 import MenuItem from '../components/menu/MenuItem';
+import { type StackScreenProps } from '../navigators/MenuStack';
+import { type TabScreenProps } from '../navigators/BottomTabs';
 
 export interface MenuProps {}
 

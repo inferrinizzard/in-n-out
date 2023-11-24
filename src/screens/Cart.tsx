@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 import { useAppSelector } from '../redux/store';
 import { selectItems } from '../redux/slices/orderSlice';
 
-import { type TabScreenProps } from './routes';
+import { type TabScreenProps } from '../navigators/BottomTabs';
 import CartItem from '../components/cart/CartItem';
 
 export interface CartProps {}

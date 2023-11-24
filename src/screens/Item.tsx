@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import { addActiveToList, updateActiveItem } from '../redux/slices/orderSlice';
 import { selectImages, selectMenu } from '../redux/slices/dataSlice';
 
-import { type StackScreenProps } from './routes';
+import { type StackScreenProps } from '../navigators/MenuStack';
 import { Sku } from '../models/Sku';
 
 import { type MenuItem, type SkuId } from '../data/types';

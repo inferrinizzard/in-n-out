@@ -1,9 +1,29 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 
 import { useAppDispatch } from '../redux/store';
 import { clearActiveItem } from '../redux/slices/orderSlice';
 
-import { type MenuStackParamList, menuStackRoutes } from '../screens/routes';
+import Menu, { MenuProps } from '../screens/Menu';
+import Item, { ItemProps } from '../screens/Item';
+
+// #region types
+export const menuStackRoutes = {
+  Menu: Menu,
+  Item: Item,
+} as const;
+
+export type MenuStackParamList = {
+  Menu?: MenuProps;
+  Item?: ItemProps;
+};
+
+export type MenuStackScreenProps = NativeStackScreenProps<MenuStackParamList>;
+export type StackScreenProps<Screen extends keyof MenuStackParamList> =
+  NativeStackScreenProps<MenuStackParamList, Screen>;
+// #endregion
 
 const Stack = createNativeStackNavigator<MenuStackParamList>();
 
