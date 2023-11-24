@@ -9,7 +9,9 @@ import CartItem from '../components/cart/CartItem';
 
 export interface CartProps {}
 
-const Cart: React.FC<CartProps & TabScreenProps<'Cart'>> = ({ navigation }) => {
+const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
+  navigation,
+}) => {
   const order = useAppSelector(selectItems);
 
   return (

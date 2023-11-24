@@ -15,7 +15,7 @@ export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
 };
 
-const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
+const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   navigation,
   route,
 }) => {
@@ -41,10 +41,10 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
           if (nextItems?.length) {
             const [nextItemId, ...rest] = nextItems;
             const nextItem = menu[nextItemId];
-            navigation.navigate('Item', { ...nextItem, nextItems: rest });
+            navigation.navigate('StackItem', { ...nextItem, nextItems: rest });
           } else {
             dispatch(addActiveToList());
-            navigation.navigate('Menu');
+            navigation.navigate('StackMenu');
           }
         }}
       >

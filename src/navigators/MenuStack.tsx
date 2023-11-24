@@ -11,13 +11,13 @@ import Item, { ItemProps } from '../screens/Item';
 
 // #region types
 export const menuStackRoutes = {
-  Menu: Menu,
-  Item: Item,
+  StackMenu: Menu,
+  StackItem: Item,
 } as const;
 
 export type MenuStackParamList = {
-  Menu?: MenuProps;
-  Item?: ItemProps;
+  StackMenu?: MenuProps;
+  StackItem?: ItemProps;
 };
 
 export type MenuStackScreenProps = NativeStackScreenProps<MenuStackParamList>;
@@ -33,7 +33,7 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Stack.Navigator initialRouteName="Menu">
+    <Stack.Navigator initialRouteName="StackMenu">
       {(
         Object.entries(menuStackRoutes) as [keyof typeof menuStackRoutes, any][]
       ).map(([screen, component]) => (

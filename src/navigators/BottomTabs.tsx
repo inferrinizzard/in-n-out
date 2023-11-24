@@ -13,15 +13,15 @@ import Cart, { CartProps } from '../screens/Cart';
 
 // #region types
 export const baseTabRoutes = {
-  Menu: MenuStackNavigator,
-  Cart: Cart,
-  Account: Account,
+  TabMenu: MenuStackNavigator,
+  TabCart: Cart,
+  TabAccount: Account,
 } as const;
 
 export type BaseTabParamList = {
-  Menu?: MenuProps;
-  Cart?: CartProps;
-  Account?: AccountProps;
+  TabMenu?: MenuProps;
+  TabCart?: CartProps;
+  TabAccount?: AccountProps;
 };
 
 export type BaseTabScreenProps = NativeStackScreenProps<BaseTabParamList>;
@@ -32,9 +32,9 @@ export type TabScreenProps<Screen extends keyof BaseTabParamList> =
 const Tab = createBottomTabNavigator<BaseTabParamList>();
 
 const baseTabsIcons: Record<keyof BaseTabParamList, string> = {
-  Menu: 'silverware',
-  Cart: 'cart-outline',
-  Account: 'account',
+  TabMenu: 'silverware',
+  TabCart: 'cart-outline',
+  TabAccount: 'account',
 };
 
 export interface BottomTabsNavigatorProps {}
@@ -42,6 +42,7 @@ export interface BottomTabsNavigatorProps {}
 const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
   return (
     <Tab.Navigator
+      initialRouteName="TabMenu"
       screenOptions={{
         headerShown: false,
       }}

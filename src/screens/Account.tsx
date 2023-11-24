@@ -5,14 +5,14 @@ import { type TabScreenProps } from '../navigators/BottomTabs';
 
 export interface AccountProps {}
 
-const Account: React.FC<AccountProps & TabScreenProps<'Account'>> = ({
+const Account: React.FC<AccountProps & TabScreenProps<'TabAccount'>> = ({
   navigation,
 }) => {
   return (
     <View>
       <Text>Account Screen</Text>
 
-      <Button onPress={() => navigation.navigate('Menu')}>
+      <Button onPress={() => navigation.navigate('TabMenu')}>
         {'Go to Menu'}
       </Button>
     </View>

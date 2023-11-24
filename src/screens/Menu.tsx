@@ -12,7 +12,7 @@ import { type TabScreenProps } from '../navigators/BottomTabs';
 export interface MenuProps {}
 
 const Menu: React.FC<
-  MenuProps & TabScreenProps<'Menu'> & StackScreenProps<'Menu'>
+  MenuProps & TabScreenProps<'TabMenu'> & StackScreenProps<'StackMenu'>
 > = ({ navigation }) => {
   const orderItems = useAppSelector(selectItems);
   const menu = useAppSelector(selectMenu);
@@ -28,7 +28,7 @@ const Menu: React.FC<
             return (
               <MenuItem
                 onPress={() => {
-                  navigation.navigate('Item', {
+                  navigation.navigate('StackItem', {
                     ...menu[baseItem],
                     nextItems: next,
                   });
@@ -49,7 +49,7 @@ const Menu: React.FC<
             width: '100%',
           }}
         >
-          <Button onPress={() => navigation.navigate('Cart')}>
+          <Button onPress={() => navigation.navigate('TabCart')}>
             <Text>{`Checkout ${orderItems.length} Items now`}</Text>
           </Button>
         </View>
