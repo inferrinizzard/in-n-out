@@ -44,7 +44,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
             navigation.navigate('Item', { ...nextItem, nextItems: rest });
           } else {
             dispatch(addActiveToList());
-            // navigation.navigate('Cart');
+            navigation.navigate('Menu');
           }
         }}
       >
