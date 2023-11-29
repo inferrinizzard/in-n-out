@@ -1,25 +1,25 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { type StackScreenProps } from './routes';
+import { type TabScreenProps } from '../navigators/BottomTabs';
 
-export interface HomeProps {}
+export interface AccountProps {}
 
-const Home: React.FC<HomeProps & StackScreenProps<'Home'>> = ({
+const Account: React.FC<AccountProps & TabScreenProps<'TabAccount'>> = ({
   navigation,
 }) => {
   return (
     <View>
-      <Text>Home Screen</Text>
+      <Text>Account Screen</Text>
 
-      <Button onPress={() => navigation.navigate('Details')}>
-        {'Go to Details'}
+      <Button onPress={() => navigation.navigate('TabMenu')}>
+        {'Go to Menu'}
       </Button>
     </View>
   );
 };
 
-export default Home;
+export default Account;
 
 const styles = StyleSheet.create({
   container: {
