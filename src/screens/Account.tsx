@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Icon, List, Text } from 'react-native-paper';
 
 import { type TabScreenProps } from '../navigators/BottomTabs';
 
@@ -11,10 +11,28 @@ const Account: React.FC<AccountProps & TabScreenProps<'TabAccount'>> = ({
   return (
     <View>
       <Text>Account Screen</Text>
-
-      <Button onPress={() => navigation.navigate('TabMenu')}>
-        {'Go to Menu'}
-      </Button>
+      <List.Section title="Welcome, <Name>">
+        <List.Item
+          title={'Settings'}
+          left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Privacy'}
+          left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Payment Methods'}
+          left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Notifications'}
+          left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+      </List.Section>
     </View>
   );
 };
