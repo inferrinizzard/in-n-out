@@ -1,5 +1,5 @@
 import { FlatList, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Button, Divider, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../redux/store';
 import { selectItems } from '../redux/slices/orderSlice';
@@ -18,23 +18,39 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
   return (
     <View style={{ flex: 1 }}>
       <CartLocation />
-      <Text>{'Order Contains:'}</Text>
+      <Divider />
       <View style={{ flex: 1, flexGrow: 1 }}>
-        <FlatList
-          data={order}
-          renderItem={({ item, index }) => (
-            <CartItem key={`${item.id}-${index}`} {...item} />
-          )}
-        />
-        <Text>{`Subtotal: ${order.reduce(
-          (sum, item) => +item.price + sum,
-          0
-        )}`}</Text>
+        {order.length ? (
+          <FlatList
+            data={order}
+            renderItem={({ item, index }) => (
+              <CartItem key={`${item.id}-${index}`} {...item} />
+            )}
+          />
+        ) : (
+          <View>
+            <Text>{'No items in cart!'}</Text>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate('TabMenu')}
+            >
+              <Text>{'Add items'}</Text>
+            </Button>
+          </View>
+        )}
+        {order.length ? (
+          <Text>{`Subtotal: ${order.reduce(
+            (sum, item) => +item.price + sum,
+            0
+          )}`}</Text>
+        ) : null}
       </View>
 
-      <Button mode="contained">
-        <Text>{'Review and Pay'}</Text>
-      </Button>
+      {order.length ? (
+        <Button mode="contained">
+          <Text>{'Review and Pay'}</Text>
+        </Button>
+      ) : null}
     </View>
   );
 };
