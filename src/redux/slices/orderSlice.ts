@@ -4,14 +4,16 @@ import { type RootState } from '../store';
 import { type Sku } from '../../models/Sku';
 import { type SkuId } from '../../data/types';
 
+import { v4 as uuidV4 } from 'uuid';
+
 export interface OrderState {
   activeItem: Record<SkuId, Sku> | null;
-  items: Sku[];
+  items: Record<string, Sku>;
 }
 
 const initialState: OrderState = {
   activeItem: null,
-  items: [],
+  items: {},
 };
 
 export const orderSlice = createSlice({
@@ -31,7 +33,9 @@ export const orderSlice = createSlice({
       if (!state.activeItem) {
         return;
       }
-      Object.values(state.activeItem).forEach((item) => state.items.push(item));
+      Object.values(state.activeItem).forEach((item) => {
+        state.items[uuidV4()] = item;
+      });
 
       state.activeItem = null;
     },
@@ -39,7 +43,7 @@ export const orderSlice = createSlice({
       state.activeItem = null;
     },
     addItem: (state, action: PayloadAction<Sku>) => {
-      state.items.push(action.payload);
+      state.items[uuidV4()] = action.payload;
     },
   },
 });

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { FlatList, View } from 'react-native';
 import { Button, Divider, Text } from 'react-native-paper';
 
@@ -14,15 +15,16 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
   navigation,
 }) => {
   const order = useAppSelector(selectItems);
+  const orderItems = useMemo(() => Object.values(order), [order]);
 
   return (
     <View style={{ flex: 1 }}>
       <CartLocation />
       <Divider />
       <View style={{ flex: 1, flexGrow: 1 }}>
-        {order.length ? (
+        {orderItems.length ? (
           <FlatList
-            data={order}
+            data={orderItems}
             renderItem={({ item, index }) => (
               <CartItem key={`${item.id}-${index}`} {...item} />
             )}
@@ -38,15 +40,15 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
             </Button>
           </View>
         )}
-        {order.length ? (
-          <Text>{`Subtotal: ${order.reduce(
+        {orderItems.length ? (
+          <Text>{`Subtotal: ${orderItems.reduce(
             (sum, item) => +item.price + sum,
             0
           )}`}</Text>
         ) : null}
       </View>
 
-      {order.length ? (
+      {orderItems.length ? (
         <Button mode="contained">
           <Text>{'Review and Pay'}</Text>
         </Button>

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
@@ -14,7 +15,8 @@ export interface MenuProps {}
 const Menu: React.FC<
   MenuProps & TabScreenProps<'TabMenu'> & StackScreenProps<'StackMenu'>
 > = ({ navigation }) => {
-  const orderItems = useAppSelector(selectItems);
+  const order = useAppSelector(selectItems);
+  const orderItems = useMemo(() => Object.values(order), [order]);
   const menu = useAppSelector(selectMenu);
 
   return (
