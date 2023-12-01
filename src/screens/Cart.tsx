@@ -15,7 +15,7 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
   navigation,
 }) => {
   const order = useAppSelector(selectItems);
-  const orderItems = useMemo(() => Object.values(order), [order]);
+  const orderItems = useMemo(() => Object.entries(order), [order]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -25,8 +25,8 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
         {orderItems.length ? (
           <FlatList
             data={orderItems}
-            renderItem={({ item, index }) => (
-              <CartItem key={`${item.id}-${index}`} {...item} />
+            renderItem={({ item: [uuid, item], index }) => (
+              <CartItem key={`${item.id}-${index}`} uuid={uuid} {...item} />
             )}
           />
         ) : (
@@ -42,7 +42,7 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
         )}
         {orderItems.length ? (
           <Text>{`Subtotal: ${orderItems.reduce(
-            (sum, item) => +item.price + sum,
+            (sum, [_, item]) => +item.price + sum,
             0
           )}`}</Text>
         ) : null}

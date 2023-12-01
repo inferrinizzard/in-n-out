@@ -1,5 +1,7 @@
+import { type SkuId } from '../data/types';
+
 export interface Sku {
-  id: string;
+  id: SkuId;
   name: string;
   price: string | number;
 }

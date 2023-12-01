@@ -3,22 +3,27 @@ import { Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
+import { editItem } from '../../redux/slices/orderSlice';
 
 import { type BaseTabParamList } from '../../navigators/BottomTabs';
 import { type SkuId } from '../../data/types';
 import { type Sku } from '../../models/Sku';
 
-export type CartItemProps = Sku & {};
+export type CartItemProps = Sku & { uuid: string };
 
-const CartItem: React.FC<CartItemProps> = ({ ...item }) => {
+const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
+  const dispatch = useAppDispatch();
+
   const images = useAppSelector(selectImages);
   const imageUrl = images[item.id as SkuId];
 
   const navigation = useNavigation<BottomTabNavigationProp<BaseTabParamList>>();
 
-  const editItem = () => {
+  const editCartItem = () => {
+    dispatch(editItem(uuid));
+
     navigation.navigate('TabMenu', {
       // @ts-expect-error
       screen: 'StackItem',
@@ -39,7 +44,7 @@ const CartItem: React.FC<CartItemProps> = ({ ...item }) => {
           </View>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button onPress={editItem}>
+          <Button onPress={editCartItem}>
             <Text>{'Edit'}</Text>
           </Button>
           <Button>

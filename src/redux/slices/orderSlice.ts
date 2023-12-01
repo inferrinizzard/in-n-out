@@ -45,11 +45,23 @@ export const orderSlice = createSlice({
     addItem: (state, action: PayloadAction<Sku>) => {
       state.items[uuidV4()] = action.payload;
     },
+    editItem: (state, action: PayloadAction<string>) => {
+      const itemUuid = action.payload;
+      const item = state.items[itemUuid];
+
+      delete state.items[itemUuid];
+      state.activeItem = { [item.id]: item } as Record<SkuId, Sku>;
+    },
   },
 });
 
-export const { addActiveToList, addItem, clearActiveItem, updateActiveItem } =
-  orderSlice.actions;
+export const {
+  addActiveToList,
+  addItem,
+  clearActiveItem,
+  editItem,
+  updateActiveItem,
+} = orderSlice.actions;
 
 export const selectActiveItem = (state: RootState) => state.order.activeItem;
 export const selectItems = (state: RootState) => state.order.items;
