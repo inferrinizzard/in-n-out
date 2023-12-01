@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BottomNavigation, Icon, MenuProps } from 'react-native-paper';
 import { CommonActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -40,6 +40,11 @@ const baseTabsIcons: Record<keyof BaseTabParamList, string> = {
 export interface BottomTabsNavigatorProps {}
 
 const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
+  const routes = useMemo(
+    () => Object.entries(baseTabRoutes) as [keyof typeof baseTabRoutes, any][],
+    [baseTabRoutes]
+  );
+
   return (
     <Tab.Navigator
       initialRouteName="TabMenu"
@@ -81,21 +86,16 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
         />
       )}
     >
-      {/* // todo: memo */}
-      {(
-        Object.entries(baseTabRoutes) as [keyof typeof baseTabRoutes, any][]
-      ).map(([name, component]) => (
+      {routes.map(([name, component]) => (
         <Tab.Screen
           key={`BottomTabsNavigator:${name}`}
           name={name}
           component={component}
           options={{
-            tabBarLabel: name,
-            tabBarIcon: ({ color, size }) => {
-              return (
-                <Icon source={baseTabsIcons[name]} size={size} color={color} />
-              );
-            },
+            tabBarLabel: name.replace('Tab', ''),
+            tabBarIcon: ({ color, size }) => (
+              <Icon source={baseTabsIcons[name]} size={size} color={color} />
+            ),
           }}
         />
       ))}

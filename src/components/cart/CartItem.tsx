@@ -1,9 +1,12 @@
 import { Image, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 import { useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
 
+import { type BaseTabParamList } from '../../navigators/BottomTabs';
 import { type SkuId } from '../../data/types';
 import { type Sku } from '../../models/Sku';
 
@@ -12,6 +15,16 @@ export type CartItemProps = Sku & {};
 const CartItem: React.FC<CartItemProps> = ({ ...item }) => {
   const images = useAppSelector(selectImages);
   const imageUrl = images[item.id as SkuId];
+
+  const navigation = useNavigation<BottomTabNavigationProp<BaseTabParamList>>();
+
+  const editItem = () => {
+    navigation.navigate('TabMenu', {
+      // @ts-expect-error
+      screen: 'StackItem',
+      params: item,
+    });
+  };
 
   return (
     <Card>
@@ -26,7 +39,7 @@ const CartItem: React.FC<CartItemProps> = ({ ...item }) => {
           </View>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button>
+          <Button onPress={editItem}>
             <Text>{'Edit'}</Text>
           </Button>
           <Button>
