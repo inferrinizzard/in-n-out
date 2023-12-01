@@ -52,6 +52,9 @@ export const orderSlice = createSlice({
       delete state.items[itemUuid];
       state.activeItem = { [item.id]: item } as Record<SkuId, Sku>;
     },
+    removeItem: (state, action: PayloadAction<string>) => {
+      delete state.items[action.payload];
+    },
   },
 });
 
@@ -60,6 +63,7 @@ export const {
   addItem,
   clearActiveItem,
   editItem,
+  removeItem,
   updateActiveItem,
 } = orderSlice.actions;
 

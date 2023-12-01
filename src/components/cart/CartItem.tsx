@@ -5,7 +5,7 @@ import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
-import { editItem } from '../../redux/slices/orderSlice';
+import { editItem, removeItem } from '../../redux/slices/orderSlice';
 
 import { type BaseTabParamList } from '../../navigators/BottomTabs';
 import { type SkuId } from '../../data/types';
@@ -31,6 +31,10 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
     });
   };
 
+  const removeCartItem = () => {
+    dispatch(removeItem(uuid));
+  };
+
   return (
     <Card>
       <Card.Content>
@@ -47,7 +51,7 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
           <Button onPress={editCartItem}>
             <Text>{'Edit'}</Text>
           </Button>
-          <Button>
+          <Button onPress={removeCartItem}>
             <Text>{'Remove'}</Text>
           </Button>
           <Text>{'Quantity'}</Text>
