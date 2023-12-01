@@ -4,7 +4,11 @@ import { Button, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { addActiveToList, updateActiveItem } from '../redux/slices/orderSlice';
-import { selectImages, selectMenu } from '../redux/slices/dataSlice';
+import {
+  selectImages,
+  selectMenu,
+  selectPrices,
+} from '../redux/slices/dataSlice';
 
 import { type StackScreenProps } from '../navigators/MenuStack';
 import { Sku } from '../models/Sku';
@@ -21,6 +25,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 }) => {
   const dispatch = useAppDispatch();
   const menu = useAppSelector(selectMenu);
+  const prices = useAppSelector(selectPrices);
   const images = useAppSelector(selectImages);
 
   const { id, name, nextItems } = route.params!;
@@ -28,7 +33,12 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   const imageUrl = images[id as SkuId];
 
   useEffect(() => {
-    dispatch(updateActiveItem({ id, item: Sku({ ...menu[id], price: 1 }) }));
+    dispatch(
+      updateActiveItem({
+        id,
+        item: Sku({ ...menu[id], price: prices.base[id] }),
+      })
+    );
   }, [id]);
 
   return (

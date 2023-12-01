@@ -42,8 +42,11 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
           <Image source={{ uri: imageUrl, height: 120, width: 160 }} />
           <View>
             <Text>{item.name}</Text>
-            <Text>{item.price}</Text>
-            <Text>{'Item Price and Calories'}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text>{`$${Number(item.price).toFixed(2)}`}</Text>
+              <Text>{' | '}</Text>
+              <Text>{'Calories'}</Text>
+            </View>
             <Text>{'Item Details'}</Text>
           </View>
         </View>
