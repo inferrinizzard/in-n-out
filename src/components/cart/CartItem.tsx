@@ -51,12 +51,14 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
           </View>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button onPress={editCartItem}>
-            <Text>{'Edit'}</Text>
-          </Button>
-          <Button onPress={removeCartItem}>
-            <Text>{'Remove'}</Text>
-          </Button>
+          <View style={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
+            <Button onPress={editCartItem}>
+              <Text>{'Edit'}</Text>
+            </Button>
+            <Button onPress={removeCartItem}>
+              <Text>{'Remove'}</Text>
+            </Button>
+          </View>
           <Text>{'Quantity'}</Text>
         </View>
       </Card.Content>
