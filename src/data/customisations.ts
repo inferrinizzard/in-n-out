@@ -30,7 +30,7 @@ export const FriesDonenesses = [
 ] as const;
 export type FriesDoneness = ValueOf<typeof FriesDonenesses>;
 
-interface CustomisationOption<Options extends readonly string[]> {
+export interface CustomisationOption<Options extends readonly string[]> {
   default: Options[number];
   options: Options;
   flags?: string[];

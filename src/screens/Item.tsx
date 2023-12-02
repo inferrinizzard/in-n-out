@@ -16,8 +16,10 @@ import {
 
 import { type StackScreenProps } from '../navigators/MenuStack';
 import { Sku } from '../models/Sku';
+import { getCustomisationOptions } from '../data/customisations';
 
 import { type MenuItem, type SkuId } from '../data/types';
+import ItemCustomisations from '../components/Item/ItemCustomisations';
 
 export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
@@ -36,6 +38,9 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   const { id, name, nextItems } = route.params!;
 
   const imageUrl = images[id as SkuId];
+
+  // TODO: memo
+  const customisations = getCustomisationOptions(id);
 
   useEffect(() => {
     dispatch(
@@ -57,6 +62,16 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         <Text>{' | '}</Text>
         <Text>{'Calories'}</Text>
       </View>
+
+      {customisations && (
+        <View>
+          {Object.entries(customisations).map(([key, val]) => {
+            if (key !== 'More') {
+              return <ItemCustomisations name={key} {...val} />;
+            }
+          })}
+        </View>
+      )}
 
       <Button
         onPress={() => {
