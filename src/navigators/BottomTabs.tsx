@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import MenuStackNavigator from './MenuStack';
+import Header from '../components/Header';
 import Account, { type AccountProps } from '../screens/Account';
 import Cart, { type CartProps } from '../screens/Cart';
 import More, { type MoreProps } from '../screens/More';
@@ -57,7 +58,7 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
     <Tab.Navigator
       initialRouteName="TabMenu"
       screenOptions={{
-        headerShown: false,
+        headerTitle: (props) => <Header {...props} />,
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
@@ -104,6 +105,7 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
             tabBarIcon: ({ color, size }) => (
               <Icon source={baseTabsIcons[name]} size={size} color={color} />
             ),
+            title: name.replace('Tab', ''),
           }}
         />
       ))}

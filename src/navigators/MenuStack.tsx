@@ -33,13 +33,16 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Stack.Navigator initialRouteName="StackMenu">
+    <Stack.Navigator
+      initialRouteName="StackMenu"
+      screenOptions={{ headerShown: false }}
+    >
       {(
         Object.entries(menuStackRoutes) as [keyof typeof menuStackRoutes, any][]
       ).map(([screen, component]) => (
         <Stack.Screen
           key={screen}
-          name={screen as keyof typeof menuStackRoutes}
+          name={screen}
           component={component}
           listeners={{
             beforeRemove: () => dispatch(clearActiveItem()),
