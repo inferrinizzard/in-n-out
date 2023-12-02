@@ -1,8 +1,7 @@
-import { type ValueOf } from '../types/util';
 import { type SkuId } from './types';
 
 export const DrinkSizes = ['Small', 'Medium', 'Large', 'XtraLarge'] as const;
-export type DrinkSize = ValueOf<typeof DrinkSizes>;
+export type DrinkSize = (typeof DrinkSizes)[number];
 
 export const StandardToppingAmounts = [
   'None',
@@ -10,7 +9,7 @@ export const StandardToppingAmounts = [
   'Regular',
   'Xtra',
 ] as const;
-export type ToppingAmount = ValueOf<typeof StandardToppingAmounts>;
+export type ToppingAmount = (typeof StandardToppingAmounts)[number];
 
 export const BunOptions = [
   'None',
@@ -19,7 +18,7 @@ export const BunOptions = [
   'XtraToast',
   'ProteinStyle',
 ] as const;
-export type BunOption = ValueOf<typeof BunOptions>;
+export type BunOption = (typeof BunOptions)[number];
 
 export const FriesDonenesses = [
   'LiteFry',
@@ -28,69 +27,86 @@ export const FriesDonenesses = [
   'WellDone',
   'XtraWellDone',
 ] as const;
-export type FriesDoneness = ValueOf<typeof FriesDonenesses>;
+export type FriesDoneness = (typeof FriesDonenesses)[number];
 
-export interface CustomisationOption<Options extends readonly string[]> {
+export interface CustomisationOption<
+  Options extends readonly string[] = readonly string[]
+> {
   default: Options[number];
   options: Options;
-  flags?: string[];
+  flags?: readonly string[];
+}
+
+interface ItemCustomisationOption {
+  base: Record<string, CustomisationOption>;
+  more?: ItemCustomisationOption;
+  flags?: readonly string[];
 }
 
 const BaseCustomisationData = Object.freeze({
   Burger: {
-    Onions: {
-      default: 'None' as ToppingAmount,
-      options: StandardToppingAmounts,
-      flags: ['Chopped'],
+    base: {
+      Onions: {
+        default: 'None' as ToppingAmount,
+        options: StandardToppingAmounts,
+        flags: ['Chopped'],
+      },
     },
-    More: {
-      GrilledOnions: {
-        default: 'None' as ToppingAmount,
-        options: StandardToppingAmounts,
+    more: {
+      base: {
+        GrilledOnions: {
+          default: 'None' as ToppingAmount,
+          options: StandardToppingAmounts,
+        },
+        Lettuce: {
+          default: 'Regular' as ToppingAmount,
+          options: StandardToppingAmounts,
+        },
+        Tomato: {
+          default: 'Regular' as ToppingAmount,
+          options: StandardToppingAmounts,
+        },
+        Pickles: {
+          default: 'None' as ToppingAmount,
+          options: StandardToppingAmounts,
+        },
+        Chilis: {
+          default: 'None' as ToppingAmount,
+          options: StandardToppingAmounts,
+        },
+        Spread: {
+          default: 'Regular' as ToppingAmount,
+          options: StandardToppingAmounts,
+          flags: ['AddKetchup', 'AddMustard'],
+        },
+        Bun: {
+          default: 'Regular' as BunOption,
+          options: BunOptions,
+        },
       },
-      Lettuce: {
-        default: 'Regular' as ToppingAmount,
-        options: StandardToppingAmounts,
-      },
-      Tomato: {
-        default: 'Regular' as ToppingAmount,
-        options: StandardToppingAmounts,
-      },
-      Pickles: {
-        default: 'None' as ToppingAmount,
-        options: StandardToppingAmounts,
-      },
-      Chilis: {
-        default: 'None' as ToppingAmount,
-        options: StandardToppingAmounts,
-      },
-      Spread: {
-        default: 'Regular' as ToppingAmount,
-        options: StandardToppingAmounts,
-        flags: ['AddKetchup', 'AddMustard'],
-      },
-      Bun: {
-        default: 'Regular' as BunOption,
-        options: BunOptions,
-      },
-      // TODO: AnimalStyle
-      // TODO: CutInHalf
+      flags: ['AnimalStyle', 'CutInHalf'],
     },
   },
   Fries: {
-    Doneness: {
-      default: 'Regular' as FriesDoneness,
-      options: FriesDonenesses,
-      flags: ['NoSalt', 'AddCheese', 'AnimalStyle'],
+    base: {
+      Doneness: {
+        default: 'Regular' as FriesDoneness,
+        options: FriesDonenesses,
+        flags: ['NoSalt', 'AddCheese', 'AnimalStyle'],
+      },
     },
   },
   Drink: {
-    Size: {
-      default: 'Medium' as DrinkSize,
-      options: DrinkSizes,
+    base: {
+      Size: {
+        default: 'Medium' as DrinkSize,
+        options: DrinkSizes,
+      },
     },
   },
 } as const);
+
+BaseCustomisationData satisfies Record<string, ItemCustomisationOption>;
 
 const customisationOptionMap: Partial<
   Record<SkuId, keyof typeof BaseCustomisationData>

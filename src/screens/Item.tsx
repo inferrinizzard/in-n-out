@@ -65,11 +65,9 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 
       {customisations && (
         <View>
-          {Object.entries(customisations).map(([key, val]) => {
-            if (key !== 'More') {
-              return <ItemCustomisations name={key} {...val} />;
-            }
-          })}
+          {Object.entries(customisations.base).map(([key, val]) => (
+            <ItemCustomisations name={key} {...val} />
+          ))}
         </View>
       )}
 
