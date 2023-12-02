@@ -41,10 +41,20 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
           </View>
         )}
         {orderItems.length ? (
-          <Text>{`Subtotal: ${orderItems.reduce(
-            (sum, [_, item]) => +item.price + sum,
-            0
-          )}`}</Text>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: 10,
+            }}
+          >
+            <Text>{`Subtotal:`}</Text>
+            <Text>{`${orderItems.reduce(
+              (sum, [_, item]) => +item.price + sum,
+              0
+            )}`}</Text>
+          </View>
         ) : null}
       </View>
 
