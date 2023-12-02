@@ -1,3 +1,4 @@
+import { type ItemCustomisationOption } from './customisations.types';
 import { type SkuId } from './types';
 
 export const DrinkSizes = ['Small', 'Medium', 'Large', 'XtraLarge'] as const;
@@ -29,21 +30,7 @@ export const FriesDonenesses = [
 ] as const;
 export type FriesDoneness = (typeof FriesDonenesses)[number];
 
-export interface CustomisationOption<
-  Options extends readonly string[] = readonly string[]
-> {
-  default: Options[number];
-  options: Options;
-  flags?: readonly string[];
-}
-
-export interface ItemCustomisationOption {
-  base: Record<string, CustomisationOption>;
-  more?: ItemCustomisationOption;
-  flags?: readonly string[];
-}
-
-const BaseCustomisationData = Object.freeze({
+export const BaseCustomisationData = Object.freeze({
   Burger: {
     base: {
       Onions: {
@@ -108,20 +95,24 @@ const BaseCustomisationData = Object.freeze({
 
 BaseCustomisationData satisfies Record<string, ItemCustomisationOption>;
 
-const customisationOptionMap: Partial<
-  Record<SkuId, keyof typeof BaseCustomisationData>
-> = {
+export const customisationOptionMap = {
   DblDbl: 'Burger',
   Cheeseburger: 'Burger',
   Hamburger: 'Burger',
   Fries: 'Fries',
   SoftDrink: 'Drink',
-};
+} as const;
+
+customisationOptionMap satisfies Partial<
+  Record<SkuId, keyof typeof BaseCustomisationData>
+>;
 
 export const getCustomisationOptions = (id: SkuId) => {
   if (id in customisationOptionMap) {
     return BaseCustomisationData[
-      customisationOptionMap[id] as keyof typeof BaseCustomisationData
+      customisationOptionMap[
+        id as keyof typeof customisationOptionMap
+      ] as keyof typeof BaseCustomisationData
     ];
   }
 };

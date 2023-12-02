@@ -1,7 +1,7 @@
 import { Image, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
-import { type CustomisationOption } from '../../data/customisations';
+import { type CustomisationOption } from '../../data/customisations.types';
 
 export interface ItemCustomisationRowProps<Options extends readonly string[]>
   extends CustomisationOption<Options> {

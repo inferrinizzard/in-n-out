@@ -3,7 +3,7 @@ import { Button, Text } from 'react-native-paper';
 
 import ItemCustomisationRow from './ItemCustomisationRow';
 
-import { type ItemCustomisationOption } from '../../data/customisations';
+import { type ItemCustomisationOption } from '../../data/customisations.types';
 
 export interface ItemCustomisationsProps {
   customisations?: ItemCustomisationOption;
