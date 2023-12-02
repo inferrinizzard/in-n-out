@@ -4,14 +4,16 @@ import { type RootState } from '../store';
 import { type Sku } from '../../models/Sku';
 import { type SkuId } from '../../data/types';
 
+import { v4 as uuidV4 } from 'uuid';
+
 export interface OrderState {
   activeItem: Record<SkuId, Sku> | null;
-  items: Sku[];
+  items: Record<string, Sku>;
 }
 
 const initialState: OrderState = {
   activeItem: null,
-  items: [],
+  items: {},
 };
 
 export const orderSlice = createSlice({
@@ -31,7 +33,9 @@ export const orderSlice = createSlice({
       if (!state.activeItem) {
         return;
       }
-      Object.values(state.activeItem).forEach((item) => state.items.push(item));
+      Object.values(state.activeItem).forEach((item) => {
+        state.items[uuidV4()] = item;
+      });
 
       state.activeItem = null;
     },
@@ -39,13 +43,29 @@ export const orderSlice = createSlice({
       state.activeItem = null;
     },
     addItem: (state, action: PayloadAction<Sku>) => {
-      state.items.push(action.payload);
+      state.items[uuidV4()] = action.payload;
+    },
+    editItem: (state, action: PayloadAction<string>) => {
+      const itemUuid = action.payload;
+      const item = state.items[itemUuid];
+
+      delete state.items[itemUuid];
+      state.activeItem = { [item.id]: item } as Record<SkuId, Sku>;
+    },
+    removeItem: (state, action: PayloadAction<string>) => {
+      delete state.items[action.payload];
     },
   },
 });
 
-export const { addActiveToList, addItem, clearActiveItem, updateActiveItem } =
-  orderSlice.actions;
+export const {
+  addActiveToList,
+  addItem,
+  clearActiveItem,
+  editItem,
+  removeItem,
+  updateActiveItem,
+} = orderSlice.actions;
 
 export const selectActiveItem = (state: RootState) => state.order.activeItem;
 export const selectItems = (state: RootState) => state.order.items;

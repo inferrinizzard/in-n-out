@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BottomNavigation, Icon, MenuProps } from 'react-native-paper';
 import { CommonActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -8,20 +8,27 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import MenuStackNavigator from './MenuStack';
-import Account, { AccountProps } from '../screens/Account';
-import Cart, { CartProps } from '../screens/Cart';
+import Header from '../components/Header';
+import Account, { type AccountProps } from '../screens/Account';
+import Cart, { type CartProps } from '../screens/Cart';
+import More, { type MoreProps } from '../screens/More';
+import QrCode, { type QrCodeProps } from '../screens/QrCode';
 
 // #region types
 export const baseTabRoutes = {
   TabMenu: MenuStackNavigator,
   TabCart: Cart,
+  TabQrCode: QrCode,
   TabAccount: Account,
+  TabMore: More,
 } as const;
 
 export type BaseTabParamList = {
   TabMenu?: MenuProps;
   TabCart?: CartProps;
+  TabQrCode?: QrCodeProps;
   TabAccount?: AccountProps;
+  TabMore?: MoreProps;
 };
 
 export type BaseTabScreenProps = NativeStackScreenProps<BaseTabParamList>;
@@ -34,17 +41,24 @@ const Tab = createBottomTabNavigator<BaseTabParamList>();
 const baseTabsIcons: Record<keyof BaseTabParamList, string> = {
   TabMenu: 'silverware',
   TabCart: 'cart-outline',
+  TabQrCode: 'qrcode',
   TabAccount: 'account',
+  TabMore: 'dots-horizontal',
 };
 
 export interface BottomTabsNavigatorProps {}
 
 const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
+  const routes = useMemo(
+    () => Object.entries(baseTabRoutes) as [keyof typeof baseTabRoutes, any][],
+    [baseTabRoutes]
+  );
+
   return (
     <Tab.Navigator
       initialRouteName="TabMenu"
       screenOptions={{
-        headerShown: false,
+        headerTitle: (props) => <Header {...props} />,
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
@@ -81,21 +95,17 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
         />
       )}
     >
-      {/* // todo: memo */}
-      {(
-        Object.entries(baseTabRoutes) as [keyof typeof baseTabRoutes, any][]
-      ).map(([name, component]) => (
+      {routes.map(([name, component]) => (
         <Tab.Screen
           key={`BottomTabsNavigator:${name}`}
           name={name}
           component={component}
           options={{
-            tabBarLabel: name,
-            tabBarIcon: ({ color, size }) => {
-              return (
-                <Icon source={baseTabsIcons[name]} size={size} color={color} />
-              );
-            },
+            tabBarLabel: name.replace('Tab', ''),
+            tabBarIcon: ({ color, size }) => (
+              <Icon source={baseTabsIcons[name]} size={size} color={color} />
+            ),
+            title: name.replace('Tab', ''),
           }}
         />
       ))}
