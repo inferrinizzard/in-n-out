@@ -3,7 +3,11 @@ import { Image, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { addActiveToList, updateActiveItem } from '../redux/slices/orderSlice';
+import {
+  addActiveToList,
+  selectActiveItem,
+  updateActiveItem,
+} from '../redux/slices/orderSlice';
 import {
   selectImages,
   selectMenu,
@@ -27,6 +31,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   const menu = useAppSelector(selectMenu);
   const prices = useAppSelector(selectPrices);
   const images = useAppSelector(selectImages);
+  const activeItem = useAppSelector(selectActiveItem);
 
   const { id, name, nextItems } = route.params!;
 
@@ -42,9 +47,16 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   }, [id]);
 
   return (
-    <View>
+    <View style={{ display: 'flex', alignItems: 'center' }}>
       <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
-      <Text>{name}</Text>
+      <Text style={{ fontSize: 24 }}>{name}</Text>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <Text>{`$${Number(activeItem?.[id].price || prices.base[id]).toFixed(
+          2
+        )}`}</Text>
+        <Text>{' | '}</Text>
+        <Text>{'Calories'}</Text>
+      </View>
 
       <Button
         onPress={() => {
