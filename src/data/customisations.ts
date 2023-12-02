@@ -37,7 +37,7 @@ export interface CustomisationOption<
   flags?: readonly string[];
 }
 
-interface ItemCustomisationOption {
+export interface ItemCustomisationOption {
   base: Record<string, CustomisationOption>;
   more?: ItemCustomisationOption;
   flags?: readonly string[];

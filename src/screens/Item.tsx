@@ -15,11 +15,11 @@ import {
 } from '../redux/slices/dataSlice';
 
 import { type StackScreenProps } from '../navigators/MenuStack';
-import { Sku } from '../models/Sku';
+import ItemCustomisations from '../components/Item/ItemCustomisations';
 import { getCustomisationOptions } from '../data/customisations';
 
+import { Sku } from '../models/Sku';
 import { type MenuItem, type SkuId } from '../data/types';
-import ItemCustomisations from '../components/Item/ItemCustomisations';
 
 export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
@@ -63,13 +63,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         <Text>{'Calories'}</Text>
       </View>
 
-      {customisations && (
-        <View>
-          {Object.entries(customisations.base).map(([key, val]) => (
-            <ItemCustomisations name={key} {...val} />
-          ))}
-        </View>
-      )}
+      <ItemCustomisations customisations={customisations} />
 
       <Button
         onPress={() => {

@@ -1,35 +1,32 @@
-import { Image, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 
-import { type CustomisationOption } from '../../data/customisations';
+import ItemCustomisationRow from './ItemCustomisationRow';
 
-export interface ItemCustomisationsProps<Options extends string[]>
-  extends CustomisationOption<Options> {
-  name: string;
+import { type ItemCustomisationOption } from '../../data/customisations';
+
+export interface ItemCustomisationsProps {
+  customisations?: ItemCustomisationOption;
 }
 
-const ItemCustomisations = <Options extends string[]>({
-  name,
-  default: _default,
-  options,
-  flags,
-}: ItemCustomisationsProps<Options>) => {
+const ItemCustomisations: React.FC<ItemCustomisationsProps> = ({
+  customisations,
+}) => {
+  if (!customisations) {
+    return null;
+  }
+
   return (
     <View>
-      <Text>{name}</Text>
+      {Object.entries(customisations.base).map(([key, val]) => (
+        <ItemCustomisationRow name={key} {...val} />
+      ))}
 
-      <View style={{ display: 'flex', flexDirection: 'row' }}>
-        {options.map((option) => (
-          <Card key={option}>
-            <Card.Content style={{ display: 'flex', flexDirection: 'row' }}>
-              {/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
-              <Text>{option}</Text>
-            </Card.Content>
-          </Card>
-        ))}
-      </View>
-
-      {flags && flags.map((flag) => <Text>{flag}</Text>)}
+      {customisations.more && (
+        <Button>
+          <Text>{'More'}</Text>
+        </Button>
+      )}
     </View>
   );
 };
