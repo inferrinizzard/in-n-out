@@ -18,12 +18,13 @@ const Menu: React.FC<
   const order = useAppSelector(selectItems);
   const orderItems = useMemo(() => Object.values(order), [order]);
   const menu = useAppSelector(selectMenu);
+  const menuItems = useMemo(() => Object.values(menu), [menu]);
 
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, flexGrow: 1 }}>
         <FlatList
-          data={Object.values(menu)}
+          data={menuItems}
           renderItem={({ item }) => {
             const [baseItem, ...next] = item.has;
             return (
