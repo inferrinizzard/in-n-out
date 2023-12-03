@@ -18,9 +18,10 @@ import { type StackScreenProps } from '../navigators/MenuStack';
 import ItemCustomisations from '../components/Item/ItemCustomisations';
 import { getCustomisationOptions } from '../data/customisations';
 
+import { CustomisationData } from '../data/customisations';
 import { Sku } from '../models/Sku';
 import { type MenuItem, type SkuId } from '../data/types';
-import { type CustomisationMap } from '../data/customisations.types';
+import { type CustomisationEntry } from '../data/customisations.types';
 
 export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
@@ -49,15 +50,13 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         Sku({
           ...menu[id],
           price: prices.base[id],
-          customisations: customisations
-            ? Object.entries(customisations.base).reduce(
-                (acc, [key, { default: _default }]) => ({
-                  ...acc,
-                  [key]: _default,
-                }),
-                {} as CustomisationMap<typeof id>
-              )
-            : undefined,
+          customisations: customisations?.base.reduce(
+            (acc, key) => ({
+              ...acc,
+              [key]: { data: CustomisationData[key].default },
+            }),
+            {} as CustomisationEntry<typeof id>
+          ),
         })
       )
     );

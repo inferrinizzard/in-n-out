@@ -3,10 +3,10 @@ import { Button, Text } from 'react-native-paper';
 
 import ItemCustomisationRow from './ItemCustomisationRow';
 
-import { type ItemCustomisationOption } from '../../data/customisations.types';
+import { type CustomisationNode } from '../../data/customisations.types';
 
 export interface ItemCustomisationsProps {
-  customisations?: ItemCustomisationOption;
+  customisations?: CustomisationNode;
 }
 
 const ItemCustomisations: React.FC<ItemCustomisationsProps> = ({
@@ -18,8 +18,8 @@ const ItemCustomisations: React.FC<ItemCustomisationsProps> = ({
 
   return (
     <View>
-      {Object.entries(customisations.base).map(([key, val]) => (
-        <ItemCustomisationRow name={key} {...val} />
+      {customisations.base.map((key) => (
+        <ItemCustomisationRow key={key} name={key} />
       ))}
 
       {customisations.more && (

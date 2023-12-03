@@ -1,8 +1,9 @@
-import { type ValueOf } from '../types/util';
 import {
+  type CustomisationData,
   type customisationOptionMap,
-  type BaseCustomisationData,
+  type CustomisationTree,
 } from './customisations';
+
 import { type SkuId } from './types';
 
 export interface CustomisationOption<
@@ -13,42 +14,40 @@ export interface CustomisationOption<
   flags?: readonly string[];
 }
 
-export interface ItemCustomisationOption {
-  base: Record<string, CustomisationOption>;
-  more?: ItemCustomisationOption;
+export type CustomisationKey = keyof typeof CustomisationData;
+export type CustomisationValue<
+  Key extends CustomisationKey = CustomisationKey
+> = (typeof CustomisationData)[Key]['options'][number];
+
+export interface CustomisationNode {
+  base: readonly CustomisationKey[];
+  more?: readonly CustomisationKey[];
   flags?: readonly string[];
 }
 
+type CustomisationNodeKeys<Node extends CustomisationNode> =
+  undefined extends Node['more']
+    ? Node['base'][number]
+    : Node['base'][number] | (Node['more'] & CustomisationKey[])[number];
+
 export type ItemCustomisations<Id extends SkuId> =
   Id extends keyof typeof customisationOptionMap
-    ? (typeof BaseCustomisationData)[(typeof customisationOptionMap)[Id]]
+    ? (typeof CustomisationTree)[(typeof customisationOptionMap)[Id]]
     : never;
 
-export type FlattenedCustomisations<
+export type CustomisationEntry<
   Id extends SkuId,
-  BaseCustomisations = ItemCustomisations<Id>
-> = 'base' extends keyof BaseCustomisations
-  ? 'more' extends keyof BaseCustomisations
-    ? 'base' extends keyof BaseCustomisations['more']
-      ? BaseCustomisations['more']['base'] & BaseCustomisations['base']
-      : never
-    : BaseCustomisations['base']
+  Customisations extends CustomisationNode = ItemCustomisations<Id>,
+  Options extends CustomisationKey = CustomisationNodeKeys<Customisations>
+> = Id extends keyof typeof customisationOptionMap
+  ? Partial<{
+      [Option in Options]: {
+        data: CustomisationValue<Option>;
+        flags?: 'flags' extends keyof (typeof CustomisationData)[Option]
+          ? {
+              -readonly [Index in keyof (typeof CustomisationData)[Option]['flags']]: (typeof CustomisationData)[Option]['flags'][Index];
+            }
+          : undefined;
+      };
+    }>
   : never;
-
-export type CustomisationMap<
-  Id extends SkuId,
-  Customisations = FlattenedCustomisations<Id>
-> = {
-  -readonly [key in keyof Customisations]: 'options' extends keyof Customisations[key]
-    ? number extends keyof Customisations[key]['options']
-      ? Customisations[key]['options'][number]
-      : never
-    : never;
-};
-
-export type CustomisationKey<Id extends SkuId> = keyof CustomisationMap<Id>;
-export type CustomisationValue<Id extends SkuId> = ValueOf<
-  CustomisationMap<Id>
->;
-
-type map = CustomisationMap<SkuId>;

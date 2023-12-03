@@ -8,73 +8,58 @@ import {
   updateActiveItem,
 } from '../../redux/slices/orderSlice';
 
-import { type SkuId } from '../../data/types';
+import { CustomisationData } from '../../data/customisations';
 import {
-  CustomisationValue,
+  type CustomisationValue,
   type CustomisationKey,
-  type CustomisationOption,
-  CustomisationMap,
+  type CustomisationEntry,
 } from '../../data/customisations.types';
 
-export interface ItemCustomisationRowProps<
-  Id extends SkuId,
-  Options extends readonly string[]
-> extends CustomisationOption<Options> {
-  name: CustomisationKey<Id>;
+export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
+  name: Key;
 }
 
-const ItemCustomisationRow = <
-  Id extends SkuId,
-  Options extends readonly string[]
->({
+const ItemCustomisationRow = <Key extends CustomisationKey>({
   name,
-  default: _default,
-  options,
-  flags,
-}: ItemCustomisationRowProps<Id, Options>) => {
+}: ItemCustomisationRowProps<Key>) => {
   const activeItem = useAppSelector(selectActiveItem)!;
   const activeOption = useMemo(
-    () => (activeItem?.customisations as CustomisationMap<Id>)?.[name],
+    () =>
+      activeItem?.customisations?.[
+        name as keyof typeof activeItem.customisations
+      ],
     [activeItem]
   );
 
+  const data = CustomisationData[name];
+
   const dispatch = useAppDispatch();
 
-  const updateCustomisation = (
-    key: CustomisationKey<Id>,
-    value: CustomisationValue<Id>
-  ) =>
+  const updateCustomisation = (value: CustomisationValue<Key>) =>
     dispatch(
       updateActiveItem({
         ...activeItem,
-        // @ts-expect-error
-        // TODO fix CustomisationMap<SkuId>
         customisations: {
           ...activeItem.customisations,
-          [key]: value,
-        } as CustomisationMap<Id>,
+          [name]: { data: value }, // add flags
+        },
       })
     );
 
   return (
     <View>
-      <Text>{name.toString()}</Text>
+      <Text>{name}</Text>
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
-        {options.map((option) => (
-          <Card
-            key={option}
-            onPress={() =>
-              updateCustomisation(name, option as CustomisationValue<Id>)
-            }
-          >
+        {data.options.map((option) => (
+          <Card key={option} onPress={() => updateCustomisation(option)}>
             <Card.Content
               style={{
                 display: 'flex',
                 flexDirection: 'row',
 
                 borderRadius: 8,
-                borderWidth: activeOption === option ? 2 : 0,
+                borderWidth: activeOption?.data === option ? 2 : 0,
               }}
             >
               {/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
@@ -84,7 +69,7 @@ const ItemCustomisationRow = <
         ))}
       </View>
 
-      {flags && flags.map((flag) => <Text>{flag}</Text>)}
+      {'flags' in data && data.flags.map((flag) => <Text>{flag}</Text>)}
     </View>
   );
 };
