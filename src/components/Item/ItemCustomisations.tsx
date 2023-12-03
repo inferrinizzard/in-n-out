@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
@@ -16,6 +17,8 @@ const ItemCustomisations: React.FC<ItemCustomisationsProps> = ({
     return null;
   }
 
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <View>
       {customisations.base.map((key) => (
@@ -23,9 +26,15 @@ const ItemCustomisations: React.FC<ItemCustomisationsProps> = ({
       ))}
 
       {customisations.more && (
-        <Button>
-          <Text>{'More'}</Text>
-        </Button>
+        <>
+          {showMore &&
+            customisations.more.map((key) => (
+              <ItemCustomisationRow key={key} name={key} />
+            ))}
+          <Button onPress={() => setShowMore((prev) => !prev)}>
+            <Text>{showMore ? 'Less' : 'More'}</Text>
+          </Button>
+        </>
       )}
     </View>
   );

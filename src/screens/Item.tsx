@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Image, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
@@ -63,7 +63,14 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   }, [id]);
 
   return (
-    <View style={{ display: 'flex', alignItems: 'center' }}>
+    <ScrollView
+      contentContainerStyle={{
+        alignItems: 'center',
+      }}
+      style={{
+        display: 'flex',
+      }}
+    >
       <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
       <Text style={{ fontSize: 24 }}>{name}</Text>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -90,7 +97,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
       >
         <Text>{nextItems?.length ? 'Go to next Item' : 'Add to Order'}</Text>
       </Button>
-    </View>
+    </ScrollView>
   );
 };
 

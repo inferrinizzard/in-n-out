@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Image, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { Button, Card, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
@@ -69,7 +69,12 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
         ))}
       </View>
 
-      {'flags' in data && data.flags.map((flag) => <Text>{flag}</Text>)}
+      {'flags' in data &&
+        data.flags.map((flag) => (
+          <Button key={flag} onPress={() => {}}>
+            <Text>{flag}</Text>
+          </Button>
+        ))}
     </View>
   );
 };
