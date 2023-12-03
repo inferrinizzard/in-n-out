@@ -44,9 +44,13 @@ export type CustomisationEntry<
       [Option in Options]: {
         data: CustomisationValue<Option>;
         flags?: 'flags' extends keyof (typeof CustomisationData)[Option]
-          ? {
-              -readonly [Index in keyof (typeof CustomisationData)[Option]['flags']]: (typeof CustomisationData)[Option]['flags'][Index];
-            }
+          ? undefined extends (typeof CustomisationData)[Option]['flags']
+            ? undefined
+            : Record<
+                ((typeof CustomisationData)[Option]['flags'] &
+                  string[])[number],
+                boolean | undefined
+              >
           : undefined;
       };
     }>

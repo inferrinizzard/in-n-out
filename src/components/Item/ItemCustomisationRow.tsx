@@ -12,7 +12,6 @@ import { CustomisationData } from '../../data/customisations';
 import {
   type CustomisationValue,
   type CustomisationKey,
-  type CustomisationEntry,
 } from '../../data/customisations.types';
 
 export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
@@ -22,6 +21,7 @@ export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
 const ItemCustomisationRow = <Key extends CustomisationKey>({
   name,
 }: ItemCustomisationRowProps<Key>) => {
+  const dispatch = useAppDispatch();
   const activeItem = useAppSelector(selectActiveItem)!;
   const activeOption = useMemo(
     () =>
@@ -33,8 +33,6 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
   const data = CustomisationData[name];
 
-  const dispatch = useAppDispatch();
-
   const updateCustomisation = (value: CustomisationValue<Key>) =>
     dispatch(
       updateActiveItem({
@@ -42,6 +40,21 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
         customisations: {
           ...activeItem.customisations,
           [name]: { data: value }, // add flags
+        },
+      })
+    );
+
+  const updateFlag = (flag: string, value: boolean) =>
+    dispatch(
+      updateActiveItem({
+        ...activeItem,
+        customisations: {
+          ...activeItem.customisations,
+          [name]: {
+            // @ts-expect-error
+            ...activeItem?.customisations?.[name],
+            flags: { [flag]: value },
+          },
         },
       })
     );
@@ -70,11 +83,24 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
       </View>
 
       {'flags' in data &&
-        data.flags.map((flag) => (
-          <Button key={flag} onPress={() => {}}>
-            <Text>{flag}</Text>
-          </Button>
-        ))}
+        data.flags.map((flag) => {
+          const isFlagActive =
+            activeOption?.flags?.[flag as keyof typeof activeOption.flags];
+
+          return (
+            <Button
+              key={flag}
+              onPress={() => updateFlag(flag, !isFlagActive)}
+              style={{
+                borderBlockColor: 'black',
+                borderRadius: 8,
+                borderWidth: isFlagActive ? 2 : 0,
+              }}
+            >
+              <Text>{flag}</Text>
+            </Button>
+          );
+        })}
     </View>
   );
 };

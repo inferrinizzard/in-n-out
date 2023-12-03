@@ -53,7 +53,20 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
           customisations: customisations?.base.reduce(
             (acc, key) => ({
               ...acc,
-              [key]: { data: CustomisationData[key].default },
+              [key]: {
+                data: CustomisationData[key].default,
+                // flags:
+                //   'flags' in CustomisationData[key]
+                //     ? [
+                //         ...CustomisationData[key][
+                //           'flags' as keyof (typeof CustomisationData)[typeof key]
+                //         ],
+                //       ].reduce(
+                //         (acc, flag) => ({ ...acc, [flag]: false }),
+                //         {} as Record<string, boolean | undefined>
+                //       )
+                //     : undefined,
+              },
             }),
             {} as CustomisationEntry<typeof id>
           ),
