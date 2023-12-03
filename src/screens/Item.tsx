@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import {
   addActiveToList,
   selectActiveItem,
-  updateActiveItem,
+  setActiveItem,
 } from '../redux/slices/orderSlice';
 import {
   selectImages,
@@ -46,7 +46,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 
   useEffect(() => {
     dispatch(
-      updateActiveItem(
+      setActiveItem(
         Sku({
           ...menu[id],
           price: prices.base[id],

@@ -3,10 +3,7 @@ import { Image, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import {
-  selectActiveItem,
-  updateActiveItem,
-} from '../../redux/slices/orderSlice';
+import { selectActiveItem, setActiveItem } from '../../redux/slices/orderSlice';
 
 import { CustomisationData } from '../../data/customisations';
 import {
@@ -35,7 +32,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
   const updateCustomisation = (value: CustomisationValue<Key>) =>
     dispatch(
-      updateActiveItem({
+      setActiveItem({
         ...activeItem,
         customisations: {
           ...activeItem.customisations,
@@ -46,7 +43,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
   const updateFlag = (flag: string, value: boolean) =>
     dispatch(
-      updateActiveItem({
+      setActiveItem({
         ...activeItem,
         customisations: {
           ...activeItem.customisations,
