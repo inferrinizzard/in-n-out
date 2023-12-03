@@ -3,7 +3,10 @@ import { Image, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectActiveItem, setActiveItem } from '../../redux/slices/orderSlice';
+import {
+  selectActiveItem,
+  updateActiveCustomisations,
+} from '../../redux/slices/orderSlice';
 
 import { CustomisationData } from '../../data/customisations';
 import {
@@ -31,30 +34,10 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
   const data = CustomisationData[name];
 
   const updateCustomisation = (value: CustomisationValue<Key>) =>
-    dispatch(
-      setActiveItem({
-        ...activeItem,
-        customisations: {
-          ...activeItem.customisations,
-          [name]: { data: value }, // add flags
-        },
-      })
-    );
+    dispatch(updateActiveCustomisations({ data: { name, value } }));
 
   const updateFlag = (flag: string, value: boolean) =>
-    dispatch(
-      setActiveItem({
-        ...activeItem,
-        customisations: {
-          ...activeItem.customisations,
-          [name]: {
-            // @ts-expect-error
-            ...activeItem?.customisations?.[name],
-            flags: { [flag]: value },
-          },
-        },
-      })
-    );
+    dispatch(updateActiveCustomisations({ flags: { name, flag, value } }));
 
   return (
     <View>

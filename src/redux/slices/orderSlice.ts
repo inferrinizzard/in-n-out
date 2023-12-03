@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { type RootState } from '../store';
 
-import { type Sku } from '../../models/Sku';
-import { type SkuId } from '../../data/types';
-
 import { v4 as uuidV4 } from 'uuid';
+
+import { type Sku } from '../../models/Sku';
+import {
+  type CustomisationKey,
+  type CustomisationValue,
+} from '../../data/customisations.types';
 
 export interface OrderState {
   activeItem: Sku | null;
@@ -22,6 +25,34 @@ export const orderSlice = createSlice({
   reducers: {
     setActiveItem: (state, action: PayloadAction<Sku>) => {
       state.activeItem = action.payload;
+    },
+    updateActiveCustomisations: <Key extends CustomisationKey>(
+      state: OrderState,
+      action: PayloadAction<
+        | { flags: { name: Key; flag: string; value: boolean } }
+        | { data: { name: Key; value: CustomisationValue<Key> } }
+      >
+    ) => {
+      if (!state.activeItem?.customisations) {
+        return;
+      }
+
+      if ('data' in action.payload) {
+        const { name, value } = action.payload.data;
+
+        // @ts-expect-error
+        state.activeItem.customisations[name]!.data = value;
+      } else if ('flags' in action.payload) {
+        const { name, flag, value } = action.payload.flags;
+
+        // @ts-expect-error
+        const activeCustomisation = state.activeItem.customisations[name]!;
+
+        activeCustomisation.flags = {
+          ...activeCustomisation.flags,
+          [flag]: value,
+        };
+      }
     },
     addActiveToList: (state) => {
       if (!state.activeItem) {
@@ -57,6 +88,7 @@ export const {
   editItem,
   removeItem,
   setActiveItem,
+  updateActiveCustomisations,
 } = orderSlice.actions;
 
 export const selectActiveItem = (state: RootState) => state.order.activeItem;
