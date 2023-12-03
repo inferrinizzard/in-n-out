@@ -7,7 +7,7 @@ import { type SkuId } from '../../data/types';
 import { v4 as uuidV4 } from 'uuid';
 
 export interface OrderState {
-  activeItem: Record<SkuId, Sku> | null;
+  activeItem: Sku | null;
   items: Record<string, Sku>;
 }
 
@@ -27,16 +27,14 @@ export const orderSlice = createSlice({
       if (!state.activeItem) {
         state.activeItem = {} as Exclude<OrderState['activeItem'], null>;
       }
-      state.activeItem[action.payload.id] = action.payload.item;
+      state.activeItem = action.payload.item;
     },
     addActiveToList: (state) => {
       if (!state.activeItem) {
         return;
       }
-      Object.values(state.activeItem).forEach((item) => {
-        state.items[uuidV4()] = item;
-      });
 
+      state.items[uuidV4()] = state.activeItem;
       state.activeItem = null;
     },
     clearActiveItem: (state) => {
@@ -50,7 +48,7 @@ export const orderSlice = createSlice({
       const item = state.items[itemUuid];
 
       delete state.items[itemUuid];
-      state.activeItem = { [item.id]: item } as Record<SkuId, Sku>;
+      state.activeItem = item;
     },
     removeItem: (state, action: PayloadAction<string>) => {
       delete state.items[action.payload];
