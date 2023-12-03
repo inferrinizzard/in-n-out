@@ -20,14 +20,11 @@ export const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    updateActiveItem: (
-      state,
-      action: PayloadAction<{ id: SkuId; item: Sku }>
-    ) => {
+    updateActiveItem: (state, action: PayloadAction<Sku>) => {
       if (!state.activeItem) {
         state.activeItem = {} as Exclude<OrderState['activeItem'], null>;
       }
-      state.activeItem = action.payload.item;
+      state.activeItem = action.payload;
     },
     addActiveToList: (state) => {
       if (!state.activeItem) {

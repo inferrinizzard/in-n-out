@@ -1,3 +1,4 @@
+import { type ValueOf } from '../types/util';
 import {
   type customisationOptionMap,
   type BaseCustomisationData,
@@ -44,3 +45,10 @@ export type CustomisationMap<
       : never
     : never;
 };
+
+export type CustomisationKey<Id extends SkuId> = keyof CustomisationMap<Id>;
+export type CustomisationValue<Id extends SkuId> = ValueOf<
+  CustomisationMap<Id>
+>;
+
+type map = CustomisationMap<SkuId>;

@@ -2,38 +2,72 @@ import { useMemo } from 'react';
 import { Image, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
-import { useAppSelector } from '../../redux/store';
-import { selectActiveItem } from '../../redux/slices/orderSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import {
+  selectActiveItem,
+  updateActiveItem,
+} from '../../redux/slices/orderSlice';
 
-import { type CustomisationOption } from '../../data/customisations.types';
+import { type SkuId } from '../../data/types';
+import {
+  CustomisationValue,
+  type CustomisationKey,
+  type CustomisationOption,
+  CustomisationMap,
+} from '../../data/customisations.types';
 
-export interface ItemCustomisationRowProps<Options extends readonly string[]>
-  extends CustomisationOption<Options> {
-  name: string;
+export interface ItemCustomisationRowProps<
+  Id extends SkuId,
+  Options extends readonly string[]
+> extends CustomisationOption<Options> {
+  name: CustomisationKey<Id>;
 }
 
-const ItemCustomisationRow = <Options extends readonly string[]>({
+const ItemCustomisationRow = <
+  Id extends SkuId,
+  Options extends readonly string[]
+>({
   name,
   default: _default,
   options,
   flags,
-}: ItemCustomisationRowProps<Options>) => {
-  const activeItem = useAppSelector(selectActiveItem);
+}: ItemCustomisationRowProps<Id, Options>) => {
+  const activeItem = useAppSelector(selectActiveItem)!;
   const activeOption = useMemo(
-    () =>
-      activeItem?.customisations?.[
-        name as keyof (typeof activeItem)['customisations']
-      ],
+    () => (activeItem?.customisations as CustomisationMap<Id>)?.[name],
     [activeItem]
   );
 
+  const dispatch = useAppDispatch();
+
+  const updateCustomisation = (
+    key: CustomisationKey<Id>,
+    value: CustomisationValue<Id>
+  ) =>
+    dispatch(
+      updateActiveItem({
+        ...activeItem,
+        // @ts-expect-error
+        // TODO fix CustomisationMap<SkuId>
+        customisations: {
+          ...activeItem.customisations,
+          [key]: value,
+        } as CustomisationMap<Id>,
+      })
+    );
+
   return (
     <View>
-      <Text>{name}</Text>
+      <Text>{name.toString()}</Text>
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {options.map((option) => (
-          <Card key={option}>
+          <Card
+            key={option}
+            onPress={() =>
+              updateCustomisation(name, option as CustomisationValue<Id>)
+            }
+          >
             <Card.Content
               style={{
                 display: 'flex',

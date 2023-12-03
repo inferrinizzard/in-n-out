@@ -45,9 +45,8 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 
   useEffect(() => {
     dispatch(
-      updateActiveItem({
-        id,
-        item: Sku({
+      updateActiveItem(
+        Sku({
           ...menu[id],
           price: prices.base[id],
           customisations: customisations
@@ -59,8 +58,8 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
                 {} as CustomisationMap<typeof id>
               )
             : undefined,
-        }),
-      })
+        })
+      )
     );
   }, [id]);
 
