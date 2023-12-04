@@ -1,5 +1,6 @@
-import { StyleSheet, View } from 'react-native';
-import { Icon, List, Text } from 'react-native-paper';
+import { Icon, List } from 'react-native-paper';
+
+import ScreenContainer from '../components/ScreenContainer';
 
 import { type TabScreenProps } from '../navigators/BottomTabs';
 
@@ -9,8 +10,7 @@ const Account: React.FC<AccountProps & TabScreenProps<'TabAccount'>> = ({
   navigation,
 }) => {
   return (
-    <View>
-      <Text>Account Screen</Text>
+    <ScreenContainer>
       <List.Section title="Welcome, <Name>">
         <List.Item
           title={'Settings'}
@@ -33,17 +33,8 @@ const Account: React.FC<AccountProps & TabScreenProps<'TabAccount'>> = ({
           right={() => <Icon source={'chevron-right'} size={24} />}
         />
       </List.Section>
-    </View>
+    </ScreenContainer>
   );
 };
 
 export default Account;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
