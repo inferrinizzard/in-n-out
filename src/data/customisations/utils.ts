@@ -1,6 +1,10 @@
-import { type CustomisationKey } from './types';
+import { CustomisationEntry, type CustomisationKey } from './types';
 import { type SkuId } from '../types';
-import { CustomisationTree, type NumericCustomisationValue } from './data';
+import {
+  CustomisationData,
+  CustomisationTree,
+  type NumericCustomisationValue,
+} from './data';
 
 export const customisationOptionMap = {
   DblDbl: 'Burger',
@@ -36,7 +40,7 @@ const burgerMeatCheeseDefaults: Partial<
   Hamburger: { Meat: '1', Cheese: '0' },
 };
 
-export const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {
+const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {
   if (id in burgerMeatCheeseDefaults) {
     const { Meat, Cheese } =
       burgerMeatCheeseDefaults[id as keyof typeof burgerMeatCheeseDefaults]!;
@@ -46,4 +50,32 @@ export const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {
       Cheese: { data: Cheese },
     };
   }
+};
+
+export const buildCustomisationDefaultEntry = <Id extends SkuId>(id: Id) => {
+  const customisations = getCustomisationOptions(id);
+
+  if (!customisations) {
+    return {};
+  }
+
+  let customisationKeys: CustomisationKey[] = [...customisations.base];
+  if ('more' in customisations) {
+    customisationKeys = customisationKeys.concat(customisations.more);
+  }
+
+  const standardCustomisationDefaults = customisationKeys.reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: {
+        data: CustomisationData[key].default,
+      },
+    }),
+    {} as CustomisationEntry<Id>
+  );
+
+  return {
+    ...standardCustomisationDefaults,
+    ...getMeatCheeseDefaults(id),
+  };
 };
