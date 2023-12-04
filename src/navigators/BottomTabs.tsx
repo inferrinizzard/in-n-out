@@ -8,20 +8,27 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import MenuStackNavigator from './MenuStack';
-import Account, { AccountProps } from '../screens/Account';
-import Cart, { CartProps } from '../screens/Cart';
+import Header from '../components/Header';
+import Account, { type AccountProps } from '../screens/Account';
+import Cart, { type CartProps } from '../screens/Cart';
+import More, { type MoreProps } from '../screens/More';
+import QrCode, { type QrCodeProps } from '../screens/QrCode';
 
 // #region types
 export const baseTabRoutes = {
   TabMenu: MenuStackNavigator,
   TabCart: Cart,
+  TabQrCode: QrCode,
   TabAccount: Account,
+  TabMore: More,
 } as const;
 
 export type BaseTabParamList = {
   TabMenu?: MenuProps;
   TabCart?: CartProps;
+  TabQrCode?: QrCodeProps;
   TabAccount?: AccountProps;
+  TabMore?: MoreProps;
 };
 
 export type BaseTabScreenProps = NativeStackScreenProps<BaseTabParamList>;
@@ -34,7 +41,9 @@ const Tab = createBottomTabNavigator<BaseTabParamList>();
 const baseTabsIcons: Record<keyof BaseTabParamList, string> = {
   TabMenu: 'silverware',
   TabCart: 'cart-outline',
+  TabQrCode: 'qrcode',
   TabAccount: 'account',
+  TabMore: 'dots-horizontal',
 };
 
 export interface BottomTabsNavigatorProps {}
@@ -49,7 +58,7 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
     <Tab.Navigator
       initialRouteName="TabMenu"
       screenOptions={{
-        headerShown: false,
+        headerTitle: (props) => <Header {...props} />,
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
@@ -96,6 +105,7 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
             tabBarIcon: ({ color, size }) => (
               <Icon source={baseTabsIcons[name]} size={size} color={color} />
             ),
+            title: name.replace('Tab', ''),
           }}
         />
       ))}
