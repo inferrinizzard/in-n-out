@@ -76,6 +76,16 @@ export const CustomisationData = Object.freeze({
     default: 'Medium' as DrinkSize,
     options: DrinkSizes,
   },
+  Burger: {
+    default: '',
+    options: [],
+    flags: ['AnimalStyle', 'CutInHalf'],
+  },
+  Fries: {
+    default: '',
+    options: [],
+    flags: ['NoSalt', 'AddCheese', 'AnimalStyle'],
+  },
 } as const);
 
 CustomisationData satisfies Record<string, CustomisationOption>;
@@ -91,12 +101,12 @@ export const CustomisationTree = Object.freeze({
       'Chilis',
       'Spread',
       'Bun',
+      'Burger',
     ],
-    flags: ['AnimalStyle', 'CutInHalf'],
   },
   Fries: {
     base: ['Doneness'],
-    flags: ['NoSalt', 'AddCheese', 'AnimalStyle'],
+    more: ['Fries'],
   },
   Drink: {
     base: ['Size'],
