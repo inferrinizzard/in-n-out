@@ -1,4 +1,5 @@
 import {
+  type CustomisationKey,
   type CustomisationNode,
   type CustomisationOption,
 } from './customisations.types';
@@ -32,6 +33,9 @@ export const FriesDonenesses = [
   'XtraWellDone',
 ] as const;
 export type FriesDoneness = (typeof FriesDonenesses)[number];
+
+export const NumericCustomisation = ['0', '1', '2', '3', 'Custom'] as const;
+type NumericCustomisationValue = (typeof NumericCustomisation)[number];
 
 export const CustomisationData = Object.freeze({
   Onions: {
@@ -86,6 +90,16 @@ export const CustomisationData = Object.freeze({
     options: [],
     flags: ['NoSalt', 'AddCheese', 'AnimalStyle'],
   },
+  Meat: {
+    default: '0',
+    options: NumericCustomisation,
+    flags: ['NoSalt', 'MustardGrilled', 'MediumRare', 'WellDone'],
+  },
+  Cheese: {
+    default: '0',
+    options: NumericCustomisation,
+    flags: ['ColdCheese'],
+  },
 } as const);
 
 CustomisationData satisfies Record<string, CustomisationOption>;
@@ -94,6 +108,8 @@ export const CustomisationTree = Object.freeze({
   Burger: {
     base: ['Onions'],
     more: [
+      'Meat',
+      'Cheese',
       'GrilledOnions',
       'Lettuce',
       'Tomato',
@@ -132,5 +148,31 @@ export const getCustomisationOptions = <Id extends SkuId>(id: Id) => {
     return CustomisationTree[
       customisationOptionMap[id as keyof typeof customisationOptionMap]
     ];
+  }
+};
+
+const burgerMeatCheeseDefaults: Partial<
+  Record<
+    Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>,
+    Record<
+      Extract<CustomisationKey, 'Meat' | 'Cheese'>,
+      NumericCustomisationValue
+    >
+  >
+> = {
+  DblDbl: { Meat: '2', Cheese: '2' },
+  Cheeseburger: { Meat: '1', Cheese: '1' },
+  Hamburger: { Meat: '1', Cheese: '0' },
+};
+
+export const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {
+  if (id in burgerMeatCheeseDefaults) {
+    const { Meat, Cheese } =
+      burgerMeatCheeseDefaults[id as keyof typeof burgerMeatCheeseDefaults]!;
+
+    return {
+      Meat: { data: Meat },
+      Cheese: { data: Cheese },
+    };
   }
 };

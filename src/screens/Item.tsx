@@ -16,7 +16,10 @@ import {
 
 import { type StackScreenProps } from '../navigators/MenuStack';
 import ItemCustomisations from '../components/Item/ItemCustomisations';
-import { getCustomisationOptions } from '../data/customisations';
+import {
+  getCustomisationOptions,
+  getMeatCheeseDefaults,
+} from '../data/customisations';
 
 import { CustomisationData } from '../data/customisations';
 import { Sku } from '../models/Sku';
@@ -53,21 +56,24 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         Sku({
           ...menu[id],
           price: prices.base[id],
-          customisations: ((customisations?.base ?? []) as CustomisationKey[])
-            .concat(
-              customisations && 'more' in customisations
-                ? customisations.more
-                : []
-            )
-            .reduce(
-              (acc, key) => ({
-                ...acc,
-                [key]: {
-                  data: CustomisationData[key].default,
-                },
-              }),
-              {} as CustomisationEntry<typeof id>
-            ),
+          customisations: {
+            ...((customisations?.base ?? []) as CustomisationKey[])
+              .concat(
+                customisations && 'more' in customisations
+                  ? customisations.more
+                  : []
+              )
+              .reduce(
+                (acc, key) => ({
+                  ...acc,
+                  [key]: {
+                    data: CustomisationData[key].default,
+                  },
+                }),
+                {} as CustomisationEntry<typeof id>
+              ),
+            ...getMeatCheeseDefaults(id),
+          },
         })
       )
     );
