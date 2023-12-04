@@ -2,17 +2,17 @@ const MenuData = Object.freeze({
   DblDblCombo: {
     id: 'DblDblCombo',
     name: 'Double-Double Combo',
-    has: ['DblDbl', 'Fries', 'Drink'],
+    has: ['DblDbl', 'Fries', 'SoftDrink'],
   },
   CheeseburgerCombo: {
     id: 'CheeseburgerCombo',
     name: 'Cheeseburger Combo',
-    has: ['Cheeseburger', 'Fries', 'Drink'],
+    has: ['Cheeseburger', 'Fries', 'SoftDrink'],
   },
   HamburgerCombo: {
     id: 'HamburgerCombo',
     name: 'Hamburger Combo',
-    has: ['Hamburger', 'Fries', 'Drink'],
+    has: ['Hamburger', 'Fries', 'SoftDrink'],
   },
   DblDbl: {
     id: 'DblDbl',
@@ -34,10 +34,10 @@ const MenuData = Object.freeze({
     name: 'French Fries',
     has: ['Fries'],
   },
-  Drink: {
-    id: 'Drink',
-    name: 'Beverage',
-    has: ['Drink'],
+  SoftDrink: {
+    id: 'SoftDrink',
+    name: 'Soft Drink',
+    has: ['SoftDrink'],
   },
 } as const);
 

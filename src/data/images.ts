@@ -15,7 +15,7 @@ const ImageData = Object.freeze({
     'https://www.in-n-out.com/Frontend-Assembly/Telerik.Sitefinity.Frontend/content/images/menu/hamburger@3x.png?package=INNOUT&v=2023',
   Fries:
     'https://s3-alpha-sig.figma.com/img/1cee/a800/d71a1b4cbce32b80fbf6a5a34404dc08?Expires=1701648000&Signature=AOsVXWUrNxW7WVEHrcwHF7WGIRxnka276RvlrmhjFSGzqWVnGsQYbV2AYWfGuxJAvMs1pRsxO-bPkx6TintQS8JAEei-ZjHqeFiMCU9MUJqcleqSc5SdEGm9Fbj6oM~3oamFcpFj~mfLSGHX3nPv5xiwp~kEOUc4D~iFyilWWVdolfP0ZZUxzJvQ9-as6-ZtffS0V9m-np~r0zhOP2FCr1FtE2RcGrEM2ih-8ZUvpnDnBz1lVLS8K6wiLpMwWqhPuNFOx73mkisP7jrqY5zTZ-Ljwv1Z9Ia~arrJ40Kt6TkEXqzyJQLWDHscNVzLrBXR~0A5LvzOZE1tCJDB6PXX3g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-  Drink:
+  SoftDrink:
     'https://s3-alpha-sig.figma.com/img/3756/cc27/a303e9b9ddab2017122a216dee4ac52c?Expires=1701648000&Signature=qoOBgG45gbVNdLY8DiUzGDSfRM2BpEDp5rlKT88QlPXEzqD1nE8j8eiawuRy5vziA6CJVjwD5wJ0ntTboQr75txk585~HKNA~SqqjPtUhCZAjKmtJIjAzZXYxKfj0G-FGqObKowf2P6sW517euSr-8r0WD73eayU63IxOUWVi-DXMp5d15rwYKHCNZjOsIzSvNLFlrww71Fg3N7VZ-Y6u85~l5Rt49xnIMuqipAqHU-uTIHMnndcsnxLXUo6wt0uZlV8rhRfw6jbN-Dd-ttdl162lX80GVu3vCUPCVRH3KHR31y107HdQqO~k3lRbJW4XE7GjNs06Mt9k1ANIRP8MA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
 } as const);
 

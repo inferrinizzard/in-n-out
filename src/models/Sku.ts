@@ -1,9 +1,11 @@
+import { type CustomisationEntry } from '../data/customisations';
 import { type SkuId } from '../data/types';
 
-export interface Sku {
-  id: SkuId;
+export interface Sku<Id extends SkuId = SkuId> {
+  id: Id;
   name: string;
-  price: string | number;
+  price: number;
+  customisations?: CustomisationEntry<Id>;
 }
 
 export const Sku = (skuParams: Sku) => {

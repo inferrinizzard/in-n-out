@@ -7,16 +7,17 @@ const BasePriceData = Object.freeze({
   Cheeseburger: 2.8,
   Hamburger: 2.5,
   Fries: 1.85,
-  Drink: 1.8, // medium
+  SoftDrink: 1.8, // medium
 } as const);
 
 const PriceData = Object.freeze({
   ...BasePriceData,
-  DblDblCombo: BasePriceData.DblDbl + BasePriceData.Fries + BasePriceData.Drink,
+  DblDblCombo:
+    BasePriceData.DblDbl + BasePriceData.Fries + BasePriceData.SoftDrink,
   CheeseburgerCombo:
-    BasePriceData.Cheeseburger + BasePriceData.Fries + BasePriceData.Drink,
+    BasePriceData.Cheeseburger + BasePriceData.Fries + BasePriceData.SoftDrink,
   HamburgerCombo:
-    BasePriceData.Hamburger + BasePriceData.Fries + BasePriceData.Drink,
+    BasePriceData.Hamburger + BasePriceData.Fries + BasePriceData.SoftDrink,
 } as const);
 
 const MiscPriceData = Object.freeze({
@@ -25,10 +26,10 @@ const MiscPriceData = Object.freeze({
     (BasePriceData.Cheeseburger +
       (BasePriceData.Cheeseburger - BasePriceData.Hamburger)),
   Cheese: BasePriceData.Cheeseburger - BasePriceData.Hamburger,
-  DrinkSmall: 1.65,
-  DrinkMedium: 1.8,
-  DrinkLarge: 2.0,
-  DrinkExtraLarge: 2.2,
+  SoftDrinkSmall: 1.65,
+  SoftDrinkMedium: 1.8,
+  SoftDrinkLarge: 2.0,
+  SoftDrinkXtraLarge: 2.2,
 });
 
 PriceData satisfies Record<SkuId, number>;
