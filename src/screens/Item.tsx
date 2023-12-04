@@ -21,7 +21,10 @@ import { getCustomisationOptions } from '../data/customisations';
 import { CustomisationData } from '../data/customisations';
 import { Sku } from '../models/Sku';
 import { type MenuItem, type SkuId } from '../data/types';
-import { type CustomisationEntry } from '../data/customisations.types';
+import {
+  type CustomisationKey,
+  type CustomisationEntry,
+} from '../data/customisations.types';
 
 export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
@@ -50,26 +53,21 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         Sku({
           ...menu[id],
           price: prices.base[id],
-          customisations: customisations?.base.reduce(
-            (acc, key) => ({
-              ...acc,
-              [key]: {
-                data: CustomisationData[key].default,
-                // flags:
-                //   'flags' in CustomisationData[key]
-                //     ? [
-                //         ...CustomisationData[key][
-                //           'flags' as keyof (typeof CustomisationData)[typeof key]
-                //         ],
-                //       ].reduce(
-                //         (acc, flag) => ({ ...acc, [flag]: false }),
-                //         {} as Record<string, boolean | undefined>
-                //       )
-                //     : undefined,
-              },
-            }),
-            {} as CustomisationEntry<typeof id>
-          ),
+          customisations: ((customisations?.base ?? []) as CustomisationKey[])
+            .concat(
+              customisations && 'more' in customisations
+                ? customisations.more
+                : []
+            )
+            .reduce(
+              (acc, key) => ({
+                ...acc,
+                [key]: {
+                  data: CustomisationData[key].default,
+                },
+              }),
+              {} as CustomisationEntry<typeof id>
+            ),
         })
       )
     );

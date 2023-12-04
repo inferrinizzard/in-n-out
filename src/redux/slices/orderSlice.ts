@@ -41,15 +41,14 @@ export const orderSlice = createSlice({
         const { name, value } = action.payload.data;
 
         // @ts-expect-error
-        state.activeItem.customisations[name]!.data = value;
+        state.activeItem.customisations[name].data = value;
       } else if ('flags' in action.payload) {
         const { name, flag, value } = action.payload.flags;
 
         // @ts-expect-error
-        const activeCustomisation = state.activeItem.customisations[name]!;
-
-        activeCustomisation.flags = {
-          ...activeCustomisation.flags,
+        state.activeItem.customisations[name].flags = {
+          // @ts-expect-error
+          ...state.activeItem.customisations[name].flags,
           [flag]: value,
         };
       }
