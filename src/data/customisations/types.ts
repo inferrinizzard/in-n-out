@@ -1,10 +1,6 @@
-import {
-  type CustomisationData,
-  type customisationOptionMap,
-  type CustomisationTree,
-} from './customisations';
-
-import { type SkuId } from './types';
+import { type SkuId } from '../types';
+import { type CustomisationData, type CustomisationTree } from './data';
+import { customisationOptionMap } from './utils';
 
 export interface CustomisationOption<
   Options extends readonly string[] = readonly string[]

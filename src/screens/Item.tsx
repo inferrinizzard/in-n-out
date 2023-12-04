@@ -17,17 +17,15 @@ import {
 import { type StackScreenProps } from '../navigators/MenuStack';
 import ItemCustomisations from '../components/Item/ItemCustomisations';
 import {
+  CustomisationData,
   getCustomisationOptions,
   getMeatCheeseDefaults,
-} from '../data/customisations';
-
-import { CustomisationData } from '../data/customisations';
-import { Sku } from '../models/Sku';
-import { type MenuItem, type SkuId } from '../data/types';
-import {
   type CustomisationKey,
   type CustomisationEntry,
-} from '../data/customisations.types';
+} from '../data/customisations';
+
+import { Sku } from '../models/Sku';
+import { type MenuItem, type SkuId } from '../data/types';
 
 export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];

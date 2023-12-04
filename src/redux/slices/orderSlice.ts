@@ -7,7 +7,7 @@ import { type Sku } from '../../models/Sku';
 import {
   type CustomisationKey,
   type CustomisationValue,
-} from '../../data/customisations.types';
+} from '../../data/customisations';
 
 export interface OrderState {
   activeItem: Sku | null;

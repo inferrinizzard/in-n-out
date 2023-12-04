@@ -1,4 +1,4 @@
-import { type CustomisationEntry } from '../data/customisations.types';
+import { type CustomisationEntry } from '../data/customisations';
 import { type SkuId } from '../data/types';
 
 export interface Sku<Id extends SkuId = SkuId> {

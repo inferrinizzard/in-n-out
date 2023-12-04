@@ -8,11 +8,11 @@ import {
   updateActiveCustomisations,
 } from '../../redux/slices/orderSlice';
 
-import { CustomisationData } from '../../data/customisations';
 import {
+  CustomisationData,
   type CustomisationValue,
   type CustomisationKey,
-} from '../../data/customisations.types';
+} from '../../data/customisations';
 
 export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
   name: Key;

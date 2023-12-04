@@ -4,7 +4,7 @@ import { Button, Text } from 'react-native-paper';
 
 import ItemCustomisationRow from './ItemCustomisationRow';
 
-import { type CustomisationNode } from '../../data/customisations.types';
+import { type CustomisationNode } from '../../data/customisations';
 
 export interface ItemCustomisationsProps {
   customisations?: CustomisationNode;

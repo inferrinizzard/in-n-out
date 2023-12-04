@@ -1,9 +1,4 @@
-import {
-  type CustomisationKey,
-  type CustomisationNode,
-  type CustomisationOption,
-} from './customisations.types';
-import { type SkuId } from './types';
+import { type CustomisationNode, type CustomisationOption } from './types';
 
 export const DrinkSizes = ['Small', 'Medium', 'Large', 'XtraLarge'] as const;
 export type DrinkSize = (typeof DrinkSizes)[number];
@@ -35,7 +30,7 @@ export const FriesDonenesses = [
 export type FriesDoneness = (typeof FriesDonenesses)[number];
 
 export const NumericCustomisation = ['0', '1', '2', '3', 'Custom'] as const;
-type NumericCustomisationValue = (typeof NumericCustomisation)[number];
+export type NumericCustomisationValue = (typeof NumericCustomisation)[number];
 
 export const CustomisationData = Object.freeze({
   Onions: {
@@ -130,49 +125,3 @@ export const CustomisationTree = Object.freeze({
 } as const);
 
 CustomisationTree satisfies Record<string, CustomisationNode>;
-
-export const customisationOptionMap = {
-  DblDbl: 'Burger',
-  Cheeseburger: 'Burger',
-  Hamburger: 'Burger',
-  Fries: 'Fries',
-  SoftDrink: 'Drink',
-} as const;
-
-customisationOptionMap satisfies Partial<
-  Record<SkuId, keyof typeof CustomisationTree>
->;
-
-export const getCustomisationOptions = <Id extends SkuId>(id: Id) => {
-  if (id in customisationOptionMap) {
-    return CustomisationTree[
-      customisationOptionMap[id as keyof typeof customisationOptionMap]
-    ];
-  }
-};
-
-const burgerMeatCheeseDefaults: Partial<
-  Record<
-    Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>,
-    Record<
-      Extract<CustomisationKey, 'Meat' | 'Cheese'>,
-      NumericCustomisationValue
-    >
-  >
-> = {
-  DblDbl: { Meat: '2', Cheese: '2' },
-  Cheeseburger: { Meat: '1', Cheese: '1' },
-  Hamburger: { Meat: '1', Cheese: '0' },
-};
-
-export const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {
-  if (id in burgerMeatCheeseDefaults) {
-    const { Meat, Cheese } =
-      burgerMeatCheeseDefaults[id as keyof typeof burgerMeatCheeseDefaults]!;
-
-    return {
-      Meat: { data: Meat },
-      Cheese: { data: Cheese },
-    };
-  }
-};
