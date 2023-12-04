@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { type RootState } from '../store';
 
-import { type Sku } from '../../models/Sku';
-import { type SkuId } from '../../data/types';
-
 import { v4 as uuidV4 } from 'uuid';
 
+import { type Sku } from '../../models/Sku';
+import {
+  type CustomisationKey,
+  type CustomisationValue,
+} from '../../data/customisations';
+
 export interface OrderState {
-  activeItem: Record<SkuId, Sku> | null;
+  activeItem: Sku | null;
   items: Record<string, Sku>;
 }
 
@@ -20,23 +23,42 @@ export const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    updateActiveItem: (
-      state,
-      action: PayloadAction<{ id: SkuId; item: Sku }>
+    setActiveItem: (state, action: PayloadAction<Sku>) => {
+      state.activeItem = action.payload;
+    },
+    updateActiveCustomisations: <Key extends CustomisationKey>(
+      state: OrderState,
+      action: PayloadAction<
+        | { flags: { name: Key; flag: string; value: boolean } }
+        | { data: { name: Key; value: CustomisationValue<Key> } }
+      >
     ) => {
-      if (!state.activeItem) {
-        state.activeItem = {} as Exclude<OrderState['activeItem'], null>;
+      if (!state.activeItem?.customisations) {
+        return;
       }
-      state.activeItem[action.payload.id] = action.payload.item;
+
+      if ('data' in action.payload) {
+        const { name, value } = action.payload.data;
+
+        // @ts-expect-error
+        state.activeItem.customisations[name].data = value;
+      } else if ('flags' in action.payload) {
+        const { name, flag, value } = action.payload.flags;
+
+        // @ts-expect-error
+        state.activeItem.customisations[name].flags = {
+          // @ts-expect-error
+          ...state.activeItem.customisations[name].flags,
+          [flag]: value,
+        };
+      }
     },
     addActiveToList: (state) => {
       if (!state.activeItem) {
         return;
       }
-      Object.values(state.activeItem).forEach((item) => {
-        state.items[uuidV4()] = item;
-      });
 
+      state.items[uuidV4()] = state.activeItem;
       state.activeItem = null;
     },
     clearActiveItem: (state) => {
@@ -50,7 +72,7 @@ export const orderSlice = createSlice({
       const item = state.items[itemUuid];
 
       delete state.items[itemUuid];
-      state.activeItem = { [item.id]: item } as Record<SkuId, Sku>;
+      state.activeItem = item;
     },
     removeItem: (state, action: PayloadAction<string>) => {
       delete state.items[action.payload];
@@ -64,7 +86,8 @@ export const {
   clearActiveItem,
   editItem,
   removeItem,
-  updateActiveItem,
+  setActiveItem,
+  updateActiveCustomisations,
 } = orderSlice.actions;
 
 export const selectActiveItem = (state: RootState) => state.order.activeItem;

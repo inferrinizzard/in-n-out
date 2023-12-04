@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   NativeStackScreenProps,
   createNativeStackNavigator,
@@ -32,14 +33,18 @@ export interface MenuStackNavigatorProps {}
 const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
   const dispatch = useAppDispatch();
 
+  const routes = useMemo(
+    () =>
+      Object.entries(menuStackRoutes) as [keyof typeof menuStackRoutes, any][],
+    [menuStackRoutes]
+  );
+
   return (
     <Stack.Navigator
       initialRouteName="StackMenu"
       screenOptions={{ headerShown: false }}
     >
-      {(
-        Object.entries(menuStackRoutes) as [keyof typeof menuStackRoutes, any][]
-      ).map(([screen, component]) => (
+      {routes.map(([screen, component]) => (
         <Stack.Screen
           key={screen}
           name={screen}
