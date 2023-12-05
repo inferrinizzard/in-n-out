@@ -8,11 +8,12 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import MenuStackNavigator from './MenuStack';
-import Header from '../components/Header';
+import Header from '../components/header/Header';
 import Account, { type AccountProps } from '../screens/Account';
 import Cart, { type CartProps } from '../screens/Cart';
 import More, { type MoreProps } from '../screens/More';
 import QrCode, { type QrCodeProps } from '../screens/QrCode';
+import HeaderButton from '../components/header/HeaderButton';
 
 // #region types
 export const baseTabRoutes = {
@@ -58,6 +59,7 @@ const BottomTabsNavigator: React.FC<BottomTabsNavigatorProps> = () => {
     <Tab.Navigator
       initialRouteName="TabMenu"
       screenOptions={{
+        headerLeft: (props) => <HeaderButton {...props} />,
         headerTitle: (props) => <Header {...props} />,
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
