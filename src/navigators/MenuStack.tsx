@@ -49,9 +49,9 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
           key={screen}
           name={screen}
           component={component}
-          listeners={{
-            beforeRemove: () => dispatch(clearActiveItem()),
-          }}
+          // listeners={{
+          //   beforeRemove: () => dispatch(clearActiveItem()),
+          // }}
           options={({ route }) => ({
             title:
               route.params && 'name' in route.params

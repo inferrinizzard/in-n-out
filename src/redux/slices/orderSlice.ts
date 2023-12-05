@@ -11,11 +11,13 @@ import {
 
 export interface OrderState {
   activeItem: Sku | null;
+  pending: Sku[];
   items: Record<string, Sku>;
 }
 
 const initialState: OrderState = {
   activeItem: null,
+  pending: [],
   items: {},
 };
 
@@ -53,13 +55,26 @@ export const orderSlice = createSlice({
         };
       }
     },
-    addActiveToList: (state) => {
+    addActiveToPending: (state) => {
       if (!state.activeItem) {
         return;
       }
 
-      state.items[uuidV4()] = state.activeItem;
+      state.pending.push(state.activeItem);
       state.activeItem = null;
+    },
+    addingPendingToList: (state) => {
+      state.pending.forEach((item) => (state.items[uuidV4()] = item));
+      state.pending = [];
+    },
+    popPending: (state) => {
+      const lastPending = state.pending.pop();
+      if (lastPending) {
+        state.activeItem = lastPending;
+      }
+    },
+    clearPending: (state) => {
+      state.pending = [];
     },
     clearActiveItem: (state) => {
       state.activeItem = null;
@@ -81,10 +96,13 @@ export const orderSlice = createSlice({
 });
 
 export const {
-  addActiveToList,
+  addActiveToPending,
+  addingPendingToList,
   addItem,
   clearActiveItem,
+  clearPending,
   editItem,
+  popPending,
   removeItem,
   setActiveItem,
   updateActiveCustomisations,

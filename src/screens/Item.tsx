@@ -4,7 +4,8 @@ import { Button, Text } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import {
-  addActiveToList,
+  addActiveToPending,
+  addingPendingToList,
   selectActiveItem,
   setActiveItem,
 } from '../redux/slices/orderSlice';
@@ -51,7 +52,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         Sku({
           ...menu[id],
           price: prices.base[id],
-          customisations: buildCustomisationDefaultEntry(id),
+          customisations: { ...buildCustomisationDefaultEntry(id) },
         })
       )
     );
@@ -80,12 +81,13 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 
       <Button
         onPress={() => {
+          dispatch(addActiveToPending());
           if (nextItems?.length) {
             const [nextItemId, ...rest] = nextItems;
             const nextItem = menu[nextItemId];
             navigation.push('StackItem', { ...nextItem, nextItems: rest });
           } else {
-            dispatch(addActiveToList());
+            dispatch(addingPendingToList());
             navigation.navigate('StackMenu');
           }
         }}
