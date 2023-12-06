@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { type RootState } from '../store';
 
+import 'react-native-get-random-values';
 import { v4 as uuidV4 } from 'uuid';
 
 import { type Sku } from '../../models/Sku';
