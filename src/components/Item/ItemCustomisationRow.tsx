@@ -40,7 +40,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
     dispatch(updateActiveCustomisations({ flags: { name, flag, value } }));
 
   return (
-    <View>
+    <View style={{ maxWidth: '100%' }}>
       <Text>{name}</Text>
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -51,6 +51,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
                 display: 'flex',
                 flexDirection: 'row',
 
+                borderColor: 'black',
                 borderRadius: 8,
                 borderWidth: activeOption?.data === option ? 2 : 0,
               }}
@@ -72,7 +73,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
               key={flag}
               onPress={() => updateFlag(flag, !isFlagActive)}
               style={{
-                borderBlockColor: 'black',
+                borderColor: 'black',
                 borderRadius: 8,
                 borderWidth: isFlagActive ? 2 : 0,
               }}
