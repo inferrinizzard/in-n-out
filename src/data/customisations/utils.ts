@@ -56,7 +56,7 @@ export const buildCustomisationDefaultEntry = <Id extends SkuId>(id: Id) => {
   const customisations = getCustomisationOptions(id);
 
   if (!customisations) {
-    return {};
+    return null;
   }
 
   let customisationKeys: CustomisationKey[] = [...customisations.base];

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Image, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -7,9 +8,9 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
 import { editItem, removeItem } from '../../redux/slices/orderSlice';
 
+import { getCustomisationText, type Sku } from '../../models/Sku';
 import { type BaseTabParamList } from '../../navigators/BottomTabs';
 import { type SkuId } from '../../data/types';
-import { type Sku } from '../../models/Sku';
 
 export type CartItemProps = Sku & { uuid: string };
 
@@ -18,6 +19,11 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
 
   const images = useAppSelector(selectImages);
   const imageUrl = images[item.id as SkuId];
+
+  const customisationData = useMemo(
+    () => getCustomisationText(item),
+    [item, uuid]
+  );
 
   const navigation = useNavigation<BottomTabNavigationProp<BaseTabParamList>>();
 
@@ -47,7 +53,9 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
               <Text>{' | '}</Text>
               <Text>{'Calories'}</Text>
             </View>
-            <Text>{'Item Details'}</Text>
+            {customisationData.map((line, i) => (
+              <Text key={`${uuid}-text-${i}`}>{line}</Text>
+            ))}
           </View>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
