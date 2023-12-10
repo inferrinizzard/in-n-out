@@ -9,6 +9,7 @@ import {
   type CustomisationKey,
   type CustomisationValue,
 } from '../../data/customisations';
+import { type SkuId } from '../../data/types';
 
 export interface OrderState {
   activeItem: Sku | null;
@@ -109,7 +110,8 @@ export const {
   updateActiveCustomisations,
 } = orderSlice.actions;
 
-export const selectActiveItem = (state: RootState) => state.order.activeItem;
+export const selectActiveItem = <Id extends SkuId = SkuId>(state: RootState) =>
+  state.order.activeItem as Sku<Id> | null;
 export const selectItems = (state: RootState) => state.order.items;
 
 export default orderSlice.reducer;

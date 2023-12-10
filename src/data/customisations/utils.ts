@@ -35,9 +35,9 @@ const burgerMeatCheeseDefaults: Partial<
     >
   >
 > = {
-  DblDbl: { Meat: '2', Cheese: '2' },
-  Cheeseburger: { Meat: '1', Cheese: '1' },
-  Hamburger: { Meat: '1', Cheese: '0' },
+  DblDbl: { Meat: 2, Cheese: 2 },
+  Cheeseburger: { Meat: 1, Cheese: 1 },
+  Hamburger: { Meat: 1, Cheese: 0 },
 };
 
 const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {

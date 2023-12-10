@@ -2,18 +2,14 @@ import { type SkuId } from '../types';
 import { type CustomisationData, type CustomisationTree } from './data';
 import { customisationOptionMap } from './utils';
 
-export interface CustomisationOption<
-  Options extends readonly string[] = readonly string[]
-> {
-  default: Options[number];
-  options: Options;
-  flags?: readonly string[];
-}
+export type CustomisationOption<
+  Key extends CustomisationKey = CustomisationKey
+> = (typeof CustomisationData)[Key];
 
 export type CustomisationKey = keyof typeof CustomisationData;
 export type CustomisationValue<
   Key extends CustomisationKey = CustomisationKey
-> = (typeof CustomisationData)[Key]['options'][number];
+> = CustomisationOption<Key>['options'][number];
 
 export interface CustomisationNode {
   base: readonly CustomisationKey[];

@@ -29,69 +29,83 @@ export const FriesDonenesses = [
 ] as const;
 export type FriesDoneness = (typeof FriesDonenesses)[number];
 
-export const NumericCustomisation = ['0', '1', '2', '3', 'Custom'] as const;
+export const NumericCustomisation = [0, 1, 2, 3] as const;
 export type NumericCustomisationValue = (typeof NumericCustomisation)[number];
 
 export const CustomisationData = Object.freeze({
   Onions: {
+    type: 'enum',
     default: 'None' as ToppingAmount,
     options: StandardToppingAmounts,
     flags: ['Chopped'],
   },
   GrilledOnions: {
+    type: 'enum',
     default: 'None' as ToppingAmount,
     options: StandardToppingAmounts,
   },
   Lettuce: {
+    type: 'enum',
     default: 'Regular' as ToppingAmount,
     options: StandardToppingAmounts,
   },
   Tomato: {
+    type: 'enum',
     default: 'Regular' as ToppingAmount,
     options: StandardToppingAmounts,
   },
   Pickles: {
+    type: 'enum',
     default: 'None' as ToppingAmount,
     options: StandardToppingAmounts,
   },
   Chilis: {
+    type: 'enum',
     default: 'None' as ToppingAmount,
     options: StandardToppingAmounts,
   },
   Spread: {
+    type: 'enum',
     default: 'Regular' as ToppingAmount,
     options: StandardToppingAmounts,
     flags: ['AddKetchup', 'AddMustard'],
   },
   Bun: {
+    type: 'enum',
     default: 'Regular' as BunOption,
     options: BunOptions,
   },
   Doneness: {
+    type: 'enum',
     default: 'Regular' as FriesDoneness,
     options: FriesDonenesses,
   },
   Size: {
+    type: 'enum',
     default: 'Medium' as DrinkSize,
     options: DrinkSizes,
   },
   Burger: {
+    type: 'flags',
     default: '',
     options: [],
     flags: ['AnimalStyle', 'CutInHalf'],
   },
   Fries: {
+    type: 'flags',
     default: '',
     options: [],
     flags: ['NoSalt', 'AddCheese', 'AnimalStyle'],
   },
   Meat: {
-    default: '0',
+    type: 'number',
+    default: 0,
     options: NumericCustomisation,
     flags: ['NoSalt', 'MustardGrilled', 'MediumRare', 'WellDone'],
   },
   Cheese: {
-    default: '0',
+    type: 'number',
+    default: 0,
     options: NumericCustomisation,
     flags: ['ColdCheese'],
   },

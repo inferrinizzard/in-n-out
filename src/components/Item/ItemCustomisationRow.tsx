@@ -41,7 +41,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
   return (
     <View style={{ maxWidth: '100%' }}>
-      <Text>{name}</Text>
+      {data.type !== 'flags' ? <Text>{name}</Text> : null}
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {data.options.map((option) => (
@@ -61,6 +61,29 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
             </Card.Content>
           </Card>
         ))}
+        {data.type === 'number' ? (
+          <Card
+            key={`${name}-custom`}
+            onPress={
+              () => {}
+              // updateCustomisation(option)
+            }
+          >
+            <Card.Content
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+
+                borderColor: 'black',
+                borderRadius: 8,
+                // borderWidth: (activeOption?.data as number) > 2 ? 2 : 0,
+              }}
+            >
+              {/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
+              <Text>{'Custom'}</Text>
+            </Card.Content>
+          </Card>
+        ) : null}
       </View>
 
       {'flags' in data &&
