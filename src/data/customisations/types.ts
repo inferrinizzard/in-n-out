@@ -6,6 +6,8 @@ export type CustomisationOption<
   Key extends CustomisationKey = CustomisationKey
 > = (typeof CustomisationData)[Key];
 
+export type SkuCustomisationKey<Id extends SkuId> = CustomisationKey &
+  keyof CustomisationEntry<Id>;
 export type CustomisationKey = keyof typeof CustomisationData;
 export type CustomisationValue<
   Key extends CustomisationKey = CustomisationKey

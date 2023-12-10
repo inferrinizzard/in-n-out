@@ -12,22 +12,24 @@ import {
   CustomisationData,
   type CustomisationValue,
   type CustomisationKey,
+  SkuCustomisationKey,
 } from '../../data/customisations';
+import { type SkuId } from '../../data/types';
 
 export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
   name: Key;
 }
 
-const ItemCustomisationRow = <Key extends CustomisationKey>({
+const ItemCustomisationRow = <
+  Id extends SkuId,
+  Key extends SkuCustomisationKey<Id>
+>({
   name,
 }: ItemCustomisationRowProps<Key>) => {
   const dispatch = useAppDispatch();
-  const activeItem = useAppSelector(selectActiveItem)!;
+  const activeItem = useAppSelector(selectActiveItem<Id>)!;
   const activeOption = useMemo(
-    () =>
-      activeItem?.customisations?.[
-        name as keyof typeof activeItem.customisations
-      ],
+    () => activeItem?.customisations?.[name],
     [activeItem]
   );
 
@@ -76,10 +78,9 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
                 borderColor: 'black',
                 borderRadius: 8,
-                // borderWidth: (activeOption?.data as number) > 2 ? 2 : 0,
+                borderWidth: (activeOption?.data as number) > 2 ? 2 : 0,
               }}
             >
-              {/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
               <Text>{'Custom'}</Text>
             </Card.Content>
           </Card>

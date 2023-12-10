@@ -41,7 +41,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 
   const { id, name, nextItems } = route.params!;
 
-  const imageUrl = images[id as SkuId];
+  const imageUrl = images[id];
 
   // TODO: memo
   const customisations = getCustomisationOptions(id);
@@ -77,7 +77,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         <Text>{'Calories'}</Text>
       </View>
 
-      <ItemCustomisations customisations={customisations} />
+      <ItemCustomisations<typeof id> customisations={customisations} />
 
       <Button
         onPress={() => {
