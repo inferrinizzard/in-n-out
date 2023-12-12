@@ -30,7 +30,8 @@ const MiscPriceData = Object.freeze({
   SoftDrinkMedium: 1.8,
   SoftDrinkLarge: 2.0,
   SoftDrinkXtraLarge: 2.2,
-});
+  AnimalStyle: 1,
+} as const);
 
 PriceData satisfies Record<SkuId, number>;
 

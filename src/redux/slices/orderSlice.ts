@@ -6,6 +6,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { Sku } from '../../models/Sku';
 import {
+  type CustomisationEntry,
   type CustomisationKey,
   type CustomisationValue,
 } from '../../data/customisations';
@@ -44,17 +45,14 @@ export const orderSlice = createSlice({
       if ('data' in action.payload) {
         const { name, value } = action.payload.data;
 
-        // @ts-expect-error
         state.activeItem.customisations[name].data = value;
       } else if ('flags' in action.payload) {
         const { name, flag, value } = action.payload.flags;
 
-        // @ts-expect-error
         state.activeItem.customisations[name].flags = {
-          // @ts-expect-error
           ...state.activeItem.customisations[name].flags,
           [flag]: value,
-        };
+        } as CustomisationEntry<typeof state.activeItem.id>[Key]['flags'];
       }
 
       state.activeItem = Sku(state.activeItem);
