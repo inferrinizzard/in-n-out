@@ -68,7 +68,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
       }}
     >
       <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
-      <Text style={{ fontSize: 24 }}>{name}</Text>
+      <Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
           2

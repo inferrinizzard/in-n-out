@@ -20,9 +20,8 @@ export interface CustomisationNode {
 }
 
 type CustomisationNodeKeys<Node extends CustomisationNode> =
-  undefined extends Node['more']
-    ? Node['base'][number]
-    : Node['base'][number] | (Node['more'] & CustomisationKey[])[number];
+  | Node['base'][number]
+  | (Node['more'] & CustomisationKey[])[number];
 
 export type ItemCustomisations<Id extends SkuId> =
   Id extends keyof typeof customisationOptionMap

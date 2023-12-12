@@ -4,7 +4,7 @@ import { type RootState } from '../store';
 import 'react-native-get-random-values';
 import { v4 as uuidV4 } from 'uuid';
 
-import { type Sku } from '../../models/Sku';
+import { Sku } from '../../models/Sku';
 import {
   type CustomisationKey,
   type CustomisationValue,
@@ -56,6 +56,8 @@ export const orderSlice = createSlice({
           [flag]: value,
         };
       }
+
+      state.activeItem = Sku(state.activeItem);
     },
     addActiveToPending: (state) => {
       if (!state.activeItem) {

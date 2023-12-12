@@ -3,15 +3,26 @@ import {
   type CustomisationEntry,
 } from '../data/customisations';
 import { type SkuId } from '../data/types';
+import { Burger } from './Burger';
 
 export interface Sku<Id extends SkuId = SkuId> {
   id: Id;
   name: string;
   price: number;
-  customisations?: CustomisationEntry<Id>;
+  customisations: CustomisationEntry<Id>;
 }
 
+const SpecialSku: Partial<Record<SkuId, (skuParams: any) => Sku>> = {
+  DblDbl: Burger,
+  Cheeseburger: Burger,
+  Hamburger: Burger,
+};
+
 export const Sku = (skuParams: Sku) => {
+  if (skuParams.id in SpecialSku) {
+    return SpecialSku[skuParams.id]!(skuParams);
+  }
+
   return skuParams;
 };
 

@@ -1,47 +1,67 @@
 import { Sku } from './Sku';
 
+import { type SkuId } from '../data/types';
+
 export interface BurgerParams {
   meat: number;
   cheese: number;
 }
 
-export const Burger = (skuParams: Sku, burgerParams: BurgerParams) => {
-  const sku = Sku(skuParams);
-  const burgerName = getBurgerName(burgerParams.meat, burgerParams.cheese);
-  return { ...sku, ...burgerParams, burgerName };
+export const Burger = <
+  Id extends Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>
+>(
+  skuParams: Sku<Id>
+) => {
+  // @ts-expect-error
+  const meat = skuParams.customisations.Meat?.data ?? 0;
+  // @ts-expect-error
+  const cheese = skuParams.customisations.Cheese?.data ?? 0;
+
+  const name = getBurgerName(meat, cheese);
+  return { ...skuParams, name };
 };
 
 const getBurgerName = (meat: number, cheese: number) => {
-  if (cheese === 0 && meat === 1) {
-    return 'hamburger';
-  }
-  if (cheese === 1 && meat === 1) {
-    return 'cheeseburger';
-  }
-  if (meat > 3 || cheese > 3) {
-    return `${meat}x${cheese}`;
-  }
-
-  const meatTerm =
-    meat === 1
-      ? 'single'
-      : meat === 2
-      ? 'double'
-      : meat === 3
-      ? 'triple'
-      : null;
+  const meatTerm = ['', 'Single', 'Double', 'Triple'][meat] ?? meat.toString();
   const cheeseTerm =
-    cheese === 1
-      ? 'single'
-      : cheese === 2
-      ? 'double'
-      : meat === 3
-      ? 'triple'
-      : null;
+    ['', 'Single', 'Double', 'Triple'][cheese] ?? cheese.toString();
 
-  if (meatTerm && cheeseTerm) {
-    return `${meat}-${cheese}`;
+  let left = meatTerm;
+  let join = '-';
+  let right = cheeseTerm;
+
+  if (cheese === 0 && meat === 0) {
+    return 'Wish Burger';
   }
 
-  return `${meat}x${cheese}`;
+  if (cheese === 0) {
+    right = 'Hamburger';
+    join = ' ';
+
+    if (meat === 1) {
+      left = '';
+      join = '';
+    }
+  }
+
+  if (meat === 0) {
+    left = cheeseTerm;
+    join = ' ';
+    right = 'Grilled Cheese';
+
+    if (cheese === 1) {
+      left = '';
+      join = '';
+    }
+    if (cheese > 3) {
+      left = cheese.toString();
+      join = 'x ';
+    }
+  }
+
+  if (cheese > 3 || meat > 3) {
+    join = 'x';
+  }
+
+  return `${left}${join}${right}`;
 };

@@ -78,7 +78,7 @@ const ItemCustomisationRow = <
 
                 borderColor: 'black',
                 borderRadius: 8,
-                borderWidth: (activeOption?.data as number) > 2 ? 2 : 0,
+                borderWidth: (activeOption?.data as number) > 3 ? 2 : 0,
               }}
             >
               <Text>{'Custom'}</Text>
