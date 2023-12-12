@@ -18,7 +18,7 @@ customisationOptionMap satisfies Partial<
 
 export const getCustomisationOptions = <Id extends SkuId>(id: Id) => {
   if (!(id in customisationOptionMap)) {
-    throw Error('Tried to customise a combo instead of single item');
+    return null;
   }
 
   return CustomisationTree[
@@ -36,6 +36,10 @@ export const burgerMeatCheeseDefaults: Partial<
 
 export const buildCustomisationDefaultEntry = <Id extends SkuId>(id: Id) => {
   const customisations = getCustomisationOptions(id);
+
+  if (!customisations) {
+    return null;
+  }
 
   let customisationKeys: CustomisationKey[] = [...customisations.base];
   if ('more' in customisations) {

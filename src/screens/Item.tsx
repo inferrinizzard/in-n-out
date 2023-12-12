@@ -52,7 +52,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         Sku({
           ...menu[id],
           price: prices.base[id],
-          customisations: buildCustomisationDefaultEntry(id),
+          customisations: { ...buildCustomisationDefaultEntry(id) },
         })
       )
     );

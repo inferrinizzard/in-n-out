@@ -33,7 +33,7 @@ export type CustomisationEntry<
   Customisations extends CustomisationNode = ItemCustomisations<Id>,
   Options extends CustomisationKey = CustomisationNodeKeys<Customisations>
 > = Id extends keyof typeof customisationOptionMap
-  ? {
+  ? Partial<{
       [Option in Options]: {
         data: CustomisationValue<Option>;
         flags?: 'flags' extends keyof (typeof CustomisationData)[Option]
@@ -46,5 +46,5 @@ export type CustomisationEntry<
               >
           : undefined;
       };
-    }
+    }>
   : never;

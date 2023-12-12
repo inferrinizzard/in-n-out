@@ -8,8 +8,8 @@ import { type SkuId } from '../data/types';
 export type BurgerId = Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>;
 
 export const Burger = (skuParams: Sku<BurgerId>) => {
-  const meat = skuParams.customisations.Meat.data;
-  const cheese = skuParams.customisations.Cheese.data;
+  const meat = skuParams.customisations.Meat?.data ?? 0;
+  const cheese = skuParams.customisations.Cheese?.data ?? 0;
 
   const name = getBurgerName(meat, cheese);
   const price = getBurgerPrice(skuParams);
@@ -66,10 +66,14 @@ const getBurgerPrice = (sku: Sku<BurgerId>) => {
 
   const defaults = burgerMeatCheeseDefaults[sku.id]!;
 
-  const meatDelta = defaults.Meat!.data - sku.customisations.Meat.data;
-  const cheeseDelta = defaults.Cheese!.data - sku.customisations.Cheese.data;
+  const meatDelta = sku.customisations.Meat
+    ? defaults.Meat!.data - sku.customisations.Meat.data
+    : 0;
+  const cheeseDelta = sku.customisations.Cheese
+    ? defaults.Cheese!.data - sku.customisations.Cheese.data
+    : 0;
 
-  if (sku.customisations.Burger.flags?.AnimalStyle) {
+  if (sku.customisations.Burger?.flags?.AnimalStyle) {
     price += prices.misc.AnimalStyle;
   }
 
