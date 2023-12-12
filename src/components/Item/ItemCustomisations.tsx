@@ -11,16 +11,12 @@ import {
 import { type SkuId } from '../../data/types';
 
 export interface ItemCustomisationsProps {
-  customisations?: CustomisationNode;
+  customisations: CustomisationNode;
 }
 
 const ItemCustomisations = <Id extends SkuId>({
   customisations,
 }: ItemCustomisationsProps) => {
-  if (!customisations) {
-    return null;
-  }
-
   const [showMore, setShowMore] = useState(false);
 
   return (

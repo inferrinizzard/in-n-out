@@ -77,7 +77,9 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         <Text>{'Calories'}</Text>
       </View>
 
-      <ItemCustomisations<typeof id> customisations={customisations} />
+      {customisations ? (
+        <ItemCustomisations<typeof id> customisations={customisations} />
+      ) : null}
 
       <Button
         onPress={() => {

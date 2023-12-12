@@ -29,7 +29,7 @@ const ItemCustomisationRow = <
   const dispatch = useAppDispatch();
   const activeItem = useAppSelector(selectActiveItem<Id>)!;
   const activeOption = useMemo(
-    () => activeItem?.customisations?.[name],
+    () => activeItem?.customisations[name],
     [activeItem]
   );
 
