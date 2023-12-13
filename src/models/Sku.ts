@@ -1,5 +1,6 @@
 import { Burger } from './Burger';
 import { Drink } from './Drink';
+import { Fries } from './Fries';
 
 import {
   buildCustomisationDefaultEntry,
@@ -20,6 +21,7 @@ const CustomisableSku: Partial<Record<SkuId, (...args: any) => Sku>> = {
   Cheeseburger: Burger,
   Hamburger: Burger,
   SoftDrink: Drink,
+  Fries: Fries,
 } as const;
 
 export const Sku = (skuParams: Sku) => {
