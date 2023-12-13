@@ -4,11 +4,12 @@ import { type RootState } from '../store';
 import 'react-native-get-random-values';
 import { v4 as uuidV4 } from 'uuid';
 
-import { type Sku } from '../../models/Sku';
+import { Sku } from '../../models/Sku';
 import {
   type CustomisationKey,
   type CustomisationValue,
 } from '../../data/customisations';
+import { type SkuId } from '../../data/types';
 
 export interface OrderState {
   activeItem: Sku | null;
@@ -43,18 +44,22 @@ export const orderSlice = createSlice({
       if ('data' in action.payload) {
         const { name, value } = action.payload.data;
 
-        // @ts-expect-error
-        state.activeItem.customisations[name].data = value;
+        if (state.activeItem.customisations[name]) {
+          state.activeItem.customisations[name]!.data = value;
+        }
       } else if ('flags' in action.payload) {
         const { name, flag, value } = action.payload.flags;
 
-        // @ts-expect-error
-        state.activeItem.customisations[name].flags = {
+        if (state.activeItem.customisations[name]) {
           // @ts-expect-error
-          ...state.activeItem.customisations[name].flags,
-          [flag]: value,
-        };
+          state.activeItem.customisations[name]!.flags = {
+            ...state.activeItem.customisations[name]!.flags,
+            [flag]: value,
+          };
+        }
       }
+
+      state.activeItem = Sku(state.activeItem);
     },
     addActiveToPending: (state) => {
       if (!state.activeItem) {
@@ -109,7 +114,8 @@ export const {
   updateActiveCustomisations,
 } = orderSlice.actions;
 
-export const selectActiveItem = (state: RootState) => state.order.activeItem;
+export const selectActiveItem = <Id extends SkuId = SkuId>(state: RootState) =>
+  state.order.activeItem as Sku<Id> | null;
 export const selectItems = (state: RootState) => state.order.items;
 
 export default orderSlice.reducer;

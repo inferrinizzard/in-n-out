@@ -1,17 +1,34 @@
+import { Burger } from './Burger';
+import { Drink } from './Drink';
+import { Fries } from './Fries';
+
 import {
   buildCustomisationDefaultEntry,
   type CustomisationEntry,
 } from '../data/customisations';
+
 import { type SkuId } from '../data/types';
 
 export interface Sku<Id extends SkuId = SkuId> {
   id: Id;
   name: string;
   price: number;
-  customisations?: CustomisationEntry<Id>;
+  customisations: CustomisationEntry<Id>;
 }
 
+const CustomisableSku: Partial<Record<SkuId, (...args: any) => Sku>> = {
+  DblDbl: Burger,
+  Cheeseburger: Burger,
+  Hamburger: Burger,
+  SoftDrink: Drink,
+  Fries: Fries,
+} as const;
+
 export const Sku = (skuParams: Sku) => {
+  if (skuParams.id in CustomisableSku) {
+    return CustomisableSku[skuParams.id]?.(skuParams) ?? skuParams;
+  }
+
   return skuParams;
 };
 

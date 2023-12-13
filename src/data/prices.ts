@@ -1,5 +1,7 @@
 // prices from: https://mobile-cuisine.com/menu/in-n-out-burger-prices/
 
+// https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
+
 import { type SkuId } from './types';
 
 const BasePriceData = Object.freeze({
@@ -8,6 +10,10 @@ const BasePriceData = Object.freeze({
   Hamburger: 2.5,
   Fries: 1.85,
   SoftDrink: 1.8, // medium
+  Coffee: 1.35,
+  Milk: 0.99,
+  Shake: 2.5,
+  HotCocoa: 2.1,
 } as const);
 
 const PriceData = Object.freeze({
@@ -30,7 +36,8 @@ const MiscPriceData = Object.freeze({
   SoftDrinkMedium: 1.8,
   SoftDrinkLarge: 2.0,
   SoftDrinkXtraLarge: 2.2,
-});
+  AnimalStyle: 1,
+} as const);
 
 PriceData satisfies Record<SkuId, number>;
 

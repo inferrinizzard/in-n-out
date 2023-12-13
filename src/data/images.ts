@@ -17,6 +17,13 @@ const ImageData = Object.freeze({
     'https://s3-alpha-sig.figma.com/img/1cee/a800/d71a1b4cbce32b80fbf6a5a34404dc08?Expires=1702857600&Signature=nZm3B6aBfBQcpzvmLFbpFBBZHFYB7tn0Ot~-eOW1L7y67yhJS4qc8FhC4ocAtNn6pQotE5sEzAvndgrewmTT1TQEPo7jJzmOA0J~rdxLdJf6plJ~jVlTaOjhS2sIsr9Jw9-tGg7tCkZsgRm3O~OOcYwT~bKiJCX~fMPyW632RME3e-p8bR6tl~mgF81U-x677pq0ah7F3RG8GzKsZBhP1aGV1H5CII4p6z3xZLcBQnzHq01H62xQ2SRbIqH~X3h~lx0T432eI66woRLiNYccjNaH9DNJrFja8l0oMa966SjBHbPJTEKyCWfliwCREY8BwdS7EYYi3SQyHDxp38L1zg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
   SoftDrink:
     'https://s3-alpha-sig.figma.com/img/5787/5fb9/60db691f1ba363206137a7e343be92ad?Expires=1702857600&Signature=SCGNYPgHa1aECC0Fyvc9w8ypJXzC-EE43jOOXkSetW09DjemU4pZX-XEujZzaWqj3UMC4wueQUARcmiabTshou0fCnpFo1YHSO1-ZF8W581m9CxCVX1lckaFOgQ6dCeofUt-jyOKXGhKHDGk668mYxlrblziRfpmEaub2gInwCGKnPnYHjNzttXK~Qd9E6bJ9u2OEZUvRRB8PWs7NjpurUf36Aq2DKNCJ47hEzym~b7mGQAsxTgYSTZKpRbNolLk6GBoVflCyo-4OBxf9VqE9PV0yVAdjLgHQ~UdyDfljScmowCRB2QlYvZpU1qcxUWltS9i6hQ18uIdtZgoiAIs1g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+  Coffee:
+    'https://lawblog.legalmatch.com/wp-content/uploads/2014/05/in-n-out-burger-spilled-coffee.jpg',
+  Milk: 'https://i.insider.com/6154e27a2fb46b0019beaeb8?width=1000&format=jpeg&auto=webp',
+  Shake:
+    'https://www.in-n-out.com/ino-images/default-source/history/hero-1975a.jpg',
+  HotCocoa:
+    'https://www.sacbee.com/food-drink/6q0teo/picture192915519/alternates/FREE_1140/INO%20Hot%20Cocoa',
 } as const);
 
 ImageData satisfies Record<SkuId, string>;

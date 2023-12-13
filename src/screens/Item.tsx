@@ -41,7 +41,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
 
   const { id, name, nextItems } = route.params!;
 
-  const imageUrl = images[id as SkuId];
+  const imageUrl = images[id];
 
   // TODO: memo
   const customisations = getCustomisationOptions(id);
@@ -68,7 +68,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
       }}
     >
       <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
-      <Text style={{ fontSize: 24 }}>{name}</Text>
+      <Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
           2
@@ -77,7 +77,9 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
         <Text>{'Calories'}</Text>
       </View>
 
-      <ItemCustomisations customisations={customisations} />
+      {customisations ? (
+        <ItemCustomisations<typeof id> customisations={customisations} />
+      ) : null}
 
       <Button
         onPress={() => {

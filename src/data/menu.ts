@@ -39,6 +39,26 @@ const MenuData = Object.freeze({
     name: 'Soft Drink',
     has: ['SoftDrink'],
   },
+  Coffee: {
+    id: 'Coffee',
+    name: 'Coffee',
+    has: ['Coffee'],
+  },
+  Milk: {
+    id: 'Milk',
+    name: 'Milk',
+    has: ['Milk'],
+  },
+  Shake: {
+    id: 'Shake',
+    name: 'Milk Shake',
+    has: ['Shake'],
+  },
+  HotCocoa: {
+    id: 'HotCocoa',
+    name: 'Hot Cocoa',
+    has: ['HotCocoa'],
+  },
 } as const);
 
 export default MenuData;

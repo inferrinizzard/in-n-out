@@ -12,22 +12,24 @@ import {
   CustomisationData,
   type CustomisationValue,
   type CustomisationKey,
+  SkuCustomisationKey,
 } from '../../data/customisations';
+import { type SkuId } from '../../data/types';
 
 export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
   name: Key;
 }
 
-const ItemCustomisationRow = <Key extends CustomisationKey>({
+const ItemCustomisationRow = <
+  Id extends SkuId,
+  Key extends SkuCustomisationKey<Id>
+>({
   name,
 }: ItemCustomisationRowProps<Key>) => {
   const dispatch = useAppDispatch();
-  const activeItem = useAppSelector(selectActiveItem)!;
+  const activeItem = useAppSelector(selectActiveItem<Id>)!;
   const activeOption = useMemo(
-    () =>
-      activeItem?.customisations?.[
-        name as keyof typeof activeItem.customisations
-      ],
+    () => activeItem?.customisations[name],
     [activeItem]
   );
 
@@ -41,7 +43,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
   return (
     <View style={{ maxWidth: '100%' }}>
-      <Text>{name}</Text>
+      {data.type !== 'flags' ? <Text>{name}</Text> : null}
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {data.options.map((option) => (
@@ -61,6 +63,28 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
             </Card.Content>
           </Card>
         ))}
+        {data.type === 'number' ? (
+          <Card
+            key={`${name}-custom`}
+            onPress={
+              () => {}
+              // updateCustomisation(option)
+            }
+          >
+            <Card.Content
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+
+                borderColor: 'black',
+                borderRadius: 8,
+                borderWidth: (activeOption?.data as number) > 3 ? 2 : 0,
+              }}
+            >
+              <Text>{'Custom'}</Text>
+            </Card.Content>
+          </Card>
+        ) : null}
       </View>
 
       {'flags' in data &&

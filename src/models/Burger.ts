@@ -1,47 +1,84 @@
 import { Sku } from './Sku';
 
-export interface BurgerParams {
-  meat: number;
-  cheese: number;
-}
+import { burgerMeatCheeseDefaults } from '../data/customisations/utils';
+import prices from '../data/prices';
 
-export const Burger = (skuParams: Sku, burgerParams: BurgerParams) => {
-  const sku = Sku(skuParams);
-  const burgerName = getBurgerName(burgerParams.meat, burgerParams.cheese);
-  return { ...sku, ...burgerParams, burgerName };
+import { type SkuId } from '../data/types';
+
+export type BurgerId = Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>;
+
+export const Burger = (skuParams: Sku<BurgerId>): Sku => {
+  const meat = skuParams.customisations.Meat?.data ?? 0;
+  const cheese = skuParams.customisations.Cheese?.data ?? 0;
+
+  const name = getBurgerName(meat, cheese);
+  const price = getBurgerPrice(skuParams);
+  return { ...skuParams, name, price };
 };
 
 const getBurgerName = (meat: number, cheese: number) => {
-  if (cheese === 0 && meat === 1) {
-    return 'hamburger';
-  }
-  if (cheese === 1 && meat === 1) {
-    return 'cheeseburger';
-  }
-  if (meat > 3 || cheese > 3) {
-    return `${meat}x${cheese}`;
-  }
-
-  const meatTerm =
-    meat === 1
-      ? 'single'
-      : meat === 2
-      ? 'double'
-      : meat === 3
-      ? 'triple'
-      : null;
+  const meatTerm = ['', 'Single', 'Double', 'Triple'][meat] ?? meat.toString();
   const cheeseTerm =
-    cheese === 1
-      ? 'single'
-      : cheese === 2
-      ? 'double'
-      : meat === 3
-      ? 'triple'
-      : null;
+    ['', 'Single', 'Double', 'Triple'][cheese] ?? cheese.toString();
 
-  if (meatTerm && cheeseTerm) {
-    return `${meat}-${cheese}`;
+  let left = meatTerm;
+  let join = '-';
+  let right = cheeseTerm;
+
+  if (cheese === 0 && meat === 0) {
+    return 'Wish Burger';
   }
 
-  return `${meat}x${cheese}`;
+  if (cheese === 0) {
+    right = 'Hamburger';
+    join = ' ';
+
+    if (meat === 1) {
+      left = '';
+      join = '';
+    }
+  }
+
+  if (meat === 0) {
+    left = cheeseTerm;
+    join = ' ';
+    right = 'Grilled Cheese';
+
+    if (cheese === 1) {
+      left = '';
+      join = '';
+    }
+    if (cheese > 3) {
+      left = cheese.toString();
+      join = 'x ';
+    }
+  }
+
+  if (cheese > 3 || meat > 3) {
+    join = 'x';
+  }
+
+  return `${left}${join}${right}`;
+};
+
+const getBurgerPrice = (sku: Sku<BurgerId>) => {
+  let price = prices.base[sku.id] as number;
+
+  const defaults = burgerMeatCheeseDefaults[sku.id]!;
+
+  const meatDelta = sku.customisations.Meat
+    ? defaults.Meat!.data - sku.customisations.Meat.data
+    : 0;
+  const cheeseDelta = sku.customisations.Cheese
+    ? defaults.Cheese!.data - sku.customisations.Cheese.data
+    : 0;
+
+  if (sku.customisations.Burger?.flags?.AnimalStyle) {
+    price += prices.misc.AnimalStyle;
+  }
+
+  price += meatDelta * prices.misc.Meat * meatDelta;
+  price += cheeseDelta * prices.misc.Cheese * cheeseDelta;
+
+  return price;
 };

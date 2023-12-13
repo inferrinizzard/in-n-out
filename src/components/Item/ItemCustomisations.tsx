@@ -4,32 +4,38 @@ import { Button, Text } from 'react-native-paper';
 
 import ItemCustomisationRow from './ItemCustomisationRow';
 
-import { type CustomisationNode } from '../../data/customisations';
+import {
+  type SkuCustomisationKey,
+  type CustomisationNode,
+} from '../../data/customisations';
+import { type SkuId } from '../../data/types';
 
 export interface ItemCustomisationsProps {
-  customisations?: CustomisationNode;
+  customisations: CustomisationNode;
 }
 
-const ItemCustomisations: React.FC<ItemCustomisationsProps> = ({
+const ItemCustomisations = <Id extends SkuId>({
   customisations,
-}) => {
-  if (!customisations) {
-    return null;
-  }
-
+}: ItemCustomisationsProps) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
     <View>
       {customisations.base.map((key) => (
-        <ItemCustomisationRow key={key} name={key} />
+        <ItemCustomisationRow<Id, SkuCustomisationKey<Id>>
+          key={key}
+          name={key as SkuCustomisationKey<Id>}
+        />
       ))}
 
       {customisations.more && (
         <>
           {showMore &&
             customisations.more.map((key) => (
-              <ItemCustomisationRow key={key} name={key} />
+              <ItemCustomisationRow<Id, SkuCustomisationKey<Id>>
+                key={key}
+                name={key as SkuCustomisationKey<Id>}
+              />
             ))}
           <Button onPress={() => setShowMore((prev) => !prev)}>
             <Text>{showMore ? 'Less' : 'More'}</Text>
