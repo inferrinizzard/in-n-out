@@ -109,6 +109,18 @@ export const CustomisationData = Object.freeze({
     options: NumericCustomisation,
     flags: ['ColdCheese'],
   },
+  Shake: {
+    type: 'flags',
+    default: '',
+    options: [],
+    flags: ['Chocolate', 'Vanilla', 'Strawberry'],
+  },
+  SecretShake: {
+    type: 'flags',
+    default: '',
+    options: [],
+    flags: ['Black & White', 'Neopolitan'],
+  },
 } as const);
 
 CustomisationData satisfies Record<string, CustomisationOption>;
@@ -135,6 +147,10 @@ export const CustomisationTree = Object.freeze({
   },
   Drink: {
     base: ['Size'],
+  },
+  Shake: {
+    base: ['Shake'],
+    more: ['SecretShake'],
   },
 } as const);
 

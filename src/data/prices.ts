@@ -10,6 +10,10 @@ const BasePriceData = Object.freeze({
   Hamburger: 2.5,
   Fries: 1.85,
   SoftDrink: 1.8, // medium
+  Coffee: 1.35,
+  Milk: 0.99,
+  Shake: 2.5,
+  HotCocoa: 2.1,
 } as const);
 
 const PriceData = Object.freeze({

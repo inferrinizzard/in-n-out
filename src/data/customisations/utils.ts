@@ -10,6 +10,7 @@ export const customisationOptionMap = {
   Hamburger: 'Burger',
   Fries: 'Fries',
   SoftDrink: 'Drink',
+  Shake: 'Shake',
 } as const;
 
 customisationOptionMap satisfies Partial<
