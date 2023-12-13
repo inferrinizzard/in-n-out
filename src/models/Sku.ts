@@ -1,4 +1,5 @@
-import { Burger, type BurgerId } from './Burger';
+import { Burger } from './Burger';
+import { Drink } from './Drink';
 
 import {
   buildCustomisationDefaultEntry,
@@ -14,17 +15,16 @@ export interface Sku<Id extends SkuId = SkuId> {
   customisations: CustomisationEntry<Id>;
 }
 
-const BurgerSku: Record<BurgerId, typeof Burger> = {
+const CustomisableSku: Partial<Record<SkuId, (...args: any) => Sku>> = {
   DblDbl: Burger,
   Cheeseburger: Burger,
   Hamburger: Burger,
+  SoftDrink: Drink,
 } as const;
 
-export const Sku = (skuParams: Sku): Sku => {
-  // TODO: fix this ?
-  if (skuParams.id in BurgerSku) {
-    const burgerSkuParams = skuParams as Sku<BurgerId>;
-    return BurgerSku[burgerSkuParams.id](burgerSkuParams) as Sku;
+export const Sku = (skuParams: Sku) => {
+  if (skuParams.id in CustomisableSku) {
+    return CustomisableSku[skuParams.id]?.(skuParams) ?? skuParams;
   }
 
   return skuParams;

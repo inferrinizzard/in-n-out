@@ -7,7 +7,7 @@ import { type SkuId } from '../data/types';
 
 export type BurgerId = Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>;
 
-export const Burger = (skuParams: Sku<BurgerId>) => {
+export const Burger = (skuParams: Sku<BurgerId>): Sku => {
   const meat = skuParams.customisations.Meat?.data ?? 0;
   const cheese = skuParams.customisations.Cheese?.data ?? 0;
 

@@ -1,5 +1,7 @@
 // prices from: https://mobile-cuisine.com/menu/in-n-out-burger-prices/
 
+// https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
+
 import { type SkuId } from './types';
 
 const BasePriceData = Object.freeze({
