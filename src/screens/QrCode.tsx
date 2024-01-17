@@ -1,5 +1,5 @@
-import { StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 
 import { type TabScreenProps } from '../navigators/BottomTabs';
 
@@ -10,11 +10,12 @@ const QrCode: React.FC<QrCodeProps & TabScreenProps<'TabQrCode'>> = ({
 }) => {
   return (
     <View>
-      <Text>QrCode Screen</Text>
+      <Text>Pick-Up Code</Text>
 
-      <Button onPress={() => navigation.navigate('TabMenu')}>
-        {'Go to Menu'}
-      </Button>
+      <Image
+        source={require('../../assets/images/qrcode.png')}
+        style={{ height: 300, width: 300 }}
+      />
     </View>
   );
 };
