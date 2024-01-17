@@ -91,18 +91,22 @@ const getBurgerCalories = (sku: Sku<BurgerId>) => {
   const defaults = burgerMeatCheeseDefaults[sku.id]!;
 
   const meatDelta = sku.customisations.Meat
-    ? defaults.Meat!.data - sku.customisations.Meat.data
+    ? sku.customisations.Meat.data - defaults.Meat!.data
     : 0;
   const cheeseDelta = sku.customisations.Cheese
-    ? defaults.Cheese!.data - sku.customisations.Cheese.data
+    ? sku.customisations.Cheese.data - defaults.Cheese!.data
     : 0;
 
   if (sku.customisations.Burger?.flags?.AnimalStyle) {
     numCalories += calories.misc.AnimalStyle;
   }
 
-  numCalories += meatDelta * calories.misc.Meat * meatDelta;
-  numCalories += cheeseDelta * calories.misc.Cheese * cheeseDelta;
+  if (sku.customisations.Bun?.data === 'ProteinStyle') {
+    numCalories += calories.misc.ProteinStyle;
+  }
+
+  numCalories += meatDelta * calories.misc.Meat;
+  numCalories += cheeseDelta * calories.misc.Cheese;
 
   return numCalories;
 };
