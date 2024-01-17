@@ -77,7 +77,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
           2
         )}`}</Text>
         <Text>{' | '}</Text>
-        <Text>{'Calories'}</Text>
+        <Text>{`${activeItem?.calories ?? calories.base[id]} Calories`}</Text>
       </View>
 
       {customisations ? (
