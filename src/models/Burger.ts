@@ -69,18 +69,18 @@ const getBurgerPrice = (sku: Sku<BurgerId>) => {
   const defaults = burgerMeatCheeseDefaults[sku.id]!;
 
   const meatDelta = sku.customisations.Meat
-    ? defaults.Meat!.data - sku.customisations.Meat.data
+    ? sku.customisations.Meat.data - defaults.Meat!.data
     : 0;
   const cheeseDelta = sku.customisations.Cheese
-    ? defaults.Cheese!.data - sku.customisations.Cheese.data
+    ? sku.customisations.Cheese.data - defaults.Cheese!.data
     : 0;
 
   if (sku.customisations.Burger?.flags?.AnimalStyle) {
     price += prices.misc.AnimalStyle;
   }
 
-  price += meatDelta * prices.misc.Meat * meatDelta;
-  price += cheeseDelta * prices.misc.Cheese * cheeseDelta;
+  price += meatDelta * prices.misc.Meat;
+  price += cheeseDelta * prices.misc.Cheese;
 
   return price;
 };
