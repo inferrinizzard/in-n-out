@@ -13,6 +13,7 @@ export interface Sku<Id extends SkuId = SkuId> {
   id: Id;
   name: string;
   price: number;
+	calories: number;
   customisations: CustomisationEntry<Id>;
 }
 
