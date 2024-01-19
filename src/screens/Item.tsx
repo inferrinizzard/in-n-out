@@ -47,15 +47,17 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   const customisations = getCustomisationOptions(id);
 
   useEffect(() => {
-    dispatch(
-      setActiveItem(
-        Sku({
-          ...menu[id],
-          price: prices.base[id],
-          customisations: { ...buildCustomisationDefaultEntry(id) },
-        })
-      )
-    );
+    if (!activeItem) {
+      dispatch(
+        setActiveItem(
+          Sku({
+            ...menu[id],
+            price: prices.base[id],
+            customisations: { ...buildCustomisationDefaultEntry(id) },
+          })
+        )
+      );
+    }
   }, [id]);
 
   return (
