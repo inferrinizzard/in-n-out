@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Image, View } from 'react-native';
-import { Button, Card, Text } from 'react-native-paper';
+import { Button, Card, Text, TextInput } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
@@ -31,6 +31,14 @@ const ItemCustomisationRow = <
   const activeOption = useMemo(
     () => activeItem?.customisations[name],
     [activeItem]
+  );
+
+  const [customNumber, setCustomNumber] = useState<number | null>(
+    activeOption?.data &&
+      typeof activeOption.data === 'number' &&
+      activeOption.data > 3
+      ? activeOption.data
+      : null
   );
 
   const data = CustomisationData[name];
@@ -64,26 +72,52 @@ const ItemCustomisationRow = <
           </Card>
         ))}
         {data.type === 'number' ? (
-          <Card
-            key={`${name}-custom`}
-            onPress={
-              () => {}
-              // updateCustomisation(option)
-            }
-          >
-            <Card.Content
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-
-                borderColor: 'black',
-                borderRadius: 8,
-                borderWidth: (activeOption?.data as number) > 3 ? 2 : 0,
+          <>
+            <Card
+              key={`${name}-custom`}
+              onPress={() => {
+                setCustomNumber((prev) =>
+                  prev === null ? data.default : null
+                );
+                updateCustomisation(3);
               }}
             >
-              <Text>{'Custom'}</Text>
-            </Card.Content>
-          </Card>
+              <Card.Content
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  borderWidth: customNumber !== null ? 2 : 0,
+                }}
+              >
+                <Text>{'Custom'}</Text>
+              </Card.Content>
+            </Card>
+            {customNumber !== null && (
+              <Card key={`${name}-custom-input`}>
+                <Card.Content>
+                  <TextInput
+                    keyboardType="numeric"
+                    onKeyPress={(e) => {
+                      // @ts-ignore
+                      const inputNumber = Number(e.key.replace(/\D/g, ''));
+                      if (inputNumber) {
+                        setCustomNumber(inputNumber);
+                        updateCustomisation(
+                          inputNumber as CustomisationValue<Key>
+                        );
+                      }
+                    }}
+                    value={customNumber.toString()}
+                    maxLength={1}
+                    style={{ maxWidth: 50, height: 50 }}
+                  />
+                </Card.Content>
+              </Card>
+            )}
+          </>
         ) : null}
       </View>
 
