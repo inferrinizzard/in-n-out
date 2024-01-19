@@ -4,9 +4,6 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
-import { useAppDispatch } from '../redux/store';
-import { clearActiveItem } from '../redux/slices/orderSlice';
-
 import Menu, { MenuProps } from '../screens/Menu';
 import Item, { ItemProps } from '../screens/Item';
 
@@ -30,9 +27,7 @@ const Stack = createNativeStackNavigator<MenuStackParamList>();
 
 export interface MenuStackNavigatorProps {}
 
-const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
-  const dispatch = useAppDispatch();
-
+const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
   const routes = useMemo(
     () =>
       Object.entries(menuStackRoutes) as [keyof typeof menuStackRoutes, any][],
@@ -40,18 +35,12 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
   );
 
   return (
-    <Stack.Navigator
-      initialRouteName="StackMenu"
-      screenOptions={{ headerShown: false }}
-    >
+    <Stack.Navigator initialRouteName="StackMenu">
       {routes.map(([screen, component]) => (
         <Stack.Screen
           key={screen}
           name={screen}
           component={component}
-          // listeners={{
-          //   beforeRemove: () => dispatch(clearActiveItem()),
-          // }}
           options={({ route }) => ({
             title:
               route.params && 'name' in route.params
@@ -64,4 +53,4 @@ const MenuStackNavigator: React.FC<MenuStackNavigatorProps> = () => {
   );
 };
 
-export default MenuStackNavigator;
+export default MainNavigator;

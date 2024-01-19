@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import ReduxProvider from './src/redux/Provider';
 import { theme, navigationTheme } from './src/styles/theme';
-import BottomTabsNavigator from './src/navigators/BottomTabs';
+import MainNavigator from './src/navigators/MenuStack';
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: navigationTheme,
@@ -19,7 +19,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <SafeAreaView style={{ flex: 1, ...styles.androidSafeArea }}>
           <NavigationContainer theme={LightTheme}>
-            <BottomTabsNavigator />
+            <MainNavigator />
           </NavigationContainer>
         </SafeAreaView>
       </ThemeProvider>
