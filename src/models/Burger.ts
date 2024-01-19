@@ -29,33 +29,57 @@ const getBurgerName = (meat: number, cheese: number) => {
     return 'Wish Burger';
   }
 
+  if (meat === 0) {
+    right = 'Grilled Cheese';
+    join = ' ';
+    left = cheeseTerm;
+
+    if (cheese === 1) {
+      return right;
+    }
+
+    if (cheese > 3) {
+      left = cheese.toString();
+      join = 'x ';
+    }
+
+    return `${left}${join}${right}`;
+  }
+
   if (cheese === 0) {
     right = 'Hamburger';
     join = ' ';
 
     if (meat === 1) {
-      left = '';
-      join = '';
+      return right;
     }
-  }
 
-  if (meat === 0) {
-    left = cheeseTerm;
-    join = ' ';
-    right = 'Grilled Cheese';
-
-    if (cheese === 1) {
-      left = '';
-      join = '';
-    }
-    if (cheese > 3) {
-      left = cheese.toString();
+    if (meat > 3) {
       join = 'x ';
     }
+    return `${left}${join}${right}`;
+  }
+
+  if (cheese === 1) {
+    right = 'Cheeseburger';
+    join = ' ';
+
+    if (meat === 1) {
+      return right;
+    }
+
+    if (meat > 3) {
+      join = 'x ';
+    }
+    return `${left}${join}${right}`;
   }
 
   if (cheese > 3 || meat > 3) {
+    left = meat.toString();
     join = 'x';
+    if (cheese > 1) {
+      right = cheese.toString();
+    }
   }
 
   return `${left}${join}${right}`;
