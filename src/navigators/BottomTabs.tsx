@@ -8,12 +8,12 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import MenuStackNavigator from './MenuStack';
-import Header from '../components/header/Header';
+import Header from '../components/navigation/Header';
 import Account, { type AccountProps } from '../screens/Account';
 import Cart, { type CartProps } from '../screens/Cart';
 import More, { type MoreProps } from '../screens/More';
 import QrCode, { type QrCodeProps } from '../screens/QrCode';
-import HeaderButton from '../components/header/HeaderButton';
+import HeaderButton from '../components/navigation/HeaderButton';
 
 // #region types
 export const baseTabRoutes = {
