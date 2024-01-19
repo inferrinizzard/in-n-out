@@ -55,7 +55,13 @@ const ItemCustomisationRow = <
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {data.options.map((option) => (
-          <Card key={option} onPress={() => updateCustomisation(option)}>
+          <Card
+            key={option}
+            onPress={() => {
+              updateCustomisation(option);
+              setCustomNumber(null);
+            }}
+          >
             <Card.Content
               style={{
                 display: 'flex',
@@ -75,12 +81,9 @@ const ItemCustomisationRow = <
           <>
             <Card
               key={`${name}-custom`}
-              onPress={() => {
-                setCustomNumber((prev) =>
-                  prev === null ? data.default : null
-                );
-                updateCustomisation(3);
-              }}
+              onPress={() =>
+                setCustomNumber((prev) => (prev === null ? data.default : null))
+              }
             >
               <Card.Content
                 style={{
