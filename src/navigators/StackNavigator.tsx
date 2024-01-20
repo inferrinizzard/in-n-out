@@ -56,7 +56,7 @@ const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
         headerLeft: ({ canGoBack }) => (canGoBack ? <HeaderButton /> : null),
         header: ({ navigation, route, options, back }) => (
           <>
-            <Header>{route.key}</Header>
+            <Header>{route.name}</Header>
             <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
               <BottomTabs />
             </div>
