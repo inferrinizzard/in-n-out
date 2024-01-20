@@ -92,7 +92,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
             navigation.push('Item', { ...nextItem, nextItems: rest });
           } else {
             dispatch(addingPendingToList());
-            navigation.navigate('Menu');
+            navigation.popToTop();
           }
         }}
       >

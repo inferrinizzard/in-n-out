@@ -27,7 +27,6 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
           index: navigationState.index,
           routes: navigationRoutes,
         }}
-        // safeAreaInsets={insets}
         onTabPress={({ route, preventDefault }) => {
           navigation.replace(route.key);
         }}

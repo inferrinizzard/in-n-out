@@ -32,10 +32,7 @@ const Cart: React.FC<CartProps & StackScreenProps<'Cart'>> = ({
         ) : (
           <View>
             <Text>{'No items in cart!'}</Text>
-            <Button
-              mode="contained"
-              onPress={() => navigation.navigate('Menu')}
-            >
+            <Button mode="contained" onPress={() => navigation.replace('Menu')}>
               <Text>{'Add items'}</Text>
             </Button>
           </View>

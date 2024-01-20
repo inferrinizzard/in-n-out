@@ -48,7 +48,7 @@ const Menu: React.FC<
             width: '100%',
           }}
         >
-          <Button onPress={() => navigation.navigate('Cart')}>
+          <Button onPress={() => navigation.replace('Cart')}>
             <Text>{`Checkout ${orderItems.length} Items now`}</Text>
           </Button>
         </View>
