@@ -1,12 +1,11 @@
 import { Icon, List } from 'react-native-paper';
 
+import { StackScreenProps } from '../navigators/MenuStack';
 import ScreenContainer from '../components/ScreenContainer';
-
-import { type TabScreenProps } from '../navigators/BottomTabs';
 
 export interface AccountProps {}
 
-const Account: React.FC<AccountProps & TabScreenProps<'TabAccount'>> = ({
+const Account: React.FC<AccountProps & StackScreenProps<'Account'>> = ({
   navigation,
 }) => {
   return (

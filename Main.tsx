@@ -1,4 +1,4 @@
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import {
   PaperProvider as ThemeProvider,
   adaptNavigationTheme,
@@ -6,8 +6,9 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 
 import ReduxProvider from './src/redux/Provider';
-import { theme, navigationTheme } from './src/styles/theme';
+
 import MainNavigator from './src/navigators/MenuStack';
+import { theme, navigationTheme } from './src/styles/theme';
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: navigationTheme,

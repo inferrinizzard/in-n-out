@@ -1,18 +1,18 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { type TabScreenProps } from '../navigators/BottomTabs';
+import { StackScreenProps } from '../navigators/MenuStack';
 
 export interface QrCodeProps {}
 
-const QrCode: React.FC<QrCodeProps & TabScreenProps<'TabQrCode'>> = ({
+const QrCode: React.FC<QrCodeProps & StackScreenProps<'QrCode'>> = ({
   navigation,
 }) => {
   return (
     <View>
       <Text>QrCode Screen</Text>
 
-      <Button onPress={() => navigation.navigate('TabMenu')}>
+      <Button onPress={() => navigation.navigate('Menu')}>
         {'Go to Menu'}
       </Button>
     </View>

@@ -6,36 +6,70 @@ import {
 
 import Menu, { MenuProps } from '../screens/Menu';
 import Item, { ItemProps } from '../screens/Item';
+import Cart, { CartProps } from '../screens/Cart';
+import More, { MoreProps } from '../screens/More';
+import QrCode, { QrCodeProps } from '../screens/QrCode';
+import Account, { AccountProps } from '../screens/Account';
+
+import { BottomTabs } from '../components/navigation/BottomTabs';
+import Header from '../components/navigation/Header';
+import { BottomNavigation, Button } from 'react-native-paper';
 
 // #region types
-export const menuStackRoutes = {
-  StackMenu: Menu,
-  StackItem: Item,
+export const routesMap = {
+  Menu,
+  Item,
+  Cart,
+  QrCode,
+  Account,
+  More,
 } as const;
 
-export type MenuStackParamList = {
-  StackMenu?: MenuProps;
-  StackItem?: ItemProps;
+export type StackParamList = {
+  Menu?: MenuProps;
+  Item?: ItemProps;
+  Cart?: CartProps;
+  QrCode?: QrCodeProps;
+  Account?: AccountProps;
+  More?: MoreProps;
 };
 
-export type MenuStackScreenProps = NativeStackScreenProps<MenuStackParamList>;
-export type StackScreenProps<Screen extends keyof MenuStackParamList> =
-  NativeStackScreenProps<MenuStackParamList, Screen>;
+export type MenuStackScreenProps = NativeStackScreenProps<StackParamList>;
+export type StackScreenProps<Screen extends keyof StackParamList> =
+  NativeStackScreenProps<StackParamList, Screen>;
 // #endregion
 
-const Stack = createNativeStackNavigator<MenuStackParamList>();
+const Stack = createNativeStackNavigator<StackParamList>();
 
 export interface MenuStackNavigatorProps {}
 
 const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
   const routes = useMemo(
-    () =>
-      Object.entries(menuStackRoutes) as [keyof typeof menuStackRoutes, any][],
-    [menuStackRoutes]
+    () => Object.entries(routesMap) as [keyof typeof routesMap, any][],
+    [routesMap]
   );
 
   return (
-    <Stack.Navigator initialRouteName="StackMenu">
+    <Stack.Navigator
+      initialRouteName="Menu"
+      screenOptions={{
+        header: ({ navigation, route, options, back }) => (
+          <>
+            {back && (
+              <Button onPress={() => navigation.goBack()}>{'Back'}</Button>
+            )}
+            <div>{route.name}</div>
+            <div style={{ position: 'fixed', bottom: 0 }}>
+              {routes.map(([route, _]) => (
+                <Button onPress={() => navigation.replace(route)}>
+                  {route}
+                </Button>
+              ))}
+            </div>
+          </>
+        ),
+      }}
+    >
       {routes.map(([screen, component]) => (
         <Stack.Screen
           key={screen}
