@@ -1,56 +1,42 @@
 import { useNavigation } from '@react-navigation/native';
-import { BottomNavigation } from 'react-native-paper';
-import { MenuStackNavigatorProps } from '../../navigators/MenuStack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomNavigation, Icon } from 'react-native-paper';
 
-const baseTabsIcons: Record<string, string> = {
-  TabMenu: 'silverware',
-  TabCart: 'cart-outline',
-  TabQrCode: 'qrcode',
-  TabAccount: 'account',
-  TabMore: 'dots-horizontal',
+import { StackParamList } from '../../navigators/MenuStack';
+
+const tabsIcons: Record<string, string> = {
+  Menu: 'silverware',
+  Cart: 'cart-outline',
+  QrCode: 'qrcode',
+  Account: 'account',
+  More: 'dots-horizontal',
 };
 
 export interface BottomTabsProps {}
 
 export const BottomTabs: React.FC<BottomTabsProps> = () => {
-  const navigation = useNavigation();
-
-  // if(navigation)
-
-  // return null;
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const navigationState = navigation.getState();
+  const navigationRoutes = navigationState.routeNames
+    .filter((route) => route != 'Item')
+    .map((route) => ({ key: route }));
 
   return (
     <BottomNavigation.Bar
-      navigationState={navigation.getState()}
+      navigationState={{
+        index: navigationState.index,
+        routes: navigationRoutes,
+      }}
       // safeAreaInsets={insets}
       onTabPress={({ route, preventDefault }) => {
-        // const event = navigation.emit({
-        //   type: 'Press',
-        //   target: route.key,
-        //   canPreventDefault: true,
-        // });
-        // if (event.defaultPrevented) {
-        //   preventDefault();
-        // } else {
-        //   navigation.dispatch({
-        //     ...CommonActions.navigate(route.name, route.params),
-        //     target: state.key,
-        //   });
-        // }
+        navigation.replace(route.key);
       }}
       renderIcon={({ route, focused, color }) => {
-        // const { options } = descriptors[route.key];
-        // if (options.tabBarIcon) {
-        //   return options.tabBarIcon({ focused, color, size: 24 });
-        // }
-
-        return null;
+        const iconSource = tabsIcons[route.key];
+        return <Icon source={iconSource} size={24} color={color} />;
       }}
       getLabelText={({ route }) => {
-        // const { options } = descriptors[route.key];
-        // return options.tabBarLabel as string;
-
-        return route.name;
+        return route.key;
       }}
     />
   );

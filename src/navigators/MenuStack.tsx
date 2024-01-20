@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Button } from 'react-native-paper';
 import {
   NativeStackScreenProps,
   createNativeStackNavigator,
@@ -13,7 +14,6 @@ import Account, { AccountProps } from '../screens/Account';
 
 import { BottomTabs } from '../components/navigation/BottomTabs';
 import Header from '../components/navigation/Header';
-import { BottomNavigation, Button } from 'react-native-paper';
 
 // #region types
 export const routesMap = {
@@ -59,12 +59,8 @@ const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
               <Button onPress={() => navigation.goBack()}>{'Back'}</Button>
             )}
             <div>{route.name}</div>
-            <div style={{ position: 'fixed', bottom: 0 }}>
-              {routes.map(([route, _]) => (
-                <Button onPress={() => navigation.replace(route)}>
-                  {route}
-                </Button>
-              ))}
+            <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+              <BottomTabs />
             </div>
           </>
         ),
