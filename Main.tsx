@@ -3,24 +3,36 @@ import {
   PaperProvider as ThemeProvider,
   adaptNavigationTheme,
 } from 'react-native-paper';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 
 import ReduxProvider from './src/redux/Provider';
 
-import MainNavigator from './src/navigators/StackNavigator';
+import MainNavigator, {
+  type StackParamList,
+} from './src/navigators/StackNavigator';
+import { BottomTabs } from './src/components/navigation/BottomTabs';
 import { theme, navigationTheme } from './src/styles/theme';
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: navigationTheme,
 });
 
+export const navigationRef = createNavigationContainerRef<StackParamList>();
+
 const App = () => {
   return (
     <ReduxProvider>
       <ThemeProvider theme={theme}>
-        <SafeAreaView style={{ flex: 1, ...styles.androidSafeArea }}>
-          <NavigationContainer theme={LightTheme}>
+        <SafeAreaView
+          id="providerRoot"
+          style={{ flex: 1, ...styles.androidSafeArea }}
+        >
+          <NavigationContainer theme={LightTheme} ref={navigationRef}>
             <MainNavigator />
+            <BottomTabs />,
           </NavigationContainer>
         </SafeAreaView>
       </ThemeProvider>
