@@ -12,7 +12,7 @@ import QrCode, { QrCodeProps } from '../screens/QrCode';
 import Account, { AccountProps } from '../screens/Account';
 
 import { BottomTabs } from '../components/navigation/BottomTabs';
-import Header from '../components/navigation/Header';
+import Header from '../components/navigation/HeaderTitle';
 import HeaderButton from '../components/navigation/HeaderButton';
 
 // #region types
