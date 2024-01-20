@@ -5,7 +5,7 @@ import { Button, Text } from 'react-native-paper';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import {
   addActiveToPending,
-  addingPendingToList,
+  addPendingToList,
   selectActiveItem,
   setActiveItem,
 } from '../redux/slices/orderSlice';
@@ -15,7 +15,7 @@ import {
   selectPrices,
 } from '../redux/slices/dataSlice';
 
-import { type StackScreenProps } from '../navigators/MenuStack';
+import { type StackScreenProps } from '../navigators/StackNavigator';
 import ItemCustomisations from '../components/Item/ItemCustomisations';
 import {
   getCustomisationOptions,
@@ -29,7 +29,7 @@ export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
 };
 
-const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
+const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   navigation,
   route,
 }) => {
@@ -47,15 +47,17 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
   const customisations = getCustomisationOptions(id);
 
   useEffect(() => {
-    dispatch(
-      setActiveItem(
-        Sku({
-          ...menu[id],
-          price: prices.base[id],
-          customisations: { ...buildCustomisationDefaultEntry(id) },
-        })
-      )
-    );
+    if (!activeItem) {
+      dispatch(
+        setActiveItem(
+          Sku({
+            ...menu[id],
+            price: prices.base[id],
+            customisations: { ...buildCustomisationDefaultEntry(id) },
+          })
+        )
+      );
+    }
   }, [id]);
 
   return (
@@ -87,10 +89,10 @@ const Item: React.FC<ItemProps & StackScreenProps<'StackItem'>> = ({
           if (nextItems?.length) {
             const [nextItemId, ...rest] = nextItems;
             const nextItem = menu[nextItemId];
-            navigation.push('StackItem', { ...nextItem, nextItems: rest });
+            navigation.push('Item', { ...nextItem, nextItems: rest });
           } else {
-            dispatch(addingPendingToList());
-            navigation.navigate('StackMenu');
+            dispatch(addPendingToList());
+            navigation.popToTop();
           }
         }}
       >

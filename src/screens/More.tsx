@@ -1,18 +1,18 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { type TabScreenProps } from '../navigators/BottomTabs';
+import { StackScreenProps } from '../navigators/StackNavigator';
 
 export interface MoreProps {}
 
-const More: React.FC<MoreProps & TabScreenProps<'TabMore'>> = ({
+const More: React.FC<MoreProps & StackScreenProps<'More'>> = ({
   navigation,
 }) => {
   return (
     <View>
       <Text>More Screen</Text>
 
-      <Button onPress={() => navigation.navigate('TabMenu')}>
+      <Button onPress={() => navigation.navigate('Menu')}>
         {'Go to Menu'}
       </Button>
     </View>

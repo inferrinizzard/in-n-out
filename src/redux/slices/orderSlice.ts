@@ -69,9 +69,15 @@ export const orderSlice = createSlice({
       state.pending.push(state.activeItem);
       state.activeItem = null;
     },
-    addingPendingToList: (state) => {
+    addPendingToList: (state) => {
       state.pending.forEach((item) => (state.items[uuidV4()] = item));
       state.pending = [];
+    },
+    addActiveToList: (state) => {
+      if (state.activeItem) {
+        state.items[uuidV4()] = state.activeItem;
+      }
+      state.activeItem = null;
     },
     popPending: (state) => {
       const lastPending = state.pending.pop();
@@ -103,7 +109,8 @@ export const orderSlice = createSlice({
 
 export const {
   addActiveToPending,
-  addingPendingToList,
+  addPendingToList,
+  addActiveToList,
   addItem,
   clearActiveItem,
   clearPending,
