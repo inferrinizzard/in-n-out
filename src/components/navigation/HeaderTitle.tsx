@@ -5,6 +5,8 @@ import { type HeaderTitleProps } from '@react-navigation/elements';
 import { useAppSelector } from '../../redux/store';
 import { selectActiveItem } from '../../redux/slices/orderSlice';
 
+import { HeaderCopy, type ScreenKey } from '../../consts';
+
 export interface HeaderProps extends HeaderTitleProps {}
 
 const Header: React.FC<HeaderProps> = ({ tintColor, children }) => {
@@ -13,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ tintColor, children }) => {
   return (
     <View>
       <Text style={{ fontSize: 32, fontWeight: 'bold' }}>
-        {activeItem?.name ?? children}
+        {activeItem?.name ?? HeaderCopy[children as ScreenKey]}
       </Text>
     </View>
   );

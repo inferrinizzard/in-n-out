@@ -3,11 +3,13 @@ import { Icon, List } from 'react-native-paper';
 import { StackScreenProps } from '../navigators/StackNavigator';
 import ScreenContainer from '../components/ScreenContainer';
 
+import { type ScreenKeys } from '../consts';
+
 export interface AccountProps {}
 
-const Account: React.FC<AccountProps & StackScreenProps<'Account'>> = ({
-  navigation,
-}) => {
+const Account: React.FC<
+  AccountProps & StackScreenProps<typeof ScreenKeys.Account>
+> = ({ navigation }) => {
   return (
     <ScreenContainer>
       <List.Section title="Welcome, <Name>">

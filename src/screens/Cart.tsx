@@ -9,9 +9,11 @@ import { StackScreenProps } from '../navigators/StackNavigator';
 import CartItem from '../components/cart/CartItem';
 import CartLocation from '../components/cart/CartLocation';
 
+import { ScreenKeys } from '../consts';
+
 export interface CartProps {}
 
-const Cart: React.FC<CartProps & StackScreenProps<'Cart'>> = ({
+const Cart: React.FC<CartProps & StackScreenProps<typeof ScreenKeys.Cart>> = ({
   navigation,
 }) => {
   const order = useAppSelector(selectItems);
@@ -32,7 +34,10 @@ const Cart: React.FC<CartProps & StackScreenProps<'Cart'>> = ({
         ) : (
           <View>
             <Text>{'No items in cart!'}</Text>
-            <Button mode="contained" onPress={() => navigation.replace('Menu')}>
+            <Button
+              mode="contained"
+              onPress={() => navigation.replace(ScreenKeys.Menu)}
+            >
               <Text>{'Add items'}</Text>
             </Button>
           </View>

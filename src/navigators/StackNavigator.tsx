@@ -15,23 +15,25 @@ import Account, { AccountProps } from '../screens/Account';
 import Header from '../components/navigation/HeaderTitle';
 import HeaderButton from '../components/navigation/HeaderButton';
 
+import { ScreenKeys } from '../consts/screens';
+
 // #region types
 export const routesMap = {
-  Menu,
-  Item,
-  Cart,
-  QrCode,
-  Account,
-  More,
+  [ScreenKeys.Menu]: Menu,
+  [ScreenKeys.Item]: Item,
+  [ScreenKeys.Cart]: Cart,
+  [ScreenKeys.QrCode]: QrCode,
+  [ScreenKeys.Account]: Account,
+  [ScreenKeys.More]: More,
 } as const;
 
 export type StackParamList = {
-  Menu?: MenuProps;
-  Item?: ItemProps;
-  Cart?: CartProps;
-  QrCode?: QrCodeProps;
-  Account?: AccountProps;
-  More?: MoreProps;
+  [ScreenKeys.Menu]?: MenuProps;
+  [ScreenKeys.Item]?: ItemProps;
+  [ScreenKeys.Cart]?: CartProps;
+  [ScreenKeys.QrCode]?: QrCodeProps;
+  [ScreenKeys.Account]?: AccountProps;
+  [ScreenKeys.More]?: MoreProps;
 };
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>;
@@ -51,7 +53,7 @@ const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Menu"
+      initialRouteName={ScreenKeys.Menu}
       screenOptions={{
         headerLeft: (props) => (props.canGoBack ? <HeaderButton /> : null),
         headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,

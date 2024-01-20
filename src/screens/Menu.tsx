@@ -9,11 +9,13 @@ import { selectItems } from '../redux/slices/orderSlice';
 import { type StackScreenProps } from '../navigators/StackNavigator';
 import MenuItem from '../components/menu/MenuItem';
 
+import { ScreenKeys } from '../consts';
+
 export interface MenuProps {}
 
-const Menu: React.FC<
-  MenuProps & StackScreenProps<'Menu'> & StackScreenProps<'Menu'>
-> = ({ navigation }) => {
+const Menu: React.FC<MenuProps & StackScreenProps<typeof ScreenKeys.Menu>> = ({
+  navigation,
+}) => {
   const order = useAppSelector(selectItems);
   const orderItems = useMemo(() => Object.values(order), [order]);
   const menu = useAppSelector(selectMenu);
@@ -29,7 +31,7 @@ const Menu: React.FC<
             return (
               <MenuItem
                 onPress={() => {
-                  navigation.navigate('Item', {
+                  navigation.push(ScreenKeys.Item, {
                     ...menu[baseItem],
                     nextItems: next,
                   });
@@ -48,7 +50,7 @@ const Menu: React.FC<
             width: '100%',
           }}
         >
-          <Button onPress={() => navigation.replace('Cart')}>
+          <Button onPress={() => navigation.replace(ScreenKeys.Cart)}>
             <Text>{`Checkout ${orderItems.length} Items now`}</Text>
           </Button>
         </View>
