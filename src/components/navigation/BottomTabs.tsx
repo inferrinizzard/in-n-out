@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomNavigation, Icon } from 'react-native-paper';
 
-import { StackParamList } from '../../navigators/StackNavigator';
+import { type StackNavigationProps } from '../../navigators/StackNavigator';
 
 const tabsIcons: Record<string, string> = {
   Menu: 'silverware',
@@ -15,7 +14,7 @@ const tabsIcons: Record<string, string> = {
 export interface BottomTabsProps {}
 
 export const BottomTabs: React.FC<BottomTabsProps> = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const navigation = useNavigation<StackNavigationProps>();
   const navigationState = navigation.getState();
   const navigationRoutes = navigationState.routeNames
     .filter((route) => route != 'Item')
