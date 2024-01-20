@@ -1,20 +1,38 @@
-import { StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
 
-import { StackScreenProps } from '../navigators/StackNavigator';
+import { type StackScreenProps } from '../navigators/StackNavigator';
 
 export interface QrCodeProps {}
 
 const QrCode: React.FC<QrCodeProps & StackScreenProps<'QrCode'>> = ({
   navigation,
 }) => {
-  return (
-    <View>
-      <Text>QrCode Screen</Text>
+  const theme = useTheme();
 
-      <Button onPress={() => navigation.navigate('Menu')}>
-        {'Go to Menu'}
-      </Button>
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: theme.colors.primary,
+      }}
+    >
+      <Text
+        style={{
+          color: 'white',
+          fontSize: 24,
+          paddingTop: 32,
+          paddingBottom: 32,
+        }}
+      >
+        Scan to Pick Up your Order
+      </Text>
+
+      <Image
+        source={require('../../assets/images/qrcode.png')}
+        style={{ height: 300, width: 300, borderRadius: 24 }}
+      />
     </View>
   );
 };
