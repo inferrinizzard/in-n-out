@@ -2,6 +2,7 @@ import { Sku } from './Sku';
 
 import { burgerMeatCheeseDefaults } from '../data/customisations/utils';
 import prices from '../data/prices';
+import calories from '../data/calories';
 
 import { type SkuId } from '../data/types';
 
@@ -13,7 +14,8 @@ export const Burger = (skuParams: Sku<BurgerId>): Sku => {
 
   const name = getBurgerName(meat, cheese);
   const price = getBurgerPrice(skuParams);
-  return { ...skuParams, name, price };
+  const calories = getBurgerCalories(skuParams);
+  return { ...skuParams, name, price, calories };
 };
 
 const getBurgerName = (meat: number, cheese: number) => {
@@ -91,18 +93,44 @@ const getBurgerPrice = (sku: Sku<BurgerId>) => {
   const defaults = burgerMeatCheeseDefaults[sku.id]!;
 
   const meatDelta = sku.customisations.Meat
-    ? defaults.Meat!.data - sku.customisations.Meat.data
+    ? sku.customisations.Meat.data - defaults.Meat!.data
     : 0;
   const cheeseDelta = sku.customisations.Cheese
-    ? defaults.Cheese!.data - sku.customisations.Cheese.data
+    ? sku.customisations.Cheese.data - defaults.Cheese!.data
     : 0;
 
   if (sku.customisations.Burger?.flags?.AnimalStyle) {
     price += prices.misc.AnimalStyle;
   }
 
-  price += meatDelta * prices.misc.Meat * meatDelta;
-  price += cheeseDelta * prices.misc.Cheese * cheeseDelta;
+  price += meatDelta * prices.misc.Meat;
+  price += cheeseDelta * prices.misc.Cheese;
 
   return price;
+};
+
+const getBurgerCalories = (sku: Sku<BurgerId>) => {
+  let numCalories = calories.base[sku.id] as number;
+
+  const defaults = burgerMeatCheeseDefaults[sku.id]!;
+
+  const meatDelta = sku.customisations.Meat
+    ? sku.customisations.Meat.data - defaults.Meat!.data
+    : 0;
+  const cheeseDelta = sku.customisations.Cheese
+    ? sku.customisations.Cheese.data - defaults.Cheese!.data
+    : 0;
+
+  if (sku.customisations.Burger?.flags?.AnimalStyle) {
+    numCalories += calories.misc.AnimalStyle;
+  }
+
+  if (sku.customisations.Bun?.data === 'ProteinStyle') {
+    numCalories += calories.misc.ProteinStyle;
+  }
+
+  numCalories += meatDelta * calories.misc.Meat;
+  numCalories += cheeseDelta * calories.misc.Cheese;
+
+  return numCalories;
 };

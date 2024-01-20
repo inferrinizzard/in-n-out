@@ -10,6 +10,7 @@ import {
   setActiveItem,
 } from '../redux/slices/orderSlice';
 import {
+  selectCalories,
   selectImages,
   selectMenu,
   selectPrices,
@@ -36,6 +37,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
   const dispatch = useAppDispatch();
   const menu = useAppSelector(selectMenu);
   const prices = useAppSelector(selectPrices);
+  const calories = useAppSelector(selectCalories);
   const images = useAppSelector(selectImages);
   const activeItem = useAppSelector(selectActiveItem);
 
@@ -53,6 +55,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
           Sku({
             ...menu[id],
             price: prices.base[id],
+            calories: calories.base[id],
             customisations: { ...buildCustomisationDefaultEntry(id) },
           })
         )
@@ -76,7 +79,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
           2
         )}`}</Text>
         <Text>{' | '}</Text>
-        <Text>{'Calories'}</Text>
+        <Text>{`${activeItem?.calories ?? calories.base[id]} Calories`}</Text>
       </View>
 
       {customisations ? (

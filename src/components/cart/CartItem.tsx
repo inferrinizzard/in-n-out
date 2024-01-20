@@ -49,7 +49,7 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <Text>{`$${Number(item.price).toFixed(2)}`}</Text>
               <Text>{' | '}</Text>
-              <Text>{'Calories'}</Text>
+              <Text>{`${item.calories} Calories`}</Text>
             </View>
             {customisationData.map((line, i) => (
               <Text key={`${uuid}-text-${i}`}>{line}</Text>
