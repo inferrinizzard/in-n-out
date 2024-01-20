@@ -32,7 +32,7 @@ const App = () => {
         >
           <NavigationContainer theme={LightTheme} ref={navigationRef}>
             <MainNavigator />
-            <BottomTabs />,
+            <BottomTabs />
           </NavigationContainer>
         </SafeAreaView>
       </ThemeProvider>

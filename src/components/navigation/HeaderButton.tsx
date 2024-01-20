@@ -3,12 +3,12 @@ import { useNavigation } from '@react-navigation/native';
 import { type HeaderOptions } from '@react-navigation/elements';
 
 import { useAppDispatch } from '../../redux/store';
-
-import { type StackNavigationProps } from '../../navigators/StackNavigator';
 import {
   addActiveToList,
   clearActiveItem,
 } from '../../redux/slices/orderSlice';
+
+import { type StackNavigationProps } from '../../navigators/StackNavigator';
 
 export type HeaderButtonProps = Parameters<
   Exclude<HeaderOptions['headerLeft'], undefined>
