@@ -15,7 +15,7 @@ import {
   selectPrices,
 } from '../redux/slices/dataSlice';
 
-import { type StackScreenProps } from '../navigators/MenuStack';
+import { type StackScreenProps } from '../navigators/StackNavigator';
 import ItemCustomisations from '../components/Item/ItemCustomisations';
 import {
   getCustomisationOptions,

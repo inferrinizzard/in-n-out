@@ -1,6 +1,6 @@
 import { Icon, List } from 'react-native-paper';
 
-import { StackScreenProps } from '../navigators/MenuStack';
+import { StackScreenProps } from '../navigators/StackNavigator';
 import ScreenContainer from '../components/ScreenContainer';
 
 export interface AccountProps {}

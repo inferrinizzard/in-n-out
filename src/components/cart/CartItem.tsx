@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
 import { editItem, removeItem } from '../../redux/slices/orderSlice';
 
-import { StackParamList } from '../../navigators/MenuStack';
+import { StackParamList } from '../../navigators/StackNavigator';
 
 import { getCustomisationText, type Sku } from '../../models/Sku';
 import { type SkuId } from '../../data/types';

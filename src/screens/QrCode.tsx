@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { StackScreenProps } from '../navigators/MenuStack';
+import { StackScreenProps } from '../navigators/StackNavigator';
 
 export interface QrCodeProps {}
 

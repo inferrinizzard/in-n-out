@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomNavigation, Icon } from 'react-native-paper';
 
-import { StackParamList } from '../../navigators/MenuStack';
+import { StackParamList } from '../../navigators/StackNavigator';
 
 const tabsIcons: Record<string, string> = {
   Menu: 'silverware',

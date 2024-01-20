@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import ReduxProvider from './src/redux/Provider';
 
-import MainNavigator from './src/navigators/MenuStack';
+import MainNavigator from './src/navigators/StackNavigator';
 import { theme, navigationTheme } from './src/styles/theme';
 
 const { LightTheme } = adaptNavigationTheme({

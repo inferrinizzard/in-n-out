@@ -5,7 +5,7 @@ import { Button, Divider, Text } from 'react-native-paper';
 import { useAppSelector } from '../redux/store';
 import { selectItems } from '../redux/slices/orderSlice';
 
-import { StackScreenProps } from '../navigators/MenuStack';
+import { StackScreenProps } from '../navigators/StackNavigator';
 import CartItem from '../components/cart/CartItem';
 import CartLocation from '../components/cart/CartLocation';
 
