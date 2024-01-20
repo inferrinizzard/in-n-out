@@ -1,5 +1,5 @@
 import { Image, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 
 import { type TabScreenProps } from '../navigators/BottomTabs';
 
@@ -8,13 +8,30 @@ export interface QrCodeProps {}
 const QrCode: React.FC<QrCodeProps & TabScreenProps<'TabQrCode'>> = ({
   navigation,
 }) => {
+  const theme = useTheme();
+
   return (
-    <View>
-      <Text>Pick-Up Code</Text>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: theme.colors.primary,
+      }}
+    >
+      <Text
+        style={{
+          color: 'white',
+          fontSize: 24,
+          paddingTop: 32,
+          paddingBottom: 32,
+        }}
+      >
+        Scan to Pick Up your Order
+      </Text>
 
       <Image
         source={require('../../assets/images/qrcode.png')}
-        style={{ height: 300, width: 300 }}
+        style={{ height: 300, width: 300, borderRadius: 24 }}
       />
     </View>
   );
