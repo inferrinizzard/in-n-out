@@ -21,22 +21,24 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
     .map((route) => ({ key: route }));
 
   return (
-    <BottomNavigation.Bar
-      navigationState={{
-        index: navigationState.index,
-        routes: navigationRoutes,
-      }}
-      // safeAreaInsets={insets}
-      onTabPress={({ route, preventDefault }) => {
-        navigation.replace(route.key);
-      }}
-      renderIcon={({ route, focused, color }) => {
-        const iconSource = tabsIcons[route.key];
-        return <Icon source={iconSource} size={24} color={color} />;
-      }}
-      getLabelText={({ route }) => {
-        return route.key;
-      }}
-    />
+    <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+      <BottomNavigation.Bar
+        navigationState={{
+          index: navigationState.index,
+          routes: navigationRoutes,
+        }}
+        // safeAreaInsets={insets}
+        onTabPress={({ route, preventDefault }) => {
+          navigation.replace(route.key);
+        }}
+        renderIcon={({ route, focused, color }) => {
+          const iconSource = tabsIcons[route.key];
+          return <Icon source={iconSource} size={24} color={color} />;
+        }}
+        getLabelText={({ route }) => {
+          return route.key;
+        }}
+      />
+    </div>
   );
 };

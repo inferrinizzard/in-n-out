@@ -56,11 +56,7 @@ const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
       screenOptions={{
         headerLeft: (props) => (props.canGoBack ? <HeaderButton /> : null),
         headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,
-        headerRight: () => (
-          <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-            <BottomTabs />
-          </div>
-        ),
+        headerRight: () => <BottomTabs />,
       }}
     >
       {routes.map(([screen, component]) => (
