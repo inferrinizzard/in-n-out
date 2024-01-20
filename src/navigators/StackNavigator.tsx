@@ -53,14 +53,12 @@ const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
     <Stack.Navigator
       initialRouteName="Menu"
       screenOptions={{
-        headerLeft: ({ canGoBack }) => (canGoBack ? <HeaderButton /> : null),
-        header: ({ navigation, route, options, back }) => (
-          <>
-            <Header>{route.name}</Header>
-            <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-              <BottomTabs />
-            </div>
-          </>
+        headerLeft: (props) => (props.canGoBack ? <HeaderButton /> : null),
+        headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,
+        headerRight: () => (
+          <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+            <BottomTabs />
+          </div>
         ),
       }}
     >
