@@ -5,7 +5,7 @@ import { Button, Text } from 'react-native-paper';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import {
   addActiveToPending,
-  addingPendingToList,
+  addPendingToList,
   selectActiveItem,
   setActiveItem,
 } from '../redux/slices/orderSlice';
@@ -91,7 +91,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
             const nextItem = menu[nextItemId];
             navigation.push('Item', { ...nextItem, nextItems: rest });
           } else {
-            dispatch(addingPendingToList());
+            dispatch(addPendingToList());
             navigation.popToTop();
           }
         }}
