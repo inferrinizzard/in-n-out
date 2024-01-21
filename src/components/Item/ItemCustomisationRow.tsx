@@ -8,6 +8,7 @@ import {
   updateActiveCustomisations,
 } from '../../redux/slices/orderSlice';
 
+import { CustomisationCopy } from '../../consts';
 import {
   CustomisationData,
   type CustomisationValue,
@@ -51,7 +52,7 @@ const ItemCustomisationRow = <
 
   return (
     <View style={{ maxWidth: '100%' }}>
-      {data.type !== 'flags' ? <Text>{name}</Text> : null}
+      {data.type !== 'flags' ? <Text>{CustomisationCopy[name]}</Text> : null}
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {data.options.map((option) => (
@@ -73,7 +74,11 @@ const ItemCustomisationRow = <
               }}
             >
               {/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
-              <Text>{option}</Text>
+              <Text>
+                {option in CustomisationCopy
+                  ? CustomisationCopy[option as keyof typeof CustomisationCopy]
+                  : option}
+              </Text>
             </Card.Content>
           </Card>
         ))}
@@ -139,7 +144,7 @@ const ItemCustomisationRow = <
                 borderWidth: isFlagActive ? 2 : 0,
               }}
             >
-              <Text>{flag}</Text>
+              <Text>{CustomisationCopy[flag]}</Text>
             </Button>
           );
         })}
