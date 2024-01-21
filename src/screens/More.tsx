@@ -3,9 +3,11 @@ import { Icon, List } from 'react-native-paper';
 import { type StackScreenProps } from '../navigators/StackNavigator';
 import ScreenContainer from '../components/ScreenContainer';
 
+import { type ScreenKeys } from '../consts';
+
 export interface MoreProps {}
 
-const More: React.FC<MoreProps & StackScreenProps<'More'>> = ({
+const More: React.FC<MoreProps & StackScreenProps<typeof ScreenKeys.More>> = ({
   navigation,
 }) => {
   return (

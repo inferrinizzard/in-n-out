@@ -3,11 +3,13 @@ import { Text, useTheme } from 'react-native-paper';
 
 import { type StackScreenProps } from '../navigators/StackNavigator';
 
+import { type ScreenKeys } from '../consts';
+
 export interface QrCodeProps {}
 
-const QrCode: React.FC<QrCodeProps & StackScreenProps<'QrCode'>> = ({
-  navigation,
-}) => {
+const QrCode: React.FC<
+  QrCodeProps & StackScreenProps<typeof ScreenKeys.QrCode>
+> = ({ navigation }) => {
   const theme = useTheme();
 
   return (

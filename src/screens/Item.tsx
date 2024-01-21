@@ -23,6 +23,7 @@ import {
   buildCustomisationDefaultEntry,
 } from '../data/customisations';
 
+import { ScreenKeys } from '../consts';
 import { Sku } from '../models/Sku';
 import { type MenuItem, type SkuId } from '../data/types';
 
@@ -30,7 +31,7 @@ export type ItemProps = MenuItem & {
   nextItems?: readonly SkuId[];
 };
 
-const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
+const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
   navigation,
   route,
 }) => {
@@ -92,7 +93,7 @@ const Item: React.FC<ItemProps & StackScreenProps<'Item'>> = ({
           if (nextItems?.length) {
             const [nextItemId, ...rest] = nextItems;
             const nextItem = menu[nextItemId];
-            navigation.push('Item', { ...nextItem, nextItems: rest });
+            navigation.push(ScreenKeys.Item, { ...nextItem, nextItems: rest });
           } else {
             dispatch(addPendingToList());
             navigation.popToTop();

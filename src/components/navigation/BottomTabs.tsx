@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import { StackActions, type NavigationState } from '@react-navigation/native';
 import { BottomNavigation, Icon } from 'react-native-paper';
 
-const tabsIcons: Record<string, string> = {
-  Menu: 'silverware',
-  Cart: 'cart-outline',
-  QrCode: 'qrcode',
-  Account: 'account',
-  More: 'dots-horizontal',
-};
-
 import { navigationRef } from '../../../Main';
+import { type ScreenKey, ScreenKeys, ScreenCopy } from '../../consts';
+
+const tabsIcons: Record<string, string> = {
+  [ScreenKeys.Menu]: 'silverware',
+  [ScreenKeys.Cart]: 'cart-outline',
+  [ScreenKeys.QrCode]: 'qrcode',
+  [ScreenKeys.Account]: 'account',
+  [ScreenKeys.More]: 'dots-horizontal',
+};
 
 export interface BottomTabsProps {}
 
@@ -32,8 +33,8 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
       navigationState={((state: NavigationState) => ({
         index: state.index,
         routes: state.routeNames
-          .filter((route) => route != 'Item')
-          .map((route) => ({ key: route })),
+          .filter((route) => route != ScreenKeys.Item)
+          .map((route) => ({ key: route as ScreenKey })),
       }))(navigationRef.current!.getRootState())}
       onTabPress={({ route, preventDefault }) => {
         navigationRef.dispatch(StackActions.replace(route.key));
@@ -43,7 +44,7 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
         return <Icon source={iconSource} size={24} color={color} />;
       }}
       getLabelText={({ route }) => {
-        return route.key;
+        return ScreenCopy[route.key];
       }}
     />
   );

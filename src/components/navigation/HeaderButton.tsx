@@ -10,6 +10,8 @@ import {
 
 import { type StackNavigationProps } from '../../navigators/StackNavigator';
 
+import { ScreenKeys } from '../../consts';
+
 export type HeaderButtonProps = Parameters<
   Exclude<HeaderOptions['headerLeft'], undefined>
 >[0];
@@ -23,7 +25,7 @@ const HeaderButton: React.FC<HeaderButtonProps> = () => {
   return (
     <Button
       onPress={() => {
-        if (parentScreen === 'Cart') {
+        if (parentScreen === ScreenKeys.Cart) {
           dispatch(addActiveToList());
         } else {
           dispatch(clearActiveItem());
