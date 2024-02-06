@@ -1,4 +1,4 @@
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../../redux/store';
@@ -26,11 +26,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ onPress, ...item }) => {
     <Card onPress={onPress}>
       <Card.Content style={{ display: 'flex', flexDirection: 'row' }}>
         <Image source={{ uri: imageUrl, height: 120, width: 160 }} />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <View style={{ display: 'flex', flexDirection: 'column' }}>
           <Text>{item.name}</Text>
           <Text>{`$${Number(prices.base[item.id]).toFixed(2)}`}</Text>
           <Text>{`${calories.base[item.id]} Calories`}</Text>
-        </div>
+        </View>
       </Card.Content>
     </Card>
   );

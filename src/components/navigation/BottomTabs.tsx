@@ -19,7 +19,7 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (navigationRef.isReady()) {
+    if (navigationRef?.isReady()) {
       setIsReady(true);
     }
   }, [navigationRef]);
