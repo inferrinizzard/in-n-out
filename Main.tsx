@@ -3,24 +3,18 @@ import {
   PaperProvider as ThemeProvider,
   adaptNavigationTheme,
 } from 'react-native-paper';
-import {
-  NavigationContainer,
-  createNavigationContainerRef,
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import ReduxProvider from './src/redux/Provider';
 
-import MainNavigator, {
-  type StackParamList,
-} from './src/navigators/StackNavigator';
+import MainNavigator from './src/navigators/StackNavigator';
+import { navigationRef } from './src/navigators/navigatorRef';
 import { BottomTabs } from './src/components/navigation/BottomTabs';
 import { theme, navigationTheme } from './src/styles/theme';
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: navigationTheme,
 });
-
-export const navigationRef = createNavigationContainerRef<StackParamList>();
 
 const App = () => {
   return (

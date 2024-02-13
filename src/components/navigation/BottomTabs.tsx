@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { StackActions, type NavigationState } from '@react-navigation/native';
 import { BottomNavigation, Icon } from 'react-native-paper';
 
-import { navigationRef } from '../../../Main';
 import { type ScreenKey, ScreenKeys, ScreenCopy } from '../../consts';
+import { navigationRef } from '../../navigators/navigatorRef';
 
 const tabsIcons: Record<string, string> = {
   [ScreenKeys.Menu]: 'silverware',
