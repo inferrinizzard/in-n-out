@@ -1,15 +1,16 @@
 import { useMemo } from 'react';
 import { Image, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
+
 import { useNavigation } from '@react-navigation/native';
-import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectImages } from '../../redux/slices/dataSlice';
 import { editItem, removeItem } from '../../redux/slices/orderSlice';
 
+import { type StackNavigationProps } from '../../navigators/StackNavigator';
+
 import { getCustomisationText, type Sku } from '../../models/Sku';
-import { type BaseTabParamList } from '../../navigators/BottomTabs';
 import { type SkuId } from '../../data/types';
 
 export type CartItemProps = Sku & { uuid: string };
@@ -25,16 +26,13 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
     [item, uuid]
   );
 
-  const navigation = useNavigation<BottomTabNavigationProp<BaseTabParamList>>();
+  const navigation = useNavigation<StackNavigationProps>();
 
   const editCartItem = () => {
     dispatch(editItem(uuid));
 
-    navigation.navigate('TabMenu', {
-      // @ts-expect-error
-      screen: 'StackItem',
-      params: item,
-    });
+    // @ts-expect-error
+    navigation.push('Item', item);
   };
 
   const removeCartItem = () => {
@@ -51,7 +49,7 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <Text>{`$${Number(item.price).toFixed(2)}`}</Text>
               <Text>{' | '}</Text>
-              <Text>{'Calories'}</Text>
+              <Text>{`${item.calories} Calories`}</Text>
             </View>
             {customisationData.map((line, i) => (
               <Text key={`${uuid}-text-${i}`}>{line}</Text>

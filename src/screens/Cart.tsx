@@ -5,13 +5,15 @@ import { Button, Divider, Text } from 'react-native-paper';
 import { useAppSelector } from '../redux/store';
 import { selectItems } from '../redux/slices/orderSlice';
 
-import { type TabScreenProps } from '../navigators/BottomTabs';
+import { StackScreenProps } from '../navigators/StackNavigator';
 import CartItem from '../components/cart/CartItem';
 import CartLocation from '../components/cart/CartLocation';
 
+import { ScreenKeys } from '../consts';
+
 export interface CartProps {}
 
-const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
+const Cart: React.FC<CartProps & StackScreenProps<typeof ScreenKeys.Cart>> = ({
   navigation,
 }) => {
   const order = useAppSelector(selectItems);
@@ -34,7 +36,7 @@ const Cart: React.FC<CartProps & TabScreenProps<'TabCart'>> = ({
             <Text>{'No items in cart!'}</Text>
             <Button
               mode="contained"
-              onPress={() => navigation.navigate('TabMenu')}
+              onPress={() => navigation.replace(ScreenKeys.Menu)}
             >
               <Text>{'Add items'}</Text>
             </Button>

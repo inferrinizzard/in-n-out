@@ -1,31 +1,58 @@
-import { StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Icon, List } from 'react-native-paper';
 
-import { type TabScreenProps } from '../navigators/BottomTabs';
+import { type StackScreenProps } from '../navigators/StackNavigator';
+import ScreenContainer from '../components/ScreenContainer';
+
+import { type ScreenKeys } from '../consts';
 
 export interface MoreProps {}
 
-const More: React.FC<MoreProps & TabScreenProps<'TabMore'>> = ({
+const More: React.FC<MoreProps & StackScreenProps<typeof ScreenKeys.More>> = ({
   navigation,
 }) => {
   return (
-    <View>
-      <Text>More Screen</Text>
-
-      <Button onPress={() => navigation.navigate('TabMenu')}>
-        {'Go to Menu'}
-      </Button>
-    </View>
+    <ScreenContainer>
+      <List.Section
+      // title="Welcome, <Name>"
+      >
+        <List.Item
+          title={'Locations'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'History'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Careers'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Merchandise'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Foundations'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Catering'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+        <List.Item
+          title={'Gift Cards'}
+          // left={() => <Icon source={'cog'} size={24} />}
+          right={() => <Icon source={'chevron-right'} size={24} />}
+        />
+      </List.Section>
+    </ScreenContainer>
   );
 };
 
 export default More;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

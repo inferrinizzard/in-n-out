@@ -1,3 +1,8 @@
+import { Burger } from './Burger';
+import { Drink } from './Drink';
+import { Fries } from './Fries';
+
+import { CustomisationCopy } from '../consts';
 import {
   buildCustomisationDefaultEntry,
   type CustomisationEntry,
@@ -8,10 +13,23 @@ export interface Sku<Id extends SkuId = SkuId> {
   id: Id;
   name: string;
   price: number;
-  customisations?: CustomisationEntry<Id>;
+  calories: number;
+  customisations: CustomisationEntry<Id>;
 }
 
+const CustomisableSku: Partial<Record<SkuId, (...args: any) => Sku>> = {
+  DblDbl: Burger,
+  Cheeseburger: Burger,
+  Hamburger: Burger,
+  SoftDrink: Drink,
+  Fries: Fries,
+} as const;
+
 export const Sku = (skuParams: Sku) => {
+  if (skuParams.id in CustomisableSku) {
+    return CustomisableSku[skuParams.id]?.(skuParams) ?? skuParams;
+  }
+
   return skuParams;
 };
 
@@ -32,13 +50,23 @@ export const getCustomisationText = (sku: Sku) => {
     const defaultValue =
       customisationsDefaults[key as keyof typeof customisationsDefaults]?.data;
 
-    if (defaultValue && defaultValue !== entry.data) {
-      customisationLines.push(`${key}: ${entry.data}`);
+    if (
+      defaultValue &&
+      defaultValue !== entry.data &&
+      !Number.isInteger(entry.data)
+    ) {
+      customisationLines.push(
+        `${key}: ${
+          CustomisationCopy[entry.data as keyof typeof CustomisationCopy]
+        }`
+      );
     }
 
     Object.entries(entry.flags ?? {}).forEach(([flag, val]) => {
       if (val) {
-        customisationLines.push(flag);
+        customisationLines.push(
+          CustomisationCopy[flag as keyof typeof CustomisationCopy]
+        );
       }
     });
   });

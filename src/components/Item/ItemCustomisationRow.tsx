@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Image, View } from 'react-native';
-import { Button, Card, Text } from 'react-native-paper';
+import { Button, Card, Text, TextInput } from 'react-native-paper';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
@@ -8,27 +8,38 @@ import {
   updateActiveCustomisations,
 } from '../../redux/slices/orderSlice';
 
+import { CustomisationCopy } from '../../consts';
 import {
   CustomisationData,
   type CustomisationValue,
   type CustomisationKey,
+  SkuCustomisationKey,
 } from '../../data/customisations';
+import { type SkuId } from '../../data/types';
 
 export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
   name: Key;
 }
 
-const ItemCustomisationRow = <Key extends CustomisationKey>({
+const ItemCustomisationRow = <
+  Id extends SkuId,
+  Key extends SkuCustomisationKey<Id>
+>({
   name,
 }: ItemCustomisationRowProps<Key>) => {
   const dispatch = useAppDispatch();
-  const activeItem = useAppSelector(selectActiveItem)!;
+  const activeItem = useAppSelector(selectActiveItem<Id>)!;
   const activeOption = useMemo(
-    () =>
-      activeItem?.customisations?.[
-        name as keyof typeof activeItem.customisations
-      ],
+    () => activeItem?.customisations[name],
     [activeItem]
+  );
+
+  const [customNumber, setCustomNumber] = useState<number | null>(
+    activeOption?.data &&
+      typeof activeOption.data === 'number' &&
+      activeOption.data > 3
+      ? activeOption.data
+      : null
   );
 
   const data = CustomisationData[name];
@@ -41,11 +52,17 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
 
   return (
     <View style={{ maxWidth: '100%' }}>
-      <Text>{name}</Text>
+      {data.type !== 'flags' ? <Text>{CustomisationCopy[name]}</Text> : null}
 
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {data.options.map((option) => (
-          <Card key={option} onPress={() => updateCustomisation(option)}>
+          <Card
+            key={option}
+            onPress={() => {
+              updateCustomisation(option);
+              setCustomNumber(null);
+            }}
+          >
             <Card.Content
               style={{
                 display: 'flex',
@@ -57,10 +74,59 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
               }}
             >
               {/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
-              <Text>{option}</Text>
+              <Text>
+                {option in CustomisationCopy
+                  ? CustomisationCopy[option as keyof typeof CustomisationCopy]
+                  : option}
+              </Text>
             </Card.Content>
           </Card>
         ))}
+        {data.type === 'number' ? (
+          <>
+            <Card
+              key={`${name}-custom`}
+              onPress={() =>
+                setCustomNumber((prev) => (prev === null ? data.default : null))
+              }
+            >
+              <Card.Content
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  borderWidth: customNumber !== null ? 2 : 0,
+                }}
+              >
+                <Text>{'Custom'}</Text>
+              </Card.Content>
+            </Card>
+            {customNumber !== null && (
+              <Card key={`${name}-custom-input`}>
+                <Card.Content>
+                  <TextInput
+                    keyboardType="numeric"
+                    onKeyPress={(e) => {
+                      // @ts-ignore
+                      const inputNumber = Number(e.key.replace(/\D/g, ''));
+                      if (inputNumber) {
+                        setCustomNumber(inputNumber);
+                        updateCustomisation(
+                          inputNumber as CustomisationValue<Key>
+                        );
+                      }
+                    }}
+                    value={customNumber.toString()}
+                    maxLength={1}
+                    style={{ maxWidth: 50, height: 50 }}
+                  />
+                </Card.Content>
+              </Card>
+            )}
+          </>
+        ) : null}
       </View>
 
       {'flags' in data &&
@@ -78,7 +144,7 @@ const ItemCustomisationRow = <Key extends CustomisationKey>({
                 borderWidth: isFlagActive ? 2 : 0,
               }}
             >
-              <Text>{flag}</Text>
+              <Text>{CustomisationCopy[flag]}</Text>
             </Button>
           );
         })}

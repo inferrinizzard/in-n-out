@@ -1,10 +1,8 @@
-import { CustomisationEntry, type CustomisationKey } from './types';
+import { CustomisationData, CustomisationTree } from './data';
+import { type CustomisationEntry, type CustomisationKey } from './types';
+
 import { type SkuId } from '../types';
-import {
-  CustomisationData,
-  CustomisationTree,
-  type NumericCustomisationValue,
-} from './data';
+import { type BurgerId } from '../../models/Burger';
 
 export const customisationOptionMap = {
   DblDbl: 'Burger',
@@ -12,6 +10,7 @@ export const customisationOptionMap = {
   Hamburger: 'Burger',
   Fries: 'Fries',
   SoftDrink: 'Drink',
+  Shake: 'Shake',
 } as const;
 
 customisationOptionMap satisfies Partial<
@@ -19,37 +18,21 @@ customisationOptionMap satisfies Partial<
 >;
 
 export const getCustomisationOptions = <Id extends SkuId>(id: Id) => {
-  if (id in customisationOptionMap) {
-    return CustomisationTree[
-      customisationOptionMap[id as keyof typeof customisationOptionMap]
-    ];
+  if (!(id in customisationOptionMap)) {
+    return null;
   }
+
+  return CustomisationTree[
+    customisationOptionMap[id as keyof typeof customisationOptionMap]
+  ];
 };
 
-const burgerMeatCheeseDefaults: Partial<
-  Record<
-    Extract<SkuId, 'DblDbl' | 'Cheeseburger' | 'Hamburger'>,
-    Record<
-      Extract<CustomisationKey, 'Meat' | 'Cheese'>,
-      NumericCustomisationValue
-    >
-  >
+export const burgerMeatCheeseDefaults: Partial<
+  Record<BurgerId, Pick<CustomisationEntry<BurgerId>, 'Meat' | 'Cheese'>>
 > = {
-  DblDbl: { Meat: '2', Cheese: '2' },
-  Cheeseburger: { Meat: '1', Cheese: '1' },
-  Hamburger: { Meat: '1', Cheese: '0' },
-};
-
-const getMeatCheeseDefaults = <Id extends SkuId>(id: Id) => {
-  if (id in burgerMeatCheeseDefaults) {
-    const { Meat, Cheese } =
-      burgerMeatCheeseDefaults[id as keyof typeof burgerMeatCheeseDefaults]!;
-
-    return {
-      Meat: { data: Meat },
-      Cheese: { data: Cheese },
-    };
-  }
+  DblDbl: { Meat: { data: 2 }, Cheese: { data: 2 } },
+  Cheeseburger: { Meat: { data: 1 }, Cheese: { data: 1 } },
+  Hamburger: { Meat: { data: 1 }, Cheese: { data: 0 } },
 };
 
 export const buildCustomisationDefaultEntry = <Id extends SkuId>(id: Id) => {
@@ -76,6 +59,6 @@ export const buildCustomisationDefaultEntry = <Id extends SkuId>(id: Id) => {
 
   return {
     ...standardCustomisationDefaults,
-    ...getMeatCheeseDefaults(id),
+    ...burgerMeatCheeseDefaults[id as keyof typeof burgerMeatCheeseDefaults],
   };
 };
