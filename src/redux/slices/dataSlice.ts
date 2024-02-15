@@ -31,6 +31,7 @@ export const {} = dataSlice.actions;
 export const selectMenu = (state: RootState) => state.data.menu;
 export const selectPrices = (state: RootState) => state.data.prices;
 export const selectCalories = (state: RootState) => state.data.calories;
-export const selectImages = (state: RootState) => state.data.images;
+export const selectImages = (state: RootState) => state.data.images.data;
+export const selectImageUris = (state: RootState) => state.data.images.uris;
 
 export default dataSlice.reducer;

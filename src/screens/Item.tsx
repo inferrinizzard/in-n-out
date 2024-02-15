@@ -11,7 +11,7 @@ import {
 } from '../redux/slices/orderSlice';
 import {
   selectCalories,
-  selectImages,
+  selectImageUris,
   selectMenu,
   selectPrices,
 } from '../redux/slices/dataSlice';
@@ -39,7 +39,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
   const menu = useAppSelector(selectMenu);
   const prices = useAppSelector(selectPrices);
   const calories = useAppSelector(selectCalories);
-  const images = useAppSelector(selectImages);
+  const images = useAppSelector(selectImageUris);
   const activeItem = useAppSelector(selectActiveItem);
 
   const { id, name, nextItems } = route.params!;

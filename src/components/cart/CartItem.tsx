@@ -5,7 +5,7 @@ import { Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectImages } from '../../redux/slices/dataSlice';
+import { selectImageUris } from '../../redux/slices/dataSlice';
 import { editItem, removeItem } from '../../redux/slices/orderSlice';
 
 import { type StackNavigationProps } from '../../navigators/StackNavigator';
@@ -18,7 +18,7 @@ export type CartItemProps = Sku & { uuid: string };
 const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
   const dispatch = useAppDispatch();
 
-  const images = useAppSelector(selectImages);
+  const images = useAppSelector(selectImageUris);
   const imageUrl = images[item.id as SkuId];
 
   const customisationData = useMemo(

@@ -4,7 +4,7 @@ import { Card, Text } from 'react-native-paper';
 import { useAppSelector } from '../../redux/store';
 import {
   selectCalories,
-  selectImages,
+  selectImageUris,
   selectPrices,
 } from '../../redux/slices/dataSlice';
 
@@ -19,7 +19,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ onPress, ...item }) => {
   const calories = useAppSelector(selectCalories);
   const prices = useAppSelector(selectPrices);
 
-  const images = useAppSelector(selectImages);
+  const images = useAppSelector(selectImageUris);
   const imageUrl = images[item.id as SkuId];
 
   return (
