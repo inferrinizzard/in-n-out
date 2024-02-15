@@ -16,6 +16,19 @@ module.exports = function (api) {
         },
       ],
     ],
+    plugins: [
+      [
+        'module-resolver',
+        {
+          alias: {
+            '@assets': './assets',
+            '@images': './assets/images',
+            '@src': './src',
+            '@components': './src/components',
+          },
+        },
+      ],
+    ],
     env: {
       production: {
         plugins: ['react-native-paper/babel'],
