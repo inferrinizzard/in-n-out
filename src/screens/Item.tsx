@@ -11,7 +11,6 @@ import {
 } from '../redux/slices/orderSlice';
 import {
   selectCalories,
-  selectImageUris,
   selectMenu,
   selectPrices,
 } from '../redux/slices/dataSlice';
@@ -22,6 +21,7 @@ import {
   getCustomisationOptions,
   buildCustomisationDefaultEntry,
 } from '../data/customisations';
+import { useImage } from '@src/hooks/useImage';
 
 import { ScreenKeys } from '../consts';
 import { Sku } from '../models/Sku';
@@ -39,12 +39,11 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
   const menu = useAppSelector(selectMenu);
   const prices = useAppSelector(selectPrices);
   const calories = useAppSelector(selectCalories);
-  const images = useAppSelector(selectImageUris);
   const activeItem = useAppSelector(selectActiveItem);
 
   const { id, name, nextItems } = route.params!;
 
-  const imageUrl = images[id];
+  const image = useImage(id);
 
   // TODO: memo
   const customisations = getCustomisationOptions(id);
@@ -73,7 +72,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
         display: 'flex',
       }}
     >
-      <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
+      <Image source={image} style={{ height: 240, width: 320 }} />
       <Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
