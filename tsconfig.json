@@ -1,6 +1,12 @@
 {
-	"extends": "@tsconfig/react-native/tsconfig.json",
-	"compilerOptions": {
-		"types": ["react"]
-	}
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "types": ["react"],
+    "paths": {
+      "@assets/*": ["./assets/*"],
+      "@images/*": ["./assets/images/*"],
+      "@src/*": ["./src/*"],
+      "@components/*": ["./src/components/*"]
+    }
+  }
 }

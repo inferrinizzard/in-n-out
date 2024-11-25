@@ -4,22 +4,20 @@ import { Button, Card, Text } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectImages } from '../../redux/slices/dataSlice';
+import { useAppDispatch } from '../../redux/store';
 import { editItem, removeItem } from '../../redux/slices/orderSlice';
 
+import { useImage } from '@src/hooks/useImage';
 import { type StackNavigationProps } from '../../navigators/StackNavigator';
 
 import { getCustomisationText, type Sku } from '../../models/Sku';
-import { type SkuId } from '../../data/types';
 
 export type CartItemProps = Sku & { uuid: string };
 
 const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
   const dispatch = useAppDispatch();
 
-  const images = useAppSelector(selectImages);
-  const imageUrl = images[item.id as SkuId];
+  const image = useImage(item.id);
 
   const customisationData = useMemo(
     () => getCustomisationText(item),
@@ -43,7 +41,7 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
     <Card>
       <Card.Content>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Image source={{ uri: imageUrl, height: 120, width: 160 }} />
+          <Image source={image} style={{ height: 120, width: 160 }} />
           <View>
             <Text>{item.name}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>

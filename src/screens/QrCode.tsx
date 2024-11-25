@@ -32,7 +32,7 @@ const QrCode: React.FC<
       </Text>
 
       <Image
-        source={require('../../assets/images/qrcode.png')}
+        source={require('@images/qrcode.png')}
         style={{ height: 300, width: 300, borderRadius: 24 }}
       />
     </View>
