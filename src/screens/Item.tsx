@@ -65,27 +65,27 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
   }, [id]);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignItems: 'center',
-      }}
-      style={{
-        display: 'flex',
-      }}
-    >
-      <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
-      <Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
-      <View style={{ display: 'flex', flexDirection: 'row' }}>
-        <Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
-          2
-        )}`}</Text>
-        <Text>{' | '}</Text>
-        <Text>{`${activeItem?.calories ?? calories.base[id]} Calories`}</Text>
+    <View style={{ display: 'flex', flex: 1 }}>
+      <View style={{ alignItems: 'center' }}>
+        <Image source={{ uri: imageUrl, height: 240, width: 320 }} />
+        <Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
+            2
+          )}`}</Text>
+          <Text>{' | '}</Text>
+          <Text>{`${activeItem?.calories ?? calories.base[id]} Calories`}</Text>
+        </View>
       </View>
 
-      {customisations ? (
-        <ItemCustomisations<typeof id> customisations={customisations} />
-      ) : null}
+      <ScrollView
+        contentContainerStyle={{ alignItems: 'center' }}
+        style={{ display: 'flex' }}
+      >
+        {customisations ? (
+          <ItemCustomisations<typeof id> customisations={customisations} />
+        ) : null}
+      </ScrollView>
 
       <Button
         onPress={() => {
@@ -102,7 +102,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
       >
         <Text>{nextItems?.length ? 'Go to next Item' : 'Add to Order'}</Text>
       </Button>
-    </ScrollView>
+    </View>
   );
 };
 
