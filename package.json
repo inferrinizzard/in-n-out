@@ -40,6 +40,7 @@
     "@tsconfig/react-native": "^3.0.2",
     "@types/react": "^18.2.34",
     "@types/uuid": "^9.0.7",
+    "babel-plugin-module-resolver": "^5.0.2",
     "eas-cli": "^5.6.0",
     "eslint": "^8.52.0",
     "typescript": "^5.2.2",
