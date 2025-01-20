@@ -1,14 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import dataReducer from './slices/dataSlice';
-import orderReducer from './slices/orderSlice';
+import dataReducer from "./slices/dataSlice";
+import orderReducer from "./slices/orderSlice";
 
 const store = configureStore({
-  reducer: {
-    data: dataReducer,
-    order: orderReducer,
-  },
+	reducer: {
+		data: dataReducer,
+		order: orderReducer,
+	},
 });
 
 export type RootState = ReturnType<typeof store.getState>;

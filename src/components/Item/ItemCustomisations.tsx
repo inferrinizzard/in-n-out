@@ -1,49 +1,49 @@
-import { useState } from 'react';
-import { View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { useState } from "react";
+import { View } from "react-native";
+import { Button, Text } from "react-native-paper";
 
-import ItemCustomisationRow from './ItemCustomisationRow';
+import ItemCustomisationRow from "./ItemCustomisationRow";
 
 import {
-  type SkuCustomisationKey,
-  type CustomisationNode,
-} from '../../data/customisations';
-import { type SkuId } from '../../data/types';
+	type SkuCustomisationKey,
+	type CustomisationNode,
+} from "../../data/customisations";
+import { type SkuId } from "../../data/types";
 
 export interface ItemCustomisationsProps {
-  customisations: CustomisationNode;
+	customisations: CustomisationNode;
 }
 
 const ItemCustomisations = <Id extends SkuId>({
-  customisations,
+	customisations,
 }: ItemCustomisationsProps) => {
-  const [showMore, setShowMore] = useState(false);
+	const [showMore, setShowMore] = useState(false);
 
-  return (
-    <View>
-      {customisations.base.map((key) => (
-        <ItemCustomisationRow<Id, SkuCustomisationKey<Id>>
-          key={key}
-          name={key as SkuCustomisationKey<Id>}
-        />
-      ))}
+	return (
+		<View>
+			{customisations.base.map((key) => (
+				<ItemCustomisationRow<Id, SkuCustomisationKey<Id>>
+					key={key}
+					name={key as SkuCustomisationKey<Id>}
+				/>
+			))}
 
-      {customisations.more && (
-        <>
-          {showMore &&
-            customisations.more.map((key) => (
-              <ItemCustomisationRow<Id, SkuCustomisationKey<Id>>
-                key={key}
-                name={key as SkuCustomisationKey<Id>}
-              />
-            ))}
-          <Button onPress={() => setShowMore((prev) => !prev)}>
-            <Text>{showMore ? 'Less' : 'More'}</Text>
-          </Button>
-        </>
-      )}
-    </View>
-  );
+			{customisations.more && (
+				<>
+					{showMore &&
+						customisations.more.map((key) => (
+							<ItemCustomisationRow<Id, SkuCustomisationKey<Id>>
+								key={key}
+								name={key as SkuCustomisationKey<Id>}
+							/>
+						))}
+					<Button onPress={() => setShowMore((prev) => !prev)}>
+						<Text>{showMore ? "Less" : "More"}</Text>
+					</Button>
+				</>
+			)}
+		</View>
+	);
 };
 
 export default ItemCustomisations;

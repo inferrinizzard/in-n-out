@@ -1,29 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { type RootState } from '../store';
+import { createSlice } from "@reduxjs/toolkit";
+import { type RootState } from "../store";
 
-import menu from '../../data/menu';
-import prices from '../../data/prices';
-import calories from '../../data/calories';
-import images from '../../data/images';
+import menu from "../../data/menu";
+import prices from "../../data/prices";
+import calories from "../../data/calories";
+import images from "../../data/images";
 
 export interface DataState {
-  menu: typeof menu;
-  prices: typeof prices;
-  calories: typeof calories;
-  images: typeof images;
+	menu: typeof menu;
+	prices: typeof prices;
+	calories: typeof calories;
+	images: typeof images;
 }
 
 const initialState: DataState = {
-  menu,
-  prices,
-  calories,
-  images,
+	menu,
+	prices,
+	calories,
+	images,
 };
 
 export const dataSlice = createSlice({
-  name: 'data',
-  initialState,
-  reducers: {},
+	name: "data",
+	initialState,
+	reducers: {},
 });
 
 export const {} = dataSlice.actions;
