@@ -5,11 +5,10 @@ import ScreenContainer from "../../components/ScreenContainer";
 
 import type { ScreenKeys } from "../../consts";
 
-export interface AccountProps {}
+export interface AccountProps
+	extends StackScreenProps<typeof ScreenKeys.Account> {}
 
-const Account: React.FC<
-	AccountProps & StackScreenProps<typeof ScreenKeys.Account>
-> = ({ navigation }) => {
+const Account = ({ navigation }: AccountProps) => {
 	return (
 		<ScreenContainer>
 			<List.Section title="Welcome, <Name>">

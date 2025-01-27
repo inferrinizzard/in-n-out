@@ -12,9 +12,11 @@ import type { StackNavigationProps } from "../../../navigation/StackNavigator";
 
 import { getCustomisationText, type Sku } from "../../../models/Sku";
 
-export type CartItemProps = Sku & { uuid: string };
+export interface CartItemProps extends Sku {
+	uuid: string;
+}
 
-const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
+const CartItem = ({ uuid, ...item }: CartItemProps) => {
 	const dispatch = useAppDispatch();
 
 	const image = useImage(item.id);
@@ -26,6 +28,7 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
 	const editCartItem = () => {
 		dispatch(editItem(uuid));
 
+		// @ts-expect-error
 		navigation.push("Item", item);
 	};
 

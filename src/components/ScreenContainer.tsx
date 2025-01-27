@@ -1,13 +1,15 @@
 import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
 
-export interface AccountProps {}
+export interface ScreenContainerProps {}
 
-const Account: React.FC<PropsWithChildren<AccountProps>> = ({ children }) => {
+const ScreenContainer = ({
+	children,
+}: PropsWithChildren<ScreenContainerProps>) => {
 	return <View style={{ ...styles.padding }}>{children}</View>;
 };
 
-export default Account;
+export default ScreenContainer;
 
 const styles = StyleSheet.create({
 	padding: {

@@ -43,9 +43,7 @@ export type StackScreenProps<Screen extends keyof StackParamList> =
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-export interface MenuStackNavigatorProps {}
-
-const MainNavigator: React.FC<MenuStackNavigatorProps> = () => {
+const MainNavigator = () => {
 	const routes = useMemo(
 		() => Object.entries(routesMap) as [keyof typeof routesMap, any][],
 		[routesMap],

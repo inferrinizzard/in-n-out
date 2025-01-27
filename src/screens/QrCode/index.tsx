@@ -5,11 +5,10 @@ import type { StackScreenProps } from "../../navigation/StackNavigator";
 
 import type { ScreenKeys } from "../../consts";
 
-export interface QrCodeProps {}
+export interface QrCodeProps
+	extends StackScreenProps<typeof ScreenKeys.QrCode> {}
 
-const QrCode: React.FC<
-	QrCodeProps & StackScreenProps<typeof ScreenKeys.QrCode>
-> = ({ navigation }) => {
+const QrCode = ({ navigation }: QrCodeProps) => {
 	const theme = useTheme();
 
 	return (

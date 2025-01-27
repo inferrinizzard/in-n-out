@@ -9,7 +9,7 @@ import { HeaderCopy, type ScreenKey } from "../../consts";
 
 export interface HeaderProps extends HeaderTitleProps {}
 
-const Header: React.FC<HeaderProps> = ({ tintColor, children }) => {
+const Header = ({ tintColor, children }: HeaderProps) => {
 	const activeItem = useAppSelector(selectActiveItem);
 
 	return (

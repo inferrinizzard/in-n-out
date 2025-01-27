@@ -13,9 +13,7 @@ const tabsIcons: Record<string, string> = {
 	[ScreenKeys.More]: "dots-horizontal",
 };
 
-export interface BottomTabsProps {}
-
-export const BottomTabs: React.FC<BottomTabsProps> = () => {
+export const BottomTabs = () => {
 	const [isReady, setIsReady] = useState(false);
 
 	useEffect(() => {

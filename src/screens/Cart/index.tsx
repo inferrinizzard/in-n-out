@@ -11,11 +11,9 @@ import CartLocation from "./components/CartLocation";
 
 import { ScreenKeys } from "../../consts";
 
-export interface CartProps {}
+export interface CartProps extends StackScreenProps<typeof ScreenKeys.Cart> {}
 
-const Cart: React.FC<CartProps & StackScreenProps<typeof ScreenKeys.Cart>> = ({
-	navigation,
-}) => {
+const Cart = ({ navigation }: CartProps) => {
 	const order = useAppSelector(selectItems);
 	const orderItems = useMemo(() => Object.entries(order), [order]);
 

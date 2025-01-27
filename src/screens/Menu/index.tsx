@@ -11,11 +11,9 @@ import MenuItem from "./components/MenuItem";
 
 import { ScreenKeys } from "../../consts";
 
-export interface MenuProps {}
+export interface MenuProps extends StackScreenProps<typeof ScreenKeys.Menu> {}
 
-const Menu: React.FC<MenuProps & StackScreenProps<typeof ScreenKeys.Menu>> = ({
-	navigation,
-}) => {
+const Menu = ({ navigation }: MenuProps) => {
 	const order = useAppSelector(selectItems);
 	const orderItems = useMemo(() => Object.values(order), [order]);
 	const menu = useAppSelector(selectMenu);

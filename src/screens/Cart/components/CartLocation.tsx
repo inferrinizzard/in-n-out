@@ -1,9 +1,7 @@
 import { Image, View } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 
-export interface CartLocationProps {}
-
-const CartLocation: React.FC<CartLocationProps> = () => {
+const CartLocation = () => {
 	return (
 		<Card>
 			<Card.Content style={{ display: "flex", flexDirection: "row" }}>

@@ -5,11 +5,9 @@ import ScreenContainer from "../../components/ScreenContainer";
 
 import type { ScreenKeys } from "../../consts";
 
-export interface MoreProps {}
+export interface MoreProps extends StackScreenProps<typeof ScreenKeys.More> {}
 
-const More: React.FC<MoreProps & StackScreenProps<typeof ScreenKeys.More>> = ({
-	navigation,
-}) => {
+const More = ({ navigation }: MoreProps) => {
 	return (
 		<ScreenContainer>
 			<List.Section
