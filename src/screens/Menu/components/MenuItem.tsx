@@ -1,12 +1,12 @@
 import { Image, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 
-import { useAppSelector } from "../../redux/store";
-import { selectCalories, selectPrices } from "../../redux/slices/dataSlice";
+import { useAppSelector } from "../../../redux/store";
+import { selectCalories, selectPrices } from "../../../redux/slices/dataSlice";
 
 import { useImage } from "@src/hooks/useImage";
 
-import { type ItemProps } from "../../screens/Item";
+import { type ItemProps } from "../../Item";
 
 export type MenuItemProps = ItemProps & {
 	onPress: () => void;
