@@ -1,10 +1,10 @@
-import { Sku } from "./Sku";
+import type { Sku } from "./Sku";
 
 import { burgerMeatCheeseDefaults } from "../data/customisations/utils";
 import prices from "../data/prices";
 import calories from "../data/calories";
 
-import { type SkuId } from "../data/types";
+import type { SkuId } from "../data/types";
 
 export type BurgerId = Extract<SkuId, "DblDbl" | "Cheeseburger" | "Hamburger">;
 

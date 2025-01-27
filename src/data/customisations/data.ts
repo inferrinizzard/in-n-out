@@ -1,6 +1,6 @@
 import { FlagsKeys, CategoryKeys, OptionsKeys } from "../../consts";
 
-import { type CustomisationNode, type CustomisationOption } from "./types";
+import type { CustomisationNode, CustomisationOption } from "./types";
 
 export const DrinkSizes = [
 	OptionsKeys.Small,

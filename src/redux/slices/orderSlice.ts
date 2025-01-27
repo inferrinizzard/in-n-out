@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { type RootState } from "../store";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "../store";
 
 import "react-native-get-random-values";
 import { v4 as uuidV4 } from "uuid";
 
 import { Sku } from "../../models/Sku";
-import {
-	type CustomisationKey,
-	type CustomisationValue,
+import type {
+	CustomisationKey,
+	CustomisationValue,
 } from "../../data/customisations";
-import { type SkuId } from "../../data/types";
+import type { SkuId } from "../../data/types";
 
 export interface OrderState {
 	activeItem: Sku | null;

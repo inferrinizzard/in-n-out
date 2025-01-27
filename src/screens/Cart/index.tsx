@@ -2,14 +2,14 @@ import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 import { Button, Divider, Text } from "react-native-paper";
 
-import { useAppSelector } from "../redux/store";
-import { selectItems } from "../redux/slices/orderSlice";
+import { useAppSelector } from "../../redux/store";
+import { selectItems } from "../../redux/slices/orderSlice";
 
-import { StackScreenProps } from "../navigators/StackNavigator";
-import CartItem from "../components/cart/CartItem";
-import CartLocation from "../components/cart/CartLocation";
+import type { StackScreenProps } from "../../navigation/StackNavigator";
+import CartItem from "./components/CartItem";
+import CartLocation from "./components/CartLocation";
 
-import { ScreenKeys } from "../consts";
+import { ScreenKeys } from "../../consts";
 
 export interface CartProps {}
 

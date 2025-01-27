@@ -2,20 +2,20 @@ import { useMemo, useState } from "react";
 import { Image, View } from "react-native";
 import { Button, Card, Text, TextInput } from "react-native-paper";
 
-import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
 	selectActiveItem,
 	updateActiveCustomisations,
-} from "../../redux/slices/orderSlice";
+} from "../../../redux/slices/orderSlice";
 
-import { CustomisationCopy } from "../../consts";
-import {
+import { CustomisationCopy } from "../../../consts";
+import type {
 	CustomisationData,
-	type CustomisationValue,
-	type CustomisationKey,
+	CustomisationValue,
+	CustomisationKey,
 	SkuCustomisationKey,
-} from "../../data/customisations";
-import { type SkuId } from "../../data/types";
+} from "../../../data/customisations";
+import type { SkuId } from "../../../data/types";
 
 export interface ItemCustomisationRowProps<Key extends CustomisationKey> {
 	name: Key;

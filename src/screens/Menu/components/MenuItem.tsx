@@ -6,7 +6,7 @@ import { selectCalories, selectPrices } from "../../../redux/slices/dataSlice";
 
 import { useImage } from "@src/hooks/useImage";
 
-import { type ItemProps } from "../../Item";
+import type { ItemProps } from "../../Item";
 
 export type MenuItemProps = ItemProps & {
 	onPress: () => void;

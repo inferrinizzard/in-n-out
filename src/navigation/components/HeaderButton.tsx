@@ -1,6 +1,6 @@
 import { Button, Icon } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { type HeaderOptions } from "@react-navigation/elements";
+import type { HeaderOptions } from "@react-navigation/elements";
 
 import { useAppDispatch } from "../../redux/store";
 import {
@@ -8,7 +8,7 @@ import {
 	clearActiveItem,
 } from "../../redux/slices/orderSlice";
 
-import { type StackNavigationProps } from "../StackNavigator";
+import type { StackNavigationProps } from "../StackNavigator";
 
 import { ScreenKeys } from "../../consts";
 

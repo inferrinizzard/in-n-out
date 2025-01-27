@@ -1,4 +1,4 @@
-import { SkuId } from "./types";
+import type { SkuId } from "./types";
 
 const BaseCaloriesData = Object.freeze({
 	DblDbl: 610,

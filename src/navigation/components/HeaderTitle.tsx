@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import { type HeaderTitleProps } from "@react-navigation/elements";
+import type { HeaderTitleProps } from "@react-navigation/elements";
 
 import { useAppSelector } from "../../redux/store";
 import { selectActiveItem } from "../../redux/slices/orderSlice";

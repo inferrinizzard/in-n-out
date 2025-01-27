@@ -1,9 +1,9 @@
-import { Sku } from "./Sku";
+import type { Sku } from "./Sku";
 
 import prices from "../data/prices";
 import calories from "../data/calories";
 
-import { type SkuId } from "../data/types";
+import type { SkuId } from "../data/types";
 
 export type FriesId = Extract<SkuId, "Fries">;
 

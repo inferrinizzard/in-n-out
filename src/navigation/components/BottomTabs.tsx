@@ -22,7 +22,7 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
 		if (navigationRef?.isReady()) {
 			setIsReady(true);
 		}
-	}, [navigationRef]);
+	}, []);
 
 	if (!isReady) {
 		return null;
@@ -33,7 +33,7 @@ export const BottomTabs: React.FC<BottomTabsProps> = () => {
 			navigationState={((state: NavigationState) => ({
 				index: state.index,
 				routes: state.routeNames
-					.filter((route) => route != ScreenKeys.Item)
+					.filter((route) => route !== ScreenKeys.Item)
 					.map((route) => ({ key: route as ScreenKey })),
 			}))(navigationRef.current!.getRootState())}
 			onTabPress={({ route, preventDefault }) => {

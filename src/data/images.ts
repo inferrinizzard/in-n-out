@@ -1,4 +1,4 @@
-import { type SkuId } from "./types";
+import type { SkuId } from "./types";
 
 const ImageUris = Object.freeze({
 	DblDblCombo: "",

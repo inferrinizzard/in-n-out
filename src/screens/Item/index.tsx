@@ -2,30 +2,30 @@ import { useEffect } from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
 	addActiveToPending,
 	addPendingToList,
 	selectActiveItem,
 	setActiveItem,
-} from "../redux/slices/orderSlice";
+} from "../../redux/slices/orderSlice";
 import {
 	selectCalories,
 	selectMenu,
 	selectPrices,
-} from "../redux/slices/dataSlice";
+} from "../../redux/slices/dataSlice";
 
-import { type StackScreenProps } from "../navigators/StackNavigator";
-import ItemCustomisations from "../components/Item/ItemCustomisations";
+import type { StackScreenProps } from "../../navigation/StackNavigator";
+import ItemCustomisations from "./components/ItemCustomisations";
 import {
 	getCustomisationOptions,
 	buildCustomisationDefaultEntry,
-} from "../data/customisations";
+} from "../../data/customisations";
 import { useImage } from "@src/hooks/useImage";
 
-import { ScreenKeys } from "../consts";
-import { Sku } from "../models/Sku";
-import { type MenuItem, type SkuId } from "../data/types";
+import { ScreenKeys } from "../../consts";
+import { Sku } from "../../models/Sku";
+import type { MenuItem, SkuId } from "../../data/types";
 
 export type ItemProps = MenuItem & {
 	nextItems?: readonly SkuId[];
@@ -61,7 +61,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 				),
 			);
 		}
-	}, [id]);
+	}, [id, activeItem]);
 
 	return (
 		<View style={{ display: "flex", flex: 1 }}>

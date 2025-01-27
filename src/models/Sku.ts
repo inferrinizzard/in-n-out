@@ -7,7 +7,7 @@ import {
 	buildCustomisationDefaultEntry,
 	type CustomisationEntry,
 } from "../data/customisations";
-import { type SkuId } from "../data/types";
+import type { SkuId } from "../data/types";
 
 export interface Sku<Id extends SkuId = SkuId> {
 	id: Id;
@@ -46,7 +46,7 @@ export const getCustomisationText = (sku: Sku) => {
 
 	let customisationLines: string[] = [];
 
-	Object.entries(sku.customisations).forEach(([key, entry]) => {
+	for (const [key, entry] of Object.entries(sku.customisations)) {
 		const defaultValue =
 			customisationsDefaults[key as keyof typeof customisationsDefaults]?.data;
 
@@ -62,14 +62,14 @@ export const getCustomisationText = (sku: Sku) => {
 			);
 		}
 
-		Object.entries(entry.flags ?? {}).forEach(([flag, val]) => {
+		for (const [flag, val] of Object.entries(entry.flags ?? {})) {
 			if (val) {
 				customisationLines.push(
 					CustomisationCopy[flag as keyof typeof CustomisationCopy],
 				);
 			}
-		});
-	});
+		}
+	}
 
 	return customisationLines;
 };

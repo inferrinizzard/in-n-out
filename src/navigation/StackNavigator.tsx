@@ -1,21 +1,21 @@
 import { useMemo } from "react";
 import {
-	NativeStackNavigationProp,
-	NativeStackScreenProps,
+	type NativeStackNavigationProp,
+	type NativeStackScreenProps,
 	createNativeStackNavigator,
 } from "@react-navigation/native-stack";
 
-import Menu, { MenuProps } from "../screens/Menu";
-import Item, { ItemProps } from "../screens/Item";
-import Cart, { CartProps } from "../screens/Cart";
-import More, { MoreProps } from "../screens/More";
-import QrCode, { QrCodeProps } from "../screens/QrCode";
-import Account, { AccountProps } from "../screens/Account";
-
-import Header from "../components/navigation/HeaderTitle";
-import HeaderButton from "../components/navigation/HeaderButton";
+import Menu, { type MenuProps } from "../screens/Menu";
+import Item, { type ItemProps } from "../screens/Item";
+import Cart, { type CartProps } from "../screens/Cart";
+import More, { type MoreProps } from "../screens/More";
+import QrCode, { type QrCodeProps } from "../screens/QrCode";
+import Account, { type AccountProps } from "../screens/Account";
 
 import { ScreenKeys } from "../consts/screens";
+
+import Header from "./components/HeaderTitle";
+import HeaderButton from "./components/HeaderButton";
 
 // #region types
 export const routesMap = {

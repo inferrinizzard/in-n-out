@@ -2,14 +2,14 @@ import { useMemo } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import { useAppSelector } from "../redux/store";
-import { selectMenu } from "../redux/slices/dataSlice";
-import { selectItems } from "../redux/slices/orderSlice";
+import { useAppSelector } from "../../redux/store";
+import { selectMenu } from "../../redux/slices/dataSlice";
+import { selectItems } from "../../redux/slices/orderSlice";
 
-import { type StackScreenProps } from "../navigators/StackNavigator";
-import MenuItem from "../components/menu/MenuItem";
+import type { StackScreenProps } from "../../navigation/StackNavigator";
+import MenuItem from "./components/MenuItem";
 
-import { ScreenKeys } from "../consts";
+import { ScreenKeys } from "../../consts";
 
 export interface MenuProps {}
 

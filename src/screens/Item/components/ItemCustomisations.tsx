@@ -4,11 +4,11 @@ import { Button, Text } from "react-native-paper";
 
 import ItemCustomisationRow from "./ItemCustomisationRow";
 
-import {
-	type SkuCustomisationKey,
-	type CustomisationNode,
-} from "../../data/customisations";
-import { type SkuId } from "../../data/types";
+import type {
+	SkuCustomisationKey,
+	CustomisationNode,
+} from "../../../data/customisations";
+import type { SkuId } from "../../../data/types";
 
 export interface ItemCustomisationsProps {
 	customisations: CustomisationNode;

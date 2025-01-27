@@ -4,13 +4,13 @@ import { Button, Card, Text } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { useAppDispatch } from "../../redux/store";
-import { editItem, removeItem } from "../../redux/slices/orderSlice";
+import { useAppDispatch } from "../../../redux/store";
+import { editItem, removeItem } from "../../../redux/slices/orderSlice";
 
 import { useImage } from "@src/hooks/useImage";
-import { type StackNavigationProps } from "../../navigators/StackNavigator";
+import type { StackNavigationProps } from "../../../navigation/StackNavigator";
 
-import { getCustomisationText, type Sku } from "../../models/Sku";
+import { getCustomisationText, type Sku } from "../../../models/Sku";
 
 export type CartItemProps = Sku & { uuid: string };
 
@@ -19,17 +19,13 @@ const CartItem: React.FC<CartItemProps> = ({ uuid, ...item }) => {
 
 	const image = useImage(item.id);
 
-	const customisationData = useMemo(
-		() => getCustomisationText(item),
-		[item, uuid],
-	);
+	const customisationData = useMemo(() => getCustomisationText(item), [item]);
 
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const editCartItem = () => {
 		dispatch(editItem(uuid));
 
-		// @ts-expect-error
 		navigation.push("Item", item);
 	};
 

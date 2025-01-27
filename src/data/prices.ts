@@ -2,7 +2,7 @@
 
 // https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
 
-import { type SkuId } from "./types";
+import type { SkuId } from "./types";
 
 const BasePriceData = Object.freeze({
 	DblDbl: 3.95,

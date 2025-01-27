@@ -1,6 +1,6 @@
-import { type SkuId } from "../types";
-import { type CustomisationData, type CustomisationTree } from "./data";
-import { customisationOptionMap } from "./utils";
+import type { SkuId } from "../types";
+import type { CustomisationData, CustomisationTree } from "./data";
+import type { customisationOptionMap } from "./utils";
 
 export type CustomisationOption<
 	Key extends CustomisationKey = CustomisationKey,
