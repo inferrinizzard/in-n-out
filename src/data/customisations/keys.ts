@@ -1,4 +1,4 @@
-export const FlagsKeys = Object.freeze({
+export const FlagKey = Object.freeze({
 	Chopped: "Chopped",
 	AddKetchup: "AddKetchup",
 	AddMustard: "AddMustard",
@@ -17,7 +17,7 @@ export const FlagsKeys = Object.freeze({
 	Neopolitan: "Neopolitan",
 } as const);
 
-export const OptionsKeys = Object.freeze({
+export const OptionKey = Object.freeze({
 	Small: "Small",
 	Medium: "Medium",
 	Large: "Large",
@@ -35,7 +35,7 @@ export const OptionsKeys = Object.freeze({
 	XtraWellDone: "XtraWellDone",
 } as const);
 
-export const CategoryKeys = Object.freeze({
+export const CategoryKey = Object.freeze({
 	Onions: "Onions",
 	GrilledOnions: "GrilledOnions",
 	Lettuce: "Lettuce",
@@ -51,7 +51,6 @@ export const CategoryKeys = Object.freeze({
 	Meat: "Meat",
 	Cheese: "Cheese",
 	Shake: "Shake",
-	SecretShake: "SecretShake",
 } as const);
 
 export const CustomisationCopy = Object.freeze({
@@ -93,17 +92,16 @@ export const CustomisationCopy = Object.freeze({
 	Chilis: "Chopped Chilies",
 	Spread: "Spread",
 	Bun: "Bun",
-	Doneness: "Rareness",
+	Doneness: "Doneness",
 	Size: "Size",
 	Burger: "Burger",
 	Fries: "Fries",
 	Meat: "Meat",
 	Cheese: "Cheese",
 	Shake: "Shake",
-	SecretShake: "Secret Flavors",
 } as const);
 
 CustomisationCopy satisfies Record<
-	keyof typeof FlagsKeys | keyof typeof OptionsKeys | keyof typeof CategoryKeys,
+	keyof typeof FlagKey | keyof typeof OptionKey | keyof typeof CategoryKey,
 	string
 >;
