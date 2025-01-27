@@ -3,7 +3,7 @@ import { StackActions, type NavigationState } from "@react-navigation/native";
 import { BottomNavigation, Icon } from "react-native-paper";
 
 import { type ScreenKey, ScreenKeys, ScreenCopy } from "../../consts";
-import { navigationRef } from "../../navigators/navigatorRef";
+import { navigationRef } from "../navigatorRef";
 
 const tabsIcons: Record<string, string> = {
 	[ScreenKeys.Menu]: "silverware",

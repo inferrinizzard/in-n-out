@@ -8,7 +8,7 @@ import {
 	clearActiveItem,
 } from "../../redux/slices/orderSlice";
 
-import { type StackNavigationProps } from "../../navigators/StackNavigator";
+import { type StackNavigationProps } from "../StackNavigator";
 
 import { ScreenKeys } from "../../consts";
 

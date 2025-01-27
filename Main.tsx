@@ -7,8 +7,8 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import ReduxProvider from "./src/redux/Provider";
 
-import MainNavigator from "./src/navigators/StackNavigator";
-import { navigationRef } from "./src/navigators/navigatorRef";
+import MainNavigator from "./src/navigation/StackNavigator";
+import { navigationRef } from "./src/navigation/navigatorRef";
 import { BottomTabs } from "./src/components/navigation/BottomTabs";
 import { theme, navigationTheme } from "./src/styles/theme";
 
