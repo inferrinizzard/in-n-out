@@ -20,6 +20,7 @@ export type ToppingAmount = (typeof StandardToppingAmounts)[number];
 
 export const BunOptions = [
 	OptionKey.None,
+	OptionKey.Untoasted,
 	OptionKey.LiteToast,
 	OptionKey.Regular,
 	OptionKey.XtraToast,
@@ -125,13 +126,13 @@ export const CustomisationData = Object.freeze({
 		type: "flags",
 		default: "",
 		options: [],
-		flags: [FlagKey.Chocolate, FlagKey.Vanilla, FlagKey.Strawberry],
-	},
-	[CategoryKey.SecretShake]: {
-		type: "flags",
-		default: "",
-		options: [],
-		flags: [FlagKey.BlackWhite, FlagKey.Neopolitan],
+		flags: [
+			FlagKey.Chocolate,
+			FlagKey.Vanilla,
+			FlagKey.Strawberry,
+			FlagKey.BlackWhite,
+			FlagKey.Neopolitan,
+		],
 	},
 } as const);
 
@@ -162,8 +163,24 @@ export const CustomisationTree = Object.freeze({
 	},
 	Shake: {
 		base: [CategoryKey.Shake],
-		more: [CategoryKey.SecretShake],
 	},
 } as const);
 
 CustomisationTree satisfies Record<string, CustomisationNode>;
+
+export interface MeatOption {
+	count: number;
+	doneness:
+		| typeof OptionKey.MediumRare
+		| typeof OptionKey.Medium
+		| typeof OptionKey.WellDone;
+	flags: {
+		[FlagKey.NoSalt]?: boolean;
+		[FlagKey.MustardGrilled]?: boolean;
+	};
+}
+
+// meat
+// - struct for options
+// - interface for types
+// - object for defaults
