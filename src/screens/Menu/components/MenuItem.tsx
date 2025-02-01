@@ -1,13 +1,12 @@
 import { Image, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 
-import { useAppSelector } from "../../../redux/store";
-import { selectCalories, selectPrices } from "../../../redux/slices/dataSlice";
-
-import { useImage } from "@src/hooks/useImage";
-
+import prices from "@data/prices";
+import calories from "@data/calories";
 import { MenuCopy } from "@data/copy";
 import type { MenuIdKey } from "@data/menu";
+
+import { useImage } from "@src/hooks/useImage";
 
 export type MenuItemProps = {
 	id: MenuIdKey;
@@ -15,9 +14,6 @@ export type MenuItemProps = {
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ id, onPress }) => {
-	const calories = useAppSelector(selectCalories);
-	const prices = useAppSelector(selectPrices);
-
 	const image = useImage(id as any);
 
 	return (
@@ -26,8 +22,8 @@ const MenuItem: React.FC<MenuItemProps> = ({ id, onPress }) => {
 				<Image source={image} style={{ height: 120, width: 160 }} />
 				<View style={{ display: "flex", flexDirection: "column" }}>
 					<Text>{MenuCopy[id]}</Text>
-					<Text>{`$${Number(prices.base[id as any]).toFixed(2)}`}</Text>
-					<Text>{`${calories.base[id as any]} Calories`}</Text>
+					<Text>{`$${Number(prices.base[id]).toFixed(2)}`}</Text>
+					<Text>{`${calories.base[id]} Calories`}</Text>
 				</View>
 			</Card.Content>
 		</Card>
