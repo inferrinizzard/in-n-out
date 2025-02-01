@@ -3,10 +3,15 @@ import {
 	DrinkSizes,
 	FriesDonenesses,
 	StandardToppingAmounts,
-} from "./data";
-import { Topping, ToppingFlag, ToppingOption } from "./keys";
+} from "./customisations/data";
+import {
+	Topping,
+	ToppingFlag,
+	type ToppingKey,
+	ToppingOption,
+} from "./customisations/keys";
 
-export interface OptionConfig<
+export interface ToppingConfig<
 	Options extends readonly string[] = readonly string[],
 	Flags extends readonly string[] = readonly string[],
 > {
@@ -14,7 +19,7 @@ export interface OptionConfig<
 	flags?: Flags;
 }
 
-export interface OptionValue<
+export interface ToppingValue<
 	Options extends readonly string[] = readonly string[],
 	Flags extends readonly string[] = readonly string[],
 > {
@@ -22,10 +27,10 @@ export interface OptionValue<
 	flags?: { [F in Flags[number]]?: boolean };
 }
 
-export interface CountOptionValue<
+export interface CountToppingValue<
 	Options extends readonly string[] = readonly string[],
 	Flags extends readonly string[] = readonly string[],
-> extends OptionValue<Options, Flags> {
+> extends ToppingValue<Options, Flags> {
 	count: number;
 }
 
@@ -99,6 +104,6 @@ export const ToppingOptionMap = Object.freeze({
 } as const);
 
 ToppingOptionMap satisfies Record<
-	keyof typeof Topping,
-	OptionConfig<readonly string[], readonly string[]>
+	ToppingKey,
+	ToppingConfig<readonly string[], readonly string[]>
 >;

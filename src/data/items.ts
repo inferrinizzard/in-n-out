@@ -1,5 +1,5 @@
 import { Topping, ToppingOption, type ToppingKey } from "./customisations/keys";
-import type { OptionValue } from "./customisations/options";
+import type { ToppingValue } from "./toppings";
 
 export const Item = Object.freeze({
 	Burger: "Burger",
@@ -63,7 +63,7 @@ ItemToppingMap satisfies Partial<
 		ItemKey,
 		{
 			options: ToppingKey[];
-			default: Partial<Record<ToppingKey, OptionValue>>;
+			default: Partial<Record<ToppingKey, ToppingValue>>;
 		}
 	>
 >;
