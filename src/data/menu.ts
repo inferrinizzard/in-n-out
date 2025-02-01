@@ -201,3 +201,5 @@ export const MenuComboMap = Object.freeze({
 		MenuItem.SoftDrink,
 	],
 } as const);
+
+export type MenuIdKey = MenuItemKey | MenuComboKey;

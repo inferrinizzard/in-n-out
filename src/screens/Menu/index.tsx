@@ -28,8 +28,7 @@ const Menu = ({ navigation }: MenuProps) => {
 							onPress={() => {
 								navigation.push(ScreenKeys.Item);
 							}}
-							id={id}
-							name={id}
+							id={id as any}
 						/>
 					)}
 				/>
