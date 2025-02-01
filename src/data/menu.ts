@@ -12,7 +12,7 @@ export type MenuKey = keyof typeof Menu;
 
 export const MenuItem = Object.freeze({
 	DblDbl: "DblDbl",
-	CheeseBurger: "CheeseBurger",
+	Cheeseburger: "Cheeseburger",
 	Hamburger: "Hamburger",
 	Fries: "Fries",
 	SoftDrink: "SoftDrink",
@@ -46,7 +46,7 @@ export const MenuItemMap = Object.freeze({
 				[Topping.Cheese]: { count: 2, value: ToppingOption.Regular },
 			},
 		},
-		[MenuItem.CheeseBurger]: {
+		[MenuItem.Cheeseburger]: {
 			id: Item.Burger,
 			override: {
 				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
@@ -178,7 +178,7 @@ export const MenuItemMap = Object.freeze({
 
 export const MenuCombo = Object.freeze({
 	DblDblCombo: "DblDblCombo",
-	CheeseBurgerCombo: "CheeseBurgerCombo",
+	CheeseburgerCombo: "CheeseburgerCombo",
 	HamburgerCombo: "HamburgerCombo",
 } as const);
 
@@ -190,8 +190,8 @@ export const MenuComboMap = Object.freeze({
 		MenuItem.Fries,
 		MenuItem.SoftDrink,
 	],
-	[MenuCombo.CheeseBurgerCombo]: [
-		MenuItem.CheeseBurger,
+	[MenuCombo.CheeseburgerCombo]: [
+		MenuItem.Cheeseburger,
 		MenuItem.Fries,
 		MenuItem.SoftDrink,
 	],
@@ -201,3 +201,5 @@ export const MenuComboMap = Object.freeze({
 		MenuItem.SoftDrink,
 	],
 } as const);
+
+export type MenuIdKey = MenuItemKey | MenuComboKey;
