@@ -3,11 +3,12 @@ import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import { useAppSelector } from "../../redux/store";
-import { selectMenu } from "../../redux/slices/dataSlice";
 import { selectItems } from "../../redux/slices/orderSlice";
 
 import type { StackScreenProps } from "../../navigation/StackNavigator";
 import MenuItem from "./components/MenuItem";
+
+import { Menu as MenuKey, MenuItemMap } from "@data/menu";
 
 import { ScreenKeys } from "../../consts";
 
@@ -16,28 +17,21 @@ export interface MenuProps extends StackScreenProps<typeof ScreenKeys.Menu> {}
 const Menu = ({ navigation }: MenuProps) => {
 	const order = useAppSelector(selectItems);
 	const orderItems = useMemo(() => Object.values(order), [order]);
-	const menu = useAppSelector(selectMenu);
-	const menuItems = useMemo(() => Object.values(menu), [menu]);
 
 	return (
 		<View style={{ flex: 1 }}>
 			<SafeAreaView style={{ flex: 1, flexGrow: 1 }}>
 				<FlatList
-					data={menuItems}
-					renderItem={({ item }) => {
-						const [baseItem, ...next] = item.has;
-						return (
-							<MenuItem
-								onPress={() => {
-									navigation.push(ScreenKeys.Item, {
-										...menu[baseItem],
-										nextItems: next,
-									});
-								}}
-								{...item}
-							/>
-						);
-					}}
+					data={Object.entries(MenuItemMap[MenuKey.Main])}
+					renderItem={({ item: [id, item] }) => (
+						<MenuItem
+							onPress={() => {
+								navigation.push(ScreenKeys.Item);
+							}}
+							id={id}
+							name={id}
+						/>
+					)}
 				/>
 			</SafeAreaView>
 
