@@ -8,7 +8,7 @@ import {
 	updateActiveCustomisations,
 } from "../../../redux/slices/orderSlice";
 
-import { CustomisationCopy } from "../../../consts";
+import { CustomisationCopy } from "@data/copy";
 import type {
 	CustomisationData,
 	CustomisationValue,
