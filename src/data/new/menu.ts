@@ -1,3 +1,4 @@
+import { CategoryKey, FlagKey, OptionKey } from "@src/consts";
 import { Item } from "../items";
 
 export const Menu = Object.freeze({
@@ -36,23 +37,23 @@ export const MenuData = Object.freeze({
 	[Menu.Main]: {
 		[MenuItem.DblDbl]: {
 			id: Item.Burger,
-			preset: {
-				meat: 2,
-				cheese: 2,
+			override: {
+				[CategoryKey.Meat]: { count: 2, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 2, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.CheeseBurger]: {
 			id: Item.Burger,
-			preset: {
-				meat: 1,
-				cheese: 1,
+			override: {
+				[CategoryKey.Meat]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 1, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.Hamburger]: {
 			id: Item.Burger,
-			preset: {
-				meat: 1,
-				cheese: 0,
+			override: {
+				[CategoryKey.Meat]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 0, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.Fries]: {
@@ -79,72 +80,79 @@ export const MenuData = Object.freeze({
 	[Menu.SecretMenu]: {
 		[MenuItem.AnimalStyle]: {
 			id: Item.Burger,
-			preset: {
-				meat: 1,
-				cheese: 1,
-				animalStyle: true,
+			override: {
+				[CategoryKey.Meat]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Burger]: { flags: { [FlagKey.AnimalStyle]: true } },
 			},
 		},
 		[MenuItem.ProteinStyle]: {
 			id: Item.Burger,
-			preset: {
-				meat: 1,
-				cheese: 1,
-				bun: "lettuce",
+			override: {
+				[CategoryKey.Meat]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Bun]: { value: OptionKey.ProteinStyle },
 			},
 		},
 		[MenuItem["3X3"]]: {
 			id: Item.Burger,
-			preset: {
-				meat: 3,
-				cheese: 3,
+			override: {
+				[CategoryKey.Meat]: { count: 3, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 3, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem["4X4"]]: {
 			id: Item.Burger,
-			preset: {
-				meat: 4,
-				cheese: 4,
+			override: {
+				[CategoryKey.Meat]: { count: 4, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 4, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.AnimalFries]: {
 			id: Item.Fries,
-			preset: { animalStyle: true },
+			override: {
+				[CategoryKey.Fries]: { flags: { [FlagKey.AnimalStyle]: true } },
+			},
 		},
 		[MenuItem.GrilledCheese]: {
 			id: Item.Burger,
-			preset: {
-				meat: 0,
-				cheese: 1,
+			override: {
+				[CategoryKey.Meat]: { count: 0, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 1, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.DoubleMeat]: {
 			id: Item.Burger,
-			preset: {
-				meat: 2,
-				cheese: 0,
+			override: {
+				[CategoryKey.Meat]: { count: 2, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 0, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.FlyingDutchman]: {
 			id: Item.Burger,
-			preset: {
-				meat: 2,
-				cheese: 2,
-				bun: "none",
+			override: {
+				[CategoryKey.Meat]: { count: 2, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 2, value: OptionKey.Regular },
+				[CategoryKey.Bun]: { value: OptionKey.None },
 			},
 		},
 		[MenuItem.WishBurger]: {
 			id: Item.Burger,
-			preset: {
-				meat: 0,
-				cheese: 0,
+			override: {
+				[CategoryKey.Meat]: { count: 0, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 0, value: OptionKey.Regular },
 			},
 		},
 		[MenuItem.PupPatty]: {
 			id: Item.Burger,
-			preset: {
-				meat: 1,
-				cheese: 0,
+			override: {
+				[CategoryKey.Meat]: { count: 1, value: OptionKey.Regular },
+				[CategoryKey.Cheese]: { count: 0, value: OptionKey.Regular },
+				[CategoryKey.Lettuce]: { value: OptionKey.None },
+				[CategoryKey.Tomato]: { value: OptionKey.None },
+				[CategoryKey.Spread]: { value: OptionKey.None },
+				[CategoryKey.Bun]: { value: OptionKey.None },
+				[CategoryKey.Burger]: { flags: { [FlagKey.NoSalt]: true } },
 			},
 		},
 	},

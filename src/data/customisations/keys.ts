@@ -1,6 +1,5 @@
 export const FlagKey = Object.freeze({
 	Chopped: "Chopped",
-	NoSpread: "NoSpread",
 	AddKetchup: "AddKetchup",
 	AddMustard: "AddMustard",
 	AnimalStyle: "AnimalStyle",
