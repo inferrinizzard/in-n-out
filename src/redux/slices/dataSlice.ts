@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-import menu from "../../data/menu";
+import menu from "../../data/old/menu";
 import prices from "../../data/prices";
 import calories from "../../data/calories";
 import images from "../../data/images";
