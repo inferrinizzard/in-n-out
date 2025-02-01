@@ -9,7 +9,7 @@ import ReduxProvider from "./src/redux/Provider";
 
 import MainNavigator from "./src/navigation/StackNavigator";
 import { navigationRef } from "./src/navigation/navigatorRef";
-import { BottomTabs } from "./src/components/navigation/BottomTabs";
+import { BottomTabs } from "./src/navigation/components/BottomTabs";
 import { theme, navigationTheme } from "./src/styles/theme";
 
 const { LightTheme } = adaptNavigationTheme({

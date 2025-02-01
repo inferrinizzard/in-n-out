@@ -2,7 +2,7 @@ import { Burger } from "./Burger";
 import { Drink } from "./Drink";
 import { Fries } from "./Fries";
 
-import { CustomisationCopy } from "../consts";
+import { CustomisationCopy } from "@data/copy";
 import {
 	buildCustomisationDefaultEntry,
 	type CustomisationEntry,

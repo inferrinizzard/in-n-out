@@ -1,4 +1,4 @@
-import type Menu from "./menu";
+import type Menu from "./old/menu";
 
 export type SkuId = keyof typeof Menu;
 

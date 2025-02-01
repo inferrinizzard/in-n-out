@@ -1,8 +1,8 @@
 import { CustomisationData, CustomisationTree } from "./data";
-import { type CustomisationEntry, type CustomisationKey } from "./types";
+import type { CustomisationEntry, CustomisationKey } from "./types";
 
-import { type SkuId } from "../types";
-import { type BurgerId } from "../../models/Burger";
+import type { SkuId } from "../types";
+import type { BurgerId } from "../../models/Burger";
 
 export const customisationOptionMap = {
 	DblDbl: "Burger",

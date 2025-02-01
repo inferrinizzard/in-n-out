@@ -1,38 +1,39 @@
-import { FlagsKeys, CategoryKeys, OptionsKeys } from "../../consts";
+import { ToppingFlag, Topping, ToppingOption } from "../../consts";
 
 import type { CustomisationNode, CustomisationOption } from "./types";
 
 export const DrinkSizes = [
-	OptionsKeys.Small,
-	OptionsKeys.Medium,
-	OptionsKeys.Large,
-	OptionsKeys.XtraLarge,
+	ToppingOption.Small,
+	ToppingOption.Medium,
+	ToppingOption.Large,
+	ToppingOption.XtraLarge,
 ] as const;
 export type DrinkSize = (typeof DrinkSizes)[number];
 
 export const StandardToppingAmounts = [
-	OptionsKeys.None,
-	OptionsKeys.Lite,
-	OptionsKeys.Regular,
-	OptionsKeys.Xtra,
+	ToppingOption.None,
+	ToppingOption.Lite,
+	ToppingOption.Regular,
+	ToppingOption.Xtra,
 ] as const;
 export type ToppingAmount = (typeof StandardToppingAmounts)[number];
 
 export const BunOptions = [
-	OptionsKeys.None,
-	OptionsKeys.LiteToast,
-	OptionsKeys.Regular,
-	OptionsKeys.XtraToast,
-	OptionsKeys.ProteinStyle,
+	ToppingOption.None,
+	ToppingOption.Untoasted,
+	ToppingOption.LiteToast,
+	ToppingOption.Regular,
+	ToppingOption.XtraToast,
+	ToppingOption.ProteinStyle,
 ] as const;
 export type BunOption = (typeof BunOptions)[number];
 
 export const FriesDonenesses = [
-	OptionsKeys.LiteFry,
-	OptionsKeys.Regular,
-	OptionsKeys.LiteWell,
-	OptionsKeys.WellDone,
-	OptionsKeys.XtraWellDone,
+	ToppingOption.LiteFry,
+	ToppingOption.Regular,
+	ToppingOption.LiteWell,
+	ToppingOption.WellDone,
+	ToppingOption.XtraWellDone,
 ] as const;
 export type FriesDoneness = (typeof FriesDonenesses)[number];
 
@@ -40,98 +41,98 @@ export const NumericCustomisation = [0, 1, 2, 3] as const;
 export type NumericCustomisationValue = (typeof NumericCustomisation)[number];
 
 export const CustomisationData = Object.freeze({
-	[CategoryKeys.Onions]: {
+	[Topping.Onions]: {
 		type: "enum",
-		default: OptionsKeys.None as ToppingAmount,
+		default: ToppingOption.None as ToppingAmount,
 		options: StandardToppingAmounts,
-		flags: [FlagsKeys.Chopped],
+		flags: [ToppingFlag.Chopped],
 	},
-	[CategoryKeys.GrilledOnions]: {
+	[Topping.GrilledOnions]: {
 		type: "enum",
-		default: OptionsKeys.None as ToppingAmount,
-		options: StandardToppingAmounts,
-	},
-	[CategoryKeys.Lettuce]: {
-		type: "enum",
-		default: OptionsKeys.Regular as ToppingAmount,
+		default: ToppingOption.None as ToppingAmount,
 		options: StandardToppingAmounts,
 	},
-	[CategoryKeys.Tomato]: {
+	[Topping.Lettuce]: {
 		type: "enum",
-		default: OptionsKeys.Regular as ToppingAmount,
+		default: ToppingOption.Regular as ToppingAmount,
 		options: StandardToppingAmounts,
 	},
-	[CategoryKeys.Pickles]: {
+	[Topping.Tomato]: {
 		type: "enum",
-		default: OptionsKeys.None as ToppingAmount,
+		default: ToppingOption.Regular as ToppingAmount,
 		options: StandardToppingAmounts,
 	},
-	[CategoryKeys.Chilis]: {
+	[Topping.Pickles]: {
 		type: "enum",
-		default: OptionsKeys.None as ToppingAmount,
+		default: ToppingOption.None as ToppingAmount,
 		options: StandardToppingAmounts,
 	},
-	[CategoryKeys.Spread]: {
+	[Topping.Chilis]: {
 		type: "enum",
-		default: OptionsKeys.Regular as ToppingAmount,
+		default: ToppingOption.None as ToppingAmount,
 		options: StandardToppingAmounts,
-		flags: [FlagsKeys.AddKetchup, FlagsKeys.AddMustard],
 	},
-	[CategoryKeys.Bun]: {
+	[Topping.Spread]: {
 		type: "enum",
-		default: OptionsKeys.Regular as BunOption,
+		default: ToppingOption.Regular as ToppingAmount,
+		options: StandardToppingAmounts,
+		flags: [ToppingFlag.AddKetchup, ToppingFlag.AddMustard],
+	},
+	[Topping.Bun]: {
+		type: "enum",
+		default: ToppingOption.Regular as BunOption,
 		options: BunOptions,
 	},
-	[CategoryKeys.Doneness]: {
+	[Topping.Doneness]: {
 		type: "enum",
-		default: OptionsKeys.Regular as FriesDoneness,
+		default: ToppingOption.Regular as FriesDoneness,
 		options: FriesDonenesses,
 	},
-	[CategoryKeys.Size]: {
+	[Topping.Size]: {
 		type: "enum",
-		default: OptionsKeys.Medium as DrinkSize,
+		default: ToppingOption.Medium as DrinkSize,
 		options: DrinkSizes,
 	},
-	[CategoryKeys.Burger]: {
+	[Topping.Burger]: {
 		type: "flags",
 		default: "",
 		options: [],
-		flags: [FlagsKeys.AnimalStyle, FlagsKeys.CutInHalf],
+		flags: [ToppingFlag.AnimalStyle, ToppingFlag.CutInHalf],
 	},
-	[CategoryKeys.Fries]: {
+	[Topping.Fries]: {
 		type: "flags",
 		default: "",
 		options: [],
-		flags: [FlagsKeys.NoSalt, FlagsKeys.AddCheese, FlagsKeys.AnimalStyle],
+		flags: [ToppingFlag.NoSalt, ToppingFlag.AddCheese, ToppingFlag.AnimalStyle],
 	},
-	[CategoryKeys.Meat]: {
+	[Topping.Meat]: {
 		type: "number",
 		default: 0,
 		options: NumericCustomisation,
 		flags: [
-			FlagsKeys.NoSalt,
-			FlagsKeys.MustardGrilled,
-			FlagsKeys.MediumRare,
-			FlagsKeys.WellDone,
+			ToppingFlag.NoSalt,
+			ToppingFlag.MustardGrilled,
+			ToppingFlag.MediumRare,
+			ToppingFlag.WellDone,
 		],
 	},
-	[CategoryKeys.Cheese]: {
+	[Topping.Cheese]: {
 		type: "number",
 		default: 0,
 		options: NumericCustomisation,
-		flags: [FlagsKeys.ColdCheese],
+		flags: [ToppingFlag.ColdCheese],
 	},
-	[CategoryKeys.Shake]: {
+	[Topping.Shake]: {
 		type: "flags",
 		default: "",
 		options: [],
-		flags: [FlagsKeys.Chocolate, FlagsKeys.Vanilla, FlagsKeys.Strawberry],
-	},
-	[CategoryKeys.SecretShake]: {
-		type: "flags",
-		default: "",
-		options: [],
-		flags: [FlagsKeys.BlackWhite, FlagsKeys.Neopolitan],
+		flags: [
+			ToppingFlag.Chocolate,
+			ToppingFlag.Vanilla,
+			ToppingFlag.Strawberry,
+			ToppingFlag.BlackWhite,
+			ToppingFlag.Neopolitan,
+		],
 	},
 } as const);
 
@@ -139,31 +140,47 @@ CustomisationData satisfies Record<string, CustomisationOption>;
 
 export const CustomisationTree = Object.freeze({
 	Burger: {
-		base: [CategoryKeys.Onions],
+		base: [Topping.Onions],
 		more: [
-			CategoryKeys.Meat,
-			CategoryKeys.Cheese,
-			CategoryKeys.GrilledOnions,
-			CategoryKeys.Lettuce,
-			CategoryKeys.Tomato,
-			CategoryKeys.Pickles,
-			CategoryKeys.Chilis,
-			CategoryKeys.Spread,
-			CategoryKeys.Bun,
-			CategoryKeys.Burger,
+			Topping.Meat,
+			Topping.Cheese,
+			Topping.GrilledOnions,
+			Topping.Lettuce,
+			Topping.Tomato,
+			Topping.Pickles,
+			Topping.Chilis,
+			Topping.Spread,
+			Topping.Bun,
+			Topping.Burger,
 		],
 	},
 	Fries: {
-		base: [CategoryKeys.Doneness],
-		more: [CategoryKeys.Fries],
+		base: [Topping.Doneness],
+		more: [Topping.Fries],
 	},
 	Drink: {
-		base: [CategoryKeys.Size],
+		base: [Topping.Size],
 	},
 	Shake: {
-		base: [CategoryKeys.Shake],
-		more: [CategoryKeys.SecretShake],
+		base: [Topping.Shake],
 	},
 } as const);
 
 CustomisationTree satisfies Record<string, CustomisationNode>;
+
+export interface MeatOption {
+	count: number;
+	doneness:
+		| typeof ToppingOption.MediumRare
+		| typeof ToppingOption.Medium
+		| typeof ToppingOption.WellDone;
+	flags: {
+		[ToppingFlag.NoSalt]?: boolean;
+		[ToppingFlag.MustardGrilled]?: boolean;
+	};
+}
+
+// meat
+// - struct for options
+// - interface for types
+// - object for defaults

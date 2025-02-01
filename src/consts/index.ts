@@ -1,2 +1,2 @@
-export * from "./customisations";
+export * from "../data/customisations/keys";
 export * from "./screens";

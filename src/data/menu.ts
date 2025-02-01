@@ -1,64 +1,203 @@
-const MenuData = Object.freeze({
-	DblDblCombo: {
-		id: "DblDblCombo",
-		name: "Double-Double Combo",
-		has: ["DblDbl", "Fries", "SoftDrink"],
+import { Topping, ToppingFlag, ToppingOption } from "@src/consts";
+import { Item } from "./items";
+
+export const Menu = Object.freeze({
+	Main: "MenuMain",
+	HotDrink: "HotDrink",
+	SecretMenu: "SecretMenu",
+	Extra: "Extra",
+} as const);
+
+export type MenuKey = keyof typeof Menu;
+
+export const MenuItem = Object.freeze({
+	DblDbl: "DblDbl",
+	CheeseBurger: "CheeseBurger",
+	Hamburger: "Hamburger",
+	Fries: "Fries",
+	SoftDrink: "SoftDrink",
+	Shake: "Shake",
+	Coffee: "Coffee",
+	Milk: "Milk",
+	HotCocoa: "HotCocoa",
+	AnimalStyle: "AnimalStyle",
+	ProteinStyle: "ProteinStyle",
+	"3X3": "3X3",
+	"4X4": "4X4",
+	AnimalFries: "AnimalFries",
+	GrilledCheese: "GrilledCheese",
+	DoubleMeat: "DoubleMeat",
+	FlyingDutchman: "FlyingDutchman",
+	WishBurger: "WishBurger",
+	PupPatty: "PupPatty",
+	Stickers: "Stickers",
+	PaperHat: "PaperHat",
+	GiftCard: "GiftCard",
+} as const);
+
+export type MenuItemKey = keyof typeof MenuItem;
+
+export const MenuItemMap = Object.freeze({
+	[Menu.Main]: {
+		[MenuItem.DblDbl]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 2, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 2, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.CheeseBurger]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.Hamburger]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.Fries]: {
+			id: Item.Fries,
+		},
+		[MenuItem.SoftDrink]: {
+			id: Item.Drink,
+		},
+		[MenuItem.Shake]: {
+			id: Item.Shake,
+		},
 	},
-	CheeseburgerCombo: {
-		id: "CheeseburgerCombo",
-		name: "Cheeseburger Combo",
-		has: ["Cheeseburger", "Fries", "SoftDrink"],
+	[Menu.HotDrink]: {
+		[MenuItem.Coffee]: {
+			id: Item.Drink,
+		},
+		[MenuItem.Milk]: {
+			id: Item.Drink,
+		},
+		[MenuItem.HotCocoa]: {
+			id: Item.Drink,
+		},
 	},
-	HamburgerCombo: {
-		id: "HamburgerCombo",
-		name: "Hamburger Combo",
-		has: ["Hamburger", "Fries", "SoftDrink"],
+	[Menu.SecretMenu]: {
+		[MenuItem.AnimalStyle]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Burger]: { flags: { [ToppingFlag.AnimalStyle]: true } },
+			},
+		},
+		[MenuItem.ProteinStyle]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Bun]: { value: ToppingOption.ProteinStyle },
+			},
+		},
+		[MenuItem["3X3"]]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 3, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 3, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem["4X4"]]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 4, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 4, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.AnimalFries]: {
+			id: Item.Fries,
+			override: {
+				[Topping.Fries]: { flags: { [ToppingFlag.AnimalStyle]: true } },
+			},
+		},
+		[MenuItem.GrilledCheese]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 0, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.DoubleMeat]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 2, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.FlyingDutchman]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 2, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 2, value: ToppingOption.Regular },
+				[Topping.Bun]: { value: ToppingOption.None },
+			},
+		},
+		[MenuItem.WishBurger]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 0, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+			},
+		},
+		[MenuItem.PupPatty]: {
+			id: Item.Burger,
+			override: {
+				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
+				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+				[Topping.Lettuce]: { value: ToppingOption.None },
+				[Topping.Tomato]: { value: ToppingOption.None },
+				[Topping.Spread]: { value: ToppingOption.None },
+				[Topping.Bun]: { value: ToppingOption.None },
+				[Topping.Burger]: { flags: { [ToppingFlag.NoSalt]: true } },
+			},
+		},
 	},
-	DblDbl: {
-		id: "DblDbl",
-		name: "Double-Double",
-		has: ["DblDbl"],
-	},
-	Cheeseburger: {
-		id: "Cheeseburger",
-		name: "Cheeseburger",
-		has: ["Cheeseburger"],
-	},
-	Hamburger: {
-		id: "Hamburger",
-		name: "Hamburger",
-		has: ["Hamburger"],
-	},
-	Fries: {
-		id: "Fries",
-		name: "French Fries",
-		has: ["Fries"],
-	},
-	SoftDrink: {
-		id: "SoftDrink",
-		name: "Soft Drink",
-		has: ["SoftDrink"],
-	},
-	Coffee: {
-		id: "Coffee",
-		name: "Coffee",
-		has: ["Coffee"],
-	},
-	Milk: {
-		id: "Milk",
-		name: "Milk",
-		has: ["Milk"],
-	},
-	Shake: {
-		id: "Shake",
-		name: "Milk Shake",
-		has: ["Shake"],
-	},
-	HotCocoa: {
-		id: "HotCocoa",
-		name: "Hot Cocoa",
-		has: ["HotCocoa"],
+	[Menu.Extra]: {
+		[MenuItem.Stickers]: {
+			id: Item.Stickers,
+		},
+		[MenuItem.PaperHat]: {
+			id: Item.PaperHat,
+		},
+		[MenuItem.GiftCard]: {
+			id: Item.GiftCard,
+		},
+		Merch: {
+			// id: Item.Merch,
+		},
 	},
 } as const);
 
-export default MenuData;
+export const MenuCombo = Object.freeze({
+	DblDblCombo: "DblDblCombo",
+	CheeseBurgerCombo: "CheeseBurgerCombo",
+	HamburgerCombo: "HamburgerCombo",
+} as const);
+
+export type MenuComboKey = keyof typeof MenuCombo;
+
+export const MenuComboMap = Object.freeze({
+	[MenuCombo.DblDblCombo]: [
+		MenuItem.DblDbl,
+		MenuItem.Fries,
+		MenuItem.SoftDrink,
+	],
+	[MenuCombo.CheeseBurgerCombo]: [
+		MenuItem.CheeseBurger,
+		MenuItem.Fries,
+		MenuItem.SoftDrink,
+	],
+	[MenuCombo.HamburgerCombo]: [
+		MenuItem.Hamburger,
+		MenuItem.Fries,
+		MenuItem.SoftDrink,
+	],
+} as const);
