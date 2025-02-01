@@ -4,8 +4,7 @@ import {
 	FriesDonenesses,
 	StandardToppingAmounts,
 } from "./data";
-import { CategoryKey, FlagKey, OptionKey } from "./keys";
-import { Item, type ItemKey } from "../items";
+import { Topping, ToppingFlag, ToppingOption } from "./keys";
 
 export interface OptionConfig<
 	Options extends readonly string[] = readonly string[],
@@ -30,123 +29,76 @@ export interface CountOptionValue<
 	count: number;
 }
 
-export const OptionMap = Object.freeze({
-	[CategoryKey.Onions]: {
+export const ToppingOptionMap = Object.freeze({
+	[Topping.Onions]: {
 		options: StandardToppingAmounts,
-		flags: [FlagKey.Chopped],
+		flags: [ToppingFlag.Chopped],
 	},
-	[CategoryKey.GrilledOnions]: {
-		options: StandardToppingAmounts,
-	},
-	[CategoryKey.Lettuce]: {
+	[Topping.GrilledOnions]: {
 		options: StandardToppingAmounts,
 	},
-	[CategoryKey.Tomato]: {
+	[Topping.Lettuce]: {
 		options: StandardToppingAmounts,
 	},
-	[CategoryKey.Pickles]: {
+	[Topping.Tomato]: {
 		options: StandardToppingAmounts,
 	},
-	[CategoryKey.Chilis]: {
+	[Topping.Pickles]: {
 		options: StandardToppingAmounts,
 	},
-	[CategoryKey.Spread]: {
+	[Topping.Chilis]: {
 		options: StandardToppingAmounts,
-		flags: [FlagKey.AddKetchup, FlagKey.AddMustard],
 	},
-	[CategoryKey.Bun]: {
+	[Topping.Spread]: {
+		options: StandardToppingAmounts,
+		flags: [ToppingFlag.AddKetchup, ToppingFlag.AddMustard],
+	},
+	[Topping.Bun]: {
 		options: BunOptions,
 	},
-	[CategoryKey.Doneness]: {
+	[Topping.Doneness]: {
 		options: FriesDonenesses,
 	},
-	[CategoryKey.Size]: {
+	[Topping.Size]: {
 		options: DrinkSizes,
 	},
-	[CategoryKey.Burger]: {
+	[Topping.Burger]: {
 		options: [],
-		flags: [FlagKey.AnimalStyle, FlagKey.CutInHalf],
+		flags: [ToppingFlag.AnimalStyle, ToppingFlag.CutInHalf],
 	},
-	[CategoryKey.Fries]: {
-		options: [OptionKey.Regular, FlagKey.AddCheese, FlagKey.AnimalStyle],
-		flags: [FlagKey.NoSalt],
+	[Topping.Fries]: {
+		options: [
+			ToppingOption.Regular,
+			ToppingFlag.AddCheese,
+			ToppingFlag.AnimalStyle,
+		],
+		flags: [ToppingFlag.NoSalt],
 	},
-	[CategoryKey.Meat]: {
-		options: [OptionKey.MediumRare, OptionKey.Medium, OptionKey.WellDone],
-		flags: [FlagKey.NoSalt, FlagKey.MustardGrilled],
+	[Topping.Meat]: {
+		options: [
+			ToppingOption.MediumRare,
+			ToppingOption.Medium,
+			ToppingOption.WellDone,
+		],
+		flags: [ToppingFlag.NoSalt, ToppingFlag.MustardGrilled],
 	},
-	[CategoryKey.Cheese]: {
+	[Topping.Cheese]: {
 		options: [],
-		flags: [FlagKey.ColdCheese],
+		flags: [ToppingFlag.ColdCheese],
 	},
-	[CategoryKey.Shake]: {
+	[Topping.Shake]: {
 		options: [],
 		flags: [
-			FlagKey.Chocolate,
-			FlagKey.Vanilla,
-			FlagKey.Strawberry,
-			FlagKey.BlackWhite,
-			FlagKey.Neopolitan,
+			ToppingFlag.Chocolate,
+			ToppingFlag.Vanilla,
+			ToppingFlag.Strawberry,
+			ToppingFlag.BlackWhite,
+			ToppingFlag.Neopolitan,
 		],
 	},
 } as const);
 
-OptionMap satisfies Record<
-	keyof typeof CategoryKey,
+ToppingOptionMap satisfies Record<
+	keyof typeof Topping,
 	OptionConfig<readonly string[], readonly string[]>
->;
-
-export const ItemOptions = Object.freeze({
-	[Item.Burger]: {
-		options: [
-			CategoryKey.Meat,
-			CategoryKey.Cheese,
-			CategoryKey.Onions,
-			CategoryKey.GrilledOnions,
-			CategoryKey.Lettuce,
-			CategoryKey.Tomato,
-			CategoryKey.Pickles,
-			CategoryKey.Chilis,
-			CategoryKey.Spread,
-			CategoryKey.Bun,
-			CategoryKey.Burger,
-		],
-		default: {
-			[CategoryKey.Meat]: { count: 1, value: OptionKey.Regular },
-			[CategoryKey.Cheese]: { count: 1, value: OptionKey.Regular },
-			[CategoryKey.Lettuce]: { value: OptionKey.Regular },
-			[CategoryKey.Tomato]: { value: OptionKey.Regular },
-			[CategoryKey.Spread]: { value: OptionKey.Regular },
-			[CategoryKey.Bun]: { value: OptionKey.Regular },
-		},
-	},
-	[Item.Fries]: {
-		options: [CategoryKey.Doneness, CategoryKey.Fries],
-		default: {
-			[CategoryKey.Doneness]: { value: OptionKey.Medium },
-			[CategoryKey.Fries]: { value: OptionKey.Regular },
-		},
-	},
-	[Item.Drink]: {
-		options: [CategoryKey.Size, CategoryKey.Shake],
-		default: {
-			[CategoryKey.Size]: { value: OptionKey.Medium },
-		},
-	},
-	[Item.Shake]: {
-		options: [CategoryKey.Size, CategoryKey.Shake],
-		default: {
-			[CategoryKey.Size]: { value: OptionKey.Medium },
-		},
-	},
-});
-
-ItemOptions satisfies Partial<
-	Record<
-		ItemKey,
-		{
-			options: (keyof typeof CategoryKey)[];
-			default: Partial<Record<keyof typeof CategoryKey, OptionValue>>;
-		}
-	>
 >;
