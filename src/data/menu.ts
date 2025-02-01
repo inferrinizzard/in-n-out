@@ -175,3 +175,29 @@ export const MenuItemMap = Object.freeze({
 		},
 	},
 } as const);
+
+export const MenuCombo = Object.freeze({
+	DblDblCombo: "DblDblCombo",
+	CheeseBurgerCombo: "CheeseBurgerCombo",
+	HamburgerCombo: "HamburgerCombo",
+} as const);
+
+export type MenuComboKey = keyof typeof MenuCombo;
+
+export const MenuComboMap = Object.freeze({
+	[MenuCombo.DblDblCombo]: [
+		MenuItem.DblDbl,
+		MenuItem.Fries,
+		MenuItem.SoftDrink,
+	],
+	[MenuCombo.CheeseBurgerCombo]: [
+		MenuItem.CheeseBurger,
+		MenuItem.Fries,
+		MenuItem.SoftDrink,
+	],
+	[MenuCombo.HamburgerCombo]: [
+		MenuItem.Hamburger,
+		MenuItem.Fries,
+		MenuItem.SoftDrink,
+	],
+} as const);
