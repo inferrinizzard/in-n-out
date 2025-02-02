@@ -3,8 +3,9 @@ import type {
 	ToppingKey,
 	ToppingOptionKey,
 } from "./customisations/keys";
+import { MenuCombo, MenuItem, type MenuIdKey } from "./menu";
 
-export const CustomisationCopy = Object.freeze({
+export const ToppingCopy = Object.freeze({
 	Chopped: "Chopped Onions",
 	AddKetchup: "Add Ketchup",
 	AddMustard: "Add Mustard",
@@ -53,7 +54,37 @@ export const CustomisationCopy = Object.freeze({
 	Shake: "Shake",
 } as const);
 
-CustomisationCopy satisfies Record<
+ToppingCopy satisfies Record<
 	ToppingFlagKey | ToppingOptionKey | ToppingKey,
 	string
 >;
+
+export const MenuCopy = Object.freeze({
+	[MenuCombo.DblDblCombo]: "Double-Double Combo",
+	[MenuCombo.CheeseburgerCombo]: "Cheeseburger Combo",
+	[MenuCombo.HamburgerCombo]: "Hamburger Combo",
+	[MenuItem.DblDbl]: "Double-Double",
+	[MenuItem.Cheeseburger]: "Cheeseburger",
+	[MenuItem.Hamburger]: "Hamburger",
+	[MenuItem.Fries]: "Fries",
+	[MenuItem.SoftDrink]: "Soft Drink",
+	[MenuItem.Shake]: "Milk Shake",
+	[MenuItem.Coffee]: "Coffee",
+	[MenuItem.Milk]: "Milk",
+	[MenuItem.HotCocoa]: "Hot Cocoa",
+	[MenuItem.AnimalStyle]: "Animal Style",
+	[MenuItem.ProteinStyle]: "Protein Style",
+	[MenuItem["3X3"]]: "3X3",
+	[MenuItem["4X4"]]: "4X4",
+	[MenuItem.AnimalFries]: "Animal Fries",
+	[MenuItem.GrilledCheese]: "Grilled Cheese",
+	[MenuItem.DoubleMeat]: "Double Meat",
+	[MenuItem.FlyingDutchman]: "Flying Dutchman",
+	[MenuItem.WishBurger]: "Wish Burger",
+	[MenuItem.PupPatty]: "Pup Patty",
+	[MenuItem.Stickers]: "Stickers",
+	[MenuItem.PaperHat]: "Paper Hat",
+	[MenuItem.GiftCard]: "Gift Card",
+} as const);
+
+MenuCopy satisfies Record<MenuIdKey, string>;
