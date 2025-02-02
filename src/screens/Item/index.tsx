@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
+import { type StackScreenProps, ScreenKeys } from "@src/navigation";
+
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
 	addActiveToPending,
@@ -15,7 +17,6 @@ import {
 	selectPrices,
 } from "../../redux/slices/dataSlice";
 
-import type { StackScreenProps } from "../../navigation/StackNavigator";
 import ItemCustomisations from "./components/ItemCustomisations";
 import {
 	getCustomisationOptions,
@@ -23,7 +24,6 @@ import {
 } from "../../data/customisations";
 import { useImage } from "@src/hooks/useImage";
 
-import { ScreenKeys } from "../../consts";
 import { Sku } from "../../models/Sku";
 import type { MenuItem, SkuId } from "../../data/types";
 

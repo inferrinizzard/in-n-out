@@ -1,9 +1,7 @@
 import { Image, StyleSheet, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
-import type { StackScreenProps } from "../../navigation/StackNavigator";
-
-import type { ScreenKeys } from "../../consts";
+import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 
 export interface QrCodeProps
 	extends StackScreenProps<typeof ScreenKeys.QrCode> {}

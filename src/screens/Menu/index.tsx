@@ -2,15 +2,13 @@ import { useMemo } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
+import { type StackScreenProps, ScreenKeys } from "@src/navigation";
+import { Menu as MenuKey, MenuItemMap } from "@data/menu";
+
 import { useAppSelector } from "../../redux/store";
 import { selectItems } from "../../redux/slices/orderSlice";
 
-import type { StackScreenProps } from "../../navigation/StackNavigator";
 import MenuItem from "./components/MenuItem";
-
-import { Menu as MenuKey, MenuItemMap } from "@data/menu";
-
-import { ScreenKeys } from "../../consts";
 
 export interface MenuProps extends StackScreenProps<typeof ScreenKeys.Menu> {}
 

@@ -5,7 +5,7 @@ import type { HeaderTitleProps } from "@react-navigation/elements";
 import { useAppSelector } from "../../redux/store";
 import { selectActiveItem } from "../../redux/slices/orderSlice";
 
-import { HeaderCopy, type ScreenKey } from "../../consts";
+import { HeaderCopy, type ScreenKey } from "../screens";
 
 export interface HeaderProps extends HeaderTitleProps {}
 
