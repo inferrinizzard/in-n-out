@@ -1,4 +1,4 @@
-import { Topping, ToppingFlag, ToppingOption } from "@src/consts";
+import { Topping, ToppingFlag, ToppingOption } from "./customisations/keys";
 import { Item } from "./items";
 
 export const Menu = Object.freeze({

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StackActions, type NavigationState } from "@react-navigation/native";
 import { BottomNavigation, Icon } from "react-native-paper";
 
-import { type ScreenKey, ScreenKeys, ScreenCopy } from "../../consts";
+import { type ScreenKey, ScreenKeys, ScreenCopy } from "../screens";
 import { navigationRef } from "../navigatorRef";
 
 const tabsIcons: Record<string, string> = {

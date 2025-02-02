@@ -10,7 +10,7 @@ import {
 
 import type { StackNavigationProps } from "../StackNavigator";
 
-import { ScreenKeys } from "../../consts";
+import { ScreenKeys } from "../screens";
 
 export type HeaderButtonProps = Parameters<
 	Exclude<HeaderOptions["headerLeft"], undefined>

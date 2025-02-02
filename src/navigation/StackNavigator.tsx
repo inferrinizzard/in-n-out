@@ -12,7 +12,7 @@ import More, { type MoreProps } from "../screens/More";
 import QrCode, { type QrCodeProps } from "../screens/QrCode";
 import Account, { type AccountProps } from "../screens/Account";
 
-import { ScreenKeys } from "../consts/screens";
+import { ScreenKeys } from "./screens";
 
 import Header from "./components/HeaderTitle";
 import HeaderButton from "./components/HeaderButton";

@@ -1,4 +1,4 @@
-import { ToppingFlag, Topping, ToppingOption } from "../../consts";
+import { ToppingFlag, Topping, ToppingOption } from "./keys";
 
 import type { CustomisationNode, CustomisationOption } from "./types";
 
