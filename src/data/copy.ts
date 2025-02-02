@@ -5,7 +5,7 @@ import type {
 } from "./customisations/keys";
 import { MenuCombo, MenuItem, type MenuIdKey } from "./menu";
 
-export const CustomisationCopy = Object.freeze({
+export const ToppingCopy = Object.freeze({
 	Chopped: "Chopped Onions",
 	AddKetchup: "Add Ketchup",
 	AddMustard: "Add Mustard",
@@ -54,7 +54,7 @@ export const CustomisationCopy = Object.freeze({
 	Shake: "Shake",
 } as const);
 
-CustomisationCopy satisfies Record<
+ToppingCopy satisfies Record<
 	ToppingFlagKey | ToppingOptionKey | ToppingKey,
 	string
 >;
