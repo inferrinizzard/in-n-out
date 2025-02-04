@@ -1,4 +1,4 @@
-import { Topping } from "@src/consts";
+import { Topping } from "./customisations/keys";
 import { MenuItem, MenuCombo, type MenuIdKey } from "./menu";
 
 const BaseCaloriesData = Object.freeze({
