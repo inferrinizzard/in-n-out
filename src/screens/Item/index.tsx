@@ -23,20 +23,21 @@ import {
 import { useImage } from "@src/hooks/useImage";
 
 import { Sku } from "../../models/Sku";
-import type { MenuItem, SkuId } from "../../data/types";
+import type { ItemKey } from "@data/items";
 
-export type ItemProps = MenuItem & {
-	nextItems?: readonly SkuId[];
-};
+export interface ItemScreenParams {
+	id: ItemKey;
+}
 
-const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
-	navigation,
-	route,
-}) => {
+export interface ItemProps
+	extends ItemScreenParams,
+		StackScreenProps<typeof ScreenKeys.Item> {}
+
+const Item = ({ navigation, route }: ItemProps) => {
+	const { id } = route.params!;
+
 	const dispatch = useAppDispatch();
 	const activeItem = useAppSelector(selectActiveItem);
-
-	const { id, name, nextItems } = route.params!;
 
 	const image = useImage(id);
 
@@ -81,7 +82,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 				) : null}
 			</ScrollView>
 
-			<Button
+			{/* <Button
 				onPress={() => {
 					dispatch(addActiveToPending());
 					if (nextItems?.length) {
@@ -95,7 +96,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 				}}
 			>
 				<Text>{nextItems?.length ? "Go to next Item" : "Add to Order"}</Text>
-			</Button>
+			</Button> */}
 		</View>
 	);
 };

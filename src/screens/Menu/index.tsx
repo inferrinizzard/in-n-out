@@ -24,7 +24,7 @@ const Menu = ({ navigation }: MenuProps) => {
 					renderItem={({ item: [id, item] }) => (
 						<MenuItem
 							onPress={() => {
-								navigation.push(ScreenKeys.Item);
+								navigation.push(ScreenKeys.Item, { id: item.id });
 							}}
 							id={id as any}
 						/>
