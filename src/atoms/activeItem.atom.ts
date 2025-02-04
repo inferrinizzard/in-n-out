@@ -9,9 +9,11 @@ interface ActiveItemAtomState {
 	id: MenuIdKey;
 	item: ItemKey;
 	options?: Record<ToppingKey, ToppingValue>;
+	price: number;
+	calories: number;
 }
 
-const baseAtom = atom<ActiveItemAtomState | Record<never, never>>({});
+const baseAtom = atom<ActiveItemAtomState | null>(null);
 
 export const activeItemAtom = atom(
 	(get) => get(baseAtom),
@@ -20,19 +22,34 @@ export const activeItemAtom = atom(
 			set(baseAtom, item);
 		},
 
-		setDefaultItem: (item: Omit<ActiveItemAtomState, "options">) => {
+		setDefaultItem: (item: Pick<ActiveItemAtomState, "id" | "item">) => {
 			const options =
 				item.item in ItemToppingMap
 					? ItemToppingMap[item.item as keyof typeof ItemToppingMap].default
 					: undefined;
-			set(baseAtom, { ...item, options });
+			const price = 0;
+			const calories = 0;
+			set(baseAtom, {
+				...item,
+				options,
+				price,
+				calories,
+			} as ActiveItemAtomState);
 		},
 
 		updateOption: (key: ToppingKey, value: ToppingValue) => {
-			set(baseAtom, (prev) => ({
-				...prev,
-				options: { ...("options" in prev && prev.options), [key]: value },
-			}));
+			if (!get(baseAtom)) {
+				return;
+			}
+
+			set(
+				baseAtom,
+				(prev) =>
+					({
+						...prev,
+						options: { ...prev?.options, [key]: value },
+					}) as ActiveItemAtomState,
+			);
 		},
 	}),
 );

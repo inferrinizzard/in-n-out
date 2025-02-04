@@ -1,7 +1,9 @@
 import { useMemo } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
+import { useAtom, useSetAtom } from "jotai";
 
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import { Menu as MenuKey, MenuItemMap } from "@data/menu";
 
@@ -16,6 +18,8 @@ const Menu = ({ navigation }: MenuProps) => {
 	const order = useAppSelector(selectItems);
 	const orderItems = useMemo(() => Object.values(order), [order]);
 
+	const { setDefaultItem } = useSetAtom(activeItemAtom)();
+
 	return (
 		<View style={{ flex: 1 }}>
 			<SafeAreaView style={{ flex: 1, flexGrow: 1 }}>
@@ -24,7 +28,8 @@ const Menu = ({ navigation }: MenuProps) => {
 					renderItem={({ item: [id, item] }) => (
 						<MenuItem
 							onPress={() => {
-								navigation.push(ScreenKeys.Item, { id: item.id });
+								setDefaultItem({ id: id as any, item: item.id });
+								navigation.push(ScreenKeys.Item);
 							}}
 							id={id as any}
 						/>

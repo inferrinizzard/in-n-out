@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import { type StackScreenProps, ScreenKeys } from "@src/navigation";
+import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import calories from "@data/calories";
 import prices from "@data/prices";
 import menu from "@data/old/menu";
@@ -24,46 +24,25 @@ import { useImage } from "@src/hooks/useImage";
 
 import { Sku } from "../../models/Sku";
 import type { ItemKey } from "@data/items";
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
+import { useAtom, useAtomValue } from "jotai";
+import { MenuCopy } from "@data/copy";
 
-export interface ItemScreenParams {
-	id: ItemKey;
-}
+export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 
-export interface ItemProps
-	extends ItemScreenParams,
-		StackScreenProps<typeof ScreenKeys.Item> {}
-
-const Item = ({ navigation, route }: ItemProps) => {
-	const { id } = route.params!;
-
-	const dispatch = useAppDispatch();
-	const activeItem = useAppSelector(selectActiveItem);
+const Item = ({ navigation }: ItemProps) => {
+	const activeItem = useAtomValue(activeItemAtom)!;
+	const id = activeItem.id;
 
 	const image = useImage(id);
 
-	// TODO: memo
-	const customisations = getCustomisationOptions(id);
-
-	useEffect(() => {
-		if (!activeItem) {
-			dispatch(
-				setActiveItem(
-					Sku({
-						...menu[id],
-						price: prices.base[id],
-						calories: calories.base[id],
-						customisations: { ...buildCustomisationDefaultEntry(id) },
-					}),
-				),
-			);
-		}
-	}, [id, activeItem]);
+	const name = MenuCopy[activeItem.id];
 
 	return (
 		<View style={{ display: "flex", flex: 1 }}>
 			<View style={{ alignItems: "center" }}>
 				<Image source={image} style={{ height: 240, width: 320 }} />
-				<Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
+				<Text style={{ fontSize: 24 }}>{name}</Text>
 				<View style={{ display: "flex", flexDirection: "row" }}>
 					<Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
 						2,
@@ -77,9 +56,9 @@ const Item = ({ navigation, route }: ItemProps) => {
 				contentContainerStyle={{ alignItems: "center" }}
 				style={{ display: "flex" }}
 			>
-				{customisations ? (
+				{/* {customisations ? (
 					<ItemCustomisations<typeof id> customisations={customisations} />
-				) : null}
+				) : null} */}
 			</ScrollView>
 
 			{/* <Button

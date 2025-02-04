@@ -29,7 +29,7 @@ export const routesMap = {
 
 export type StackParamList = {
 	[ScreenKeys.Menu]: MenuProps;
-	[ScreenKeys.Item]: ItemScreenParams;
+	[ScreenKeys.Item]: undefined;
 	[ScreenKeys.Cart]: CartProps;
 	[ScreenKeys.QrCode]: QrCodeProps;
 	[ScreenKeys.Account]: AccountProps;
