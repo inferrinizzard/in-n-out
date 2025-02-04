@@ -1,6 +1,6 @@
 import type { SkuId } from "./types";
 
-const ImageUris = Object.freeze({
+export const ImageUris = Object.freeze({
 	DblDblCombo: "",
 	CheeseburgerCombo: "",
 	HamburgerCombo: "",
@@ -20,7 +20,7 @@ const ImageUris = Object.freeze({
 
 ImageUris satisfies Record<SkuId, string>;
 
-const ImageData = {
+export const ImageData = {
 	DblDblCombo: require("@images/DblDblCombo.png"),
 	CheeseburgerCombo: require("@images/CheeseburgerCombo.png"),
 	HamburgerCombo: require("@images/HamburgerCombo.png"),
@@ -32,5 +32,3 @@ const ImageData = {
 };
 
 ImageData satisfies Partial<Record<SkuId, unknown>>;
-
-export default { data: ImageData, uris: ImageUris };
