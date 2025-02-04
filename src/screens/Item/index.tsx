@@ -3,6 +3,9 @@ import { Image, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
+import calories from "@data/calories";
+import prices from "@data/prices";
+import menu from "@data/old/menu";
 
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
@@ -11,11 +14,6 @@ import {
 	selectActiveItem,
 	setActiveItem,
 } from "../../redux/slices/orderSlice";
-import {
-	selectCalories,
-	selectMenu,
-	selectPrices,
-} from "../../redux/slices/dataSlice";
 
 import ItemCustomisations from "./components/ItemCustomisations";
 import {
@@ -36,9 +34,6 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 	route,
 }) => {
 	const dispatch = useAppDispatch();
-	const menu = useAppSelector(selectMenu);
-	const prices = useAppSelector(selectPrices);
-	const calories = useAppSelector(selectCalories);
 	const activeItem = useAppSelector(selectActiveItem);
 
 	const { id, name, nextItems } = route.params!;
