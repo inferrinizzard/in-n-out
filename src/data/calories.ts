@@ -1,4 +1,4 @@
-import { Topping } from "@src/consts";
+import { Option } from "./customisations/keys";
 import { MenuItem, MenuCombo, type MenuIdKey } from "./menu";
 
 const BaseCaloriesData = Object.freeze({
@@ -17,11 +17,11 @@ const BaseCaloriesData = Object.freeze({
 } as const);
 
 const MiscCaloriesData = Object.freeze({
-	[Topping.Meat]:
+	[Option.Meat]:
 		BaseCaloriesData.DblDbl -
 		(BaseCaloriesData.Cheeseburger +
 			(BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger)),
-	[Topping.Cheese]: BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger,
+	[Option.Cheese]: BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger,
 	SoftDrinkSmall: 130,
 	SoftDrinkMedium: 190,
 	SoftDrinkLarge: 270,

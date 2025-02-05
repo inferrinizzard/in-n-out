@@ -1,22 +1,18 @@
 import { useMemo } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
+import { useAtom, useSetAtom } from "jotai";
 
-import { useAppSelector } from "../../redux/store";
-import { selectItems } from "../../redux/slices/orderSlice";
-
-import type { StackScreenProps } from "../../navigation/StackNavigator";
-import MenuItem from "./components/MenuItem";
-
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
+import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import { Menu as MenuKey, MenuItemMap } from "@data/menu";
 
-import { ScreenKeys } from "../../consts";
+import MenuItem from "./components/MenuItem";
 
 export interface MenuProps extends StackScreenProps<typeof ScreenKeys.Menu> {}
 
 const Menu = ({ navigation }: MenuProps) => {
-	const order = useAppSelector(selectItems);
-	const orderItems = useMemo(() => Object.values(order), [order]);
+	const { setDefaultItem } = useSetAtom(activeItemAtom)();
 
 	return (
 		<View style={{ flex: 1 }}>
@@ -26,6 +22,7 @@ const Menu = ({ navigation }: MenuProps) => {
 					renderItem={({ item: [id, item] }) => (
 						<MenuItem
 							onPress={() => {
+								setDefaultItem({ id: id as any, item: item.id });
 								navigation.push(ScreenKeys.Item);
 							}}
 							id={id as any}
@@ -34,7 +31,7 @@ const Menu = ({ navigation }: MenuProps) => {
 				/>
 			</SafeAreaView>
 
-			{orderItems.length ? (
+			{[].length ? (
 				<View
 					style={{
 						backgroundColor: "red",
@@ -42,7 +39,7 @@ const Menu = ({ navigation }: MenuProps) => {
 					}}
 				>
 					<Button onPress={() => navigation.replace(ScreenKeys.Cart)}>
-						<Text>{`Checkout ${orderItems.length} Items now`}</Text>
+						<Text>{`Checkout ${[].length} Items now`}</Text>
 					</Button>
 				</View>
 			) : null}

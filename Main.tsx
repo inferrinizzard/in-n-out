@@ -5,8 +5,6 @@ import {
 } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 
-import ReduxProvider from "./src/redux/Provider";
-
 import MainNavigator from "./src/navigation/StackNavigator";
 import { navigationRef } from "./src/navigation/navigatorRef";
 import { BottomTabs } from "./src/navigation/components/BottomTabs";
@@ -18,19 +16,17 @@ const { LightTheme } = adaptNavigationTheme({
 
 const App = () => {
 	return (
-		<ReduxProvider>
-			<ThemeProvider theme={theme}>
-				<SafeAreaView
-					id="providerRoot"
-					style={{ flex: 1, ...styles.androidSafeArea }}
-				>
-					<NavigationContainer theme={LightTheme} ref={navigationRef}>
-						<MainNavigator />
-						<BottomTabs />
-					</NavigationContainer>
-				</SafeAreaView>
-			</ThemeProvider>
-		</ReduxProvider>
+		<ThemeProvider theme={theme}>
+			<SafeAreaView
+				id="providerRoot"
+				style={{ flex: 1, ...styles.androidSafeArea }}
+			>
+				<NavigationContainer theme={LightTheme} ref={navigationRef}>
+					<MainNavigator />
+					<BottomTabs />
+				</NavigationContainer>
+			</SafeAreaView>
+		</ThemeProvider>
 	);
 };
 

@@ -6,13 +6,13 @@ import {
 } from "@react-navigation/native-stack";
 
 import Menu, { type MenuProps } from "../screens/Menu";
-import Item, { type ItemProps } from "../screens/Item";
+import Item, { type ItemScreenParams } from "../screens/Item";
 import Cart, { type CartProps } from "../screens/Cart";
 import More, { type MoreProps } from "../screens/More";
 import QrCode, { type QrCodeProps } from "../screens/QrCode";
 import Account, { type AccountProps } from "../screens/Account";
 
-import { ScreenKeys } from "../consts/screens";
+import { ScreenKeys } from "./screens";
 
 import Header from "./components/HeaderTitle";
 import HeaderButton from "./components/HeaderButton";
@@ -28,12 +28,12 @@ export const routesMap = {
 } as const;
 
 export type StackParamList = {
-	[ScreenKeys.Menu]?: MenuProps;
-	[ScreenKeys.Item]?: ItemProps;
-	[ScreenKeys.Cart]?: CartProps;
-	[ScreenKeys.QrCode]?: QrCodeProps;
-	[ScreenKeys.Account]?: AccountProps;
-	[ScreenKeys.More]?: MoreProps;
+	[ScreenKeys.Menu]: MenuProps;
+	[ScreenKeys.Item]: undefined;
+	[ScreenKeys.Cart]: CartProps;
+	[ScreenKeys.QrCode]: QrCodeProps;
+	[ScreenKeys.Account]: AccountProps;
+	[ScreenKeys.More]: MoreProps;
 };
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>;

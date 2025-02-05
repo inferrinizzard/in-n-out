@@ -1,15 +1,10 @@
-import { useAppSelector } from "@src/redux/store";
-import { selectImageUris, selectImages } from "@src/redux/slices/dataSlice";
-
+import { ImageData, ImageUris } from "@src/data/images";
 import type { SkuId } from "@data/types";
 
 export const useImage = (id: SkuId) => {
-	const images = useAppSelector(selectImages);
-	const imageUris = useAppSelector(selectImageUris);
-
-	if (id in images) {
-		return images[id as keyof typeof images];
+	if (id in ImageData) {
+		return ImageData[id as keyof typeof ImageData];
 	}
 
-	return imageUris[id];
+	return ImageUris[id];
 };

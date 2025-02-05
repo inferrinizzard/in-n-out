@@ -2,20 +2,11 @@ import { useEffect } from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import {
-	addActiveToPending,
-	addPendingToList,
-	selectActiveItem,
-	setActiveItem,
-} from "../../redux/slices/orderSlice";
-import {
-	selectCalories,
-	selectMenu,
-	selectPrices,
-} from "../../redux/slices/dataSlice";
+import type { StackScreenProps, ScreenKeys } from "@src/navigation";
+import calories from "@data/calories";
+import prices from "@data/prices";
+import menu from "@data/old/menu";
 
-import type { StackScreenProps } from "../../navigation/StackNavigator";
 import ItemCustomisations from "./components/ItemCustomisations";
 import {
 	getCustomisationOptions,
@@ -23,51 +14,27 @@ import {
 } from "../../data/customisations";
 import { useImage } from "@src/hooks/useImage";
 
-import { ScreenKeys } from "../../consts";
 import { Sku } from "../../models/Sku";
-import type { MenuItem, SkuId } from "../../data/types";
+import type { ItemKey } from "@data/items";
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
+import { useAtom, useAtomValue } from "jotai";
+import { MenuCopy } from "@data/copy";
 
-export type ItemProps = MenuItem & {
-	nextItems?: readonly SkuId[];
-};
+export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 
-const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
-	navigation,
-	route,
-}) => {
-	const dispatch = useAppDispatch();
-	const menu = useAppSelector(selectMenu);
-	const prices = useAppSelector(selectPrices);
-	const calories = useAppSelector(selectCalories);
-	const activeItem = useAppSelector(selectActiveItem);
-
-	const { id, name, nextItems } = route.params!;
+const Item = ({ navigation }: ItemProps) => {
+	const activeItem = useAtomValue(activeItemAtom)!;
+	const id = activeItem.id;
 
 	const image = useImage(id);
 
-	// TODO: memo
-	const customisations = getCustomisationOptions(id);
-
-	useEffect(() => {
-		if (!activeItem) {
-			dispatch(
-				setActiveItem(
-					Sku({
-						...menu[id],
-						price: prices.base[id],
-						calories: calories.base[id],
-						customisations: { ...buildCustomisationDefaultEntry(id) },
-					}),
-				),
-			);
-		}
-	}, [id, activeItem]);
+	const name = MenuCopy[activeItem.id];
 
 	return (
 		<View style={{ display: "flex", flex: 1 }}>
 			<View style={{ alignItems: "center" }}>
 				<Image source={image} style={{ height: 240, width: 320 }} />
-				<Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
+				<Text style={{ fontSize: 24 }}>{name}</Text>
 				<View style={{ display: "flex", flexDirection: "row" }}>
 					<Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
 						2,
@@ -81,12 +48,12 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 				contentContainerStyle={{ alignItems: "center" }}
 				style={{ display: "flex" }}
 			>
-				{customisations ? (
+				{/* {customisations ? (
 					<ItemCustomisations<typeof id> customisations={customisations} />
-				) : null}
+				) : null} */}
 			</ScrollView>
 
-			<Button
+			{/* <Button
 				onPress={() => {
 					dispatch(addActiveToPending());
 					if (nextItems?.length) {
@@ -100,7 +67,7 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 				}}
 			>
 				<Text>{nextItems?.length ? "Go to next Item" : "Add to Order"}</Text>
-			</Button>
+			</Button> */}
 		</View>
 	);
 };
