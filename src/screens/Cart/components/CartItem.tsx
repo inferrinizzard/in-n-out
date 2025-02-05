@@ -17,7 +17,7 @@ export interface CartItemProps extends Sku {
 }
 
 const CartItem = ({ uuid, ...item }: CartItemProps) => {
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 
 	const image = useImage(item.id);
 
@@ -26,14 +26,14 @@ const CartItem = ({ uuid, ...item }: CartItemProps) => {
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const editCartItem = () => {
-		dispatch(editItem(uuid));
+		// dispatch(editItem(uuid));
 
 		// @ts-expect-error
 		navigation.push("Item", item);
 	};
 
 	const removeCartItem = () => {
-		dispatch(removeItem(uuid));
+		// dispatch(removeItem(uuid));
 	};
 
 	return (

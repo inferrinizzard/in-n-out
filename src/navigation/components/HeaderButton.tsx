@@ -26,9 +26,9 @@ const HeaderButton: React.FC<HeaderButtonProps> = () => {
 		<Button
 			onPress={() => {
 				if (parentScreen === ScreenKeys.Cart) {
-					dispatch(addActiveToList());
+					// dispatch(addActiveToList());
 				} else {
-					dispatch(clearActiveItem());
+					// dispatch(clearActiveItem());
 				}
 				navigation.goBack();
 			}}
