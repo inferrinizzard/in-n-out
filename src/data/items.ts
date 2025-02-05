@@ -1,5 +1,5 @@
 import { Option, OptionValue, type OptionKey } from "./customisations/keys";
-import type { OptionInstance } from "./toppings";
+import type { OptionInstance } from "./options";
 
 export const Item = Object.freeze({
 	Burger: "Burger",

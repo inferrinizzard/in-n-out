@@ -2,7 +2,7 @@ import { atom } from "jotai";
 
 import type { MenuIdKey } from "@data/menu";
 import type { OptionKey } from "@data/customisations/keys";
-import type { OptionInstance } from "@data/toppings";
+import type { OptionInstance } from "@data/options";
 import { ItemOptionMap, type ItemKey } from "@data/items";
 
 interface ActiveItemAtomState {
