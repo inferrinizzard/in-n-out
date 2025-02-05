@@ -2,16 +2,16 @@ import {
 	BunOptions,
 	DrinkSizes,
 	FriesDonenesses,
-	StandardToppingAmounts,
+	StandardOptionAmounts,
 } from "./customisations/data";
 import {
-	Topping,
-	ToppingFlag,
-	type ToppingKey,
-	ToppingOption,
+	Option,
+	OptionFlag,
+	type OptionKey,
+	OptionValue,
 } from "./customisations/keys";
 
-export interface ToppingConfig<
+export interface OptionConfig<
 	Options extends readonly string[] = readonly string[],
 	Flags extends readonly string[] = readonly string[],
 > {
@@ -19,7 +19,7 @@ export interface ToppingConfig<
 	flags?: Flags;
 }
 
-export interface ToppingValue<
+export interface OptionInstance<
 	Options extends readonly string[] = readonly string[],
 	Flags extends readonly string[] = readonly string[],
 > {
@@ -27,83 +27,79 @@ export interface ToppingValue<
 	flags?: { [F in Flags[number]]?: boolean };
 }
 
-export interface CountToppingValue<
+export interface CountOptionInstance<
 	Options extends readonly string[] = readonly string[],
 	Flags extends readonly string[] = readonly string[],
-> extends ToppingValue<Options, Flags> {
+> extends OptionInstance<Options, Flags> {
 	count: number;
 }
 
-export const ToppingOptionMap = Object.freeze({
-	[Topping.Onions]: {
-		options: StandardToppingAmounts,
-		flags: [ToppingFlag.Chopped],
+export const OptionOptionMap = Object.freeze({
+	[Option.Onions]: {
+		options: StandardOptionAmounts,
+		flags: [OptionFlag.Chopped],
 	},
-	[Topping.GrilledOnions]: {
-		options: StandardToppingAmounts,
+	[Option.GrilledOnions]: {
+		options: StandardOptionAmounts,
 	},
-	[Topping.Lettuce]: {
-		options: StandardToppingAmounts,
+	[Option.Lettuce]: {
+		options: StandardOptionAmounts,
 	},
-	[Topping.Tomato]: {
-		options: StandardToppingAmounts,
+	[Option.Tomato]: {
+		options: StandardOptionAmounts,
 	},
-	[Topping.Pickles]: {
-		options: StandardToppingAmounts,
+	[Option.Pickles]: {
+		options: StandardOptionAmounts,
 	},
-	[Topping.Chilis]: {
-		options: StandardToppingAmounts,
+	[Option.Chilis]: {
+		options: StandardOptionAmounts,
 	},
-	[Topping.Spread]: {
-		options: StandardToppingAmounts,
-		flags: [ToppingFlag.AddKetchup, ToppingFlag.AddMustard],
+	[Option.Spread]: {
+		options: StandardOptionAmounts,
+		flags: [OptionFlag.AddKetchup, OptionFlag.AddMustard],
 	},
-	[Topping.Bun]: {
+	[Option.Bun]: {
 		options: BunOptions,
 	},
-	[Topping.Doneness]: {
+	[Option.Doneness]: {
 		options: FriesDonenesses,
 	},
-	[Topping.Size]: {
+	[Option.Size]: {
 		options: DrinkSizes,
 	},
-	[Topping.Burger]: {
+	[Option.Burger]: {
 		options: [],
-		flags: [ToppingFlag.AnimalStyle, ToppingFlag.CutInHalf],
+		flags: [OptionFlag.AnimalStyle, OptionFlag.CutInHalf],
 	},
-	[Topping.Fries]: {
+	[Option.Fries]: {
 		options: [
-			ToppingOption.Regular,
-			ToppingFlag.AddCheese,
-			ToppingFlag.AnimalStyle,
+			OptionValue.Regular,
+			OptionFlag.AddCheese,
+			OptionFlag.AnimalStyle,
 		],
-		flags: [ToppingFlag.NoSalt],
+		flags: [OptionFlag.NoSalt],
 	},
-	[Topping.Meat]: {
-		options: [
-			ToppingOption.MediumRare,
-			ToppingOption.Medium,
-			ToppingOption.WellDone,
-		],
-		flags: [ToppingFlag.NoSalt, ToppingFlag.MustardGrilled],
+	[Option.Meat]: {
+		options: [OptionValue.MediumRare, OptionValue.Medium, OptionValue.WellDone],
+		flags: [OptionFlag.NoSalt, OptionFlag.MustardGrilled],
 	},
-	[Topping.Cheese]: {
+	[Option.Cheese]: {
 		options: [],
-		flags: [ToppingFlag.ColdCheese],
+		flags: [OptionFlag.ColdCheese],
 	},
-	[Topping.Shake]: {
+	[Option.Shake]: {
 		options: [],
 		flags: [
-			ToppingFlag.Chocolate,
-			ToppingFlag.Vanilla,
-			ToppingFlag.Strawberry,
-			ToppingFlag.BlackWhite,
-			ToppingFlag.Neopolitan,
+			OptionFlag.Chocolate,
+			OptionFlag.Vanilla,
+			OptionFlag.Strawberry,
+			OptionFlag.BlackWhite,
+			OptionFlag.Neopolitan,
 		],
 	},
 } as const);
 
-ToppingOptionMap satisfies Record<
-	ToppingKey,
-	ToppingConfig<readonly string[], readonly string[]>
+OptionOptionMap satisfies Record<
+	OptionKey,
+	OptionConfig<readonly string[], readonly string[]>
 >;

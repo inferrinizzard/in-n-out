@@ -34,13 +34,13 @@ export type CustomisationEntry<
 	Options extends CustomisationKey = CustomisationNodeKeys<Customisations>,
 > = Id extends keyof typeof customisationOptionMap
 	? Partial<{
-			[ToppingOption in Options]: {
-				data: CustomisationValue<ToppingOption>;
-				flags?: "flags" extends keyof (typeof CustomisationData)[ToppingOption]
-					? undefined extends (typeof CustomisationData)[ToppingOption]["flags"]
+			[OptionValue in Options]: {
+				data: CustomisationValue<OptionValue>;
+				flags?: "flags" extends keyof (typeof CustomisationData)[OptionValue]
+					? undefined extends (typeof CustomisationData)[OptionValue]["flags"]
 						? undefined
 						: Record<
-								((typeof CustomisationData)[ToppingOption]["flags"] &
+								((typeof CustomisationData)[OptionValue]["flags"] &
 									string[])[number],
 								boolean | undefined
 							>
