@@ -1,17 +1,12 @@
 import { atom } from "jotai";
 
-import type { MenuIdKey } from "@data/menu";
-import type { ToppingKey } from "@data/customisations/keys";
-import type { ToppingValue } from "@data/toppings";
-import { ItemToppingMap, type ItemKey } from "@data/items";
+import type { OptionKey } from "@data/customisations/keys";
+import type { OptionInstance } from "@data/options";
+import { ItemOptionMap } from "@data/items";
 
-interface ActiveItemAtomState {
-	id: MenuIdKey;
-	item: ItemKey;
-	options?: Record<ToppingKey, ToppingValue>;
-	price: number;
-	calories: number;
-}
+import type { SkuItem } from "./types";
+
+interface ActiveItemAtomState extends SkuItem {}
 
 const baseAtom = atom<ActiveItemAtomState | null>(null);
 
@@ -24,8 +19,8 @@ export const activeItemAtom = atom(
 
 		setDefaultItem: (item: Pick<ActiveItemAtomState, "id" | "item">) => {
 			const options =
-				item.item in ItemToppingMap
-					? ItemToppingMap[item.item as keyof typeof ItemToppingMap].default
+				item.item in ItemOptionMap
+					? ItemOptionMap[item.item as keyof typeof ItemOptionMap].default
 					: undefined;
 			const price = 0;
 			const calories = 0;
@@ -37,7 +32,7 @@ export const activeItemAtom = atom(
 			} as ActiveItemAtomState);
 		},
 
-		updateOption: (key: ToppingKey, value: ToppingValue) => {
+		updateOption: (key: OptionKey, value: OptionInstance) => {
 			if (!get(baseAtom)) {
 				return;
 			}

@@ -1,4 +1,4 @@
-export const ToppingFlag = Object.freeze({
+export const OptionFlag = Object.freeze({
 	Chopped: "Chopped",
 	AddKetchup: "AddKetchup",
 	AddMustard: "AddMustard",
@@ -15,9 +15,9 @@ export const ToppingFlag = Object.freeze({
 	Neopolitan: "Neopolitan",
 } as const);
 
-export type ToppingFlagKey = keyof typeof ToppingFlag;
+export type OptionFlagKey = keyof typeof OptionFlag;
 
-export const ToppingOption = Object.freeze({
+export const OptionValue = Object.freeze({
 	Small: "Small",
 	Medium: "Medium",
 	Large: "Large",
@@ -37,9 +37,9 @@ export const ToppingOption = Object.freeze({
 	XtraWellDone: "XtraWellDone",
 } as const);
 
-export type ToppingOptionKey = keyof typeof ToppingOption;
+export type OptionOptionKey = keyof typeof OptionValue;
 
-export const Topping = Object.freeze({
+export const Option = Object.freeze({
 	Onions: "Onions",
 	GrilledOnions: "GrilledOnions",
 	Lettuce: "Lettuce",
@@ -57,4 +57,4 @@ export const Topping = Object.freeze({
 	Shake: "Shake",
 } as const);
 
-export type ToppingKey = keyof typeof Topping;
+export type OptionKey = keyof typeof Option;

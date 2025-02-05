@@ -1,11 +1,11 @@
 import type {
-	ToppingFlagKey,
-	ToppingKey,
-	ToppingOptionKey,
+	OptionFlagKey,
+	OptionKey,
+	OptionOptionKey,
 } from "./customisations/keys";
 import { MenuCombo, MenuItem, type MenuIdKey } from "./menu";
 
-export const ToppingCopy = Object.freeze({
+export const OptionCopy = Object.freeze({
 	Chopped: "Chopped Onions",
 	AddKetchup: "Add Ketchup",
 	AddMustard: "Add Mustard",
@@ -54,8 +54,8 @@ export const ToppingCopy = Object.freeze({
 	Shake: "Shake",
 } as const);
 
-ToppingCopy satisfies Record<
-	ToppingFlagKey | ToppingOptionKey | ToppingKey,
+OptionCopy satisfies Record<
+	OptionFlagKey | OptionOptionKey | OptionKey,
 	string
 >;
 

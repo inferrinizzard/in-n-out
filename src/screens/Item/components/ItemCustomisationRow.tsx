@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Image, View } from "react-native";
 import { Button, Card, Text, TextInput } from "react-native-paper";
 
-import { ToppingCopy } from "@data/copy";
+import { OptionCopy } from "@data/copy";
 import type {
 	CustomisationData,
 	CustomisationValue,
@@ -33,7 +33,7 @@ const ItemCustomisationRow = <Key extends ItemKey>({
 	// 	dispatch(updateActiveCustomisations({ flags: { name, flag, value } }));
 	// return (
 	// 	<View style={{ maxWidth: "100%" }}>
-	// 		{data.type !== "flags" ? <Text>{ToppingCopy[name]}</Text> : null}
+	// 		{data.type !== "flags" ? <Text>{OptionCopy[name]}</Text> : null}
 	// 		<View style={{ display: "flex", flexDirection: "row" }}>
 	// 			{data.options.map((option) => (
 	// 				<Card
@@ -54,8 +54,8 @@ const ItemCustomisationRow = <Key extends ItemKey>({
 	// 					>
 	// 						{/* <Image source={{ uri: imageUrl, height: 120, width: 160 }} /> */}
 	// 						<Text>
-	// 							{option in ToppingCopy
-	// 								? ToppingCopy[option as keyof typeof ToppingCopy]
+	// 							{option in OptionCopy
+	// 								? OptionCopy[option as keyof typeof OptionCopy]
 	// 								: option}
 	// 						</Text>
 	// 					</Card.Content>
@@ -120,7 +120,7 @@ const ItemCustomisationRow = <Key extends ItemKey>({
 	// 							borderWidth: isFlagActive ? 2 : 0,
 	// 						}}
 	// 					>
-	// 						<Text>{ToppingCopy[flag]}</Text>
+	// 						<Text>{OptionCopy[flag]}</Text>
 	// 					</Button>
 	// 				);
 	// 			})}

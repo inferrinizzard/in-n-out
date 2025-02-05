@@ -1,4 +1,4 @@
-import { Topping, ToppingFlag, ToppingOption } from "./customisations/keys";
+import { Option, OptionFlag, OptionValue } from "./customisations/keys";
 import { Item } from "./items";
 
 export const Menu = Object.freeze({
@@ -42,22 +42,22 @@ export const MenuItemMap = Object.freeze({
 		[MenuItem.DblDbl]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 2, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 2, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 2, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 2, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.Cheeseburger]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 1, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.Hamburger]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 1, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.Fries]: {
@@ -73,90 +73,99 @@ export const MenuItemMap = Object.freeze({
 	[Menu.HotDrink]: {
 		[MenuItem.Coffee]: {
 			id: Item.Drink,
+			override: {
+				[Option.Size]: { value: OptionValue.Small },
+			},
 		},
 		[MenuItem.Milk]: {
 			id: Item.Drink,
+			override: {
+				[Option.Size]: { value: OptionValue.Small },
+			},
 		},
 		[MenuItem.HotCocoa]: {
 			id: Item.Drink,
+			override: {
+				[Option.Size]: { value: OptionValue.Small },
+			},
 		},
 	},
 	[Menu.SecretMenu]: {
 		[MenuItem.AnimalStyle]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Burger]: { flags: { [ToppingFlag.AnimalStyle]: true } },
+				[Option.Meat]: { count: 1, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+				[Option.Burger]: { flags: { [OptionFlag.AnimalStyle]: true } },
 			},
 		},
 		[MenuItem.ProteinStyle]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Bun]: { value: ToppingOption.ProteinStyle },
+				[Option.Meat]: { count: 1, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+				[Option.Bun]: { value: OptionValue.ProteinStyle },
 			},
 		},
 		[MenuItem["3X3"]]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 3, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 3, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 3, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 3, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem["4X4"]]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 4, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 4, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 4, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 4, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.AnimalFries]: {
 			id: Item.Fries,
 			override: {
-				[Topping.Fries]: { flags: { [ToppingFlag.AnimalStyle]: true } },
+				[Option.Fries]: { flags: { [OptionFlag.AnimalStyle]: true } },
 			},
 		},
 		[MenuItem.GrilledCheese]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 0, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 0, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.DoubleMeat]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 2, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 2, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.FlyingDutchman]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 2, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 2, value: ToppingOption.Regular },
-				[Topping.Bun]: { value: ToppingOption.None },
+				[Option.Meat]: { count: 2, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 2, value: OptionValue.Regular },
+				[Option.Bun]: { value: OptionValue.None },
 			},
 		},
 		[MenuItem.WishBurger]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 0, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
+				[Option.Meat]: { count: 0, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 			},
 		},
 		[MenuItem.PupPatty]: {
 			id: Item.Burger,
 			override: {
-				[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
-				[Topping.Cheese]: { count: 0, value: ToppingOption.Regular },
-				[Topping.Lettuce]: { value: ToppingOption.None },
-				[Topping.Tomato]: { value: ToppingOption.None },
-				[Topping.Spread]: { value: ToppingOption.None },
-				[Topping.Bun]: { value: ToppingOption.None },
-				[Topping.Burger]: { flags: { [ToppingFlag.NoSalt]: true } },
+				[Option.Meat]: { count: 1, value: OptionValue.Regular },
+				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
+				[Option.Lettuce]: { value: OptionValue.None },
+				[Option.Tomato]: { value: OptionValue.None },
+				[Option.Spread]: { value: OptionValue.None },
+				[Option.Bun]: { value: OptionValue.None },
+				[Option.Burger]: { flags: { [OptionFlag.NoSalt]: true } },
 			},
 		},
 	},

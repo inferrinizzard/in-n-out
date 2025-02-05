@@ -1,5 +1,5 @@
-import { Topping, ToppingOption, type ToppingKey } from "./customisations/keys";
-import type { ToppingValue } from "./toppings";
+import { Option, OptionValue, type OptionKey } from "./customisations/keys";
+import type { OptionInstance } from "./options";
 
 export const Item = Object.freeze({
 	Burger: "Burger",
@@ -13,57 +13,57 @@ export const Item = Object.freeze({
 
 export type ItemKey = keyof typeof Item;
 
-export const ItemToppingMap = Object.freeze({
+export const ItemOptionMap = Object.freeze({
 	[Item.Burger]: {
 		options: [
-			Topping.Meat,
-			Topping.Cheese,
-			Topping.Onions,
-			Topping.GrilledOnions,
-			Topping.Lettuce,
-			Topping.Tomato,
-			Topping.Pickles,
-			Topping.Chilis,
-			Topping.Spread,
-			Topping.Bun,
-			Topping.Burger,
+			Option.Meat,
+			Option.Cheese,
+			Option.Onions,
+			Option.GrilledOnions,
+			Option.Lettuce,
+			Option.Tomato,
+			Option.Pickles,
+			Option.Chilis,
+			Option.Spread,
+			Option.Bun,
+			Option.Burger,
 		],
 		default: {
-			[Topping.Meat]: { count: 1, value: ToppingOption.Regular },
-			[Topping.Cheese]: { count: 1, value: ToppingOption.Regular },
-			[Topping.Lettuce]: { value: ToppingOption.Regular },
-			[Topping.Tomato]: { value: ToppingOption.Regular },
-			[Topping.Spread]: { value: ToppingOption.Regular },
-			[Topping.Bun]: { value: ToppingOption.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+			[Option.Lettuce]: { value: OptionValue.Regular },
+			[Option.Tomato]: { value: OptionValue.Regular },
+			[Option.Spread]: { value: OptionValue.Regular },
+			[Option.Bun]: { value: OptionValue.Regular },
 		},
 	},
 	[Item.Fries]: {
-		options: [Topping.Doneness, Topping.Fries],
+		options: [Option.Doneness, Option.Fries],
 		default: {
-			[Topping.Doneness]: { value: ToppingOption.Medium },
-			[Topping.Fries]: { value: ToppingOption.Regular },
+			[Option.Doneness]: { value: OptionValue.Medium },
+			[Option.Fries]: { value: OptionValue.Regular },
 		},
 	},
 	[Item.Drink]: {
-		options: [Topping.Size, Topping.Shake],
+		options: [Option.Size, Option.Shake],
 		default: {
-			[Topping.Size]: { value: ToppingOption.Medium },
+			[Option.Size]: { value: OptionValue.Medium },
 		},
 	},
 	[Item.Shake]: {
-		options: [Topping.Size, Topping.Shake],
+		options: [Option.Size, Option.Shake],
 		default: {
-			[Topping.Size]: { value: ToppingOption.Medium },
+			[Option.Size]: { value: OptionValue.Medium },
 		},
 	},
 });
 
-ItemToppingMap satisfies Partial<
+ItemOptionMap satisfies Partial<
 	Record<
 		ItemKey,
 		{
-			options: ToppingKey[];
-			default: Partial<Record<ToppingKey, ToppingValue>>;
+			options: OptionKey[];
+			default: Partial<Record<OptionKey, OptionInstance>>;
 		}
 	>
 >;
