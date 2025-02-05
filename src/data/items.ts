@@ -3,7 +3,7 @@ import type { ToppingValue } from "./toppings";
 
 export const Item = Object.freeze({
 	Burger: "Burger",
-	Fries: "French Fries",
+	Fries: "Fries",
 	Drink: "Drink",
 	Shake: "Shake",
 	Stickers: "Stickers",
