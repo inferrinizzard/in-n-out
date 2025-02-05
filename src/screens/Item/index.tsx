@@ -7,14 +7,6 @@ import calories from "@data/calories";
 import prices from "@data/prices";
 import menu from "@data/old/menu";
 
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import {
-	addActiveToPending,
-	addPendingToList,
-	selectActiveItem,
-	setActiveItem,
-} from "../../redux/slices/orderSlice";
-
 import ItemCustomisations from "./components/ItemCustomisations";
 import {
 	getCustomisationOptions,

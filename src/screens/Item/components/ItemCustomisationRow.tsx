@@ -2,12 +2,6 @@ import { useMemo, useState } from "react";
 import { Image, View } from "react-native";
 import { Button, Card, Text, TextInput } from "react-native-paper";
 
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import {
-	selectActiveItem,
-	updateActiveCustomisations,
-} from "../../../redux/slices/orderSlice";
-
 import { ToppingCopy } from "@data/copy";
 import type {
 	CustomisationData,

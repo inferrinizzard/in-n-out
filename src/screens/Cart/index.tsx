@@ -4,9 +4,6 @@ import { Button, Divider, Text } from "react-native-paper";
 
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 
-import { useAppSelector } from "../../redux/store";
-import { selectItems } from "../../redux/slices/orderSlice";
-
 import CartItem from "./components/CartItem";
 import CartLocation from "./components/CartLocation";
 
