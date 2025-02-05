@@ -1,17 +1,12 @@
 import { atom } from "jotai";
 
-import type { MenuIdKey } from "@data/menu";
 import type { OptionKey } from "@data/customisations/keys";
 import type { OptionInstance } from "@data/options";
-import { ItemOptionMap, type ItemKey } from "@data/items";
+import { ItemOptionMap } from "@data/items";
 
-interface ActiveItemAtomState {
-	id: MenuIdKey;
-	item: ItemKey;
-	options?: Record<OptionKey, OptionInstance>;
-	price: number;
-	calories: number;
-}
+import type { SkuItem } from "./types";
+
+interface ActiveItemAtomState extends SkuItem {}
 
 const baseAtom = atom<ActiveItemAtomState | null>(null);
 
