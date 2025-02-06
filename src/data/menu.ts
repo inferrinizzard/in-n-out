@@ -1,4 +1,4 @@
-import { Option, OptionFlag, OptionValue } from "./customisations/keys";
+import { Option, OptionFlag, OptionValue } from "./options";
 import { Item } from "./items";
 
 export const Menu = Object.freeze({
@@ -210,5 +210,3 @@ export const MenuComboMap = Object.freeze({
 		MenuItem.SoftDrink,
 	],
 } as const);
-
-export type MenuIdKey = MenuItemKey | MenuComboKey;

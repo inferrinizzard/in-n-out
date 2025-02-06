@@ -1,5 +1,6 @@
-import { Option } from "./customisations/keys";
-import { MenuItem, MenuCombo, type MenuIdKey } from "./menu";
+import { Option } from "./options";
+import { MenuItem, MenuCombo } from "./menu";
+import type { SkuId } from "./types";
 
 const BaseCaloriesData = Object.freeze({
 	[MenuItem.DblDbl]: 610,
@@ -63,7 +64,7 @@ const CaloriesData = Object.freeze({
 		BaseCaloriesData.Cheeseburger + MiscCaloriesData.AnimalStyle,
 } as const);
 
-CaloriesData satisfies Record<MenuIdKey, number>;
+CaloriesData satisfies Record<SkuId, number>;
 
 export default {
 	base: CaloriesData,

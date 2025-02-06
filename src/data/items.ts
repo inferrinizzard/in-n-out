@@ -1,4 +1,4 @@
-import { Option, OptionValue, type OptionKey } from "./customisations/keys";
+import { Option, OptionValue, type OptionKey } from "./options";
 import type { OptionInstance } from "./options";
 
 export const Item = Object.freeze({

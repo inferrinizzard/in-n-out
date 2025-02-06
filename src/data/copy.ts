@@ -3,7 +3,7 @@ import type {
 	OptionKey,
 	OptionOptionKey,
 } from "./customisations/keys";
-import { MenuCombo, MenuItem, type MenuIdKey } from "./menu";
+import { MenuCombo, MenuItem, type SkuId } from "./menu";
 
 export const OptionCopy = Object.freeze({
 	Chopped: "Chopped Onions",
@@ -87,4 +87,4 @@ export const MenuCopy = Object.freeze({
 	[MenuItem.GiftCard]: "Gift Card",
 } as const);
 
-MenuCopy satisfies Record<MenuIdKey, string>;
+MenuCopy satisfies Record<SkuId, string>;

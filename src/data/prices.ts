@@ -2,8 +2,9 @@
 
 // https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
 
-import { Option } from "./customisations/keys";
-import { MenuCombo, type MenuIdKey, MenuItem } from "./menu";
+import { MenuCombo, MenuItem } from "./menu";
+import { Option } from "./options";
+import type { SkuId } from "./types";
 
 const BasePriceData = Object.freeze({
 	[MenuItem.DblDbl]: 3.95,
@@ -56,7 +57,7 @@ const PriceData = Object.freeze({
 		BasePriceData.Cheeseburger + MiscPriceData.AnimalStyle,
 } as const);
 
-PriceData satisfies Record<MenuIdKey, number>;
+PriceData satisfies Record<SkuId, number>;
 
 export default {
 	base: PriceData,

@@ -4,12 +4,12 @@ import { Card, Text } from "react-native-paper";
 import prices from "@data/prices";
 import calories from "@data/calories";
 import { MenuCopy } from "@data/copy";
-import type { MenuIdKey } from "@data/menu";
+import type { SkuId } from "@data/menu";
 
 import { useImage } from "@src/hooks/useImage";
 
 export type MenuItemProps = {
-	id: MenuIdKey;
+	id: SkuId;
 	onPress: () => void;
 };
 

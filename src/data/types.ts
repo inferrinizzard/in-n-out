@@ -1,6 +1,6 @@
-export type SkuId = keyof typeof Menu;
+import type { MenuComboKey, MenuItemKey } from "./menu";
 
-export type MenuItem<Id extends SkuId = SkuId> = (typeof Menu)[Id];
+export type SkuId = MenuItemKey | MenuComboKey;
 
 // export type CustomisationOption<
 // 	Key extends CustomisationKey = CustomisationKey,
