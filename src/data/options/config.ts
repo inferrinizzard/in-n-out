@@ -1,63 +1,5 @@
-export const OptionFlag = Object.freeze({
-	Chopped: "Chopped",
-	AddKetchup: "AddKetchup",
-	AddMustard: "AddMustard",
-	AnimalStyle: "AnimalStyle",
-	CutInHalf: "CutInHalf",
-	NoSalt: "NoSalt",
-	AddCheese: "AddCheese",
-	MustardGrilled: "MustardGrilled",
-	ColdCheese: "ColdCheese",
-	Chocolate: "Chocolate",
-	Vanilla: "Vanilla",
-	Strawberry: "Strawberry",
-	BlackWhite: "BlackWhite",
-	Neopolitan: "Neopolitan",
-} as const);
-
-export type OptionFlagKey = keyof typeof OptionFlag;
-
-export const OptionValue = Object.freeze({
-	Small: "Small",
-	Medium: "Medium",
-	Large: "Large",
-	XtraLarge: "XtraLarge",
-	None: "None",
-	Lite: "Lite",
-	Regular: "Regular",
-	Xtra: "Xtra",
-	Untoasted: "Untoasted",
-	LiteToast: "LiteToast",
-	XtraToast: "XtraToast",
-	ProteinStyle: "ProteinStyle",
-	MediumRare: "MediumRare",
-	LiteFry: "LiteFry",
-	LiteWell: "LiteWell",
-	WellDone: "WellDone",
-	XtraWellDone: "XtraWellDone",
-} as const);
-
-export type OptionOptionKey = keyof typeof OptionValue;
-
-export const Option = Object.freeze({
-	Onions: "Onions",
-	GrilledOnions: "GrilledOnions",
-	Lettuce: "Lettuce",
-	Tomato: "Tomato",
-	Pickles: "Pickles",
-	Chilis: "Chilis",
-	Spread: "Spread",
-	Bun: "Bun",
-	Doneness: "Doneness",
-	Size: "Size",
-	Burger: "Burger",
-	Fries: "Fries",
-	Meat: "Meat",
-	Cheese: "Cheese",
-	Shake: "Shake",
-} as const);
-
-export type OptionKey = keyof typeof Option;
+import { Option, OptionFlag, type OptionKey, OptionValue } from "./consts";
+import type { OptionConfig } from "./types";
 
 export const DrinkSizes = [
 	OptionValue.Small,
@@ -94,30 +36,7 @@ export const FriesDonenesses = [
 ] as const;
 export type FriesDoneness = (typeof FriesDonenesses)[number];
 
-export interface OptionConfig<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> {
-	options: Options;
-	flags?: Flags;
-}
-
-export interface OptionInstance<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> {
-	value: Options[number];
-	flags?: { [F in Flags[number]]?: boolean };
-}
-
-export interface CountOptionInstance<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> extends OptionInstance<Options, Flags> {
-	count: number;
-}
-
-export const OptionOptionMap = Object.freeze({
+export const OptionConfigMap = Object.freeze({
 	[Option.Onions]: {
 		options: StandardOptionAmounts,
 		flags: [OptionFlag.Chopped],
@@ -182,7 +101,7 @@ export const OptionOptionMap = Object.freeze({
 	},
 } as const);
 
-OptionOptionMap satisfies Record<
+OptionConfigMap satisfies Record<
 	OptionKey,
 	OptionConfig<readonly string[], readonly string[]>
 >;
