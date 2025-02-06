@@ -4,7 +4,7 @@ import { Card, Text } from "react-native-paper";
 import prices from "@data/prices";
 import calories from "@data/calories";
 import { MenuCopy } from "@data/copy";
-import type { SkuId } from "@data/menu";
+import type { SkuId } from "@data/types";
 
 import { useImage } from "@src/hooks/useImage";
 
