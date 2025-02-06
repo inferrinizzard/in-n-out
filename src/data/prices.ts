@@ -2,7 +2,7 @@
 
 // https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
 
-import { MenuCombo, MenuItem } from "./menu";
+import { MenuCombo, MenuItem, MenuItemKey } from "./menu";
 import { Option } from "./options";
 import type { SkuId } from "./types";
 

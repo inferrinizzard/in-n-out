@@ -1,9 +1,6 @@
-import type {
-	OptionFlagKey,
-	OptionKey,
-	OptionOptionKey,
-} from "./customisations/keys";
-import { MenuCombo, MenuItem, type SkuId } from "./menu";
+import type { OptionFlagKey, OptionKey, OptionOptionKey } from "./options";
+import { MenuCombo, MenuItem } from "./menu";
+import type { SkuId } from "./types";
 
 export const OptionCopy = Object.freeze({
 	Chopped: "Chopped Onions",

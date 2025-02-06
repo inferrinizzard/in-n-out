@@ -1,4 +1,4 @@
-import { Option } from "./options";
+import { Option, OptionValue } from "./options";
 import { MenuItem, MenuCombo } from "./menu";
 import type { SkuId } from "./types";
 
@@ -23,10 +23,10 @@ const MiscCaloriesData = Object.freeze({
 		(BaseCaloriesData.Cheeseburger +
 			(BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger)),
 	[Option.Cheese]: BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger,
-	SoftDrinkSmall: 130,
-	SoftDrinkMedium: 190,
-	SoftDrinkLarge: 270,
-	SoftDrinkXtraLarge: 350,
+	[`${MenuItem.SoftDrink}${OptionValue.Small}`]: 130,
+	[`${MenuItem.SoftDrink}${OptionValue.Medium}`]: 190,
+	[`${MenuItem.SoftDrink}${OptionValue.Large}`]: 270,
+	[`${MenuItem.SoftDrink}${OptionValue.XtraLarge}`]: 350,
 	AnimalStyle: 160,
 	ProteinStyle: -100,
 } as const);
