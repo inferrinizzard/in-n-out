@@ -1,11 +1,10 @@
 import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 import { Button, Divider, Text } from "react-native-paper";
+import { useAtom } from "jotai";
 
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
-
-import { useAppSelector } from "../../redux/store";
-import { selectItems } from "../../redux/slices/orderSlice";
+import { orderAtom } from "@src/atoms/order.atom";
 
 import CartItem from "./components/CartItem";
 import CartLocation from "./components/CartLocation";
@@ -13,7 +12,7 @@ import CartLocation from "./components/CartLocation";
 export interface CartProps extends StackScreenProps<typeof ScreenKeys.Cart> {}
 
 const Cart = ({ navigation }: CartProps) => {
-	const order = useAppSelector(selectItems);
+	const [order, orderSetter] = useAtom(orderAtom);
 	const orderItems = useMemo(() => Object.entries(order), [order]);
 
 	return (
@@ -24,8 +23,8 @@ const Cart = ({ navigation }: CartProps) => {
 				{orderItems.length ? (
 					<FlatList
 						data={orderItems}
-						renderItem={({ item: [uuid, item], index }) => (
-							<CartItem key={`${item.id}-${index}`} uuid={uuid} {...item} />
+						renderItem={({ item: [uuid, item] }) => (
+							<CartItem key={uuid} uuid={uuid} {...item} />
 						)}
 					/>
 				) : (

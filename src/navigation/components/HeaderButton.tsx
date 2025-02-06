@@ -2,12 +2,6 @@ import { Button, Icon } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import type { HeaderOptions } from "@react-navigation/elements";
 
-import { useAppDispatch } from "../../redux/store";
-import {
-	addActiveToList,
-	clearActiveItem,
-} from "../../redux/slices/orderSlice";
-
 import type { StackNavigationProps } from "../StackNavigator";
 
 import { ScreenKeys } from "../screens";
@@ -17,8 +11,6 @@ export type HeaderButtonProps = Parameters<
 >[0];
 
 const HeaderButton: React.FC<HeaderButtonProps> = () => {
-	const dispatch = useAppDispatch();
-
 	const navigation = useNavigation<StackNavigationProps>();
 	const parentScreen = navigation.getState().routes[0].name;
 
@@ -26,9 +18,9 @@ const HeaderButton: React.FC<HeaderButtonProps> = () => {
 		<Button
 			onPress={() => {
 				if (parentScreen === ScreenKeys.Cart) {
-					dispatch(addActiveToList());
+					// dispatch(addActiveToList());
 				} else {
-					dispatch(clearActiveItem());
+					// dispatch(clearActiveItem());
 				}
 				navigation.goBack();
 			}}

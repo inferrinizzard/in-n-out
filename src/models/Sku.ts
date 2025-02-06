@@ -2,7 +2,7 @@ import { Burger } from "./Burger";
 import { Drink } from "./Drink";
 import { Fries } from "./Fries";
 
-import { ToppingCopy } from "@data/copy";
+import { OptionCopy } from "@data/copy";
 import {
 	buildCustomisationDefaultEntry,
 	type CustomisationEntry,
@@ -56,13 +56,13 @@ export const getCustomisationText = (sku: Sku) => {
 			!Number.isInteger(entry.data)
 		) {
 			customisationLines.push(
-				`${key}: ${ToppingCopy[entry.data as keyof typeof ToppingCopy]}`,
+				`${key}: ${OptionCopy[entry.data as keyof typeof OptionCopy]}`,
 			);
 		}
 
 		for (const [flag, val] of Object.entries(entry.flags ?? {})) {
 			if (val) {
-				customisationLines.push(ToppingCopy[flag as keyof typeof ToppingCopy]);
+				customisationLines.push(OptionCopy[flag as keyof typeof OptionCopy]);
 			}
 		}
 	}

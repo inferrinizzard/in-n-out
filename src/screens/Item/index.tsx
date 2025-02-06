@@ -1,68 +1,39 @@
-import { useEffect } from "react";
 import { Image, ScrollView, View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
+import { useAtomValue } from "jotai";
 
-import { type StackScreenProps, ScreenKeys } from "@src/navigation";
-import calories from "@data/calories";
-import prices from "@data/prices";
-import menu from "@data/old/menu";
-
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import {
-	addActiveToPending,
-	addPendingToList,
-	selectActiveItem,
-	setActiveItem,
-} from "../../redux/slices/orderSlice";
-
-import ItemCustomisations from "./components/ItemCustomisations";
-import {
-	getCustomisationOptions,
-	buildCustomisationDefaultEntry,
-} from "../../data/customisations";
+import type { StackScreenProps, ScreenKeys } from "@src/navigation";
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { useImage } from "@src/hooks/useImage";
 
-import { Sku } from "../../models/Sku";
-import type { MenuItem, SkuId } from "../../data/types";
+import calories from "@data/calories";
+import prices from "@data/prices";
+import { ItemOptionMap } from "@data/items";
+import { MenuCopy } from "@data/copy";
 
-export type ItemProps = MenuItem & {
-	nextItems?: readonly SkuId[];
-};
+import ContinueButton from "./components/ContinueButton";
 
-const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
-	navigation,
-	route,
-}) => {
-	const dispatch = useAppDispatch();
-	const activeItem = useAppSelector(selectActiveItem);
+export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 
-	const { id, name, nextItems } = route.params!;
+const Item = ({ navigation }: ItemProps) => {
+	const activeItem = useAtomValue(activeItemAtom)!;
+	const id = activeItem.id;
+	const item = activeItem.item;
 
 	const image = useImage(id);
 
-	// TODO: memo
-	const customisations = getCustomisationOptions(id);
+	const name = MenuCopy[id];
 
-	useEffect(() => {
-		if (!activeItem) {
-			dispatch(
-				setActiveItem(
-					Sku({
-						...menu[id],
-						price: prices.base[id],
-						calories: calories.base[id],
-						customisations: { ...buildCustomisationDefaultEntry(id) },
-					}),
-				),
-			);
-		}
-	}, [id, activeItem]);
+	const options =
+		item in ItemOptionMap
+			? ItemOptionMap[item as keyof typeof ItemOptionMap]
+			: undefined;
 
 	return (
 		<View style={{ display: "flex", flex: 1 }}>
 			<View style={{ alignItems: "center" }}>
 				<Image source={image} style={{ height: 240, width: 320 }} />
-				<Text style={{ fontSize: 24 }}>{activeItem?.name ?? name}</Text>
+				<Text style={{ fontSize: 24 }}>{name}</Text>
 				<View style={{ display: "flex", flexDirection: "row" }}>
 					<Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
 						2,
@@ -76,26 +47,15 @@ const Item: React.FC<ItemProps & StackScreenProps<typeof ScreenKeys.Item>> = ({
 				contentContainerStyle={{ alignItems: "center" }}
 				style={{ display: "flex" }}
 			>
-				{customisations ? (
+				{options?.options.map((option) => (
+					<Text key={option}>{option}</Text>
+				))}
+				{/* {customisations ? (
 					<ItemCustomisations<typeof id> customisations={customisations} />
-				) : null}
+				) : null} */}
 			</ScrollView>
 
-			<Button
-				onPress={() => {
-					dispatch(addActiveToPending());
-					if (nextItems?.length) {
-						const [nextItemId, ...rest] = nextItems;
-						const nextItem = menu[nextItemId];
-						navigation.push(ScreenKeys.Item, { ...nextItem, nextItems: rest });
-					} else {
-						dispatch(addPendingToList());
-						navigation.popToTop();
-					}
-				}}
-			>
-				<Text>{nextItems?.length ? "Go to next Item" : "Add to Order"}</Text>
-			</Button>
+			<ContinueButton navigation={navigation} />
 		</View>
 	);
 };

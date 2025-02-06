@@ -4,36 +4,30 @@ import { Button, Card, Text } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { useAppDispatch } from "../../../redux/store";
-import { editItem, removeItem } from "../../../redux/slices/orderSlice";
-
+import type { StackNavigationProps } from "@src/navigation/StackNavigator";
+import type { SkuItem } from "@src/atoms/types";
 import { useImage } from "@src/hooks/useImage";
-import type { StackNavigationProps } from "../../../navigation/StackNavigator";
 
-import { getCustomisationText, type Sku } from "../../../models/Sku";
-
-export interface CartItemProps extends Sku {
+export interface CartItemProps extends SkuItem {
 	uuid: string;
 }
 
 const CartItem = ({ uuid, ...item }: CartItemProps) => {
-	const dispatch = useAppDispatch();
-
 	const image = useImage(item.id);
 
-	const customisationData = useMemo(() => getCustomisationText(item), [item]);
+	const customisationData = Object.entries(item.options ?? {});
 
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const editCartItem = () => {
-		dispatch(editItem(uuid));
+		// dispatch(editItem(uuid));
 
 		// @ts-expect-error
 		navigation.push("Item", item);
 	};
 
 	const removeCartItem = () => {
-		dispatch(removeItem(uuid));
+		// dispatch(removeItem(uuid));
 	};
 
 	return (
@@ -42,14 +36,14 @@ const CartItem = ({ uuid, ...item }: CartItemProps) => {
 				<View style={{ display: "flex", flexDirection: "row" }}>
 					<Image source={image} style={{ height: 120, width: 160 }} />
 					<View>
-						<Text>{item.name}</Text>
+						<Text>{item.id}</Text>
 						<View style={{ display: "flex", flexDirection: "row" }}>
 							<Text>{`$${Number(item.price).toFixed(2)}`}</Text>
 							<Text>{" | "}</Text>
 							<Text>{`${item.calories} Calories`}</Text>
 						</View>
-						{customisationData.map((line, i) => (
-							<Text key={`${uuid}-text-${i}`}>{line}</Text>
+						{customisationData.map(([key, val]) => (
+							<Text key={`${uuid}-text-${key}`}>{`${key}: ${val}`}</Text>
 						))}
 					</View>
 				</View>
