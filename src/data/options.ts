@@ -1,15 +1,98 @@
-import {
-	BunOptions,
-	DrinkSizes,
-	FriesDonenesses,
-	StandardOptionAmounts,
-} from "./customisations/data";
-import {
-	Option,
-	OptionFlag,
-	type OptionKey,
-	OptionValue,
-} from "./customisations/keys";
+export const OptionFlag = Object.freeze({
+	Chopped: "Chopped",
+	AddKetchup: "AddKetchup",
+	AddMustard: "AddMustard",
+	AnimalStyle: "AnimalStyle",
+	CutInHalf: "CutInHalf",
+	NoSalt: "NoSalt",
+	AddCheese: "AddCheese",
+	MustardGrilled: "MustardGrilled",
+	ColdCheese: "ColdCheese",
+	Chocolate: "Chocolate",
+	Vanilla: "Vanilla",
+	Strawberry: "Strawberry",
+	BlackWhite: "BlackWhite",
+	Neopolitan: "Neopolitan",
+} as const);
+
+export type OptionFlagKey = keyof typeof OptionFlag;
+
+export const OptionValue = Object.freeze({
+	Small: "Small",
+	Medium: "Medium",
+	Large: "Large",
+	XtraLarge: "XtraLarge",
+	None: "None",
+	Lite: "Lite",
+	Regular: "Regular",
+	Xtra: "Xtra",
+	Untoasted: "Untoasted",
+	LiteToast: "LiteToast",
+	XtraToast: "XtraToast",
+	ProteinStyle: "ProteinStyle",
+	MediumRare: "MediumRare",
+	LiteFry: "LiteFry",
+	LiteWell: "LiteWell",
+	WellDone: "WellDone",
+	XtraWellDone: "XtraWellDone",
+} as const);
+
+export type OptionOptionKey = keyof typeof OptionValue;
+
+export const Option = Object.freeze({
+	Onions: "Onions",
+	GrilledOnions: "GrilledOnions",
+	Lettuce: "Lettuce",
+	Tomato: "Tomato",
+	Pickles: "Pickles",
+	Chilis: "Chilis",
+	Spread: "Spread",
+	Bun: "Bun",
+	Doneness: "Doneness",
+	Size: "Size",
+	Burger: "Burger",
+	Fries: "Fries",
+	Meat: "Meat",
+	Cheese: "Cheese",
+	Shake: "Shake",
+} as const);
+
+export type OptionKey = keyof typeof Option;
+
+export const DrinkSizes = [
+	OptionValue.Small,
+	OptionValue.Medium,
+	OptionValue.Large,
+	OptionValue.XtraLarge,
+] as const;
+export type DrinkSize = (typeof DrinkSizes)[number];
+
+export const StandardOptionAmounts = [
+	OptionValue.None,
+	OptionValue.Lite,
+	OptionValue.Regular,
+	OptionValue.Xtra,
+] as const;
+export type OptionAmount = (typeof StandardOptionAmounts)[number];
+
+export const BunOptions = [
+	OptionValue.None,
+	OptionValue.Untoasted,
+	OptionValue.LiteToast,
+	OptionValue.Regular,
+	OptionValue.XtraToast,
+	OptionValue.ProteinStyle,
+] as const;
+export type BunOption = (typeof BunOptions)[number];
+
+export const FriesDonenesses = [
+	OptionValue.LiteFry,
+	OptionValue.Regular,
+	OptionValue.LiteWell,
+	OptionValue.WellDone,
+	OptionValue.XtraWellDone,
+] as const;
+export type FriesDoneness = (typeof FriesDonenesses)[number];
 
 export interface OptionConfig<
 	Options extends readonly string[] = readonly string[],
