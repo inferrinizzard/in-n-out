@@ -2,7 +2,7 @@ import { Option, OptionFlag, OptionValue } from "./customisations/keys";
 import { Item } from "./items";
 
 export const Menu = Object.freeze({
-	Main: "MenuMain",
+	Main: "Main",
 	HotDrink: "HotDrink",
 	SecretMenu: "SecretMenu",
 	Extra: "Extra",

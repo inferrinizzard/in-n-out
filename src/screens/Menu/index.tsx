@@ -4,28 +4,46 @@ import { Button, Text } from "react-native-paper";
 import { useAtom, useSetAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
+import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
-import { Menu as MenuKey, MenuItemMap } from "@data/menu";
+import {
+	Menu as MenuKey,
+	MenuItemMap,
+	type MenuIdKey,
+	MenuItem as DataMenuItem,
+} from "@data/menu";
+import type { ItemKey } from "@data/items";
 
 import MenuItem from "./components/MenuItem";
 
 export interface MenuProps extends StackScreenProps<typeof ScreenKeys.Menu> {}
 
 const Menu = ({ navigation }: MenuProps) => {
+	const queue = useSetAtom(queueAtom)();
 	const { setDefaultItem } = useSetAtom(activeItemAtom)();
+
+	const menuItems = Object.entries(MenuItemMap[MenuKey.Main]) as [
+		MenuIdKey,
+		{ id: ItemKey },
+	][];
 
 	return (
 		<View style={{ flex: 1 }}>
 			<SafeAreaView style={{ flex: 1, flexGrow: 1 }}>
 				<FlatList
-					data={Object.entries(MenuItemMap[MenuKey.Main])}
+					data={menuItems}
 					renderItem={({ item: [id, item] }) => (
 						<MenuItem
 							onPress={() => {
-								setDefaultItem({ id: id as any, item: item.id });
+								setDefaultItem({ id: id, item: item.id });
 								navigation.push(ScreenKeys.Item);
+
+								if (id.includes("Combo")) {
+									queue.push(DataMenuItem.Fries);
+									queue.push(DataMenuItem.SoftDrink);
+								}
 							}}
-							id={id as any}
+							id={id}
 						/>
 					)}
 				/>
