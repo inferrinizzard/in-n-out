@@ -1,40 +1,42 @@
-import {
-	BunOptions,
-	DrinkSizes,
-	FriesDonenesses,
-	StandardOptionAmounts,
-} from "./customisations/data";
-import {
-	Option,
-	OptionFlag,
-	type OptionKey,
-	OptionValue,
-} from "./customisations/keys";
+import { Option, OptionFlag, type OptionKey, OptionValue } from "./consts";
+import type { OptionConfig } from "./types";
 
-export interface OptionConfig<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> {
-	options: Options;
-	flags?: Flags;
-}
+export const DrinkSizes = [
+	OptionValue.Small,
+	OptionValue.Medium,
+	OptionValue.Large,
+	OptionValue.XtraLarge,
+] as const;
+export type DrinkSize = (typeof DrinkSizes)[number];
 
-export interface OptionInstance<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> {
-	value: Options[number];
-	flags?: { [F in Flags[number]]?: boolean };
-}
+export const StandardOptionAmounts = [
+	OptionValue.None,
+	OptionValue.Lite,
+	OptionValue.Regular,
+	OptionValue.Xtra,
+] as const;
+export type OptionAmount = (typeof StandardOptionAmounts)[number];
 
-export interface CountOptionInstance<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> extends OptionInstance<Options, Flags> {
-	count: number;
-}
+export const BunOptions = [
+	OptionValue.None,
+	OptionValue.Untoasted,
+	OptionValue.LiteToast,
+	OptionValue.Regular,
+	OptionValue.XtraToast,
+	OptionValue.ProteinStyle,
+] as const;
+export type BunOption = (typeof BunOptions)[number];
 
-export const OptionOptionMap = Object.freeze({
+export const FriesDonenesses = [
+	OptionValue.LiteFry,
+	OptionValue.Regular,
+	OptionValue.LiteWell,
+	OptionValue.WellDone,
+	OptionValue.XtraWellDone,
+] as const;
+export type FriesDoneness = (typeof FriesDonenesses)[number];
+
+export const OptionConfigMap = Object.freeze({
 	[Option.Onions]: {
 		options: StandardOptionAmounts,
 		flags: [OptionFlag.Chopped],
@@ -99,7 +101,7 @@ export const OptionOptionMap = Object.freeze({
 	},
 } as const);
 
-OptionOptionMap satisfies Record<
+OptionConfigMap satisfies Record<
 	OptionKey,
 	OptionConfig<readonly string[], readonly string[]>
 >;

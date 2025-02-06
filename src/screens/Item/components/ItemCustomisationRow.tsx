@@ -3,12 +3,7 @@ import { Image, View } from "react-native";
 import { Button, Card, Text, TextInput } from "react-native-paper";
 
 import { OptionCopy } from "@data/copy";
-import type {
-	CustomisationData,
-	CustomisationValue,
-	CustomisationKey,
-	SkuCustomisationKey,
-} from "@data/customisations";
+
 import type { SkuId } from "@data/types";
 import type { ItemKey } from "@data/items";
 

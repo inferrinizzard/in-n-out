@@ -9,7 +9,7 @@ import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import {
 	Menu as MenuKey,
 	MenuItemMap,
-	type MenuIdKey,
+	type SkuId,
 	MenuItem as DataMenuItem,
 } from "@data/menu";
 import type { ItemKey } from "@data/items";
@@ -23,7 +23,7 @@ const Menu = ({ navigation }: MenuProps) => {
 	const { setDefaultItem } = useSetAtom(activeItemAtom)();
 
 	const menuItems = Object.entries(MenuItemMap[MenuKey.Main]) as [
-		MenuIdKey,
+		SkuId,
 		{ id: ItemKey },
 	][];
 
