@@ -1,34 +1,33 @@
-import { useEffect } from "react";
 import { Image, ScrollView, View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
+import { useAtomValue } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
-import calories from "@data/calories";
-import prices from "@data/prices";
-import menu from "@data/old/menu";
-
-import ItemCustomisations from "./components/ItemCustomisations";
-import {
-	getCustomisationOptions,
-	buildCustomisationDefaultEntry,
-} from "../../data/customisations";
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { useImage } from "@src/hooks/useImage";
 
-import { Sku } from "../../models/Sku";
-import type { ItemKey } from "@data/items";
-import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { useAtom, useAtomValue } from "jotai";
+import calories from "@data/calories";
+import prices from "@data/prices";
+import { ItemOptionMap } from "@data/items";
 import { MenuCopy } from "@data/copy";
+
+import ContinueButton from "./components/ContinueButton";
 
 export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 
 const Item = ({ navigation }: ItemProps) => {
 	const activeItem = useAtomValue(activeItemAtom)!;
 	const id = activeItem.id;
+	const item = activeItem.item;
 
 	const image = useImage(id);
 
-	const name = MenuCopy[activeItem.id];
+	const name = MenuCopy[id];
+
+	const options =
+		item in ItemOptionMap
+			? ItemOptionMap[item as keyof typeof ItemOptionMap]
+			: undefined;
 
 	return (
 		<View style={{ display: "flex", flex: 1 }}>
@@ -48,26 +47,15 @@ const Item = ({ navigation }: ItemProps) => {
 				contentContainerStyle={{ alignItems: "center" }}
 				style={{ display: "flex" }}
 			>
+				{options?.options.map((option) => (
+					<Text key={option}>{option}</Text>
+				))}
 				{/* {customisations ? (
 					<ItemCustomisations<typeof id> customisations={customisations} />
 				) : null} */}
 			</ScrollView>
 
-			{/* <Button
-				onPress={() => {
-					dispatch(addActiveToPending());
-					if (nextItems?.length) {
-						const [nextItemId, ...rest] = nextItems;
-						const nextItem = menu[nextItemId];
-						navigation.push(ScreenKeys.Item, { ...nextItem, nextItems: rest });
-					} else {
-						dispatch(addPendingToList());
-						navigation.popToTop();
-					}
-				}}
-			>
-				<Text>{nextItems?.length ? "Go to next Item" : "Add to Order"}</Text>
-			</Button> */}
+			<ContinueButton navigation={navigation} />
 		</View>
 	);
 };

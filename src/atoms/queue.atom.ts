@@ -11,7 +11,7 @@ export const queueAtom = atom(
 	(get, set) => ({
 		push: (id: MenuIdKey) => set(baseAtom, (prev) => prev.concat([id])),
 
-		shift: (id: MenuIdKey) =>
+		shift: () =>
 			set(baseAtom, (prev) => {
 				prev.shift();
 				return prev;
