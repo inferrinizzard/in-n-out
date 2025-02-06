@@ -55,7 +55,7 @@ const Item = ({ navigation }: ItemProps) => {
 				) : null} */}
 			</ScrollView>
 
-			<ContinueButton />
+			<ContinueButton navigation={navigation} />
 		</View>
 	);
 };

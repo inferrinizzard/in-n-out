@@ -1,11 +1,20 @@
 import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
+import { ScreenKeys, type StackScreenProps } from "@src/navigation";
+
+import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
+import { orderAtom } from "@src/atoms/order.atom";
 
-const ContinueButton = () => {
-	const queue = useAtomValue(queueAtom)!;
+interface ContinueButtonProps
+	extends Pick<StackScreenProps<typeof ScreenKeys.Item>, "navigation"> {}
+
+const ContinueButton = ({ navigation }: ContinueButtonProps) => {
+	const activeItem = useAtomValue(activeItemAtom)!;
+	const [queue, queueSetter] = useAtom(queueAtom)!;
+	const { addItem } = useSetAtom(orderAtom)();
 
 	const next = queue[0];
 
@@ -24,7 +33,15 @@ const ContinueButton = () => {
 					<Text>{`Skip ${next}`}</Text>
 				</Button>
 			)}
-			<Button onPress={() => {}}>
+			<Button
+				onPress={() => {
+					addItem(activeItem);
+					navigation.replace(ScreenKeys.Cart);
+					if (next) {
+						queueSetter().shift();
+					}
+				}}
+			>
 				<Text>{next ? `Add ${next}` : "Add to Order"}</Text>
 			</Button>
 		</View>
