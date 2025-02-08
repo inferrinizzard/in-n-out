@@ -1,7 +1,9 @@
 import { Image, View } from "react-native";
 
 import { Box, Text } from "@src/components";
-import { useImage } from "@src/hooks/useImage";
+
+import { getImage } from "@src/hooks/getImage";
+import { getCopy } from "@src/hooks/getCopy";
 
 import prices from "@data/prices";
 import calories from "@data/calories";
@@ -15,9 +17,9 @@ export type MenuItemProps = {
 };
 
 const MenuItem = ({ id, onPress }: MenuItemProps) => {
-	const image = useImage(id);
+	const image = getImage(id);
 
-	const itemText = (id in ItemCopy ? ItemCopy[id as SkuId] : id).toUpperCase();
+	const itemText = getCopy(id).toUpperCase();
 	const price = id in prices.base ? prices.base[id as SkuId] : undefined;
 	const calorie = id in calories.base ? calories.base[id as SkuId] : undefined;
 

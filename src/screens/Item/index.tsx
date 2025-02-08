@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { useImage } from "@src/hooks/useImage";
+import { getImage } from "@src/hooks/getImage";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 
 import calories from "@data/calories";
@@ -21,7 +21,7 @@ const Item = ({ navigation }: ItemProps) => {
 	const id = activeItem.id;
 	const item = activeItem.item;
 
-	const image = useImage(id);
+	const image = getImage(id);
 
 	const name = MenuCopy[id];
 

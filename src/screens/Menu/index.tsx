@@ -8,6 +8,7 @@ import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 import { Box, Text } from "@src/components";
 import type { Theme } from "@src/styles/theme";
+import { getCopy } from "@src/hooks/getCopy";
 
 import {
 	Menu as DataMenu,
@@ -64,7 +65,7 @@ const Menu = ({
 							onPress={() => {
 								setDefaultItem({ id: id, item: item.id });
 								navigation.push(ScreenKeys.Item, {
-									title: id.replace("Combo", ""),
+									title: getCopy(id.replace("Combo", "")),
 								});
 
 								if (id.includes("Combo")) {
@@ -93,7 +94,7 @@ const Menu = ({
 									id={menu as any}
 									onPress={() => {
 										navigation.push(ScreenKeys.Menu, {
-											title: menu,
+											title: getCopy(menu),
 											activeMenu: menu,
 										});
 									}}

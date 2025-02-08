@@ -13,6 +13,11 @@ export const Header = ({ back, navigation, route, options }: HeaderProps) => {
 		console.log({ back, navigation, route, options });
 	}
 
+	const headerTitle =
+		(route.params && "title" in route.params
+			? (route.params?.title as string)
+			: undefined) ?? route.name;
+
 	return (
 		<View>
 			<Image
@@ -24,7 +29,7 @@ export const Header = ({ back, navigation, route, options }: HeaderProps) => {
 			{back && (
 				<Box flexDirection="row" alignItems="center">
 					<HeaderButton />
-					<HeaderTitle>{route.params?.title ?? "test"}</HeaderTitle>
+					<HeaderTitle>{headerTitle}</HeaderTitle>
 				</Box>
 			)}
 		</View>
