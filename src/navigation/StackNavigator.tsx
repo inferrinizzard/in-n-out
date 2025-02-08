@@ -14,8 +14,7 @@ import Account from "../screens/Account";
 
 import { ScreenKeys } from "./screens";
 
-import Header from "./components/HeaderTitle";
-import HeaderButton from "./components/HeaderButton";
+import { Header } from "./components/Header";
 
 // #region types
 export const routesMap = {
@@ -56,24 +55,10 @@ const MainNavigator = () => {
 	return (
 		<Stack.Navigator
 			initialRouteName={ScreenKeys.Menu}
-			screenOptions={{
-				header: () => null,
-				headerLeft: (props) => (props.canGoBack ? <HeaderButton /> : null),
-				headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,
-			}}
+			screenOptions={{ header: Header }}
 		>
 			{routes.map(([screen, Component]) => (
-				<Stack.Screen
-					key={screen}
-					name={screen}
-					component={Component}
-					options={({ route }) => ({
-						// title:
-						// 	route.params && "name" in route.params
-						// 		? route.params.name
-						// 		: screen,
-					})}
-				/>
+				<Stack.Screen key={screen} name={screen} component={Component} />
 			))}
 		</Stack.Navigator>
 	);
