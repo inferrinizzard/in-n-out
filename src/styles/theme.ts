@@ -1,16 +1,49 @@
-import {
-	DefaultTheme,
-	type Theme as NavigationTheme,
-} from "@react-navigation/native";
-import { MD3LightTheme } from "react-native-paper";
+import { createTheme } from "@shopify/restyle";
 
-export const theme = {
-	...MD3LightTheme,
-	colors: {
-		...MD3LightTheme.colors,
-		primary: "#e02a27",
-		secondary: "#ffcb05",
-	},
+const palette = {
+	redLight: "#E02A27",
+	redDark: "#B60000",
+
+	yellow: "#FFCB05",
+
+	greyDark: "#999999",
+	greyLight: "#D9D9D9",
+
+	black: "#000000",
+	white: "#FFFFFF",
 };
 
-export const navigationTheme: NavigationTheme = DefaultTheme;
+const theme = createTheme({
+	colors: {
+		mainBackground: palette.white,
+		cardPrimaryBackground: palette.white,
+	},
+	spacing: {
+		s: 8,
+		m: 16,
+		l: 24,
+	},
+	textVariants: {
+		header: {
+			fontWeight: "bold",
+			fontSize: 24,
+			fontFamily: "HelveticaNeueCondensedBold",
+		},
+		bold: {
+			fontWeight: "bold",
+			fontSize: 16,
+			fontFamily: "HelveticaNeueBold",
+		},
+		body: {
+			fontSize: 16,
+			lineHeight: 24,
+			fontFamily: "HelveticaNeueRegular",
+		},
+		defaults: {
+			fontFamily: "HelveticaNeue",
+		},
+	},
+});
+
+export type Theme = typeof theme;
+export default theme;
