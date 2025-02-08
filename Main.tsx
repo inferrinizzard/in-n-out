@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./src/navigation/StackNavigator";
 import { navigationRef } from "./src/navigation/navigatorRef";
 import { BottomTabs } from "./src/navigation/components/BottomTabs";
-import { theme, navigationTheme } from "./src/styles/theme";
+import { theme, navigationTheme } from "./src/styles/paper-theme";
 
 const { LightTheme } = adaptNavigationTheme({
 	reactNavigationLight: navigationTheme,
