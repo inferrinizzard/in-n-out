@@ -33,7 +33,7 @@ const theme = createTheme({
 		},
 		bold: {
 			fontWeight: "bold",
-			fontSize: 12,
+			fontSize: 14,
 			fontFamily: "HelveticaNeueBold",
 		},
 		medium: {

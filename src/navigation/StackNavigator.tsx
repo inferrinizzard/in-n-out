@@ -31,10 +31,10 @@ export const routesMap = {
 export type StackParamList = {
 	[ScreenKeys.Menu]: MenuScreenParams & HeaderTitleParams;
 	[ScreenKeys.Item]: HeaderTitleParams;
-	[ScreenKeys.Cart]: HeaderTitleParams;
-	[ScreenKeys.QrCode]: HeaderTitleParams;
-	[ScreenKeys.Account]: HeaderTitleParams;
-	[ScreenKeys.More]: HeaderTitleParams;
+	[ScreenKeys.Cart]?: HeaderTitleParams;
+	[ScreenKeys.QrCode]?: HeaderTitleParams;
+	[ScreenKeys.Account]?: HeaderTitleParams;
+	[ScreenKeys.More]?: HeaderTitleParams;
 };
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>;
