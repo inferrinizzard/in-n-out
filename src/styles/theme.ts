@@ -47,7 +47,7 @@ const theme = createTheme({
 			fontFamily: "HelveticaNeueRegular",
 		},
 		defaults: {
-			fontFamily: "HelveticaNeue",
+			fontFamily: "HelveticaNeueRegular",
 		},
 	},
 });

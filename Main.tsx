@@ -21,7 +21,7 @@ const App = () => {
 		HelveticaNeueBoldItalic: require("./assets/fonts/helvetica-neue/HelveticaNeueBoldItalic.ttf"),
 		HelveticaNeueCondensedBold: require("./assets/fonts/helvetica-neue/HelveticaNeueCondensedBold.ttf"),
 		HelveticaNeueMedium: require("./assets/fonts/helvetica-neue/HelveticaNeueMedium.ttf"),
-		HelveticaNeue: require("./assets/fonts/helvetica-neue/HelveticaNeue-Extended.otf"),
+		HelveticaNeueRegular: require("./assets/fonts/helvetica-neue/HelveticaNeueRoman.ttf"),
 	});
 
 	return (

@@ -6,7 +6,7 @@ import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { Box } from "@src/components";
+import { Box, Text } from "@src/components";
 import type { Theme } from "@src/styles/theme";
 
 import {
@@ -58,6 +58,12 @@ const Menu = ({ navigation }: MenuProps) => {
 					)}
 				/>
 			</SafeAreaView>
+
+			<Text>
+				{
+					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request."
+				}
+			</Text>
 
 			<CheckoutBanner navigation={navigation} />
 		</ScreenContainer>
