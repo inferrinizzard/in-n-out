@@ -1,5 +1,5 @@
 import type { OptionFlagKey, OptionKey, OptionOptionKey } from "./options";
-import { MenuCombo, MenuItem } from "./menu";
+import { Menu, MenuCombo, MenuItem, type MenuKey } from "./menu";
 import type { SkuId } from "./types";
 
 export const OptionCopy = Object.freeze({
@@ -56,7 +56,7 @@ OptionCopy satisfies Record<
 	string
 >;
 
-export const MenuCopy = Object.freeze({
+export const ItemCopy = Object.freeze({
 	[MenuCombo.DblDblCombo]: "Double-Double® Combo",
 	[MenuCombo.CheeseburgerCombo]: "Cheeseburger Combo",
 	[MenuCombo.HamburgerCombo]: "Hamburger Combo",
@@ -84,4 +84,13 @@ export const MenuCopy = Object.freeze({
 	[MenuItem.GiftCard]: "Gift Card",
 } as const);
 
-MenuCopy satisfies Record<SkuId, string>;
+ItemCopy satisfies Record<SkuId, string>;
+
+export const MenuCopy = Object.freeze({
+	[Menu.Main]: "Main Menu",
+	[Menu.HotDrink]: "Other Drinks",
+	[Menu.SecretMenu]: "Secret Menu",
+	[Menu.Extra]: "Extras",
+} as const);
+
+MenuCopy satisfies Record<MenuKey, string>;

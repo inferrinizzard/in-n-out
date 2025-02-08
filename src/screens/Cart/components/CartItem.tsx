@@ -6,14 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 
 import type { StackNavigationProps } from "@src/navigation/StackNavigator";
 import type { SkuItem } from "@src/atoms/types";
-import { useImage } from "@src/hooks/useImage";
+import { getImage } from "@src/utils/getImage";
 
 export interface CartItemProps extends SkuItem {
 	uuid: string;
 }
 
 const CartItem = ({ uuid, ...item }: CartItemProps) => {
-	const image = useImage(item.id);
+	const image = getImage(item.id);
 
 	const customisationData = Object.entries(item.options ?? {});
 
