@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-import type { SkuId } from "@data/menu";
+import type { SkuId } from "@data/types";
 
 type QueueAtomState = SkuId[];
 

@@ -1,4 +1,4 @@
-import type { SkuId } from "@data/menu";
+import type { SkuId } from "@data/types";
 import type { OptionKey } from "@data/customisations/keys";
 import type { OptionInstance } from "@data/options";
 import type { ItemKey } from "@data/items";
