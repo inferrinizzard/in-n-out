@@ -47,7 +47,7 @@ const Cart = ({ navigation }: CartProps) => {
 							padding: 10,
 						}}
 					>
-						<Text>{`Subtotal:`}</Text>
+						<Text>{"Subtotal:"}</Text>
 						<Text>{`$${Number(
 							orderItems.reduce((sum, [_, item]) => +item.price + sum, 0),
 						).toFixed(2)}`}</Text>
