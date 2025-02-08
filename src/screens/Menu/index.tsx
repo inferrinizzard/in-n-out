@@ -8,7 +8,7 @@ import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 import { Box, Text } from "@src/components";
 import type { Theme } from "@src/styles/theme";
-import { getCopy } from "@src/hooks/getCopy";
+import { getCopy } from "@src/utils/getCopy";
 
 import {
 	Menu as DataMenu,

@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import type { StackNavigationProps } from "@src/navigation/StackNavigator";
 import type { SkuItem } from "@src/atoms/types";
-import { getImage } from "@src/hooks/getImage";
+import { getImage } from "@src/utils/getImage";
 
 export interface CartItemProps extends SkuItem {
 	uuid: string;
