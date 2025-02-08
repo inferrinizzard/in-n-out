@@ -1,25 +1,5 @@
 import type { SkuId } from "./types";
 
-export const ImageUris = Object.freeze({
-	DblDblCombo: "",
-	CheeseburgerCombo: "",
-	HamburgerCombo: "",
-	DblDbl: "",
-	Cheeseburger: "",
-	Hamburger: "",
-	Fries: "",
-	SoftDrink: "",
-	Coffee:
-		"https://lawblog.legalmatch.com/wp-content/uploads/2014/05/in-n-out-burger-spilled-coffee.jpg",
-	Milk: "https://i.insider.com/6154e27a2fb46b0019beaeb8?width=1000&format=jpeg&auto=webp",
-	Shake:
-		"https://www.in-n-out.com/ino-images/default-source/history/hero-1975a.jpg",
-	HotCocoa:
-		"https://www.sacbee.com/food-drink/6q0teo/picture192915519/alternates/FREE_1140/INO%20Hot%20Cocoa",
-} as const);
-
-ImageUris satisfies Record<SkuId, string>;
-
 export const ImageData = {
 	DblDblCombo: require("@images/menu/DblDblCombo.png"),
 	CheeseburgerCombo: require("@images/menu/CheeseburgerCombo.png"),
@@ -29,6 +9,25 @@ export const ImageData = {
 	Hamburger: require("@images/menu/Hamburger.png"),
 	Fries: require("@images/menu/Fries.png"),
 	SoftDrink: require("@images/menu/SoftDrink.png"),
+	Coffee: require("@images/menu/Coffee.png"),
+	Milk: require("@images/menu/Milk.png"),
+	Shake: require("@images/menu/Shake.png"),
+	HotCocoa: require("@images/menu/HotCocoa.png"),
+
+	// Misc
+	"7up": require("@images/menu/7up.png"),
+	Buns: require("@images/menu/Buns.jpg"),
+	Cheese: require("@images/menu/Cheese.jpg"),
+	ChocolateShake: require("@images/menu/ChocolateShake.png"),
+	Coke: require("@images/menu/Coke.png"),
+	IcedTea: require("@images/menu/IcedTea.png"),
+	Lettuce: require("@images/menu/Lettuce.jpg"),
+	Onion: require("@images/menu/Onion.jpg"),
+	PinkLemonade: require("@images/menu/PinkLemonade.png"),
+	Spread: require("@images/menu/Spread.jpg"),
+	StrawberryShake: require("@images/menu/StrawberryShake.png"),
+	Tomato: require("@images/menu/Tomato.jpg"),
+	VanillaShake: require("@images/menu/VanillaShake.png"),
 };
 
 ImageData satisfies Partial<Record<SkuId, unknown>>;
