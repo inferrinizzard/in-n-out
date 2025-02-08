@@ -5,20 +5,21 @@ import { useImage } from "@src/hooks/useImage";
 
 import prices from "@data/prices";
 import calories from "@data/calories";
-import { MenuCopy } from "@data/copy";
+import { ItemCopy } from "@data/copy";
 import type { SkuId } from "@data/types";
+import type { MenuKey } from "@data/menu";
 
 export type MenuItemProps = {
-	id: SkuId;
+	id: SkuId | MenuKey;
 	onPress: () => void;
 };
 
 const MenuItem = ({ id, onPress }: MenuItemProps) => {
 	const image = useImage(id);
 
-	const mainText = (id in MenuCopy ? MenuCopy[id] : id).toUpperCase();
-	const price = prices.base[id];
-	const calorie = calories.base[id];
+	const itemText = (id in ItemCopy ? ItemCopy[id as SkuId] : id).toUpperCase();
+	const price = id in prices.base ? prices.base[id as SkuId] : undefined;
+	const calorie = id in calories.base ? calories.base[id as SkuId] : undefined;
 
 	return (
 		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>
@@ -28,7 +29,7 @@ const MenuItem = ({ id, onPress }: MenuItemProps) => {
 				resizeMode="contain"
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
-				<Text variant="header">{mainText}</Text>
+				<Text variant="header">{itemText}</Text>
 			</View>
 			{(price || calorie) && (
 				<View
