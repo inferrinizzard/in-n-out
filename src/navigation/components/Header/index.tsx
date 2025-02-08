@@ -6,12 +6,13 @@ import { Box } from "@src/components";
 import HeaderButton from "./HeaderButton";
 import HeaderTitle from "./HeaderTitle";
 
-interface HeaderProps extends NativeStackHeaderProps {}
+export interface HeaderProps extends NativeStackHeaderProps {}
 
-export const Header = ({ back, navigation, route, options }: HeaderProps) => {
-	if (back) {
-		console.log({ back, navigation, route, options });
-	}
+export const Header = ({ back, navigation, route }: HeaderProps) => {
+	const headerTitle =
+		(route.params && "title" in route.params
+			? (route.params?.title as string)
+			: undefined) ?? route.name;
 
 	return (
 		<View>
@@ -23,8 +24,8 @@ export const Header = ({ back, navigation, route, options }: HeaderProps) => {
 			/>
 			{back && (
 				<Box flexDirection="row" alignItems="center">
-					<HeaderButton />
-					<HeaderTitle>{route.params?.title ?? "test"}</HeaderTitle>
+					<HeaderButton navigation={navigation} />
+					<HeaderTitle>{headerTitle}</HeaderTitle>
 				</Box>
 			)}
 		</View>
