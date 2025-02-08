@@ -63,7 +63,9 @@ const Menu = ({
 							id={id}
 							onPress={() => {
 								setDefaultItem({ id: id, item: item.id });
-								navigation.push(ScreenKeys.Item);
+								navigation.push(ScreenKeys.Item, {
+									title: id.replace("Combo", ""),
+								});
 
 								if (id.includes("Combo")) {
 									queue.push(DataMenuItem.Fries);
@@ -90,7 +92,10 @@ const Menu = ({
 								<MenuItem
 									id={menu as any}
 									onPress={() => {
-										navigation.push(ScreenKeys.Menu, { activeMenu: menu });
+										navigation.push(ScreenKeys.Menu, {
+											title: menu,
+											activeMenu: menu,
+										});
 									}}
 								/>
 							)}
@@ -99,7 +104,7 @@ const Menu = ({
 				)}
 			</SafeAreaView>
 
-			<Text>
+			<Text marginTop="s">
 				{
 					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request."
 				}

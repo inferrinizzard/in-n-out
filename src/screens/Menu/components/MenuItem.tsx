@@ -21,13 +21,7 @@ const MenuItem = ({ id, onPress }: MenuItemProps) => {
 	const calorie = calories.base[id];
 
 	return (
-		<Box
-			flexDirection="row"
-			gap="s"
-			paddingBottom="s"
-			style={{ display: "flex" }}
-			onPointerDown={onPress}
-		>
+		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>
 			<Image
 				source={image}
 				style={{ height: 48, width: 64, flexGrow: 0, flexShrink: 1 }}

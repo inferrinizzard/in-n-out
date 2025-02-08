@@ -16,6 +16,8 @@ import { ScreenKeys } from "./screens";
 
 import { Header } from "./components/Header";
 
+type HeaderTitleParams = { title?: string };
+
 // #region types
 export const routesMap = {
 	[ScreenKeys.Menu]: Menu,
@@ -27,12 +29,12 @@ export const routesMap = {
 } as const;
 
 export type StackParamList = {
-	[ScreenKeys.Menu]: MenuScreenParams;
-	[ScreenKeys.Item]: undefined;
-	[ScreenKeys.Cart]: undefined;
-	[ScreenKeys.QrCode]: undefined;
-	[ScreenKeys.Account]: undefined;
-	[ScreenKeys.More]: undefined;
+	[ScreenKeys.Menu]: MenuScreenParams & HeaderTitleParams;
+	[ScreenKeys.Item]: HeaderTitleParams;
+	[ScreenKeys.Cart]: HeaderTitleParams;
+	[ScreenKeys.QrCode]: HeaderTitleParams;
+	[ScreenKeys.Account]: HeaderTitleParams;
+	[ScreenKeys.More]: HeaderTitleParams;
 };
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>;
