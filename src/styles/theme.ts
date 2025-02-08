@@ -15,6 +15,7 @@ const palette = {
 
 const theme = createTheme({
 	colors: {
+		...palette,
 		mainBackground: palette.white,
 		cardPrimaryBackground: palette.white,
 	},
@@ -28,14 +29,20 @@ const theme = createTheme({
 			fontWeight: "bold",
 			fontSize: 24,
 			fontFamily: "HelveticaNeueCondensedBold",
+			letterSpacing: "-0.06em",
 		},
 		bold: {
 			fontWeight: "bold",
-			fontSize: 16,
+			fontSize: 12,
 			fontFamily: "HelveticaNeueBold",
 		},
+		medium: {
+			fontSize: 12,
+			fontFamily: "HelveticaNeueMedium",
+			letterSpacing: "-0.01em",
+		},
 		body: {
-			fontSize: 16,
+			fontSize: 12,
 			lineHeight: 24,
 			fontFamily: "HelveticaNeueRegular",
 		},
