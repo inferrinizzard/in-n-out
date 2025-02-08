@@ -9,7 +9,7 @@ export interface HeaderButtonProps extends Pick<HeaderProps, "navigation"> {
 const HeaderButton = ({ navigation, shouldUseX }: HeaderButtonProps) => {
 	return (
 		<Button onPress={navigation.goBack}>
-			<Icon source={shouldUseX ? "x" : "arrow-left"} size={24} />
+			<Icon source={shouldUseX ? "close" : "chevron-left"} size={36} />
 		</Button>
 	);
 };

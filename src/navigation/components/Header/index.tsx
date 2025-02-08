@@ -8,11 +8,7 @@ import HeaderTitle from "./HeaderTitle";
 
 export interface HeaderProps extends NativeStackHeaderProps {}
 
-export const Header = ({ back, navigation, route, options }: HeaderProps) => {
-	if (back) {
-		console.log({ back, navigation, route, options });
-	}
-
+export const Header = ({ back, navigation, route }: HeaderProps) => {
 	const headerTitle =
 		(route.params && "title" in route.params
 			? (route.params?.title as string)
