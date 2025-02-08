@@ -5,7 +5,7 @@ import {
 	createNativeStackNavigator,
 } from "@react-navigation/native-stack";
 
-import Menu from "../screens/Menu";
+import Menu, { type MenuScreenParams } from "../screens/Menu";
 import Item from "../screens/Item";
 import Cart from "../screens/Cart";
 import More from "../screens/More";
@@ -14,8 +14,9 @@ import Account from "../screens/Account";
 
 import { ScreenKeys } from "./screens";
 
-import Header from "./components/HeaderTitle";
-import HeaderButton from "./components/HeaderButton";
+import { Header } from "./components/Header";
+
+type HeaderTitleParams = { title?: string };
 
 // #region types
 export const routesMap = {
@@ -28,12 +29,12 @@ export const routesMap = {
 } as const;
 
 export type StackParamList = {
-	[ScreenKeys.Menu]: undefined;
-	[ScreenKeys.Item]: undefined;
-	[ScreenKeys.Cart]: undefined;
-	[ScreenKeys.QrCode]: undefined;
-	[ScreenKeys.Account]: undefined;
-	[ScreenKeys.More]: undefined;
+	[ScreenKeys.Menu]: MenuScreenParams & HeaderTitleParams;
+	[ScreenKeys.Item]: HeaderTitleParams;
+	[ScreenKeys.Cart]: HeaderTitleParams;
+	[ScreenKeys.QrCode]: HeaderTitleParams;
+	[ScreenKeys.Account]: HeaderTitleParams;
+	[ScreenKeys.More]: HeaderTitleParams;
 };
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>;
@@ -56,24 +57,10 @@ const MainNavigator = () => {
 	return (
 		<Stack.Navigator
 			initialRouteName={ScreenKeys.Menu}
-			screenOptions={{
-				header: () => null,
-				headerLeft: (props) => (props.canGoBack ? <HeaderButton /> : null),
-				headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,
-			}}
+			screenOptions={{ header: Header }}
 		>
 			{routes.map(([screen, Component]) => (
-				<Stack.Screen
-					key={screen}
-					name={screen}
-					component={Component}
-					options={({ route }) => ({
-						// title:
-						// 	route.params && "name" in route.params
-						// 		? route.params.name
-						// 		: screen,
-					})}
-				/>
+				<Stack.Screen key={screen} name={screen} component={Component} />
 			))}
 		</Stack.Navigator>
 	);

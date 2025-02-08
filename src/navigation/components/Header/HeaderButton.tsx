@@ -2,9 +2,9 @@ import { Button, Icon } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import type { HeaderOptions } from "@react-navigation/elements";
 
-import type { StackNavigationProps } from "../StackNavigator";
+import type { StackNavigationProps } from "../../StackNavigator";
 
-import { ScreenKeys } from "../screens";
+import { ScreenKeys } from "../../screens";
 
 export type HeaderButtonProps = Parameters<
 	Exclude<HeaderOptions["headerLeft"], undefined>

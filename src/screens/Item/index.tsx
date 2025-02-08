@@ -31,7 +31,7 @@ const Item = ({ navigation }: ItemProps) => {
 			: undefined;
 
 	return (
-		<ScreenContainer style={{ display: "flex", flex: 1 }}>
+		<ScreenContainer>
 			<View style={{ alignItems: "center" }}>
 				<Image source={image} style={{ height: 240, width: 320 }} />
 				<Text style={{ fontSize: 24 }}>{name}</Text>

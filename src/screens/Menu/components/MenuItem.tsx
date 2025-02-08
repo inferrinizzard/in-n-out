@@ -1,32 +1,51 @@
 import { Image, View } from "react-native";
-import { Card, Text } from "react-native-paper";
+
+import { Box, Text } from "@src/components";
+import { useImage } from "@src/hooks/useImage";
 
 import prices from "@data/prices";
 import calories from "@data/calories";
 import { MenuCopy } from "@data/copy";
 import type { SkuId } from "@data/types";
 
-import { useImage } from "@src/hooks/useImage";
-
 export type MenuItemProps = {
 	id: SkuId;
 	onPress: () => void;
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ id, onPress }) => {
+const MenuItem = ({ id, onPress }: MenuItemProps) => {
 	const image = useImage(id);
 
+	const mainText = (id in MenuCopy ? MenuCopy[id] : id).toUpperCase();
+	const price = prices.base[id];
+	const calorie = calories.base[id];
+
 	return (
-		<Card onPress={onPress}>
-			<Card.Content style={{ display: "flex", flexDirection: "row" }}>
-				<Image source={image} style={{ height: 120, width: 160 }} />
-				<View style={{ display: "flex", flexDirection: "column" }}>
-					<Text>{MenuCopy[id]}</Text>
-					<Text>{`$${Number(prices.base[id]).toFixed(2)}`}</Text>
-					<Text>{`${calories.base[id]} Calories`}</Text>
+		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>
+			<Image
+				source={image}
+				style={{ height: 48, width: 64, flexGrow: 0, flexShrink: 1 }}
+				resizeMode="contain"
+			/>
+			<View style={{ flexGrow: 1, justifyContent: "center" }}>
+				<Text variant="header">{mainText}</Text>
+			</View>
+			{(price || calorie) && (
+				<View
+					style={{
+						flexGrow: 0,
+						flexShrink: 1,
+						alignItems: "flex-end",
+						justifyContent: "center",
+					}}
+				>
+					{price && (
+						<Text variant="bold">{`$${Number(price).toFixed(2)}`}</Text>
+					)}
+					{calorie && <Text variant="medium">{`${calorie} Cal`}</Text>}
 				</View>
-			</Card.Content>
-		</Card>
+			)}
+		</Box>
 	);
 };
 

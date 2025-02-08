@@ -5,20 +5,18 @@ import { useAtomValue } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 
-import { HeaderCopy, type ScreenKey } from "../screens";
+import { HeaderCopy, type ScreenKey } from "../../screens";
 
 export interface HeaderProps extends HeaderTitleProps {}
 
-const Header = ({ tintColor, children }: HeaderProps) => {
+const HeaderTitle = ({ tintColor, children }: HeaderProps) => {
 	const activeItem = useAtomValue(activeItemAtom)!;
 
 	return (
 		<View>
-			<Text style={{ fontSize: 32, fontWeight: "bold" }}>
-				{HeaderCopy[children as ScreenKey]}
-			</Text>
+			<Text style={{ fontSize: 32, fontWeight: "bold" }}>{children}</Text>
 		</View>
 	);
 };
 
-export default Header;
+export default HeaderTitle;
