@@ -1,7 +1,5 @@
-import { useMemo } from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
-import { Button, Text } from "react-native-paper";
-import { useAtom, useSetAtom } from "jotai";
+import { FlatList, SafeAreaView } from "react-native";
+import { useSetAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
@@ -17,6 +15,7 @@ import type { ItemKey } from "@data/items";
 import type { SkuId } from "@data/types";
 
 import MenuItem from "./components/MenuItem";
+import { CheckoutBanner } from "./components/CheckoutBanner";
 
 export interface MenuProps extends StackScreenProps<typeof ScreenKeys.Menu> {}
 
@@ -51,18 +50,7 @@ const Menu = ({ navigation }: MenuProps) => {
 				/>
 			</SafeAreaView>
 
-			{[].length ? (
-				<View
-					style={{
-						backgroundColor: "red",
-						width: "100%",
-					}}
-				>
-					<Button onPress={() => navigation.replace(ScreenKeys.Cart)}>
-						<Text>{`Checkout ${[].length} Items now`}</Text>
-					</Button>
-				</View>
-			) : null}
+			<CheckoutBanner navigation={navigation} />
 		</ScreenContainer>
 	);
 };
