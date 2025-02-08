@@ -2,7 +2,7 @@ import { Icon, List } from "react-native-paper";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 
-import ScreenContainer from "../../components/ScreenContainer";
+import ScreenContainer from "../../components/layout/ScreenContainer";
 
 export interface MoreProps extends StackScreenProps<typeof ScreenKeys.More> {}
 

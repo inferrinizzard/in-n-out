@@ -57,6 +57,7 @@ const MainNavigator = () => {
 		<Stack.Navigator
 			initialRouteName={ScreenKeys.Menu}
 			screenOptions={{
+				header: () => null,
 				headerLeft: (props) => (props.canGoBack ? <HeaderButton /> : null),
 				headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,
 			}}

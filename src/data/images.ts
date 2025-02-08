@@ -21,14 +21,14 @@ export const ImageUris = Object.freeze({
 ImageUris satisfies Record<SkuId, string>;
 
 export const ImageData = {
-	DblDblCombo: require("@images/DblDblCombo.png"),
-	CheeseburgerCombo: require("@images/CheeseburgerCombo.png"),
-	HamburgerCombo: require("@images/HamburgerCombo.png"),
-	DblDbl: require("@images/DblDbl.png"),
-	Cheeseburger: require("@images/Cheeseburger.png"),
-	Hamburger: require("@images/Hamburger.png"),
-	Fries: require("@images/Fries.png"),
-	SoftDrink: require("@images/SoftDrink.png"),
+	DblDblCombo: require("@images/menu/DblDblCombo.png"),
+	CheeseburgerCombo: require("@images/menu/CheeseburgerCombo.png"),
+	HamburgerCombo: require("@images/menu/HamburgerCombo.png"),
+	DblDbl: require("@images/menu/DblDbl.png"),
+	Cheeseburger: require("@images/menu/Cheeseburger.png"),
+	Hamburger: require("@images/menu/Hamburger.png"),
+	Fries: require("@images/menu/Fries.png"),
+	SoftDrink: require("@images/menu/SoftDrink.png"),
 };
 
 ImageData satisfies Partial<Record<SkuId, unknown>>;

@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import { orderAtom } from "@src/atoms/order.atom";
+import ScreenContainer from "@src/components/layout/ScreenContainer";
 
 import CartItem from "./components/CartItem";
 import CartLocation from "./components/CartLocation";
@@ -16,7 +17,7 @@ const Cart = ({ navigation }: CartProps) => {
 	const orderItems = useMemo(() => Object.entries(order), [order]);
 
 	return (
-		<View style={{ flex: 1 }}>
+		<ScreenContainer style={{ flex: 1 }}>
 			<CartLocation />
 			<Divider />
 			<View style={{ flex: 1, flexGrow: 1 }}>
@@ -60,7 +61,7 @@ const Cart = ({ navigation }: CartProps) => {
 					<Text>{"Review and Pay"}</Text>
 				</Button>
 			) : null}
-		</View>
+		</ScreenContainer>
 	);
 };
 
