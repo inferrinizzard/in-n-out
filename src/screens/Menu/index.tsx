@@ -62,6 +62,7 @@ const Menu = ({
 					renderItem={({ item: [id, item] }) => (
 						<MenuItem
 							id={id}
+							item={item}
 							onPress={() => {
 								setDefaultItem({ id: id, item: item.id });
 								navigation.push(ScreenKeys.Item, {

@@ -46,6 +46,12 @@ const theme = createTheme({
 			lineHeight: 24,
 			fontFamily: "HelveticaNeueRegular",
 		},
+		script: {
+			fontWeight: 500,
+			fontSize: 16,
+			lineHeight: 12,
+			fontFamily: "Brush Script MT",
+		},
 		defaults: {
 			fontFamily: "HelveticaNeueRegular",
 		},
