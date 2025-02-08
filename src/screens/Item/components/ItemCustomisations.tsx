@@ -2,16 +2,17 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
+import type { SkuId } from "@data/types";
+
 import ItemCustomisationRow from "./ItemCustomisationRow";
 
-import type {
-	SkuCustomisationKey,
-	CustomisationNode,
-} from "../../../data/customisations";
-import type { SkuId } from "../../../data/types";
+// import type {
+// 	SkuCustomisationKey,
+// 	CustomisationNode,
+// } from "../../../data/customisations";
 
 export interface ItemCustomisationsProps {
-	customisations: CustomisationNode;
+	customisations: any;
 }
 
 const ItemCustomisations = <Id extends SkuId>({

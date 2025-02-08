@@ -1,8 +1,10 @@
 import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 import { Button, Divider, Text } from "react-native-paper";
+import { useAtom } from "jotai";
 
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
+import { orderAtom } from "@src/atoms/order.atom";
 
 import CartItem from "./components/CartItem";
 import CartLocation from "./components/CartLocation";
@@ -10,7 +12,7 @@ import CartLocation from "./components/CartLocation";
 export interface CartProps extends StackScreenProps<typeof ScreenKeys.Cart> {}
 
 const Cart = ({ navigation }: CartProps) => {
-	const order = useAppSelector(selectItems);
+	const [order, orderSetter] = useAtom(orderAtom);
 	const orderItems = useMemo(() => Object.entries(order), [order]);
 
 	return (
@@ -21,8 +23,8 @@ const Cart = ({ navigation }: CartProps) => {
 				{orderItems.length ? (
 					<FlatList
 						data={orderItems}
-						renderItem={({ item: [uuid, item], index }) => (
-							<CartItem key={`${item.id}-${index}`} uuid={uuid} {...item} />
+						renderItem={({ item: [uuid, item] }) => (
+							<CartItem key={uuid} uuid={uuid} {...item} />
 						)}
 					/>
 				) : (
@@ -45,7 +47,7 @@ const Cart = ({ navigation }: CartProps) => {
 							padding: 10,
 						}}
 					>
-						<Text>{`Subtotal:`}</Text>
+						<Text>{"Subtotal:"}</Text>
 						<Text>{`$${Number(
 							orderItems.reduce((sum, [_, item]) => +item.price + sum, 0),
 						).toFixed(2)}`}</Text>

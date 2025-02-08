@@ -4,17 +4,17 @@ import { Card, Text } from "react-native-paper";
 import prices from "@data/prices";
 import calories from "@data/calories";
 import { MenuCopy } from "@data/copy";
-import type { MenuIdKey } from "@data/menu";
+import type { SkuId } from "@data/types";
 
 import { useImage } from "@src/hooks/useImage";
 
 export type MenuItemProps = {
-	id: MenuIdKey;
+	id: SkuId;
 	onPress: () => void;
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ id, onPress }) => {
-	const image = useImage(id as any);
+	const image = useImage(id);
 
 	return (
 		<Card onPress={onPress}>

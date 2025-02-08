@@ -1,15 +1,15 @@
 import { atom } from "jotai";
 
-import type { MenuIdKey } from "@data/menu";
+import type { SkuId } from "@data/types";
 
-type QueueAtomState = MenuIdKey[];
+type QueueAtomState = SkuId[];
 
 const baseAtom = atom<QueueAtomState>([]);
 
 export const queueAtom = atom(
 	(get) => get(baseAtom),
 	(get, set) => ({
-		push: (id: MenuIdKey) => set(baseAtom, (prev) => prev.concat([id])),
+		push: (id: SkuId) => set(baseAtom, (prev) => prev.concat([id])),
 
 		shift: () =>
 			set(baseAtom, (prev) => {

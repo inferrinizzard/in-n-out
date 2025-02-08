@@ -5,12 +5,12 @@ import {
 	createNativeStackNavigator,
 } from "@react-navigation/native-stack";
 
-import Menu, { type MenuProps } from "../screens/Menu";
-import Item, { type ItemScreenParams } from "../screens/Item";
-import Cart, { type CartProps } from "../screens/Cart";
-import More, { type MoreProps } from "../screens/More";
-import QrCode, { type QrCodeProps } from "../screens/QrCode";
-import Account, { type AccountProps } from "../screens/Account";
+import Menu from "../screens/Menu";
+import Item from "../screens/Item";
+import Cart from "../screens/Cart";
+import More from "../screens/More";
+import QrCode from "../screens/QrCode";
+import Account from "../screens/Account";
 
 import { ScreenKeys } from "./screens";
 
@@ -28,12 +28,12 @@ export const routesMap = {
 } as const;
 
 export type StackParamList = {
-	[ScreenKeys.Menu]: MenuProps;
+	[ScreenKeys.Menu]: undefined;
 	[ScreenKeys.Item]: undefined;
-	[ScreenKeys.Cart]: CartProps;
-	[ScreenKeys.QrCode]: QrCodeProps;
-	[ScreenKeys.Account]: AccountProps;
-	[ScreenKeys.More]: MoreProps;
+	[ScreenKeys.Cart]: undefined;
+	[ScreenKeys.QrCode]: undefined;
+	[ScreenKeys.Account]: undefined;
+	[ScreenKeys.More]: undefined;
 };
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>;
@@ -45,8 +45,12 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 const MainNavigator = () => {
 	const routes = useMemo(
-		() => Object.entries(routesMap) as [keyof typeof routesMap, any][],
-		[routesMap],
+		() =>
+			Object.entries(routesMap) as [
+				keyof typeof routesMap,
+				() => JSX.Element,
+			][],
+		[],
 	);
 
 	return (
@@ -57,16 +61,16 @@ const MainNavigator = () => {
 				headerTitle: ({ children, tintColor }) => <Header>{children}</Header>,
 			}}
 		>
-			{routes.map(([screen, component]) => (
+			{routes.map(([screen, Component]) => (
 				<Stack.Screen
 					key={screen}
 					name={screen}
-					component={component}
+					component={Component}
 					options={({ route }) => ({
-						title:
-							route.params && "name" in route.params
-								? route.params.name
-								: screen,
+						// title:
+						// 	route.params && "name" in route.params
+						// 		? route.params.name
+						// 		: screen,
 					})}
 				/>
 			))}

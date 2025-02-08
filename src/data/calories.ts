@@ -1,5 +1,6 @@
-import { Option } from "./customisations/keys";
-import { MenuItem, MenuCombo, type MenuIdKey } from "./menu";
+import { Option, OptionValue } from "./options";
+import { MenuItem, MenuCombo } from "./menu";
+import type { SkuId } from "./types";
 
 const BaseCaloriesData = Object.freeze({
 	[MenuItem.DblDbl]: 610,
@@ -22,10 +23,10 @@ const MiscCaloriesData = Object.freeze({
 		(BaseCaloriesData.Cheeseburger +
 			(BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger)),
 	[Option.Cheese]: BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger,
-	SoftDrinkSmall: 130,
-	SoftDrinkMedium: 190,
-	SoftDrinkLarge: 270,
-	SoftDrinkXtraLarge: 350,
+	[`${MenuItem.SoftDrink}${OptionValue.Small}`]: 130,
+	[`${MenuItem.SoftDrink}${OptionValue.Medium}`]: 190,
+	[`${MenuItem.SoftDrink}${OptionValue.Large}`]: 270,
+	[`${MenuItem.SoftDrink}${OptionValue.XtraLarge}`]: 350,
 	AnimalStyle: 160,
 	ProteinStyle: -100,
 } as const);
@@ -63,7 +64,7 @@ const CaloriesData = Object.freeze({
 		BaseCaloriesData.Cheeseburger + MiscCaloriesData.AnimalStyle,
 } as const);
 
-CaloriesData satisfies Record<MenuIdKey, number>;
+CaloriesData satisfies Record<SkuId, number>;
 
 export default {
 	base: CaloriesData,

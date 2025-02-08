@@ -1,4 +1,4 @@
-import { ImageData, ImageUris } from "@src/data/images";
+import { ImageData } from "@src/data/images";
 import type { SkuId } from "@data/types";
 
 export const useImage = (id: SkuId) => {
@@ -6,5 +6,5 @@ export const useImage = (id: SkuId) => {
 		return ImageData[id as keyof typeof ImageData];
 	}
 
-	return ImageUris[id];
+	return "";
 };
