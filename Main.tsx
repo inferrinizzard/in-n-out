@@ -4,6 +4,7 @@ import {
 	adaptNavigationTheme,
 } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 
 import MainNavigator from "./src/navigation/StackNavigator";
 import { navigationRef } from "./src/navigation/navigatorRef";
@@ -15,6 +16,14 @@ const { LightTheme } = adaptNavigationTheme({
 });
 
 const App = () => {
+	const [loaded, error] = useFonts({
+		HelveticaNeueBold: require("./assets/fonts/helvetica-neue/HelveticaNeueBold.ttf"),
+		HelveticaNeueBoldItalic: require("./assets/fonts/helvetica-neue/HelveticaNeueBoldItalic.ttf"),
+		HelveticaNeueCondensedBold: require("./assets/fonts/helvetica-neue/HelveticaNeueCondensedBold.ttf"),
+		HelveticaNeueMedium: require("./assets/fonts/helvetica-neue/HelveticaNeueMedium.ttf"),
+		HelveticaNeue: require("./assets/fonts/helvetica-neue/HelveticaNeue-Extended.otf"),
+	});
+
 	return (
 		<ThemeProvider theme={theme}>
 			<SafeAreaView
