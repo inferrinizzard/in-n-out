@@ -6,7 +6,7 @@ import { Box } from "@src/components";
 import HeaderButton from "./HeaderButton";
 import HeaderTitle from "./HeaderTitle";
 
-interface HeaderProps extends NativeStackHeaderProps {}
+export interface HeaderProps extends NativeStackHeaderProps {}
 
 export const Header = ({ back, navigation, route, options }: HeaderProps) => {
 	if (back) {
@@ -28,7 +28,7 @@ export const Header = ({ back, navigation, route, options }: HeaderProps) => {
 			/>
 			{back && (
 				<Box flexDirection="row" alignItems="center">
-					<HeaderButton />
+					<HeaderButton navigation={navigation} />
 					<HeaderTitle>{headerTitle}</HeaderTitle>
 				</Box>
 			)}

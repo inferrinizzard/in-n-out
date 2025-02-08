@@ -1,12 +1,13 @@
 import type { PropsWithChildren } from "react";
 import { View } from "react-native";
-import type { HeaderTitleProps } from "@react-navigation/elements";
 
 import { Text } from "@src/components";
 
-export interface HeaderProps extends HeaderTitleProps {}
+export interface HeaderTitleProps {
+	children: string;
+}
 
-const HeaderTitle = ({ children }: PropsWithChildren<HeaderProps>) => {
+const HeaderTitle = ({ children }: PropsWithChildren<HeaderTitleProps>) => {
 	return (
 		<View>
 			<Text variant="header" style={{ fontSize: 32, fontWeight: "bold" }}>

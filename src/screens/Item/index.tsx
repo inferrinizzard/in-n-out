@@ -4,13 +4,13 @@ import { useAtomValue } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { getImage } from "@src/utils/getImage";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
+import { getImage } from "@src/utils/getImage";
+import { getCopy } from "@src/utils/getCopy";
 
 import calories from "@data/calories";
 import prices from "@data/prices";
 import { ItemOptionMap } from "@data/items";
-import { MenuCopy } from "@data/copy";
 
 import ContinueButton from "./components/ContinueButton";
 
@@ -22,8 +22,7 @@ const Item = ({ navigation }: ItemProps) => {
 	const item = activeItem.item;
 
 	const image = getImage(id);
-
-	const name = MenuCopy[id];
+	const name = getCopy(id);
 
 	const options =
 		item in ItemOptionMap
