@@ -5,6 +5,7 @@ import { useAtomValue } from "jotai";
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { useImage } from "@src/hooks/useImage";
+import ScreenContainer from "@src/components/layout/ScreenContainer";
 
 import calories from "@data/calories";
 import prices from "@data/prices";
@@ -30,7 +31,7 @@ const Item = ({ navigation }: ItemProps) => {
 			: undefined;
 
 	return (
-		<View style={{ display: "flex", flex: 1 }}>
+		<ScreenContainer style={{ display: "flex", flex: 1 }}>
 			<View style={{ alignItems: "center" }}>
 				<Image source={image} style={{ height: 240, width: 320 }} />
 				<Text style={{ fontSize: 24 }}>{name}</Text>
@@ -56,7 +57,7 @@ const Item = ({ navigation }: ItemProps) => {
 			</ScrollView>
 
 			<ContinueButton navigation={navigation} />
-		</View>
+		</ScreenContainer>
 	);
 };
 
