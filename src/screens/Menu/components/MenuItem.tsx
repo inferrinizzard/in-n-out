@@ -14,7 +14,7 @@ export type MenuItemProps = {
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ id, onPress }) => {
-	const image = useImage(id as any);
+	const image = useImage(id);
 
 	return (
 		<Card onPress={onPress}>
