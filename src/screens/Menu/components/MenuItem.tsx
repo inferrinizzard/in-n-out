@@ -13,10 +13,11 @@ import type { MenuKey } from "@data/menu";
 
 export type MenuItemProps = {
 	id: SkuId | MenuKey;
+	item?: Record<string, any>;
 	onPress: () => void;
 };
 
-const MenuItem = ({ id, onPress }: MenuItemProps) => {
+const MenuItem = ({ id, item, onPress }: MenuItemProps) => {
 	const image = getImage(id);
 
 	const itemText = getCopy(id).toUpperCase();
@@ -31,7 +32,13 @@ const MenuItem = ({ id, onPress }: MenuItemProps) => {
 				resizeMode="contain"
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
+				{item && "supertext" in item && (
+					<Text variant="script">{item.supertext}</Text>
+				)}
 				<Text variant="header">{itemText}</Text>
+				{item && "subtext" in item && (
+					<Text variant="script">{item.subtext}</Text>
+				)}
 			</View>
 			{(price || calorie) && (
 				<View

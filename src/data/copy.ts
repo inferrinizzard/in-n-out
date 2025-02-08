@@ -63,7 +63,7 @@ export const ItemCopy = Object.freeze({
 	[MenuItem.DblDbl]: "Double-Double®",
 	[MenuItem.Cheeseburger]: "Cheeseburger",
 	[MenuItem.Hamburger]: "Hamburger",
-	[MenuItem.Fries]: "Fries",
+	[MenuItem.Fries]: "French Fries",
 	[MenuItem.SoftDrink]: "Soft Drink",
 	[MenuItem.Shake]: "Milk Shake",
 	[MenuItem.Coffee]: "Coffee",

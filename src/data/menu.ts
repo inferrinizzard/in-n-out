@@ -45,6 +45,7 @@ export const MenuItemMap = Object.freeze({
 				[Option.Meat]: { count: 2, value: OptionValue.Regular },
 				[Option.Cheese]: { count: 2, value: OptionValue.Regular },
 			},
+			subtext: "Double Meat, Double Cheese",
 		},
 		[MenuItem.Cheeseburger]: {
 			id: Item.Burger,
@@ -62,6 +63,7 @@ export const MenuItemMap = Object.freeze({
 		},
 		[MenuItem.Fries]: {
 			id: Item.Fries,
+			supertext: "Fresh",
 		},
 		[MenuItem.SoftDrink]: {
 			id: Item.Drink,
