@@ -17,10 +17,10 @@ const Cart = ({ navigation }: CartProps) => {
 	const orderItems = useMemo(() => Object.entries(order), [order]);
 
 	return (
-		<ScreenContainer style={{ flex: 1 }}>
+		<ScreenContainer>
 			<CartLocation />
-			<Divider />
-			<View style={{ flex: 1, flexGrow: 1 }}>
+
+			<View style={{ flexGrow: 1, marginTop: 90 }}>
 				{orderItems.length ? (
 					<FlatList
 						data={orderItems}
