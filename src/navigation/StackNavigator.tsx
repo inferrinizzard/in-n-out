@@ -5,7 +5,7 @@ import {
 	createNativeStackNavigator,
 } from "@react-navigation/native-stack";
 
-import Menu from "../screens/Menu";
+import Menu, { type MenuScreenParams } from "../screens/Menu";
 import Item from "../screens/Item";
 import Cart from "../screens/Cart";
 import More from "../screens/More";
@@ -28,7 +28,7 @@ export const routesMap = {
 } as const;
 
 export type StackParamList = {
-	[ScreenKeys.Menu]: undefined;
+	[ScreenKeys.Menu]: MenuScreenParams;
 	[ScreenKeys.Item]: undefined;
 	[ScreenKeys.Cart]: undefined;
 	[ScreenKeys.QrCode]: undefined;

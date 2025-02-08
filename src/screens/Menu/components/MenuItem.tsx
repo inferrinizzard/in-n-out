@@ -16,6 +16,10 @@ export type MenuItemProps = {
 const MenuItem = ({ id, onPress }: MenuItemProps) => {
 	const image = useImage(id);
 
+	const mainText = (id in MenuCopy ? MenuCopy[id] : id).toUpperCase();
+	const price = prices.base[id];
+	const calorie = calories.base[id];
+
 	return (
 		<Box
 			flexDirection="row"
@@ -30,19 +34,23 @@ const MenuItem = ({ id, onPress }: MenuItemProps) => {
 				resizeMode="contain"
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
-				<Text variant="header">{MenuCopy[id].toUpperCase()}</Text>
+				<Text variant="header">{mainText}</Text>
 			</View>
-			<View
-				style={{
-					flexGrow: 0,
-					flexShrink: 1,
-					alignItems: "flex-end",
-					justifyContent: "center",
-				}}
-			>
-				<Text variant="bold">{`$${Number(prices.base[id]).toFixed(2)}`}</Text>
-				<Text variant="medium">{`${calories.base[id]} Cal`}</Text>
-			</View>
+			{(price || calorie) && (
+				<View
+					style={{
+						flexGrow: 0,
+						flexShrink: 1,
+						alignItems: "flex-end",
+						justifyContent: "center",
+					}}
+				>
+					{price && (
+						<Text variant="bold">{`$${Number(price).toFixed(2)}`}</Text>
+					)}
+					{calorie && <Text variant="medium">{`${calorie} Cal`}</Text>}
+				</View>
+			)}
 		</Box>
 	);
 };
