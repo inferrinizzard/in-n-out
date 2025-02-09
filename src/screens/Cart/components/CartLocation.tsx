@@ -11,6 +11,8 @@ const CartLocation = () => {
 			gap="m"
 			alignItems="center"
 			style={{ insetInline: 0 }}
+			borderBottomColor="greyLight"
+			borderBottomWidth={1}
 		>
 			<Image
 				source={require("@images/logo.svg")}
