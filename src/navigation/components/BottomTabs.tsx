@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { StackActions, type NavigationState } from "@react-navigation/native";
 import { BottomNavigation, Icon } from "react-native-paper";
+import { StackActions, type NavigationState } from "@react-navigation/native";
+import { useTheme } from "@shopify/restyle";
+
+import type { Theme } from "@src/styles/theme";
 
 import { type ScreenKey, ScreenKeys, ScreenCopy } from "../screens";
 import { navigationRef } from "../navigatorRef";
@@ -14,6 +17,8 @@ const tabsIcons: Record<string, string> = {
 };
 
 export const BottomTabs = () => {
+	const theme = useTheme<Theme>();
+
 	const [isReady, setIsReady] = useState(false);
 
 	useEffect(() => {
@@ -28,6 +33,11 @@ export const BottomTabs = () => {
 
 	return (
 		<BottomNavigation.Bar
+			style={{ backgroundColor: theme.colors.white }}
+			// activeIndicatorStyle={{ backgroundColor: theme.colors.redDark }}
+			activeIndicatorStyle={{ backgroundColor: theme.colors.redLight }}
+			// activeColor={theme.colors.white}
+			compact
 			navigationState={((state: NavigationState) => ({
 				index: state.index,
 				routes: state.routeNames
@@ -35,6 +45,9 @@ export const BottomTabs = () => {
 					.map((route) => ({ key: route as ScreenKey })),
 			}))(navigationRef.current!.getRootState())}
 			onTabPress={({ route, preventDefault }) => {
+				if (navigationRef.canGoBack()) {
+					navigationRef.dispatch(StackActions.popToTop());
+				}
 				navigationRef.dispatch(StackActions.replace(route.key));
 			}}
 			renderIcon={({ route, focused, color }) => {
