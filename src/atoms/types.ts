@@ -1,11 +1,11 @@
-import type { SkuId } from "@data/types";
 import type { OptionKey, OptionInstance } from "@data/options";
 import type { ItemKey } from "@data/items";
+import type { MenuItemKey } from "@data/menu";
 
 export type SkuOptions = Record<OptionKey, OptionInstance>;
 
 export interface SkuItem {
-	id: SkuId;
+	id: MenuItemKey;
 	item: ItemKey;
 	options?: SkuOptions;
 	price: number;

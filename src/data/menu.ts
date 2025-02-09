@@ -1,5 +1,5 @@
 import { Option, OptionFlag, OptionValue } from "./options";
-import { Item } from "./items";
+import { Item, type ItemKey } from "./items";
 
 export const Menu = Object.freeze({
 	Main: "Main",
@@ -212,3 +212,13 @@ export const MenuComboMap = Object.freeze({
 		MenuItem.SoftDrink,
 	],
 } as const);
+
+export const MenuItemIdMap = Object.entries(
+	Object.values(MenuItemMap).reduce(
+		(acc, cur) => ({ ...acc, ...cur }),
+		{} as Record<MenuItemKey, { id: ItemKey }>,
+	),
+).reduce(
+	(acc, [key, val]) => ({ ...acc, [key]: val.id }),
+	{} as Record<MenuItemKey, ItemKey>,
+);

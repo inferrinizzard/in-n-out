@@ -3,7 +3,10 @@ import { atom } from "jotai";
 import type { OptionKey, OptionInstance } from "@data/options";
 import { ItemOptionMap } from "@data/items";
 
-import type { SkuItem } from "./types";
+import type { SkuItem, SkuOptions } from "./types";
+import prices from "@data/prices";
+import calories from "@data/calories";
+import { getCalories, getPrice } from "./utils";
 
 interface ActiveItemAtomState extends SkuItem {}
 
@@ -21,13 +24,13 @@ export const activeItemAtom = atom(
 				item.item in ItemOptionMap
 					? ItemOptionMap[item.item as keyof typeof ItemOptionMap].default
 					: undefined;
-			const price = 0;
-			const calories = 0;
+			const price = prices.base[item.id];
+			const numCalories = calories.base[item.id];
 			set(baseAtom, {
 				...item,
 				options,
 				price,
-				calories,
+				calories: numCalories,
 			} as ActiveItemAtomState);
 		},
 
@@ -39,13 +42,16 @@ export const activeItemAtom = atom(
 			}
 
 			const newOptions = { ...prev?.options, [key]: value };
-			// const price =
+			const price = getPrice(prev.id, newOptions as SkuOptions);
+			const numCalories = getCalories(prev.id, newOptions as SkuOptions);
 
 			set(
 				baseAtom,
 				(prev) =>
 					({
 						...prev,
+						price,
+						calories: numCalories,
 						options: newOptions,
 					}) as ActiveItemAtomState,
 			);
