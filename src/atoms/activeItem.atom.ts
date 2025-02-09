@@ -1,7 +1,6 @@
 import { atom } from "jotai";
 
-import type { OptionKey } from "@data/customisations/keys";
-import type { OptionInstance } from "@data/options";
+import type { OptionKey, OptionInstance } from "@data/options";
 import { ItemOptionMap } from "@data/items";
 
 import type { SkuItem } from "./types";
@@ -33,16 +32,21 @@ export const activeItemAtom = atom(
 		},
 
 		updateOption: (key: OptionKey, value: OptionInstance) => {
-			if (!get(baseAtom)) {
+			const prev = get(baseAtom);
+
+			if (!prev) {
 				return;
 			}
+
+			const newOptions = { ...prev?.options, [key]: value };
+			// const price =
 
 			set(
 				baseAtom,
 				(prev) =>
 					({
 						...prev,
-						options: { ...prev?.options, [key]: value },
+						options: newOptions,
 					}) as ActiveItemAtomState,
 			);
 		},

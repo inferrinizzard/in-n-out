@@ -1,6 +1,15 @@
 import calories from "@data/calories";
 import prices from "@data/prices";
 import type { MenuItemKey } from "@data/menu";
+import { ItemOptionMap } from "@data/items";
+import {
+	type CountOptionInstance,
+	Option,
+	OptionFlag,
+	OptionValue,
+} from "@data/options";
+
+import type { SkuOptions } from "../types";
 
 export const getBurgerName = (meat: number, cheese: number) => {
 	const meatTerm = ["", "Single", "Double", "Triple"][meat] ?? meat.toString();
@@ -71,58 +80,59 @@ export const getBurgerName = (meat: number, cheese: number) => {
 	return `${left}${join}${right}`;
 };
 
-export const getBurgerPrice = (
-	id: MenuItemKey,
-	meat: number,
-	cheese: number,
-) => {
+export const getBurgerPrice = (id: MenuItemKey, options: SkuOptions) => {
 	let price = prices.base[id] as number;
 
-	// const defaults = burgerMeatCheeseDefaults[id]!;
+	const defaults = ItemOptionMap.Burger.default;
 
-	// const meatDelta = sku.customisations.Meat
-	// 	? sku.customisations.Meat.data - defaults.Meat!.data
-	// 	: 0;
-	// const cheeseDelta = sku.customisations.Cheese
-	// 	? sku.customisations.Cheese.data - defaults.Cheese!.data
-	// 	: 0;
+	const meatDelta = Math.max(
+		(options[Option.Meat] as CountOptionInstance).count - defaults.Meat.count,
+		0,
+	);
+	const cheeseDelta = Math.max(
+		(options[Option.Cheese] as CountOptionInstance).count -
+			defaults.Cheese.count,
+		0,
+	);
 
-	// if (sku.customisations.Burger?.flags?.AnimalStyle) {
-	// 	price += prices.misc.AnimalStyle;
-	// }
+	if (options[Option.Burger].flags?.[OptionFlag.AnimalStyle]) {
+		price += prices.misc.AnimalStyle;
+	}
 
-	// price += meatDelta * prices.misc.Meat;
-	// price += cheeseDelta * prices.misc.Cheese;
+	price += meatDelta * prices.misc.Meat;
+	price += cheeseDelta * prices.misc.Cheese;
 
 	return price;
 };
 
-export const getBurgerCalories = (
-	id: MenuItemKey,
-	meat: number,
-	cheese: number,
-) => {
+export const getBurgerCalories = (id: MenuItemKey, options: SkuOptions) => {
 	let numCalories = calories.base[id];
 
-	// const defaults = burgerMeatCheeseDefaults[id]!;
+	const defaults = ItemOptionMap.Burger.default;
 
-	// const meatDelta = sku.customisations.Meat
-	// 	? sku.customisations.Meat.data - defaults.Meat!.data
-	// 	: 0;
-	// const cheeseDelta = sku.customisations.Cheese
-	// 	? sku.customisations.Cheese.data - defaults.Cheese!.data
-	// 	: 0;
+	const meatDelta = Math.max(
+		(options[Option.Meat] as CountOptionInstance).count - defaults.Meat.count,
+		0,
+	);
+	const cheeseDelta = Math.max(
+		(options[Option.Cheese] as CountOptionInstance).count -
+			defaults.Cheese.count,
+		0,
+	);
 
-	// if (sku.customisations.Burger?.flags?.AnimalStyle) {
-	// 	numCalories += calories.misc.AnimalStyle;
-	// }
+	if (options[Option.Burger].flags?.[OptionFlag.AnimalStyle]) {
+		numCalories += calories.misc.AnimalStyle;
+	}
 
-	// if (sku.customisations.Bun?.data === "ProteinStyle") {
-	// 	numCalories += calories.misc.ProteinStyle;
-	// }
+	if (
+		options[Option.Bun].value === OptionValue.ProteinStyle ||
+		options[Option.Bun].value === OptionValue.None
+	) {
+		numCalories += calories.misc.ProteinStyle;
+	}
 
-	// numCalories += meatDelta * calories.misc.Meat;
-	// numCalories += cheeseDelta * calories.misc.Cheese;
+	numCalories += meatDelta * calories.misc.Meat;
+	numCalories += cheeseDelta * calories.misc.Cheese;
 
 	return numCalories;
 };
