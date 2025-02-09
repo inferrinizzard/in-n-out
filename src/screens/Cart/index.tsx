@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { orderAtom } from "@src/atoms/order.atom";
+import { Box } from "@src/components";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 
 import CartItem from "./components/CartItem";
@@ -26,6 +27,9 @@ const Cart = ({ navigation }: CartProps) => {
 		return (
 			<FlatList
 				data={orderItems}
+				ItemSeparatorComponent={
+					<Box backgroundColor="greyDark" style={{ height: 1 }} />
+				}
 				renderItem={({ item: [uuid, item] }) => (
 					<CartItem key={uuid} uuid={uuid} {...item} />
 				)}
