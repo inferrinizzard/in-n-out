@@ -6,7 +6,6 @@ import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
-import { getCopy } from "@src/utils/getCopy";
 
 import { ItemOptionMap } from "@data/items";
 
@@ -15,10 +14,9 @@ import ContinueButton from "./components/ContinueButton";
 export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 
 const Item = ({ navigation }: ItemProps) => {
-	const { id, item, price, calories } = useAtomValue(activeItemAtom)!;
+	const { id, item, name, price, calories } = useAtomValue(activeItemAtom)!;
 
 	const image = getImage(id);
-	const name = getCopy(id);
 
 	const options =
 		item in ItemOptionMap
