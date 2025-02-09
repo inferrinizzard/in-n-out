@@ -7,7 +7,6 @@ import { getCopy } from "@src/utils/getCopy";
 
 import prices from "@data/prices";
 import calories from "@data/calories";
-import { ItemCopy } from "@data/copy";
 import type { SkuId } from "@data/types";
 import type { MenuKey } from "@data/menu";
 
@@ -52,7 +51,7 @@ const MenuItem = ({ id, item, onPress }: MenuItemProps) => {
 					{price && (
 						<Text variant="bold">{`$${Number(price).toFixed(2)}`}</Text>
 					)}
-					{calorie && <Text variant="medium">{`${calorie} Cal`}</Text>}
+					{!!calorie && <Text variant="medium">{`${calorie} Cal`}</Text>}
 				</View>
 			)}
 		</Box>
