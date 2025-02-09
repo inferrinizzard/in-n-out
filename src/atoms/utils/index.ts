@@ -30,7 +30,7 @@ export const getPrice = (id: MenuItemKey, options: SkuOptions): number => {
 	}
 
 	if (isDrink(id) || isShake(id)) {
-		return getDrinkPrice(id);
+		return getDrinkPrice(id, options);
 	}
 
 	throw new Error(`Unknown price: ${id}`);
@@ -50,7 +50,7 @@ export const getCalories = (id: MenuItemKey, options: SkuOptions) => {
 	}
 
 	if (isDrink(id) || isShake(id)) {
-		return getDrinkCalories(id);
+		return getDrinkCalories(id, options);
 	}
 
 	throw new Error(`Unknown calories: ${id}`);

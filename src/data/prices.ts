@@ -2,8 +2,8 @@
 
 // https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
 
-import { MenuCombo, MenuItem, MenuItemKey } from "./menu";
-import { Option } from "./options";
+import { MenuCombo, MenuItem } from "./menu";
+import { Option, OptionValue } from "./options";
 import type { SkuId } from "./types";
 
 const BasePriceData = Object.freeze({
@@ -27,10 +27,10 @@ const MiscPriceData = Object.freeze({
 		(BasePriceData.Cheeseburger +
 			(BasePriceData.Cheeseburger - BasePriceData.Hamburger)),
 	[Option.Cheese]: BasePriceData.Cheeseburger - BasePriceData.Hamburger,
-	SoftDrinkSmall: 1.65,
-	SoftDrinkMedium: 1.8,
-	SoftDrinkLarge: 2.0,
-	SoftDrinkXtraLarge: 2.2,
+	[`${MenuItem.SoftDrink}${OptionValue.Small}`]: 1.65,
+	[`${MenuItem.SoftDrink}${OptionValue.Medium}`]: 1.8,
+	[`${MenuItem.SoftDrink}${OptionValue.Large}`]: 2.0,
+	[`${MenuItem.SoftDrink}${OptionValue.XtraLarge}`]: 2.2,
 	AnimalStyle: 1,
 } as const);
 
