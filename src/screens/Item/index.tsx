@@ -1,15 +1,13 @@
-import { Image, ScrollView, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Image, ScrollView } from "react-native";
 import { useAtomValue } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
+import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 
-import calories from "@data/calories";
-import prices from "@data/prices";
 import { ItemOptionMap } from "@data/items";
 
 import ContinueButton from "./components/ContinueButton";
@@ -17,9 +15,7 @@ import ContinueButton from "./components/ContinueButton";
 export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 
 const Item = ({ navigation }: ItemProps) => {
-	const activeItem = useAtomValue(activeItemAtom)!;
-	const id = activeItem.id;
-	const item = activeItem.item;
+	const { id, item, price, calories } = useAtomValue(activeItemAtom)!;
 
 	const image = getImage(id);
 	const name = getCopy(id);
@@ -31,22 +27,23 @@ const Item = ({ navigation }: ItemProps) => {
 
 	return (
 		<ScreenContainer>
-			<View style={{ alignItems: "center" }}>
-				<Image source={image} style={{ height: 240, width: 320 }} />
-				<Text style={{ fontSize: 24 }}>{name}</Text>
-				<View style={{ display: "flex", flexDirection: "row" }}>
-					<Text>{`$${Number(activeItem?.price || prices.base[id]).toFixed(
-						2,
-					)}`}</Text>
+			<Box alignItems="center" gap="s" marginBottom="m">
+				<Image
+					source={image}
+					style={{ height: 160, width: 320 }}
+					resizeMode="contain"
+				/>
+				<Text variant="bold" style={{ fontSize: 24 }}>
+					{name}
+				</Text>
+				<Box flexDirection="row">
+					<Text>{`$${price.toFixed(2)}`}</Text>
 					<Text>{" | "}</Text>
-					<Text>{`${activeItem?.calories ?? calories.base[id]} Calories`}</Text>
-				</View>
-			</View>
+					<Text>{`${calories} Calories`}</Text>
+				</Box>
+			</Box>
 
-			<ScrollView
-				contentContainerStyle={{ alignItems: "center" }}
-				style={{ display: "flex" }}
-			>
+			<ScrollView contentContainerStyle={{ alignItems: "center" }}>
 				{options?.options.map((option) => (
 					<Text key={option}>{option}</Text>
 				))}
