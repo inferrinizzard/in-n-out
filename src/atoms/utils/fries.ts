@@ -1,33 +1,31 @@
 import calories from "@data/calories";
 import prices from "@data/prices";
 
-interface FriesParams {
-	addCheese?: boolean;
-	animalStyle?: boolean;
-}
+import type { SkuOptions } from "../types";
+import { Option, OptionFlag } from "@data/options";
 
-export const getFriesPrice = ({ addCheese, animalStyle }: FriesParams) => {
+export const getFriesPrice = (options: SkuOptions) => {
 	let price = prices.base.Fries;
 
-	if (addCheese) {
+	if (options[Option.Fries].flags?.[OptionFlag.AddCheese]) {
 		price += prices.misc.Cheese;
 	}
 
-	if (animalStyle) {
+	if (options[Option.Fries].flags?.[OptionFlag.AnimalStyle]) {
 		price += prices.misc.AnimalStyle;
 	}
 
 	return price;
 };
 
-export const getFriesCalories = ({ addCheese, animalStyle }: FriesParams) => {
+export const getFriesCalories = (options: SkuOptions) => {
 	let numCalories = calories.base.Fries;
 
-	if (addCheese) {
+	if (options[Option.Fries].flags?.[OptionFlag.AddCheese]) {
 		numCalories += calories.misc.Cheese;
 	}
 
-	if (animalStyle) {
+	if (options[Option.Fries].flags?.[OptionFlag.AnimalStyle]) {
 		numCalories += calories.misc.AnimalStyle;
 	}
 

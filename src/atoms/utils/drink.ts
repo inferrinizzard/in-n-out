@@ -1,14 +1,20 @@
 import calories from "@data/calories";
 import prices from "@data/prices";
-import type { MenuItemKey } from "@data/menu";
+import { MenuItem, type MenuItemKey } from "@data/menu";
 
-export const getDrinkPrice = (id: MenuItemKey) => {
-	let price = prices.base[id] as number;
+import type { SkuOptions } from "../types";
+import { Option } from "@data/options";
 
-	// if (sku.customisations.Size?.data) {
-	// 	const drinkId = sku.id as "SoftDrink";
-	// 	price = prices.misc[`${drinkId}${sku.customisations.Size.data}`];
-	// }
+export const getDrinkPrice = (id: MenuItemKey, options: SkuOptions) => {
+	const price = prices.base[id] as number;
+
+	if (id === MenuItem.SoftDrink) {
+		return prices.misc[`${MenuItem.SoftDrink}${options[Option.Size].value}`];
+	}
+
+	if (id === MenuItem.Shake) {
+		return price;
+	}
 
 	// coffee small
 	// milk small
@@ -18,13 +24,16 @@ export const getDrinkPrice = (id: MenuItemKey) => {
 	return price;
 };
 
-export const getDrinkCalories = (id: MenuItemKey) => {
-	let numCalories = calories.base[id];
+export const getDrinkCalories = (id: MenuItemKey, options: SkuOptions) => {
+	const numCalories = calories.base[id];
 
-	// if (sku.customisations.Size?.data) {
-	// 	const drinkId = sku.id as "SoftDrink";
-	// 	numCalories = calories.misc[`${drinkId}${sku.customisations.Size.data}`];
-	// }
+	if (id === MenuItem.SoftDrink) {
+		return calories.misc[`${MenuItem.SoftDrink}${options[Option.Size].value}`];
+	}
+
+	if (id === MenuItem.Shake) {
+		return calories;
+	}
 
 	// coffee small
 	// milk small
