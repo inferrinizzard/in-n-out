@@ -1,29 +1,35 @@
-import { useMemo } from "react";
 import { Image, View } from "react-native";
-import { Button, Card, Text } from "react-native-paper";
-
 import { useNavigation } from "@react-navigation/native";
 
 import type { StackNavigationProps } from "@src/navigation/StackNavigator";
 import type { SkuItem } from "@src/atoms/types";
+import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
+import { getCopy } from "@src/utils/getCopy";
 
 export interface CartItemProps extends SkuItem {
 	uuid: string;
 }
 
-const CartItem = ({ uuid, ...item }: CartItemProps) => {
-	const image = getImage(item.id);
-
-	const customisationData = Object.entries(item.options ?? {});
-
+const CartItem = ({
+	uuid,
+	id,
+	item,
+	price,
+	calories,
+	options,
+}: CartItemProps) => {
 	const navigation = useNavigation<StackNavigationProps>();
+
+	const image = getImage(id);
+	const itemText = getCopy(id).toUpperCase();
+
+	const customisationData = Object.entries(options ?? {});
 
 	const editCartItem = () => {
 		// dispatch(editItem(uuid));
 
-		// @ts-expect-error
-		navigation.push("Item", item);
+		navigation.push("Item", { title: getCopy(id) });
 	};
 
 	const removeCartItem = () => {
@@ -31,35 +37,43 @@ const CartItem = ({ uuid, ...item }: CartItemProps) => {
 	};
 
 	return (
-		<Card>
-			<Card.Content>
-				<View style={{ display: "flex", flexDirection: "row" }}>
-					<Image source={image} style={{ height: 120, width: 160 }} />
-					<View>
-						<Text>{item.id}</Text>
-						<View style={{ display: "flex", flexDirection: "row" }}>
-							<Text>{`$${Number(item.price).toFixed(2)}`}</Text>
-							<Text>{" | "}</Text>
-							<Text>{`${item.calories} Calories`}</Text>
-						</View>
-						{customisationData.map(([key, val]) => (
-							<Text key={`${uuid}-text-${key}`}>{`${key}: ${val}`}</Text>
-						))}
-					</View>
-				</View>
-				<View style={{ display: "flex", flexDirection: "row" }}>
-					<View style={{ flexGrow: 1, display: "flex", flexDirection: "row" }}>
-						<Button onPress={editCartItem}>
-							<Text>{"Edit"}</Text>
-						</Button>
-						<Button onPress={removeCartItem}>
-							<Text>{"Remove"}</Text>
-						</Button>
-					</View>
-					<Text>{"Quantity"}</Text>
-				</View>
-			</Card.Content>
-		</Card>
+		<Box
+			flexDirection="row"
+			gap="s"
+			paddingBottom="s"
+			alignItems={customisationData.length ? "flex-start" : "center"}
+		>
+			<Image
+				source={image}
+				style={{ height: 48, width: 64, flexGrow: 0, flexShrink: 1 }}
+				resizeMode="contain"
+			/>
+			<View style={{ flexGrow: 1, justifyContent: "center" }}>
+				<Text variant="header">{itemText}</Text>
+				{customisationData.map(([key, val]) => (
+					<Text key={`${uuid}-${key}`}>{`${key}: ${val.value}`}</Text>
+				))}
+			</View>
+
+			<View
+				style={{
+					flexGrow: 0,
+					flexShrink: 1,
+					alignItems: "flex-end",
+					justifyContent: "center",
+				}}
+			>
+				<Text>
+					<Text variant="bold">{`$${Number(price).toFixed(2)}`}</Text>
+					{!!calories && <Text variant="medium">{`| ${calories} Cal`}</Text>}
+				</Text>
+				<Text>{`Quantity: ${1}`}</Text>
+				<Text gap="s" style={{ display: "flex" }}>
+					<Text>{"Edit"}</Text>
+					<Text>{"Remove"}</Text>
+				</Text>
+			</View>
+		</Box>
 	);
 };
 
