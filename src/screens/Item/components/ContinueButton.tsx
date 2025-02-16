@@ -42,6 +42,29 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 		}
 	}, [activeItem, next]);
 
+	const primaryButtonInfo = useMemo(() => {
+		if (next) {
+			return {
+				onPress: () => {},
+				text: `Add ${next}`,
+			};
+		}
+
+		return {
+			onPress: () => {
+				addItem(activeItem);
+				if (navigation.canGoBack()) {
+					navigation.dispatch(StackActions.popToTop());
+				}
+				navigation.replace(ScreenKeys.Cart);
+				// if (next) {
+				// 	queueSetter().shift();
+				// }
+			},
+			text: "Add to Order",
+		};
+	}, [next, activeItem]);
+
 	return (
 		<Box gap="l" padding="m" flexDirection="row">
 			{secondaryButtonInfo && (
@@ -64,19 +87,10 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 					flexGrow: 1,
 					flexBasis: 0,
 				}}
-				onPress={() => {
-					addItem(activeItem);
-					if (navigation.canGoBack()) {
-						navigation.dispatch(StackActions.popToTop());
-					}
-					navigation.replace(ScreenKeys.Cart);
-					if (next) {
-						queueSetter().shift();
-					}
-				}}
+				onPress={primaryButtonInfo.onPress}
 			>
 				<Text variant="bold" color="white">
-					{next ? `Add ${next}` : "Add to Order"}
+					{primaryButtonInfo.text}
 				</Text>
 			</Button>
 		</Box>
