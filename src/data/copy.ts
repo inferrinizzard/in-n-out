@@ -18,7 +18,7 @@ export const OptionCopy = Object.freeze({
 	Vanilla: "Vanilla",
 	Strawberry: "Strawberry",
 	BlackWhite: "Black & White",
-	Neopolitan: "Neopolitan",
+	Neapolitan: "Neapolitan",
 	Small: "Small",
 	Medium: "Medium",
 	Large: "Large",

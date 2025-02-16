@@ -51,70 +51,68 @@ const Menu = ({
 	) as MenuKey[];
 
 	return (
-		<>
-			<ScreenContainer>
-				<SafeAreaView>
+		<ScreenContainer Footer={<CheckoutBanner navigation={navigation} />}>
+			<FlatList
+				data={menuItems}
+				contentContainerStyle={{ gap: theme.spacing.s }}
+				ItemSeparatorComponent={() => (
+					<Box backgroundColor="greyDark" style={{ height: 1 }} />
+				)}
+				renderItem={({ item: [id, item] }) => (
+					<MenuItem
+						id={id}
+						item={item}
+						onPress={() => {
+							setDefaultItem({ id: id, item: item.id });
+							navigation.push(ScreenKeys.Item, {
+								title: getCopy(id.replace("Combo", "")),
+							});
+
+							if (id.includes("Combo")) {
+								queue.push(DataMenuItem.Fries);
+								queue.push(DataMenuItem.SoftDrink);
+							}
+						}}
+					/>
+				)}
+			/>
+			{activeMenu === DataMenu.Main && (
+				<>
+					<Box
+						backgroundColor="greyDark"
+						marginBottom="s"
+						style={{ height: 1 }}
+					/>
 					<FlatList
-						data={menuItems}
+						data={subMenus}
 						contentContainerStyle={{ gap: theme.spacing.s }}
 						ItemSeparatorComponent={() => (
 							<Box backgroundColor="greyDark" style={{ height: 1 }} />
 						)}
-						renderItem={({ item: [id, item] }) => (
+						renderItem={({ item: menu }) => (
 							<MenuItem
-								id={id}
-								item={item}
+								id={menu as any}
 								onPress={() => {
-									setDefaultItem({ id: id, item: item.id });
-									navigation.push(ScreenKeys.Item, {
-										title: getCopy(id.replace("Combo", "")),
+									navigation.push(ScreenKeys.Menu, {
+										title: getCopy(menu),
+										activeMenu: menu,
 									});
-
-									if (id.includes("Combo")) {
-										queue.push(DataMenuItem.Fries);
-										queue.push(DataMenuItem.SoftDrink);
-									}
 								}}
 							/>
 						)}
 					/>
-					{activeMenu === DataMenu.Main && (
-						<>
-							<Box
-								backgroundColor="greyDark"
-								marginBottom="s"
-								style={{ height: 1 }}
-							/>
-							<FlatList
-								data={subMenus}
-								contentContainerStyle={{ gap: theme.spacing.s }}
-								ItemSeparatorComponent={() => (
-									<Box backgroundColor="greyDark" style={{ height: 1 }} />
-								)}
-								renderItem={({ item: menu }) => (
-									<MenuItem
-										id={menu as any}
-										onPress={() => {
-											navigation.push(ScreenKeys.Menu, {
-												title: getCopy(menu),
-												activeMenu: menu,
-											});
-										}}
-									/>
-								)}
-							/>
-						</>
-					)}
-				</SafeAreaView>
-
-				<Text marginTop="s" style={{ marginBottom: 40 }}>
-					{
-						"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request."
-					}
-				</Text>
-			</ScreenContainer>
-			<CheckoutBanner navigation={navigation} />
-		</>
+				</>
+			)}
+			<Text marginTop="s">
+				{
+					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request. More details can be found on the "
+				}
+				<a href="https://www.in-n-out.com/menu/nutrition-info">
+					{"In-n-Out Website"}
+				</a>
+				{"."}
+			</Text>
+		</ScreenContainer>
 	);
 };
 

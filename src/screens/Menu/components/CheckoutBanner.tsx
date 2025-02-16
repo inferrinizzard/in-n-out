@@ -1,12 +1,12 @@
-import { useAtomValue } from "jotai";
+import { Image } from "react-native";
 import { Button } from "react-native-paper";
+import { useAtomValue } from "jotai";
 
 import { orderAtom } from "@src/atoms/order.atom";
 import { ScreenKeys } from "@src/navigation";
 import { Box, Text } from "@src/components";
 
-import type { MenuProps } from "..";
-import { Image } from "react-native";
+import type { MenuProps } from "../index";
 
 interface CheckoutBannerProps extends Pick<MenuProps, "navigation"> {}
 
@@ -20,15 +20,7 @@ export const CheckoutBanner = ({ navigation }: CheckoutBannerProps) => {
 	}
 
 	return (
-		<Box
-			backgroundColor="redLight"
-			style={{
-				position: "absolute",
-				bottom: 0,
-				insetInline: 0,
-				width: "100%",
-			}}
-		>
+		<Box backgroundColor="redLight" width="100%">
 			<Button
 				onPress={() => navigation.replace(ScreenKeys.Cart)}
 				contentStyle={{ position: "relative", justifyContent: "flex-start" }}

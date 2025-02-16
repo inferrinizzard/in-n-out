@@ -12,7 +12,7 @@ export const OptionFlag = Object.freeze({
 	Vanilla: "Vanilla",
 	Strawberry: "Strawberry",
 	BlackWhite: "BlackWhite",
-	Neopolitan: "Neopolitan",
+	Neapolitan: "Neapolitan",
 } as const);
 
 export type OptionFlagKey = keyof typeof OptionFlag;

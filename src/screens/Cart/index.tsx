@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { FlatList, View } from "react-native";
-import { Button, Divider, Text } from "react-native-paper";
+import { FlatList } from "react-native";
 import { useAtom } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
@@ -38,13 +37,9 @@ const Cart = ({ navigation }: CartProps) => {
 	}, [orderItems, navigation]);
 
 	return (
-		<>
-			<ScreenContainer>
-				<CartLocation />
-				<View style={{ flexGrow: 1, marginTop: 90 }}>{cartBody}</View>
-			</ScreenContainer>
-			<PriceTotal />
-		</>
+		<ScreenContainer Header={<CartLocation />} Footer={<PriceTotal />}>
+			<Box flexGrow={1}>{cartBody}</Box>
+		</ScreenContainer>
 	);
 };
 
