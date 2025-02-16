@@ -57,12 +57,12 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			borderWidth={2}
 			onPointerDown={() => {
 				const menuItem = MenuSkuMap[Menu.Main][combo[0]];
-				setDefaultItem({ id: combo[0], item: menuItem.id });
+				setDefaultItem({ id: combo[0], item: Sku.id });
 				navigation.push(ScreenKeys.Item, {
 					title: burgerCopy,
 				});
-				queue.push(MenuItem.Fries);
-				queue.push(MenuItem.SoftDrink);
+				queue.push(Sku.Fries);
+				queue.push(Sku.SoftDrink);
 			}}
 		>
 			<Box padding="xs" gap="xs">

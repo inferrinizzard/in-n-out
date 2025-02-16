@@ -21,8 +21,8 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 	const image = getImage(id);
 
 	const itemText = getCopy(id).toUpperCase();
-	const price = id in prices.base ? prices.base[id as SkuId] : undefined;
-	const calorie = id in calories.base ? calories.base[id as SkuId] : undefined;
+	const price = id in prices.base ? prices.base[id as SkuKey] : undefined;
+	const calorie = id in calories.base ? calories.base[id as SkuKey] : undefined;
 
 	return (
 		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>

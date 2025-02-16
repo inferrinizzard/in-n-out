@@ -1,4 +1,4 @@
-import { Sku, SkuKey } from "./sku";
+import { Sku } from "./sku";
 
 export const Menu = Object.freeze({
 	Main: "Main",

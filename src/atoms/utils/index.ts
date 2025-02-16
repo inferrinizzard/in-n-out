@@ -1,6 +1,6 @@
-import calories from "@data/calories";
 import { Item } from "@data/items";
-import { MenuItemIdMap, type MenuItemKey } from "@data/menu";
+import { SkuItemMap, type SkuKey } from "@data/sku";
+import calories from "@data/calories";
 import prices from "@data/prices";
 
 import type { SkuOptions } from "../types";
@@ -8,15 +8,15 @@ import { getBurgerCalories, getBurgerPrice } from "./burger";
 import { getFriesCalories, getFriesPrice } from "./fries";
 import { getDrinkCalories, getDrinkPrice } from "./drink";
 
-export const isBurger = (id: MenuItemKey) => MenuItemIdMap[id] === Item.Burger;
-export const isFries = (id: MenuItemKey) => MenuItemIdMap[id] === Item.Fries;
-export const isDrink = (id: MenuItemKey) => MenuItemIdMap[id] === Item.Drink;
-export const isShake = (id: MenuItemKey) => MenuItemIdMap[id] === Item.Shake;
+export const isBurger = (id: SkuKey) => SkuItemMap[id].id === Item.Burger;
+export const isFries = (id: SkuKey) => SkuItemMap[id].id === Item.Fries;
+export const isDrink = (id: SkuKey) => SkuItemMap[id].id === Item.Drink;
+export const isShake = (id: SkuKey) => SkuItemMap[id].id === Item.Shake;
 
-export const isVariable = (id: MenuItemKey) =>
+export const isVariable = (id: SkuKey) =>
 	isBurger(id) || isFries(id) || isDrink(id) || isShake(id);
 
-export const getPrice = (id: MenuItemKey, options: SkuOptions): number => {
+export const getPrice = (id: SkuKey, options: SkuOptions): number => {
 	if (!isVariable(id)) {
 		return prices.base[id];
 	}
@@ -36,7 +36,7 @@ export const getPrice = (id: MenuItemKey, options: SkuOptions): number => {
 	throw new Error(`Unknown price: ${id}`);
 };
 
-export const getCalories = (id: MenuItemKey, options: SkuOptions) => {
+export const getCalories = (id: SkuKey, options: SkuOptions) => {
 	if (!isVariable(id)) {
 		return calories.base[id];
 	}
