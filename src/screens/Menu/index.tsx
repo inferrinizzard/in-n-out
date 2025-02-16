@@ -6,7 +6,7 @@ import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { Box, Text } from "@src/components";
+import { Box, DividerLine, Text } from "@src/components";
 import type { Theme } from "@src/styles/theme";
 import { getCopy } from "@src/utils/getCopy";
 
@@ -55,9 +55,7 @@ const Menu = ({
 			<FlatList
 				data={menuItems}
 				contentContainerStyle={{ gap: theme.spacing.s }}
-				ItemSeparatorComponent={() => (
-					<Box backgroundColor="greyDark" style={{ height: 1 }} />
-				)}
+				ItemSeparatorComponent={DividerLine}
 				renderItem={({ item: [id, item] }) => (
 					<MenuItem
 						id={id}
@@ -68,27 +66,21 @@ const Menu = ({
 								title: getCopy(id.replace("Combo", "")),
 							});
 
-							if (id.includes("Combo")) {
-								queue.push(DataMenuItem.Fries);
-								queue.push(DataMenuItem.SoftDrink);
-							}
+							// if (id.includes("Combo")) {
+							// 	queue.push(DataMenuItem.Fries);
+							// 	queue.push(DataMenuItem.SoftDrink);
+							// }
 						}}
 					/>
 				)}
 			/>
 			{activeMenu === DataMenu.Main && (
 				<>
-					<Box
-						backgroundColor="greyDark"
-						marginBottom="s"
-						style={{ height: 1 }}
-					/>
+					<DividerLine />
 					<FlatList
 						data={subMenus}
 						contentContainerStyle={{ gap: theme.spacing.s }}
-						ItemSeparatorComponent={() => (
-							<Box backgroundColor="greyDark" style={{ height: 1 }} />
-						)}
+						ItemSeparatorComponent={DividerLine}
 						renderItem={({ item: menu }) => (
 							<MenuItem
 								id={menu as any}
