@@ -8,10 +8,10 @@ import { getCopy } from "@src/utils/getCopy";
 import prices from "@data/prices";
 import calories from "@data/calories";
 import type { SkuId } from "@data/types";
-import type { MenuKey } from "@data/menu";
+import type { MenuItemKey, MenuKey } from "@data/menu";
 
 export type MenuItemProps = {
-	id: SkuId | MenuKey;
+	id: MenuItemKey | MenuKey;
 	item?: Record<string, any>;
 	onPress: () => void;
 };

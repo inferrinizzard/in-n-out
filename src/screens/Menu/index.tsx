@@ -12,11 +12,11 @@ import { getCopy } from "@src/utils/getCopy";
 import {
 	Menu as DataMenu,
 	MenuCombo,
+	type MenuItemKey,
 	MenuItemMap,
 	type MenuKey,
 } from "@data/menu";
 import type { ItemKey } from "@data/items";
-import type { SkuId } from "@data/types";
 
 import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
@@ -41,7 +41,7 @@ const Menu = ({
 	const { setDefaultItem } = useSetAtom(activeItemAtom)();
 
 	const menuItems = Object.entries(MenuItemMap[activeMenu]) as [
-		SkuId,
+		MenuItemKey,
 		{ id: ItemKey },
 	][];
 
@@ -101,7 +101,7 @@ const Menu = ({
 						ItemSeparatorComponent={DividerLine}
 						renderItem={({ item: menu }) => (
 							<MenuItem
-								id={menu as any}
+								id={menu}
 								onPress={() => {
 									navigation.push(ScreenKeys.Menu, {
 										title: getCopy(menu),
