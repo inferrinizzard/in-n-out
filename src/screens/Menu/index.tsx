@@ -103,7 +103,7 @@ const Menu = ({
 					/>
 				</>
 			)}
-			<Text marginTop="s" style={{ marginBottom: 40 }}>
+			<Text marginTop="s">
 				{
 					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request. More details can be found on the "
 				}
