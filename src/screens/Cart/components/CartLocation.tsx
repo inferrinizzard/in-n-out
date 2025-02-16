@@ -5,12 +5,9 @@ const CartLocation = () => {
 	return (
 		<Box
 			flexDirection="row"
-			position="absolute"
 			padding="m"
-			top={0}
 			gap="m"
 			alignItems="center"
-			style={{ insetInline: 0 }}
 			borderBottomColor="greyLight"
 			borderBottomWidth={1}
 		>
