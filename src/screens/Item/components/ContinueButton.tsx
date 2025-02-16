@@ -42,6 +42,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 		}
 	}, [activeItem, next]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const primaryButtonInfo = useMemo(() => {
 		if (next) {
 			return {
