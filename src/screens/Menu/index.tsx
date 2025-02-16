@@ -59,9 +59,9 @@ const Menu = ({
 						{"Ordering as easy as"}
 					</Text>
 					<Box flexDirection="row" gap="s">
-						<ComboCard comboKey={MenuCombo.DblDblCombo} />
-						<ComboCard comboKey={MenuCombo.CheeseburgerCombo} />
-						<ComboCard comboKey={MenuCombo.HamburgerCombo} />
+						<ComboCard comboKey={MenuCombo.DblDblCombo} index={1} />
+						<ComboCard comboKey={MenuCombo.CheeseburgerCombo} index={2} />
+						<ComboCard comboKey={MenuCombo.HamburgerCombo} index={3} />
 					</Box>
 				</Box>
 			)}
