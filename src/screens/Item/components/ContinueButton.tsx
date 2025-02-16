@@ -20,8 +20,8 @@ interface ContinueButtonProps
 const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const theme = useTheme<Theme>();
 
-	const activeItem = useAtomValue(activeItemAtom)!;
-	const [queue, queueSetter] = useAtom(queueAtom)!;
+	const activeItem = useAtomValue(activeItemAtom);
+	const [queue, queueSetter] = useAtom(queueAtom);
 	const { addItem } = useSetAtom(orderAtom)();
 
 	const next = queue[0];

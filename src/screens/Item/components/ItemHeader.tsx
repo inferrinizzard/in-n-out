@@ -6,7 +6,7 @@ import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 
 export const ItemHeader = () => {
-	const { id, name, price, calories } = useAtomValue(activeItemAtom)!;
+	const { id, name, price, calories } = useAtomValue(activeItemAtom);
 
 	const image = getImage(id);
 

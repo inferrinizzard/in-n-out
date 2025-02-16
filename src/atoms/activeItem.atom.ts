@@ -17,7 +17,7 @@ import { getBurgerName } from "./utils/burger";
 
 interface ActiveItemAtomState extends SkuItem {}
 
-const baseAtom = atom<ActiveItemAtomState | null>(null);
+const baseAtom = atom<ActiveItemAtomState>({} as unknown as SkuItem);
 
 export const activeItemAtom = atom(
 	(get) => get(baseAtom),
