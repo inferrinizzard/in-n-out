@@ -7,6 +7,7 @@ export type SkuOptions = Record<OptionKey, OptionInstance>;
 export interface SkuItem {
 	id: MenuItemKey;
 	item: ItemKey;
+	name: string;
 	options?: SkuOptions;
 	price: number;
 	calories: number;
