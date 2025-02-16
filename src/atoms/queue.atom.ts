@@ -16,5 +16,7 @@ export const queueAtom = atom(
 				prev.shift();
 				return prev;
 			}),
+
+		clear: () => set(baseAtom, []),
 	}),
 );

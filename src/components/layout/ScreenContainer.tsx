@@ -16,7 +16,7 @@ const ScreenContainer = ({
 	children,
 }: PropsWithChildren<ScreenContainerProps>) => {
 	return (
-		<Box id="screen-container" flexGrow={1}>
+		<Box id="screen-container" flexGrow={1} height="100%">
 			{Header}
 			<ScrollView style={{ flexGrow: 1 }}>
 				<Box padding="m" style={style}>

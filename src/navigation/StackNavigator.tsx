@@ -57,7 +57,7 @@ const MainNavigator = () => {
 	return (
 		<Stack.Navigator
 			initialRouteName={ScreenKeys.Menu}
-			screenOptions={{ header: Header }}
+			screenOptions={{ header: Header, contentStyle: { overflow: "scroll" } }}
 		>
 			{routes.map(([screen, Component]) => (
 				<Stack.Screen key={screen} name={screen} component={Component} />
