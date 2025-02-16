@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { StackActions, type NavigationState } from "@react-navigation/native";
-import { BottomNavigation, Icon } from "react-native-paper";
+import { Icon } from "react-native-paper";
+import { StackActions } from "@react-navigation/native";
+import { useTheme } from "@shopify/restyle";
+
+import type { Theme } from "@src/styles/theme";
 
 import { type ScreenKey, ScreenKeys, ScreenCopy } from "../screens";
 import { navigationRef } from "../navigatorRef";
+import { Box, Text } from "@src/components";
 
 const tabsIcons: Record<string, string> = {
 	[ScreenKeys.Menu]: "silverware",
@@ -14,6 +18,8 @@ const tabsIcons: Record<string, string> = {
 };
 
 export const BottomTabs = () => {
+	const theme = useTheme<Theme>();
+
 	const [isReady, setIsReady] = useState(false);
 
 	useEffect(() => {
@@ -27,23 +33,29 @@ export const BottomTabs = () => {
 	}
 
 	return (
-		<BottomNavigation.Bar
-			navigationState={((state: NavigationState) => ({
-				index: state.index,
-				routes: state.routeNames
-					.filter((route) => route !== ScreenKeys.Item)
-					.map((route) => ({ key: route as ScreenKey })),
-			}))(navigationRef.current!.getRootState())}
-			onTabPress={({ route, preventDefault }) => {
-				navigationRef.dispatch(StackActions.replace(route.key));
-			}}
-			renderIcon={({ route, focused, color }) => {
-				const iconSource = tabsIcons[route.key];
-				return <Icon source={iconSource} size={24} color={color} />;
-			}}
-			getLabelText={({ route }) => {
-				return ScreenCopy[route.key];
-			}}
-		/>
+		<Box flexDirection="row" justifyContent="space-evenly">
+			{Object.entries(tabsIcons).map(([screen, icon]) => {
+				// const isActive = navigationRef.getCurrentRoute()?.name === screen;
+
+				return (
+					<Box
+						key={screen}
+						gap="s"
+						alignItems="center"
+						flexGrow={1}
+						flexBasis={0}
+						onTouchStart={() => {
+							if (navigationRef.canGoBack()) {
+								navigationRef.dispatch(StackActions.popToTop());
+							}
+							navigationRef.dispatch(StackActions.replace(screen));
+						}}
+					>
+						<Icon source={icon} size={24} />
+						<Text variant="bold">{ScreenCopy[screen as ScreenKey]}</Text>
+					</Box>
+				);
+			})}
+		</Box>
 	);
 };

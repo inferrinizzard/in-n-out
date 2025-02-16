@@ -96,7 +96,7 @@ export const OptionConfigMap = Object.freeze({
 			OptionFlag.Vanilla,
 			OptionFlag.Strawberry,
 			OptionFlag.BlackWhite,
-			OptionFlag.Neopolitan,
+			OptionFlag.Neapolitan,
 		],
 	},
 } as const);
