@@ -55,6 +55,7 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			borderRadius={4}
 			borderColor="redLight"
 			borderWidth={2}
+			style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
 			onPointerDown={() => {
 				const menuItem = MenuItemMap[Menu.Main][combo[0]];
 				setDefaultItem({ id: combo[0], item: menuItem.id });
