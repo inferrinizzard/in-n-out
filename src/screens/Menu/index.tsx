@@ -1,19 +1,18 @@
-import { FlatList, SafeAreaView } from "react-native";
+import { FlatList } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { useSetAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { Box, Text } from "@src/components";
+import { Box, DividerLine, Text } from "@src/components";
 import type { Theme } from "@src/styles/theme";
 import { getCopy } from "@src/utils/getCopy";
 
 import {
 	Menu as DataMenu,
+	MenuCombo,
 	MenuItemMap,
-	MenuItem as DataMenuItem,
 	type MenuKey,
 } from "@data/menu";
 import type { ItemKey } from "@data/items";
@@ -21,6 +20,7 @@ import type { SkuId } from "@data/types";
 
 import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
+import { ComboCard } from "./components/ComboCard";
 
 export interface MenuScreenParams {
 	activeMenu?: MenuKey;
@@ -36,10 +36,9 @@ const Menu = ({
 		params: { activeMenu = DataMenu.Main } = {},
 	},
 }: MenuProps) => {
-	const queue = useSetAtom(queueAtom)();
-	const { setDefaultItem } = useSetAtom(activeItemAtom)();
-
 	const theme = useTheme<Theme>();
+
+	const { setDefaultItem } = useSetAtom(activeItemAtom)();
 
 	const menuItems = Object.entries(MenuItemMap[activeMenu]) as [
 		SkuId,
@@ -52,12 +51,34 @@ const Menu = ({
 
 	return (
 		<ScreenContainer Footer={<CheckoutBanner navigation={navigation} />}>
+			{activeMenu === DataMenu.Main && (
+				<Box gap="m" paddingBottom="l">
+					<Text variant="boldItalic" textAlign="center">
+						{"Ordering as easy as"}
+					</Text>
+					<Box flexDirection="row" gap="s">
+						<ComboCard
+							navigation={navigation}
+							comboKey={MenuCombo.DblDblCombo}
+							index={1}
+						/>
+						<ComboCard
+							navigation={navigation}
+							comboKey={MenuCombo.CheeseburgerCombo}
+							index={2}
+						/>
+						<ComboCard
+							navigation={navigation}
+							comboKey={MenuCombo.HamburgerCombo}
+							index={3}
+						/>
+					</Box>
+				</Box>
+			)}
 			<FlatList
 				data={menuItems}
 				contentContainerStyle={{ gap: theme.spacing.s }}
-				ItemSeparatorComponent={() => (
-					<Box backgroundColor="greyDark" style={{ height: 1 }} />
-				)}
+				ItemSeparatorComponent={DividerLine}
 				renderItem={({ item: [id, item] }) => (
 					<MenuItem
 						id={id}
@@ -67,28 +88,17 @@ const Menu = ({
 							navigation.push(ScreenKeys.Item, {
 								title: getCopy(id.replace("Combo", "")),
 							});
-
-							if (id.includes("Combo")) {
-								queue.push(DataMenuItem.Fries);
-								queue.push(DataMenuItem.SoftDrink);
-							}
 						}}
 					/>
 				)}
 			/>
 			{activeMenu === DataMenu.Main && (
 				<>
-					<Box
-						backgroundColor="greyDark"
-						marginBottom="s"
-						style={{ height: 1 }}
-					/>
+					<DividerLine />
 					<FlatList
 						data={subMenus}
 						contentContainerStyle={{ gap: theme.spacing.s }}
-						ItemSeparatorComponent={() => (
-							<Box backgroundColor="greyDark" style={{ height: 1 }} />
-						)}
+						ItemSeparatorComponent={DividerLine}
 						renderItem={({ item: menu }) => (
 							<MenuItem
 								id={menu as any}
@@ -103,10 +113,14 @@ const Menu = ({
 					/>
 				</>
 			)}
-			<Text marginTop="s" style={{ marginBottom: 40 }}>
+			<Text marginTop="s">
 				{
-					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request."
+					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request. More details can be found on the "
 				}
+				<a href="https://www.in-n-out.com/menu/nutrition-info">
+					{"In-n-Out Website"}
+				</a>
+				{"."}
 			</Text>
 		</ScreenContainer>
 	);
