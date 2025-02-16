@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView } from "react-native";
+import { FlatList } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { useSetAtom } from "jotai";
 
@@ -12,8 +12,8 @@ import { getCopy } from "@src/utils/getCopy";
 
 import {
 	Menu as DataMenu,
+	MenuCombo,
 	MenuItemMap,
-	MenuItem as DataMenuItem,
 	type MenuKey,
 } from "@data/menu";
 import type { ItemKey } from "@data/items";
@@ -21,6 +21,7 @@ import type { SkuId } from "@data/types";
 
 import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
+import { ComboCard } from "./components/ComboCard";
 
 export interface MenuScreenParams {
 	activeMenu?: MenuKey;
@@ -52,6 +53,18 @@ const Menu = ({
 
 	return (
 		<ScreenContainer Footer={<CheckoutBanner navigation={navigation} />}>
+			{activeMenu === DataMenu.Main && (
+				<Box gap="m" paddingBottom="l">
+					<Text variant="boldItalic" textAlign="center">
+						{"Ordering as easy as"}
+					</Text>
+					<Box flexDirection="row" gap="s">
+						<ComboCard comboKey={MenuCombo.DblDblCombo} />
+						<ComboCard comboKey={MenuCombo.CheeseburgerCombo} />
+						<ComboCard comboKey={MenuCombo.HamburgerCombo} />
+					</Box>
+				</Box>
+			)}
 			<FlatList
 				data={menuItems}
 				contentContainerStyle={{ gap: theme.spacing.s }}

@@ -36,6 +36,12 @@ const theme = createTheme({
 			fontWeight: "bold",
 			fontSize: 14,
 			fontFamily: "HelveticaNeueBold",
+			letterSpacing: "-0.06em",
+		},
+		boldItalic: {
+			fontWeight: "bold",
+			fontSize: 24,
+			fontFamily: "HelveticaNeueBoldItalic",
 		},
 		medium: {
 			fontSize: 12,
