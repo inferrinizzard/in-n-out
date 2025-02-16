@@ -7,16 +7,17 @@ import { getCopy } from "@src/utils/getCopy";
 
 import prices from "@data/prices";
 import calories from "@data/calories";
-import type { SkuId } from "@data/types";
 import type { MenuKey } from "@data/menu";
+import type { SkuKey } from "@data/sku";
 
 export type MenuItemProps = {
-	id: SkuId | MenuKey;
-	item?: Record<string, any>;
+	id: SkuKey | MenuKey;
+	supertext?: string;
+	subtext?: string;
 	onPress: () => void;
 };
 
-const MenuItem = ({ id, item, onPress }: MenuItemProps) => {
+const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 	const image = getImage(id);
 
 	const itemText = getCopy(id).toUpperCase();
@@ -31,13 +32,9 @@ const MenuItem = ({ id, item, onPress }: MenuItemProps) => {
 				resizeMode="contain"
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
-				{item && "supertext" in item && (
-					<Text variant="script">{item.supertext}</Text>
-				)}
+				{supertext && <Text variant="script">{supertext}</Text>}
 				<Text variant="header">{itemText}</Text>
-				{item && "subtext" in item && (
-					<Text variant="script">{item.subtext}</Text>
-				)}
+				{subtext && <Text variant="script">{subtext}</Text>}
 			</View>
 			{(price || calorie) && (
 				<View

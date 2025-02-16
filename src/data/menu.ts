@@ -1,4 +1,4 @@
-import { Sku } from "./sku";
+import { Sku, SkuKey } from "./sku";
 
 export const Menu = Object.freeze({
 	Main: "Main",
@@ -9,7 +9,7 @@ export const Menu = Object.freeze({
 
 export type MenuKey = keyof typeof Menu;
 
-export const MenuItemMap = Object.freeze({
+export const MenuSkuMap = Object.freeze({
 	[Menu.Main]: {
 		items: [
 			{ sku: Sku.DblDbl, subtext: "Double Meat, Double Cheese" },
