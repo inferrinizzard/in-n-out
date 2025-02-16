@@ -33,14 +33,14 @@ export const BottomTabs = () => {
 	}
 
 	return (
-		<Box flexDirection="row" justifyContent="space-evenly">
+		<Box flexDirection="row" justifyContent="space-evenly" paddingVertical="xs">
 			{Object.entries(tabsIcons).map(([screen, icon]) => {
 				// const isActive = navigationRef.getCurrentRoute()?.name === screen;
 
 				return (
 					<Box
 						key={screen}
-						gap="s"
+						gap="xs"
 						alignItems="center"
 						flexGrow={1}
 						flexBasis={0}
