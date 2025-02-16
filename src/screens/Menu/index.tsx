@@ -3,7 +3,6 @@ import { useTheme } from "@shopify/restyle";
 import { useSetAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 import { Box, DividerLine, Text } from "@src/components";
@@ -37,10 +36,9 @@ const Menu = ({
 		params: { activeMenu = DataMenu.Main } = {},
 	},
 }: MenuProps) => {
-	const queue = useSetAtom(queueAtom)();
-	const { setDefaultItem } = useSetAtom(activeItemAtom)();
-
 	const theme = useTheme<Theme>();
+
+	const { setDefaultItem } = useSetAtom(activeItemAtom)();
 
 	const menuItems = Object.entries(MenuItemMap[activeMenu]) as [
 		SkuId,
@@ -59,9 +57,21 @@ const Menu = ({
 						{"Ordering as easy as"}
 					</Text>
 					<Box flexDirection="row" gap="s">
-						<ComboCard comboKey={MenuCombo.DblDblCombo} index={1} />
-						<ComboCard comboKey={MenuCombo.CheeseburgerCombo} index={2} />
-						<ComboCard comboKey={MenuCombo.HamburgerCombo} index={3} />
+						<ComboCard
+							navigation={navigation}
+							comboKey={MenuCombo.DblDblCombo}
+							index={1}
+						/>
+						<ComboCard
+							navigation={navigation}
+							comboKey={MenuCombo.CheeseburgerCombo}
+							index={2}
+						/>
+						<ComboCard
+							navigation={navigation}
+							comboKey={MenuCombo.HamburgerCombo}
+							index={3}
+						/>
 					</Box>
 				</Box>
 			)}
@@ -78,11 +88,6 @@ const Menu = ({
 							navigation.push(ScreenKeys.Item, {
 								title: getCopy(id.replace("Combo", "")),
 							});
-
-							// if (id.includes("Combo")) {
-							// 	queue.push(DataMenuItem.Fries);
-							// 	queue.push(DataMenuItem.SoftDrink);
-							// }
 						}}
 					/>
 				)}
