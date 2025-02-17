@@ -13,7 +13,7 @@ export interface CartItemProps extends SkuItem {
 
 const CartItem = ({
 	uuid,
-	id,
+	sku,
 	item,
 	price,
 	calories,
@@ -21,15 +21,15 @@ const CartItem = ({
 }: CartItemProps) => {
 	const navigation = useNavigation<StackNavigationProps>();
 
-	const image = getImage(id);
-	const itemText = getCopy(id).toUpperCase();
+	const image = getImage(sku);
+	const itemText = getCopy(sku).toUpperCase();
 
 	const customisationData = Object.entries(options ?? {});
 
 	const editCartItem = () => {
 		// dispatch(editItem(uuid));
 
-		navigation.push("Item", { title: getCopy(id) });
+		navigation.push("Item", { title: getCopy(sku) });
 	};
 
 	const removeCartItem = () => {

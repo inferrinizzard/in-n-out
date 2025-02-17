@@ -6,9 +6,9 @@ import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 
 export const ItemHeader = () => {
-	const { id, name, price, calories } = useAtomValue(activeItemAtom);
+	const { sku, name, price, calories } = useAtomValue(activeItemAtom);
 
-	const image = getImage(id);
+	const image = getImage(sku);
 
 	return (
 		<Box alignItems="center" gap="s" marginBottom="m">
