@@ -5,6 +5,8 @@ import { useAtomValue } from "jotai";
 import { orderAtom } from "@src/atoms/order.atom";
 import { Box, Text } from "@src/components";
 
+const TAX_RATE = 10.25; // Francisquito -> Baldwin Park -> LA County
+
 export const PriceTotal = () => {
 	const order = useAtomValue(orderAtom);
 	const orderItems = useMemo(() => Object.entries(order), [order]);
@@ -16,25 +18,36 @@ export const PriceTotal = () => {
 	const subtotal = Number(
 		orderItems.reduce((sum, [_, item]) => +item.price + sum, 0),
 	);
-	const taxesAndFees = 1.0;
+	const taxesAndFees = subtotal * (TAX_RATE / 100.0);
 	const total = subtotal + taxesAndFees;
 
 	return (
-		<Box gap="s" padding="m" borderTopColor="greyLight" borderTopWidth={1}>
-			<Box flexDirection="row" justifyContent="space-between" p="s">
+		<Box
+			gap="xs"
+			paddingHorizontal="m"
+			paddingVertical="s"
+			borderTopColor="greyLight"
+			borderTopWidth={1}
+		>
+			<Box flexDirection="row" justifyContent="space-between" padding="xs">
 				<Text>{"Subtotal:"}</Text>
 				<Text>{`$${subtotal.toFixed(2)}`}</Text>
 			</Box>
-			<Box flexDirection="row" justifyContent="space-between" p="s">
+			<Box flexDirection="row" justifyContent="space-between" padding="xs">
 				<Text>{"Taxes and Fees:"}</Text>
 				<Text>{`$${taxesAndFees.toFixed(2)}`}</Text>
 			</Box>
-			<Box flexDirection="row" justifyContent="space-between" p="s">
-				<Text>{"Total:"}</Text>
-				<Text>{`$${total.toFixed(2)}`}</Text>
+			<Box
+				flexDirection="row"
+				justifyContent="space-between"
+				padding="xs"
+				paddingBottom="s"
+			>
+				<Text variant="bold">{"Total:"}</Text>
+				<Text variant="bold" letterSpacing={0}>{`$${total.toFixed(2)}`}</Text>
 			</Box>
 			<Button mode="contained">
-				<Text>{"Review and Pay"}</Text>
+				<Text variant="bold">{"Review and Pay"}</Text>
 			</Button>
 		</Box>
 	);

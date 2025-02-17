@@ -70,7 +70,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	}, [next, activeItem]);
 
 	return (
-		<Box gap="l" padding="m" flexDirection="row">
+		<Box gap="l" paddingHorizontal="m" paddingVertical="s" flexDirection="row">
 			{secondaryButtonInfo && (
 				<Button
 					style={{
