@@ -1,4 +1,4 @@
-import type { SkuId } from "./types";
+import type { SkuKey } from "./sku";
 
 export const ImageData = {
 	DblDblCombo: require("@images/menu/DblDblCombo.png"),
@@ -30,4 +30,4 @@ export const ImageData = {
 	VanillaShake: require("@images/menu/VanillaShake.png"),
 };
 
-ImageData satisfies Partial<Record<SkuId, unknown>>;
+ImageData satisfies Partial<Record<SkuKey, unknown>>;

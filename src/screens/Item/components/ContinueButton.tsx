@@ -13,6 +13,7 @@ import { orderAtom } from "@src/atoms/order.atom";
 import type { Theme } from "@src/styles/theme";
 
 import { Item } from "@data/items";
+import { getCopy } from "@src/utils/getCopy";
 
 interface ContinueButtonProps
 	extends Pick<StackScreenProps<typeof ScreenKeys.Item>, "navigation"> {}
@@ -20,8 +21,8 @@ interface ContinueButtonProps
 const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const theme = useTheme<Theme>();
 
-	const activeItem = useAtomValue(activeItemAtom);
-	const [queue, queueSetter] = useAtom(queueAtom);
+	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
+	const [{ pending, queue }, queueSetter] = useAtom(queueAtom);
 	const { addItem } = useSetAtom(orderAtom)();
 
 	const next = queue[0];
@@ -46,21 +47,23 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const primaryButtonInfo = useMemo(() => {
 		if (next) {
 			return {
-				onPress: () => {},
-				text: `Add ${next}`,
+				onPress: () => {
+					activeItemSetter().setDefaultItem({ sku: next });
+					queueSetter().shiftFromQueue();
+					queueSetter().addToPending(activeItem);
+					navigation.push(ScreenKeys.Item, { title: getCopy(next) });
+				},
+				text: `Continue to ${next}`,
 			};
 		}
 
 		return {
 			onPress: () => {
-				addItem(activeItem);
+				addItem(...pending, activeItem);
 				if (navigation.canGoBack()) {
 					navigation.dispatch(StackActions.popToTop());
 				}
 				navigation.replace(ScreenKeys.Cart);
-				// if (next) {
-				// 	queueSetter().shift();
-				// }
 			},
 			text: "Add to Order",
 		};

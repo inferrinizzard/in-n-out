@@ -10,17 +10,12 @@ import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 import type { Theme } from "@src/styles/theme";
 
-import {
-	Menu,
-	MenuComboMap,
-	MenuItem,
-	MenuSkuMap,
-	type MenuComboKey,
-} from "@data/menu";
+import { Menu, MenuComboMap, type MenuComboKey } from "@data/menu";
 import calories from "@data/calories";
 import prices from "@data/prices";
 
 import type { MenuProps } from "../index";
+import { Sku } from "@data/sku";
 
 interface ComboCardProps extends Pick<MenuProps, "navigation"> {
 	comboKey: MenuComboKey;
@@ -55,14 +50,13 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			borderRadius={4}
 			borderColor="redLight"
 			borderWidth={2}
+			style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
 			onPointerDown={() => {
-				const menuItem = MenuSkuMap[Menu.Main][combo[0]];
-				setDefaultItem({ id: combo[0], item: Sku.id });
+				setDefaultItem({ sku: combo[0] });
 				navigation.push(ScreenKeys.Item, {
 					title: burgerCopy,
 				});
-				queue.push(Sku.Fries);
-				queue.push(Sku.SoftDrink);
+				queue.pushToQueue(Sku.Fries, Sku.SoftDrink);
 			}}
 		>
 			<Box padding="xs" gap="xs">
