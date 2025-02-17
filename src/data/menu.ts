@@ -1,5 +1,4 @@
-import { Option, OptionFlag, OptionValue } from "./options";
-import { Item, type ItemKey } from "./items";
+import { Sku, type SkuKey } from "./sku";
 
 export const Menu = Object.freeze({
 	Main: "Main",
@@ -10,182 +9,51 @@ export const Menu = Object.freeze({
 
 export type MenuKey = keyof typeof Menu;
 
-export const MenuItem = Object.freeze({
-	DblDbl: "DblDbl",
-	Cheeseburger: "Cheeseburger",
-	Hamburger: "Hamburger",
-	Fries: "Fries",
-	SoftDrink: "SoftDrink",
-	Shake: "Shake",
-	Coffee: "Coffee",
-	Milk: "Milk",
-	HotCocoa: "HotCocoa",
-	AnimalStyle: "AnimalStyle",
-	ProteinStyle: "ProteinStyle",
-	"3X3": "3X3",
-	"4X4": "4X4",
-	AnimalFries: "AnimalFries",
-	GrilledCheese: "GrilledCheese",
-	DoubleMeat: "DoubleMeat",
-	FlyingDutchman: "FlyingDutchman",
-	WishBurger: "WishBurger",
-	PupPatty: "PupPatty",
-	Stickers: "Stickers",
-	PaperHat: "PaperHat",
-	GiftCard: "GiftCard",
-} as const);
-
-export type MenuItemKey = keyof typeof MenuItem;
-
-export const MenuItemMap = Object.freeze({
+export const MenuSkuMap = Object.freeze({
 	[Menu.Main]: {
-		[MenuItem.DblDbl]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 2, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 2, value: OptionValue.Regular },
-			},
-			subtext: "Double Meat, Double Cheese",
-		},
-		[MenuItem.Cheeseburger]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 1, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem.Hamburger]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 1, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem.Fries]: {
-			id: Item.Fries,
-			supertext: "Fresh",
-		},
-		[MenuItem.SoftDrink]: {
-			id: Item.Drink,
-		},
-		[MenuItem.Shake]: {
-			id: Item.Shake,
-		},
+		items: [
+			{ sku: Sku.DblDbl, subtext: "Double Meat, Double Cheese" },
+			{ sku: Sku.Cheeseburger },
+			{ sku: Sku.Hamburger },
+			{ sku: Sku.Fries, supertext: "Fresh" },
+			{ sku: Sku.SoftDrink },
+			{ sku: Sku.Shake },
+		],
 	},
 	[Menu.HotDrink]: {
-		[MenuItem.Coffee]: {
-			id: Item.Drink,
-			override: {
-				[Option.Size]: { value: OptionValue.Small },
-			},
-		},
-		[MenuItem.Milk]: {
-			id: Item.Drink,
-			override: {
-				[Option.Size]: { value: OptionValue.Small },
-			},
-		},
-		[MenuItem.HotCocoa]: {
-			id: Item.Drink,
-			override: {
-				[Option.Size]: { value: OptionValue.Small },
-			},
-		},
+		items: [{ sku: Sku.Coffee }, { sku: Sku.Milk }, { sku: Sku.HotCocoa }],
 	},
 	[Menu.SecretMenu]: {
-		[MenuItem.AnimalStyle]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 1, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
-				[Option.Burger]: { flags: { [OptionFlag.AnimalStyle]: true } },
-			},
-		},
-		[MenuItem.ProteinStyle]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 1, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
-				[Option.Bun]: { value: OptionValue.ProteinStyle },
-			},
-		},
-		[MenuItem["3X3"]]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 3, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 3, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem["4X4"]]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 4, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 4, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem.AnimalFries]: {
-			id: Item.Fries,
-			override: {
-				[Option.Fries]: { flags: { [OptionFlag.AnimalStyle]: true } },
-			},
-		},
-		[MenuItem.GrilledCheese]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 0, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 1, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem.DoubleMeat]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 2, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem.FlyingDutchman]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 2, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 2, value: OptionValue.Regular },
-				[Option.Bun]: { value: OptionValue.None },
-			},
-		},
-		[MenuItem.WishBurger]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 0, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
-			},
-		},
-		[MenuItem.PupPatty]: {
-			id: Item.Burger,
-			override: {
-				[Option.Meat]: { count: 1, value: OptionValue.Regular },
-				[Option.Cheese]: { count: 0, value: OptionValue.Regular },
-				[Option.Lettuce]: { value: OptionValue.None },
-				[Option.Tomato]: { value: OptionValue.None },
-				[Option.Spread]: { value: OptionValue.None },
-				[Option.Bun]: { value: OptionValue.None },
-				[Option.Burger]: { flags: { [OptionFlag.NoSalt]: true } },
-			},
-		},
+		supertext: "Not So",
+		items: [
+			{ sku: Sku.AnimalStyle },
+			{ sku: Sku.ProteinStyle },
+			{ sku: Sku["3X3"] },
+			{ sku: Sku["4X4"] },
+			{ sku: Sku.AnimalFries },
+			{ sku: Sku.GrilledCheese },
+			{ sku: Sku.DoubleMeat },
+			{ sku: Sku.FlyingDutchman },
+			{ sku: Sku.WishBurger },
+			{ sku: Sku.PupPatty },
+		],
 	},
 	[Menu.Extra]: {
-		[MenuItem.Stickers]: {
-			id: Item.Stickers,
-		},
-		[MenuItem.PaperHat]: {
-			id: Item.PaperHat,
-		},
-		[MenuItem.GiftCard]: {
-			id: Item.GiftCard,
-		},
-		Merch: {
-			// id: Item.Merch,
-		},
+		items: [
+			{ sku: Sku.Stickers },
+			{ sku: Sku.PaperHat },
+			{ sku: Sku.GiftCard },
+		],
 	},
 } as const);
+
+export type MenuSkuConfig = {
+	sku: SkuKey;
+	supertext?: string;
+	subtext?: string;
+};
+
+MenuSkuMap satisfies Record<MenuKey, { items: readonly MenuSkuConfig[] }>;
 
 export const MenuCombo = Object.freeze({
 	DblDblCombo: "DblDblCombo",
@@ -196,29 +64,7 @@ export const MenuCombo = Object.freeze({
 export type MenuComboKey = keyof typeof MenuCombo;
 
 export const MenuComboMap = Object.freeze({
-	[MenuCombo.DblDblCombo]: [
-		MenuItem.DblDbl,
-		MenuItem.Fries,
-		MenuItem.SoftDrink,
-	],
-	[MenuCombo.CheeseburgerCombo]: [
-		MenuItem.Cheeseburger,
-		MenuItem.Fries,
-		MenuItem.SoftDrink,
-	],
-	[MenuCombo.HamburgerCombo]: [
-		MenuItem.Hamburger,
-		MenuItem.Fries,
-		MenuItem.SoftDrink,
-	],
+	[MenuCombo.DblDblCombo]: [Sku.DblDbl, Sku.Fries, Sku.SoftDrink],
+	[MenuCombo.CheeseburgerCombo]: [Sku.Cheeseburger, Sku.Fries, Sku.SoftDrink],
+	[MenuCombo.HamburgerCombo]: [Sku.Hamburger, Sku.Fries, Sku.SoftDrink],
 } as const);
-
-export const MenuItemIdMap = Object.entries(
-	Object.values(MenuItemMap).reduce(
-		(acc, cur) => ({ ...acc, ...cur }),
-		{} as Record<MenuItemKey, { id: ItemKey }>,
-	),
-).reduce(
-	(acc, [key, val]) => ({ ...acc, [key]: val.id }),
-	{} as Record<MenuItemKey, ItemKey>,
-);

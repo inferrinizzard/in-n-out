@@ -1,20 +1,21 @@
 import { Option, OptionValue } from "./options";
-import { MenuItem, MenuCombo } from "./menu";
-import type { SkuId } from "./types";
+import { MenuCombo } from "./menu";
+import { Sku, type SkuKey } from "./sku";
 
 const BaseCaloriesData = Object.freeze({
-	[MenuItem.DblDbl]: 610,
-	[MenuItem.Cheeseburger]: 430,
-	[MenuItem.Hamburger]: 360,
-	[MenuItem.Fries]: 360,
-	[MenuItem.SoftDrink]: 190, // medium
-	[MenuItem.Coffee]: 0,
-	[MenuItem.Milk]: 150,
-	[MenuItem.Shake]: 600,
-	[MenuItem.HotCocoa]: 160,
-	[MenuItem.Stickers]: 0,
-	[MenuItem.PaperHat]: 0,
-	[MenuItem.GiftCard]: 0,
+	[Sku.DblDbl]: 610,
+	[Sku.Cheeseburger]: 430,
+	[Sku.Hamburger]: 360,
+	[Sku.Fries]: 360,
+	[Sku.SoftDrink]: 190, // medium
+	[Sku.Coffee]: 0,
+	[Sku.Milk]: 150,
+	[Sku.Shake]: 600,
+	[Sku.HotCocoa]: 160,
+	[Sku.Stickers]: 0,
+	[Sku.PaperHat]: 0,
+	[Sku.GiftCard]: 0,
+	[Sku.Merch]: 0,
 } as const);
 
 const MiscCaloriesData = Object.freeze({
@@ -23,10 +24,10 @@ const MiscCaloriesData = Object.freeze({
 		(BaseCaloriesData.Cheeseburger +
 			(BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger)),
 	[Option.Cheese]: BaseCaloriesData.Cheeseburger - BaseCaloriesData.Hamburger,
-	[`${MenuItem.SoftDrink}${OptionValue.Small}`]: 130,
-	[`${MenuItem.SoftDrink}${OptionValue.Medium}`]: 190,
-	[`${MenuItem.SoftDrink}${OptionValue.Large}`]: 270,
-	[`${MenuItem.SoftDrink}${OptionValue.XtraLarge}`]: 350,
+	[`${Sku.SoftDrink}${OptionValue.Small}`]: 130,
+	[`${Sku.SoftDrink}${OptionValue.Medium}`]: 190,
+	[`${Sku.SoftDrink}${OptionValue.Large}`]: 270,
+	[`${Sku.SoftDrink}${OptionValue.XtraLarge}`]: 350,
 	AnimalStyle: 160,
 	ProteinStyle: -100,
 } as const);
@@ -45,26 +46,24 @@ const CaloriesData = Object.freeze({
 		BaseCaloriesData.Hamburger +
 		BaseCaloriesData.Fries +
 		BaseCaloriesData.SoftDrink,
-	[MenuItem.AnimalFries]: BaseCaloriesData.Fries + MiscCaloriesData.AnimalStyle,
-	[MenuItem.GrilledCheese]:
-		BaseCaloriesData.Cheeseburger - MiscCaloriesData.Meat,
-	[MenuItem.DoubleMeat]: BaseCaloriesData.Hamburger + MiscCaloriesData.Meat,
-	[MenuItem.FlyingDutchman]:
-		MiscCaloriesData.Meat * 2 + MiscCaloriesData.Cheese * 2,
-	[MenuItem["3X3"]]:
+	[Sku.AnimalFries]: BaseCaloriesData.Fries + MiscCaloriesData.AnimalStyle,
+	[Sku.GrilledCheese]: BaseCaloriesData.Cheeseburger - MiscCaloriesData.Meat,
+	[Sku.DoubleMeat]: BaseCaloriesData.Hamburger + MiscCaloriesData.Meat,
+	[Sku.FlyingDutchman]: MiscCaloriesData.Meat * 2 + MiscCaloriesData.Cheese * 2,
+	[Sku["3X3"]]:
 		BaseCaloriesData.DblDbl + MiscCaloriesData.Meat + MiscCaloriesData.Cheese,
-	[MenuItem["4X4"]]:
+	[Sku["4X4"]]:
 		BaseCaloriesData.DblDbl +
 		MiscCaloriesData.Meat * 2 +
 		MiscCaloriesData.Cheese * 2,
-	[MenuItem.WishBurger]: BaseCaloriesData.Hamburger - MiscCaloriesData.Meat,
-	[MenuItem.PupPatty]: MiscCaloriesData.Meat,
-	[MenuItem.ProteinStyle]: BaseCaloriesData.Cheeseburger,
-	[MenuItem.AnimalStyle]:
+	[Sku.WishBurger]: BaseCaloriesData.Hamburger - MiscCaloriesData.Meat,
+	[Sku.PupPatty]: MiscCaloriesData.Meat,
+	[Sku.ProteinStyle]: BaseCaloriesData.Cheeseburger,
+	[Sku.AnimalStyle]:
 		BaseCaloriesData.Cheeseburger + MiscCaloriesData.AnimalStyle,
 } as const);
 
-CaloriesData satisfies Record<SkuId, number>;
+CaloriesData satisfies Record<SkuKey, number>;
 
 export default {
 	base: CaloriesData,

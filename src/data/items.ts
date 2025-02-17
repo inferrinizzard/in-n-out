@@ -6,9 +6,7 @@ export const Item = Object.freeze({
 	Fries: "Fries",
 	Drink: "Drink",
 	Shake: "Shake",
-	Stickers: "Stickers",
-	PaperHat: "PaperHat",
-	GiftCard: "GiftCard",
+	Misc: "Misc",
 } as const);
 
 export type ItemKey = keyof typeof Item;

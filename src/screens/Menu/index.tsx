@@ -12,11 +12,10 @@ import { getCopy } from "@src/utils/getCopy";
 import {
 	Menu as DataMenu,
 	MenuCombo,
-	type MenuItemKey,
-	MenuItemMap,
+	type MenuSkuConfig,
+	MenuSkuMap,
 	type MenuKey,
 } from "@data/menu";
-import type { ItemKey } from "@data/items";
 
 import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
@@ -40,12 +39,9 @@ const Menu = ({
 
 	const { setDefaultItem } = useSetAtom(activeItemAtom)();
 
-	const menuItems = Object.entries(MenuItemMap[activeMenu]) as [
-		MenuItemKey,
-		{ id: ItemKey },
-	][];
+	const menuConfig = MenuSkuMap[activeMenu];
 
-	const subMenus = Object.keys(MenuItemMap).filter(
+	const subMenus = Object.keys(MenuSkuMap).filter(
 		(menu) => menu !== DataMenu.Main,
 	) as MenuKey[];
 
@@ -76,17 +72,18 @@ const Menu = ({
 				</Box>
 			)}
 			<FlatList
-				data={menuItems}
+				data={menuConfig.items as readonly MenuSkuConfig[]}
 				contentContainerStyle={{ gap: theme.spacing.s }}
 				ItemSeparatorComponent={DividerLine}
-				renderItem={({ item: [id, item] }) => (
+				renderItem={({ item }) => (
 					<MenuItem
-						id={id}
-						item={item}
+						id={item.sku}
+						supertext={"supertext" in item ? item.supertext : undefined}
+						subtext={"subtext" in item ? item.subtext : undefined}
 						onPress={() => {
-							setDefaultItem({ id: id, item: item.id });
+							setDefaultItem(item);
 							navigation.push(ScreenKeys.Item, {
-								title: getCopy(id.replace("Combo", "")),
+								title: getCopy(item.sku.replace("Combo", "")),
 							});
 						}}
 					/>
@@ -99,17 +96,23 @@ const Menu = ({
 						data={subMenus}
 						contentContainerStyle={{ gap: theme.spacing.s }}
 						ItemSeparatorComponent={DividerLine}
-						renderItem={({ item: menu }) => (
-							<MenuItem
-								id={menu}
-								onPress={() => {
-									navigation.push(ScreenKeys.Menu, {
-										title: getCopy(menu),
-										activeMenu: menu,
-									});
-								}}
-							/>
-						)}
+						renderItem={({ item: menu }) => {
+							const menuConfig = MenuSkuMap[menu];
+							return (
+								<MenuItem
+									id={menu}
+									supertext={
+										"supertext" in menuConfig ? menuConfig.supertext : undefined
+									}
+									onPress={() => {
+										navigation.push(ScreenKeys.Menu, {
+											title: getCopy(menu),
+											activeMenu: menu,
+										});
+									}}
+								/>
+							);
+						}}
 					/>
 				</>
 			)}

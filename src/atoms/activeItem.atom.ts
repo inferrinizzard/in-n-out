@@ -7,6 +7,7 @@ import type {
 	OptionInstance,
 	CountOptionInstance,
 } from "@data/options";
+import { SkuItemMap } from "@data/sku";
 import { ItemOptionMap } from "@data/items";
 import prices from "@data/prices";
 import calories from "@data/calories";
@@ -26,16 +27,19 @@ export const activeItemAtom = atom(
 			set(baseAtom, item);
 		},
 
-		setDefaultItem: (item: Pick<ActiveItemAtomState, "id" | "item">) => {
+		setDefaultItem: ({ sku }: Pick<ActiveItemAtomState, "sku">) => {
+			const item = SkuItemMap[sku];
+
 			const options =
-				item.item in ItemOptionMap
-					? ItemOptionMap[item.item as keyof typeof ItemOptionMap].default
+				item.id in ItemOptionMap
+					? ItemOptionMap[item.id as keyof typeof ItemOptionMap].default
 					: undefined;
-			const price = prices.base[item.id];
-			const numCalories = calories.base[item.id];
-			const name = getCopy(item.id);
+			const price = prices.base[sku];
+			const numCalories = calories.base[sku];
+			const name = getCopy(sku);
 			set(baseAtom, {
-				...item,
+				sku,
+				item: item.id,
 				name,
 				options,
 				price,
@@ -51,14 +55,14 @@ export const activeItemAtom = atom(
 			}
 
 			const newOptions = { ...prev?.options, [key]: value };
-			const price = getPrice(prev.id, newOptions as SkuOptions);
-			const numCalories = getCalories(prev.id, newOptions as SkuOptions);
-			const name = isBurger(prev.id)
+			const price = getPrice(prev.sku, newOptions as SkuOptions);
+			const numCalories = getCalories(prev.sku, newOptions as SkuOptions);
+			const name = isBurger(prev.sku)
 				? getBurgerName(
 						(newOptions.Meat as CountOptionInstance)?.count,
 						(newOptions.Cheese as CountOptionInstance)?.count,
 					)
-				: getCopy(prev.id);
+				: getCopy(prev.sku);
 
 			set(
 				baseAtom,

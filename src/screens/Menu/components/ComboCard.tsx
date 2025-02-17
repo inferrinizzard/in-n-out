@@ -14,7 +14,7 @@ import {
 	Menu,
 	MenuComboMap,
 	MenuItem,
-	MenuItemMap,
+	MenuSkuMap,
 	type MenuComboKey,
 } from "@data/menu";
 import calories from "@data/calories";
@@ -57,13 +57,13 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			borderWidth={2}
 			style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
 			onPointerDown={() => {
-				const menuItem = MenuItemMap[Menu.Main][combo[0]];
-				setDefaultItem({ id: combo[0], item: menuItem.id });
+				const menuItem = MenuSkuMap[Menu.Main][combo[0]];
+				setDefaultItem({ id: combo[0], item: Sku.id });
 				navigation.push(ScreenKeys.Item, {
 					title: burgerCopy,
 				});
-				queue.push(MenuItem.Fries);
-				queue.push(MenuItem.SoftDrink);
+				queue.push(Sku.Fries);
+				queue.push(Sku.SoftDrink);
 			}}
 		>
 			<Box padding="xs" gap="xs">
