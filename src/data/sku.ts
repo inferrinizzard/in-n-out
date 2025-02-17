@@ -91,8 +91,14 @@ export const SkuItemMap = Object.freeze({
 	[Sku.AnimalStyle]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: {
+				count: 1,
+				value: OptionValue.Regular,
+				flags: { [OptionFlag.MustardGrilled]: true },
+			},
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+			[Option.Pickles]: { value: OptionValue.Regular },
+			[Option.GrilledOnions]: { value: OptionValue.Regular },
 			[Option.Burger]: { flags: { [OptionFlag.AnimalStyle]: true } },
 		},
 	},
@@ -101,7 +107,6 @@ export const SkuItemMap = Object.freeze({
 		override: {
 			[Option.Meat]: { count: 1, value: OptionValue.Regular },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
-			[Option.Pickles]: { value: OptionValue.Regular },
 			[Option.Bun]: { value: OptionValue.ProteinStyle },
 		},
 	},
@@ -181,7 +186,7 @@ export const SkuItemMap = Object.freeze({
 	},
 } as const);
 
-SkuItemMap satisfies Record<
-	SkuKey,
-	{ id: ItemKey; override?: Partial<Record<OptionKey, OptionInstance>> }
->;
+// SkuItemMap satisfies Record<
+// 	SkuKey,
+// 	{ id: ItemKey; override?: Partial<Record<OptionKey, OptionInstance>> }
+// >;

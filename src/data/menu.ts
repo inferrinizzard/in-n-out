@@ -26,16 +26,22 @@ export const MenuSkuMap = Object.freeze({
 	[Menu.SecretMenu]: {
 		supertext: "Not So",
 		items: [
-			{ sku: Sku.AnimalStyle },
-			{ sku: Sku.ProteinStyle },
-			{ sku: Sku["3X3"] },
-			{ sku: Sku["4X4"] },
-			{ sku: Sku.AnimalFries },
+			{
+				sku: Sku.AnimalStyle,
+				subtext: "Mustard Grilled, Pickles, Extra Spread",
+			},
+			{ sku: Sku.ProteinStyle, subtext: "Wrapped in lettuce instead of a Bun" },
+			{ sku: Sku["3X3"], subtext: "Triple Meat, Triple Cheese" },
+			{ sku: Sku["4X4"], subtext: "Quad Meat, Quad Cheese" },
+			{ sku: Sku.AnimalFries, subtext: "Topped with Classic Spread" },
 			{ sku: Sku.GrilledCheese },
 			{ sku: Sku.DoubleMeat },
-			{ sku: Sku.FlyingDutchman },
-			{ sku: Sku.WishBurger },
-			{ sku: Sku.PupPatty },
+			{
+				sku: Sku.FlyingDutchman,
+				subtext: "2 Slices of Cheese between 2 Patties",
+			},
+			{ sku: Sku.WishBurger, subtext: "No Meat, No Cheese" },
+			{ sku: Sku.PupPatty, subtext: "No Salt Patty for your dog" },
 		],
 	},
 	[Menu.Extra]: {
