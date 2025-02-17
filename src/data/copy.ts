@@ -39,7 +39,7 @@ export const OptionCopy = Object.freeze({
 	Lettuce: "Lettuce",
 	Tomato: "Tomato",
 	Pickles: "Pickles",
-	Chilis: "Chopped Chilies",
+	Chilis: "Chopped Chilis",
 	Spread: "Spread",
 	Bun: "Bun",
 	Doneness: "Doneness",
