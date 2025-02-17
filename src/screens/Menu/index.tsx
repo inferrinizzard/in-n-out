@@ -12,6 +12,7 @@ import { getCopy } from "@src/utils/getCopy";
 import {
 	Menu as DataMenu,
 	MenuCombo,
+	type MenuSkuConfig,
 	MenuSkuMap,
 	type MenuKey,
 } from "@data/menu";
@@ -71,7 +72,7 @@ const Menu = ({
 				</Box>
 			)}
 			<FlatList
-				data={menuConfig.items}
+				data={menuConfig.items as readonly MenuSkuConfig[]}
 				contentContainerStyle={{ gap: theme.spacing.s }}
 				ItemSeparatorComponent={DividerLine}
 				renderItem={({ item }) => (

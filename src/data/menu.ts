@@ -1,4 +1,4 @@
-import { Sku } from "./sku";
+import { Sku, type SkuKey } from "./sku";
 
 export const Menu = Object.freeze({
 	Main: "Main",
@@ -46,6 +46,14 @@ export const MenuSkuMap = Object.freeze({
 		],
 	},
 } as const);
+
+export type MenuSkuConfig = {
+	sku: SkuKey;
+	supertext?: string;
+	subtext?: string;
+};
+
+MenuSkuMap satisfies Record<MenuKey, { items: readonly MenuSkuConfig[] }>;
 
 export const MenuCombo = Object.freeze({
 	DblDblCombo: "DblDblCombo",
