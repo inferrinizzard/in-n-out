@@ -22,7 +22,7 @@ export const ImageData = {
 	Coke: require("@images/menu/Coke.png"),
 	IcedTea: require("@images/menu/IcedTea.png"),
 	Lettuce: require("@images/menu/Lettuce.jpg"),
-	Onion: require("@images/menu/Onion.jpg"),
+	Onions: require("@images/menu/Onion.jpg"),
 	PinkLemonade: require("@images/menu/PinkLemonade.png"),
 	Spread: require("@images/menu/Spread.jpg"),
 	StrawberryShake: require("@images/menu/StrawberryShake.png"),

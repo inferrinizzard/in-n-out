@@ -29,10 +29,15 @@ export const ItemOptionMap = Object.freeze({
 		default: {
 			[Option.Meat]: { count: 1, value: OptionValue.Regular },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+			[Option.Onions]: { value: OptionValue.Regular },
 			[Option.Lettuce]: { value: OptionValue.Regular },
 			[Option.Tomato]: { value: OptionValue.Regular },
 			[Option.Spread]: { value: OptionValue.Regular },
 			[Option.Bun]: { value: OptionValue.Regular },
+
+			[Option.GrilledOnions]: { value: OptionValue.None },
+			[Option.Pickles]: { value: OptionValue.None },
+			[Option.Chilis]: { value: OptionValue.None },
 		},
 	},
 	[Item.Fries]: {
