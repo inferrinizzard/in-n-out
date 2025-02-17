@@ -1,18 +1,21 @@
 import calories from "@data/calories";
 import prices from "@data/prices";
-import { MenuItem, type MenuItemKey } from "@data/menu";
+import { Sku, type SkuKey } from "@data/sku";
 
 import type { SkuOptions } from "../types";
 import { Option } from "@data/options";
 
-export const getDrinkPrice = (id: MenuItemKey, options: SkuOptions) => {
+export const getDrinkPrice = (
+	id: SkuKey,
+	options: Partial<Pick<SkuOptions, typeof Option.Size>>,
+) => {
 	const price = prices.base[id] as number;
 
-	if (id === MenuItem.SoftDrink) {
-		return prices.misc[`${MenuItem.SoftDrink}${options[Option.Size].value}`];
+	if (id === Sku.SoftDrink) {
+		return prices.misc[`${Sku.SoftDrink}${options[Option.Size]?.value}`];
 	}
 
-	if (id === MenuItem.Shake) {
+	if (id === Sku.Shake) {
 		return price;
 	}
 
@@ -24,14 +27,17 @@ export const getDrinkPrice = (id: MenuItemKey, options: SkuOptions) => {
 	return price;
 };
 
-export const getDrinkCalories = (id: MenuItemKey, options: SkuOptions) => {
+export const getDrinkCalories = (
+	id: SkuKey,
+	options: Partial<Pick<SkuOptions, typeof Option.Size>>,
+) => {
 	const numCalories = calories.base[id];
 
-	if (id === MenuItem.SoftDrink) {
-		return calories.misc[`${MenuItem.SoftDrink}${options[Option.Size].value}`];
+	if (id === Sku.SoftDrink) {
+		return calories.misc[`${Sku.SoftDrink}${options[Option.Size]?.value}`];
 	}
 
-	if (id === MenuItem.Shake) {
+	if (id === Sku.Shake) {
 		return calories;
 	}
 

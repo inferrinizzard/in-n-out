@@ -2,23 +2,24 @@
 
 // https://americanmenuprices.com/in-n-out-burger-menu-prices-usa/
 
-import { MenuCombo, MenuItem } from "./menu";
+import { MenuCombo } from "./menu";
 import { Option, OptionValue } from "./options";
-import type { SkuId } from "./types";
+import { Sku, type SkuKey } from "./sku";
 
 const BasePriceData = Object.freeze({
-	[MenuItem.DblDbl]: 3.95,
-	[MenuItem.Cheeseburger]: 2.8,
-	[MenuItem.Hamburger]: 2.5,
-	[MenuItem.Fries]: 1.85,
-	[MenuItem.SoftDrink]: 1.8, // medium
-	[MenuItem.Coffee]: 1.35,
-	[MenuItem.Milk]: 0.99,
-	[MenuItem.Shake]: 2.5,
-	[MenuItem.HotCocoa]: 2.1,
-	[MenuItem.Stickers]: 0,
-	[MenuItem.PaperHat]: 0,
-	[MenuItem.GiftCard]: 0,
+	[Sku.DblDbl]: 3.95,
+	[Sku.Cheeseburger]: 2.8,
+	[Sku.Hamburger]: 2.5,
+	[Sku.Fries]: 1.85,
+	[Sku.SoftDrink]: 1.8, // medium
+	[Sku.Coffee]: 1.35,
+	[Sku.Milk]: 0.99,
+	[Sku.Shake]: 2.5,
+	[Sku.HotCocoa]: 2.1,
+	[Sku.Stickers]: 0,
+	[Sku.PaperHat]: 0,
+	[Sku.GiftCard]: 0,
+	[Sku.Merch]: 0,
 } as const);
 
 const MiscPriceData = Object.freeze({
@@ -27,10 +28,10 @@ const MiscPriceData = Object.freeze({
 		(BasePriceData.Cheeseburger +
 			(BasePriceData.Cheeseburger - BasePriceData.Hamburger)),
 	[Option.Cheese]: BasePriceData.Cheeseburger - BasePriceData.Hamburger,
-	[`${MenuItem.SoftDrink}${OptionValue.Small}`]: 1.65,
-	[`${MenuItem.SoftDrink}${OptionValue.Medium}`]: 1.8,
-	[`${MenuItem.SoftDrink}${OptionValue.Large}`]: 2.0,
-	[`${MenuItem.SoftDrink}${OptionValue.XtraLarge}`]: 2.2,
+	[`${Sku.SoftDrink}${OptionValue.Small}`]: 1.65,
+	[`${Sku.SoftDrink}${OptionValue.Medium}`]: 1.8,
+	[`${Sku.SoftDrink}${OptionValue.Large}`]: 2.0,
+	[`${Sku.SoftDrink}${OptionValue.XtraLarge}`]: 2.2,
 	AnimalStyle: 1,
 } as const);
 
@@ -42,22 +43,21 @@ const PriceData = Object.freeze({
 		BasePriceData.Cheeseburger + BasePriceData.Fries + BasePriceData.SoftDrink,
 	[MenuCombo.HamburgerCombo]:
 		BasePriceData.Hamburger + BasePriceData.Fries + BasePriceData.SoftDrink,
-	[MenuItem.AnimalFries]: BasePriceData.Fries + MiscPriceData.AnimalStyle,
-	[MenuItem.GrilledCheese]: BasePriceData.Cheeseburger - MiscPriceData.Meat,
-	[MenuItem.DoubleMeat]: BasePriceData.Hamburger + MiscPriceData.Meat,
-	[MenuItem.FlyingDutchman]: MiscPriceData.Meat * 2 + MiscPriceData.Cheese * 2,
-	[MenuItem["3X3"]]:
+	[Sku.AnimalFries]: BasePriceData.Fries + MiscPriceData.AnimalStyle,
+	[Sku.GrilledCheese]: BasePriceData.Cheeseburger - MiscPriceData.Meat,
+	[Sku.DoubleMeat]: BasePriceData.Hamburger + MiscPriceData.Meat,
+	[Sku.FlyingDutchman]: MiscPriceData.Meat * 2 + MiscPriceData.Cheese * 2,
+	[Sku["3X3"]]:
 		BasePriceData.DblDbl + MiscPriceData.Meat + MiscPriceData.Cheese,
-	[MenuItem["4X4"]]:
+	[Sku["4X4"]]:
 		BasePriceData.DblDbl + MiscPriceData.Meat * 2 + MiscPriceData.Cheese * 2,
-	[MenuItem.WishBurger]: BasePriceData.Hamburger - MiscPriceData.Meat,
-	[MenuItem.PupPatty]: MiscPriceData.Meat,
-	[MenuItem.ProteinStyle]: BasePriceData.Cheeseburger,
-	[MenuItem.AnimalStyle]:
-		BasePriceData.Cheeseburger + MiscPriceData.AnimalStyle,
+	[Sku.WishBurger]: BasePriceData.Hamburger - MiscPriceData.Meat,
+	[Sku.PupPatty]: MiscPriceData.Meat,
+	[Sku.ProteinStyle]: BasePriceData.Cheeseburger,
+	[Sku.AnimalStyle]: BasePriceData.Cheeseburger + MiscPriceData.AnimalStyle,
 } as const);
 
-PriceData satisfies Record<SkuId, number>;
+PriceData satisfies Record<SkuKey, number>;
 
 export default {
 	base: PriceData,

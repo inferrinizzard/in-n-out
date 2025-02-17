@@ -1,6 +1,6 @@
 import calories from "@data/calories";
 import prices from "@data/prices";
-import type { MenuItemKey } from "@data/menu";
+import type { SkuKey } from "@data/sku";
 import { ItemOptionMap } from "@data/items";
 import {
 	type CountOptionInstance,
@@ -80,7 +80,15 @@ export const getBurgerName = (meat: number, cheese: number) => {
 	return `${left}${join}${right}`;
 };
 
-export const getBurgerPrice = (id: MenuItemKey, options: SkuOptions) => {
+export const getBurgerPrice = (
+	id: SkuKey,
+	options: Partial<
+		Pick<
+			SkuOptions,
+			typeof Option.Meat | typeof Option.Cheese | typeof Option.Burger
+		>
+	>,
+) => {
 	let price = prices.base[id] as number;
 
 	const defaults = ItemOptionMap.Burger.default;
@@ -95,7 +103,7 @@ export const getBurgerPrice = (id: MenuItemKey, options: SkuOptions) => {
 		0,
 	);
 
-	if (options[Option.Burger].flags?.[OptionFlag.AnimalStyle]) {
+	if (options[Option.Burger]?.flags?.[OptionFlag.AnimalStyle]) {
 		price += prices.misc.AnimalStyle;
 	}
 
@@ -105,7 +113,18 @@ export const getBurgerPrice = (id: MenuItemKey, options: SkuOptions) => {
 	return price;
 };
 
-export const getBurgerCalories = (id: MenuItemKey, options: SkuOptions) => {
+export const getBurgerCalories = (
+	id: SkuKey,
+	options: Partial<
+		Pick<
+			SkuOptions,
+			| typeof Option.Meat
+			| typeof Option.Cheese
+			| typeof Option.Burger
+			| typeof Option.Bun
+		>
+	>,
+) => {
 	let numCalories = calories.base[id];
 
 	const defaults = ItemOptionMap.Burger.default;
@@ -120,13 +139,13 @@ export const getBurgerCalories = (id: MenuItemKey, options: SkuOptions) => {
 		0,
 	);
 
-	if (options[Option.Burger].flags?.[OptionFlag.AnimalStyle]) {
+	if (options[Option.Burger]?.flags?.[OptionFlag.AnimalStyle]) {
 		numCalories += calories.misc.AnimalStyle;
 	}
 
 	if (
-		options[Option.Bun].value === OptionValue.ProteinStyle ||
-		options[Option.Bun].value === OptionValue.None
+		options[Option.Bun]?.value === OptionValue.ProteinStyle ||
+		options[Option.Bun]?.value === OptionValue.None
 	) {
 		numCalories += calories.misc.ProteinStyle;
 	}
