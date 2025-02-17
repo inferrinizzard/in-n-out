@@ -10,8 +10,14 @@ const baseAtom = atom<OrderAtomState>({});
 export const orderAtom = atom(
 	(get) => get(baseAtom),
 	(get, set) => ({
-		addItem: (item: SkuItem) =>
-			set(baseAtom, (prev) => ({ ...prev, [uuidV4()]: item })),
+		addItem: (...items: SkuItem[]) =>
+			set(baseAtom, (prev) => ({
+				...prev,
+				...items.reduce(
+					(acc, item) => Object.assign(acc, { [uuidV4()]: item }),
+					{},
+				),
+			})),
 
 		removeItem: (key: string) =>
 			set(baseAtom, (prev) => {
