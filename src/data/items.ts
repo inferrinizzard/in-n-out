@@ -41,7 +41,7 @@ export const ItemOptionMap = Object.freeze({
 		},
 	},
 	[Item.Fries]: {
-		options: [Option.Doneness, Option.Fries],
+		options: [Option.Fries, Option.Doneness],
 		default: {
 			[Option.Doneness]: { value: OptionValue.Medium },
 			[Option.Fries]: { value: OptionValue.Regular },

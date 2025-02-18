@@ -9,6 +9,7 @@ import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 
 import type { OptionKey } from "@data/options";
+import { CustomisationDropdown } from "./CustomisationDropdown";
 
 interface CustomisationRowProps {
 	option: OptionKey;
@@ -21,28 +22,31 @@ export const CustomisationRow = ({ option }: CustomisationRowProps) => {
 
 	const image = getImage(option);
 
+	const endText = activeItem.options?.[option]?.value;
+
 	return (
-		<Box
-			flexDirection="row"
-			paddingBottom="s"
-			gap="s"
-			alignItems="center"
-			onPointerDown={() => setIsOpen(!isOpen)}
-		>
-			<Image
-				source={image}
-				style={{ minHeight: 40, minWidth: 60 }}
-				resizeMode="contain"
-			/>
-			<Box flexGrow={1}>
-				<Text variant="bold">{getCopy(option)}</Text>
-			</Box>
-			<Box flexDirection="row" alignItems="center">
-				<Box>
-					<Text>{activeItem.options?.[option]?.value}</Text>
+		<>
+			<Box
+				flexDirection="row"
+				paddingBottom="s"
+				gap="s"
+				alignItems="center"
+				onPointerDown={() => setIsOpen(!isOpen)}
+			>
+				<Image
+					source={image}
+					style={{ minHeight: 40, minWidth: 60 }}
+					resizeMode="contain"
+				/>
+				<Box flexGrow={1}>
+					<Text variant="bold">{getCopy(option)}</Text>
 				</Box>
-				<Icon source={isOpen ? "chevron-up" : "chevron-down"} size={24} />
+				<Box flexDirection="row" alignItems="center">
+					<Box>{endText && <Text>{getCopy(endText)}</Text>}</Box>
+					<Icon source={isOpen ? "chevron-up" : "chevron-down"} size={24} />
+				</Box>
 			</Box>
-		</Box>
+			{isOpen && <CustomisationDropdown option={option} />}
+		</>
 	);
 };
