@@ -8,11 +8,6 @@ export const OptionFlag = Object.freeze({
 	AddCheese: "AddCheese",
 	MustardGrilled: "MustardGrilled",
 	ColdCheese: "ColdCheese",
-	Chocolate: "Chocolate",
-	Vanilla: "Vanilla",
-	Strawberry: "Strawberry",
-	BlackWhite: "BlackWhite",
-	Neapolitan: "Neapolitan",
 } as const);
 
 export type OptionFlagKey = keyof typeof OptionFlag;
@@ -37,7 +32,7 @@ export const OptionValue = Object.freeze({
 	XtraWellDone: "XtraWellDone",
 } as const);
 
-export type OptionOptionKey = keyof typeof OptionValue;
+export type OptionValueKey = keyof typeof OptionValue;
 
 export const Option = Object.freeze({
 	Onions: "Onions",
@@ -54,7 +49,35 @@ export const Option = Object.freeze({
 	Fries: "Fries",
 	Meat: "Meat",
 	Cheese: "Cheese",
+	Drink: "Drink",
 	Shake: "Shake",
 } as const);
 
 export type OptionKey = keyof typeof Option;
+
+export const ShakeOption = Object.freeze({
+	Chocolate: "Chocolate",
+	Vanilla: "Vanilla",
+	Strawberry: "Strawberry",
+	BlackWhite: "BlackWhite",
+	Neapolitan: "Neapolitan",
+} as const);
+
+export type ShakeOptionKey = keyof typeof ShakeOption;
+
+export const DrinkOption = Object.freeze({
+	Coke: "Coke",
+	DietCoke: "DietCoke",
+	CherryCoke: "CherryCoke",
+	SevenUp: "SevenUp",
+	DrPepper: "DrPepper",
+	RootBeer: "RootBeer",
+	PinkLemonade: "PinkLemonade",
+	LitePinkLemonade: "LitePinkLemonade",
+	SweetIcedTea: "SweetIcedTea",
+	IcedTea: "IcedTea",
+	ArnoldPalmer: "ArnoldPalmer",
+	LemonUp: "LemonUp",
+} as const);
+
+export type DrinkOptionKey = keyof typeof DrinkOption;

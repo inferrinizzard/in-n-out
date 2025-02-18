@@ -48,7 +48,7 @@ export const ItemOptionMap = Object.freeze({
 		},
 	},
 	[Item.Drink]: {
-		options: [Option.Size, Option.Shake],
+		options: [Option.Size, Option.Drink, Option.Shake],
 		default: {
 			[Option.Size]: { value: OptionValue.Medium },
 		},
