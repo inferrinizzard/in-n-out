@@ -1,4 +1,10 @@
-import type { OptionFlagKey, OptionKey, OptionOptionKey } from "./options";
+import type {
+	DrinkOptionKey,
+	OptionFlagKey,
+	OptionKey,
+	OptionValueKey,
+	ShakeOptionKey,
+} from "./options";
 import { Menu, MenuCombo, type MenuKey } from "./menu";
 import { Sku, type SkuKey } from "./sku";
 
@@ -39,7 +45,7 @@ export const OptionCopy = Object.freeze({
 	Lettuce: "Lettuce",
 	Tomato: "Tomato",
 	Pickles: "Pickles",
-	Chilis: "Chopped Chilies",
+	Chilis: "Chopped Chilis",
 	Spread: "Spread",
 	Bun: "Bun",
 	Doneness: "Doneness",
@@ -48,11 +54,24 @@ export const OptionCopy = Object.freeze({
 	Fries: "Fries",
 	Meat: "Meat",
 	Cheese: "Cheese",
+	Drink: "Drink",
 	Shake: "Shake",
+	Coke: "Coca-Cola®",
+	DietCoke: "Diet-Coke®",
+	CherryCoke: "Cherry-Coke®",
+	SevenUp: "7Up®",
+	DrPepper: "Dr. Pepper®",
+	RootBeer: "RootBeer",
+	PinkLemonade: "Pink Lemonade",
+	LitePinkLemonade: "Lite Pink Lemonade",
+	SweetIcedTea: "Sweet Iced Tea",
+	IcedTea: "Iced Tea",
+	ArnoldPalmer: "Arnold Palmer",
+	LemonUp: "Lemon Up",
 } as const);
 
 OptionCopy satisfies Record<
-	OptionFlagKey | OptionOptionKey | OptionKey,
+	OptionFlagKey | OptionValueKey | ShakeOptionKey | DrinkOptionKey | OptionKey,
 	string
 >;
 

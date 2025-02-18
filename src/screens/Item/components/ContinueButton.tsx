@@ -12,6 +12,7 @@ import { queueAtom } from "@src/atoms/queue.atom";
 import { orderAtom } from "@src/atoms/order.atom";
 import type { Theme } from "@src/styles/theme";
 
+import { Sku } from "@data/sku";
 import { Item } from "@data/items";
 import { getCopy } from "@src/utils/getCopy";
 
@@ -27,6 +28,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 
 	const next = queue[0];
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const secondaryButtonInfo = useMemo(() => {
 		if (next) {
 			return {
@@ -38,7 +40,12 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 		if (activeItem.item === Item.Burger) {
 			return {
 				text: "Make it a combo",
-				onPress: () => {},
+				onPress: () => {
+					queueSetter().pushToQueue(Sku.SoftDrink);
+					queueSetter().addToPending(activeItem);
+					activeItemSetter().setDefaultItem({ sku: Sku.Fries });
+					navigation.push(ScreenKeys.Item, { title: getCopy(Sku.Fries) });
+				},
 			};
 		}
 	}, [activeItem, next]);

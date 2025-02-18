@@ -3,7 +3,7 @@ import ScreenContainer from "@src/components/layout/ScreenContainer";
 
 import { ItemHeader } from "./components/ItemHeader";
 import ContinueButton from "./components/ContinueButton";
-import { ItemOptions } from "./components/ItemOptions";
+import { ItemOptions } from "./customisation/ItemOptions";
 
 export interface ItemProps extends StackScreenProps<typeof ScreenKeys.Item> {}
 

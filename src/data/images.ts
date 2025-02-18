@@ -16,18 +16,24 @@ export const ImageData = {
 
 	// Misc
 	"7up": require("@images/menu/7up.png"),
-	Buns: require("@images/menu/Buns.jpg"),
+	Bun: require("@images/menu/Buns.jpg"),
 	Cheese: require("@images/menu/Cheese.jpg"),
 	ChocolateShake: require("@images/menu/ChocolateShake.png"),
 	Coke: require("@images/menu/Coke.png"),
 	IcedTea: require("@images/menu/IcedTea.png"),
 	Lettuce: require("@images/menu/Lettuce.jpg"),
-	Onion: require("@images/menu/Onion.jpg"),
+	Onions: require("@images/menu/Onion.jpg"),
 	PinkLemonade: require("@images/menu/PinkLemonade.png"),
 	Spread: require("@images/menu/Spread.jpg"),
 	StrawberryShake: require("@images/menu/StrawberryShake.png"),
 	Tomato: require("@images/menu/Tomato.jpg"),
 	VanillaShake: require("@images/menu/VanillaShake.png"),
+
+	// TEMP
+	Meat: require("@images/temp/meat_TEMP.jpg"),
+	GrilledOnions: require("@images/temp/grilled_onions_TEMP.jpg"),
+	Pickles: require("@images/temp/pickles_TEMP.webp"),
+	Chilis: require("@images/temp/chilis_TEMP.jpg"),
 };
 
 ImageData satisfies Partial<Record<SkuKey, unknown>>;

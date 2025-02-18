@@ -47,6 +47,10 @@ const CartItem = ({
 			return true;
 		}
 
+		if (Object.values(optionValue.flags ?? {}).some((x) => x)) {
+			return true;
+		}
+
 		const defaultValue = defaultOptions[
 			optionKey as keyof typeof defaultOptions
 		] as OptionInstance | CountOptionInstance;
@@ -86,6 +90,10 @@ const CartItem = ({
 					<React.Fragment key={`${uuid}-${key}`}>
 						<Text>{`${key}: ${val.value}`}</Text>
 						{"count" in val && <Text>{`${key}: ${val.count}`}</Text>}
+						{val.flags &&
+							Object.entries(val.flags).map(([flagKey, flagValue]) =>
+								flagValue ? <Text key={flagKey}>{`- ${flagKey}`}</Text> : null,
+							)}
 					</React.Fragment>
 				))}
 			</View>
