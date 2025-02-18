@@ -32,7 +32,11 @@ export const activeItemAtom = atom(
 
 			const options =
 				item.id in ItemOptionMap
-					? { ...ItemOptionMap[item.id as keyof typeof ItemOptionMap].default }
+					? {
+							...ItemOptionMap[item.id as keyof typeof ItemOptionMap].default,
+							// @ts-expect-error
+							...SkuItemMap[sku].override,
+						}
 					: undefined;
 			const price = prices.base[sku];
 			const numCalories = calories.base[sku];

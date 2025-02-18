@@ -27,7 +27,7 @@ export const ItemOptionMap = Object.freeze({
 			Option.Burger,
 		],
 		default: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 			[Option.Onions]: { value: OptionValue.Regular },
 			[Option.Lettuce]: { value: OptionValue.Regular },

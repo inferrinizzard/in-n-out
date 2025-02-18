@@ -39,7 +39,7 @@ export const SkuItemMap = Object.freeze({
 	[Sku.DblDbl]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 2, value: OptionValue.Regular },
+			[Option.Meat]: { count: 2, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 2, value: OptionValue.Regular },
 		},
 		subtext: "Double Meat, Double Cheese",
@@ -47,14 +47,14 @@ export const SkuItemMap = Object.freeze({
 	[Sku.Cheeseburger]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 		},
 	},
 	[Sku.Hamburger]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 		},
 	},
@@ -91,7 +91,7 @@ export const SkuItemMap = Object.freeze({
 	[Sku.AnimalStyle]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 			[Option.Burger]: { flags: { [OptionFlag.AnimalStyle]: true } },
 		},
@@ -99,7 +99,7 @@ export const SkuItemMap = Object.freeze({
 	[Sku.ProteinStyle]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 			[Option.Pickles]: { value: OptionValue.Regular },
 			[Option.Bun]: { value: OptionValue.ProteinStyle },
@@ -108,14 +108,14 @@ export const SkuItemMap = Object.freeze({
 	[Sku["3X3"]]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 3, value: OptionValue.Regular },
+			[Option.Meat]: { count: 3, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 3, value: OptionValue.Regular },
 		},
 	},
 	[Sku["4X4"]]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 4, value: OptionValue.Regular },
+			[Option.Meat]: { count: 4, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 4, value: OptionValue.Regular },
 		},
 	},
@@ -128,21 +128,21 @@ export const SkuItemMap = Object.freeze({
 	[Sku.GrilledCheese]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 0, value: OptionValue.Regular },
+			[Option.Meat]: { count: 0, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
 		},
 	},
 	[Sku.DoubleMeat]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 2, value: OptionValue.Regular },
+			[Option.Meat]: { count: 2, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 		},
 	},
 	[Sku.FlyingDutchman]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 2, value: OptionValue.Regular },
+			[Option.Meat]: { count: 2, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 2, value: OptionValue.Regular },
 			[Option.Bun]: { value: OptionValue.None },
 		},
@@ -150,14 +150,14 @@ export const SkuItemMap = Object.freeze({
 	[Sku.WishBurger]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 0, value: OptionValue.Regular },
+			[Option.Meat]: { count: 0, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 		},
 	},
 	[Sku.PupPatty]: {
 		id: Item.Burger,
 		override: {
-			[Option.Meat]: { count: 1, value: OptionValue.Regular },
+			[Option.Meat]: { count: 1, value: OptionValue.Medium },
 			[Option.Cheese]: { count: 0, value: OptionValue.Regular },
 			[Option.Lettuce]: { value: OptionValue.None },
 			[Option.Tomato]: { value: OptionValue.None },
