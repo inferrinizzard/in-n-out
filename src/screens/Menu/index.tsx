@@ -1,8 +1,10 @@
+import React, { useEffect } from "react";
 import { FlatList } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { useSetAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
+import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
 import { Box, DividerLine, Text } from "@src/components";
@@ -38,12 +40,17 @@ const Menu = ({
 	const theme = useTheme<Theme>();
 
 	const { setDefaultItem } = useSetAtom(activeItemAtom)();
+	const { clear } = useSetAtom(queueAtom)();
 
 	const menuConfig = MenuSkuMap[activeMenu];
 
 	const subMenus = Object.keys(MenuSkuMap).filter(
 		(menu) => menu !== DataMenu.Main,
 	) as MenuKey[];
+
+	useEffect(() => {
+		clear();
+	}, [clear]);
 
 	return (
 		<ScreenContainer Footer={<CheckoutBanner navigation={navigation} />}>
@@ -90,7 +97,7 @@ const Menu = ({
 				)}
 			/>
 			{activeMenu === DataMenu.Main && (
-				<>
+				<React.Fragment>
 					<DividerLine />
 					<FlatList
 						data={subMenus}
@@ -114,7 +121,7 @@ const Menu = ({
 							);
 						}}
 					/>
-				</>
+				</React.Fragment>
 			)}
 			<Text marginTop="s">
 				{
