@@ -6,6 +6,7 @@ import type {
 	OptionKey,
 	OptionInstance,
 	CountOptionInstance,
+	OptionFlagKey,
 } from "@data/options";
 import { SkuItemMap } from "@data/sku";
 import { ItemOptionMap } from "@data/items";
@@ -51,6 +52,29 @@ export const activeItemAtom = atom(
 			} as ActiveItemAtomState);
 		},
 
+		toggleFlag: (key: OptionKey, flag: OptionFlagKey) => {
+			const prev = get(baseAtom);
+
+			if (!prev) {
+				return;
+			}
+
+			const prevFlagValue = prev.options?.[key].flags?.[flag];
+
+			const newOptions = {
+				...prev?.options,
+				[key]: {
+					...prev.options?.[key],
+					flags: { ...prev.options?.[key].flags, [flag]: !prevFlagValue },
+				},
+			};
+
+			set(
+				baseAtom,
+				(prev) => ({ ...prev, options: newOptions }) as ActiveItemAtomState,
+			);
+		},
+
 		updateOption: (key: OptionKey, value: OptionInstance) => {
 			const prev = get(baseAtom);
 
@@ -58,7 +82,10 @@ export const activeItemAtom = atom(
 				return;
 			}
 
-			const newOptions = { ...prev?.options, [key]: value };
+			const newOptions = {
+				...prev?.options,
+				[key]: { ...prev.options?.[key], ...value },
+			};
 			const price = getPrice(prev.sku, newOptions as SkuOptions);
 			const numCalories = getCalories(prev.sku, newOptions as SkuOptions);
 			const name = isBurger(prev.sku)

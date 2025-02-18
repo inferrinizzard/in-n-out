@@ -17,6 +17,8 @@ export const CustomisationDropdown = ({
 	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
 
 	const options = OptionConfigMap[option].options;
+	const flags =
+		"flags" in OptionConfigMap[option] ? OptionConfigMap[option].flags : [];
 
 	return (
 		<Box gap="s" padding="s">
@@ -33,6 +35,26 @@ export const CustomisationDropdown = ({
 						<Text style={{ flexGrow: 1 }}>{getCopy(optionValue)}</Text>
 						<Icon
 							source={isActive ? "radiobox-marked" : "radiobox-blank"}
+							size={16}
+						/>
+					</Box>
+				);
+			})}
+
+			{flags.map((flag) => {
+				return (
+					<Box
+						key={flag}
+						flexDirection="row"
+						onPointerDown={() => activeItemSetter().toggleFlag(option, flag)}
+					>
+						<Text style={{ flexGrow: 1 }}>{getCopy(flag)}</Text>
+						<Icon
+							source={
+								activeItem.options?.[option].flags?.[flag]
+									? "checkbox-marked"
+									: "checkbox-blank-outline"
+							}
 							size={16}
 						/>
 					</Box>
