@@ -15,6 +15,7 @@ module.exports = function (api) {
 					},
 				},
 			],
+			"jotai/babel/preset",
 		],
 		plugins: [
 			[

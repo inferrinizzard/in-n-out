@@ -1,8 +1,10 @@
+import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { PaperProvider, adaptNavigationTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { ThemeProvider } from "@shopify/restyle";
+import { DevTools } from "jotai-devtools";
 
 import theme, { type Theme } from "@src/styles/theme";
 
@@ -10,6 +12,8 @@ import MainNavigator from "./src/navigation/StackNavigator";
 import { navigationRef } from "./src/navigation/navigatorRef";
 import { BottomTabs } from "./src/navigation/components/BottomTabs";
 import { theme as paperTheme, navigationTheme } from "./src/styles/paper-theme";
+
+import "jotai-devtools/styles.css";
 
 const { LightTheme } = adaptNavigationTheme({
 	reactNavigationLight: navigationTheme,
@@ -31,6 +35,7 @@ const App = () => {
 					id="providerRoot"
 					style={{ flex: 1, ...styles.androidSafeArea }}
 				>
+					<DevTools position="top-right" />
 					<NavigationContainer theme={LightTheme} ref={navigationRef}>
 						<MainNavigator />
 						<BottomTabs />

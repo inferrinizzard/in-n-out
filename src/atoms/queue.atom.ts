@@ -6,26 +6,30 @@ import type { SkuItem } from "./types";
 
 type QueueAtomState = { queue: SkuKey[]; pending: SkuItem[] };
 
-const baseAtom = atom<QueueAtomState>({ queue: [], pending: [] });
+const queueBaseAtom = atom<QueueAtomState>({ queue: [], pending: [] });
+queueBaseAtom.debugLabel = "queueAtom";
 
 export const queueAtom = atom(
-	(get) => get(baseAtom),
+	(get) => get(queueBaseAtom),
 	(get, set) => ({
 		pushToQueue: (...ids: SkuKey[]) =>
-			set(baseAtom, (prev) => ({ ...prev, queue: prev.queue.concat(ids) })),
+			set(queueBaseAtom, (prev) => ({
+				...prev,
+				queue: prev.queue.concat(ids),
+			})),
 
 		shiftFromQueue: () =>
-			set(baseAtom, (prev) => ({
+			set(queueBaseAtom, (prev) => ({
 				...prev,
 				queue: prev.queue.slice(1),
 			})),
 
 		addToPending: (item: SkuItem) =>
-			set(baseAtom, (prev) => ({
+			set(queueBaseAtom, (prev) => ({
 				...prev,
 				pending: [...prev.pending, item],
 			})),
 
-		clear: () => set(baseAtom, { queue: [], pending: [] }),
+		clear: () => set(queueBaseAtom, { queue: [], pending: [] }),
 	}),
 );
