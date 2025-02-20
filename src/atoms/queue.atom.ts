@@ -19,16 +19,10 @@ export const queueAtom = atom(
 		updateIndex: (index: number) =>
 			set(queueBaseAtom, (prev) => ({ ...prev, index })),
 
-		pushToQueue: (...ids: SkuKey[]) =>
+		setQueue: (...ids: SkuKey[]) =>
 			set(queueBaseAtom, (prev) => ({
 				...prev,
 				queue: prev.queue.concat(ids),
-			})),
-
-		shiftFromQueue: () =>
-			set(queueBaseAtom, (prev) => ({
-				...prev,
-				queue: prev.queue.slice(1),
 			})),
 
 		addToPending: (item: SkuItem) =>

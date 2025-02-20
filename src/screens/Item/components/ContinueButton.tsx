@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Button } from "react-native-paper";
 import { StackActions } from "@react-navigation/native";
 import { useAtomValue } from "jotai";
@@ -29,14 +29,33 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const queueSetter = useAtomSetter(queueAtom);
 	const orderSetter = useAtomSetter(orderAtom);
 
-	const next = queue[0];
+	const next = queue[index + 1];
+
+	const advanceToCart = useCallback(() => {
+		if (navigation.canGoBack()) {
+			navigation.dispatch(StackActions.popToTop());
+		}
+		navigation.replace(ScreenKeys.Cart);
+		queueSetter.clear();
+	}, [navigation, queueSetter]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const secondaryButtonInfo = useMemo(() => {
-		if (next) {
+		if (queue.length || pending.length) {
 			return {
-				text: `Skip ${next}`,
-				onPress: () => {},
+				text: `Skip ${getCopy(activeItem.sku)}`,
+				onPress: () => {
+					if (!next) {
+						orderSetter.addItem(...pending);
+
+						advanceToCart();
+						return;
+					}
+
+					queueSetter.updateIndex(index + 1);
+					activeItemSetter.setDefaultItem({ sku: next });
+					navigation.push(ScreenKeys.Item, { title: getCopy(next) });
+				},
 			};
 		}
 
@@ -45,7 +64,6 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 				text: "Make it a combo",
 				onPress: () => {
 					queueSetter.updateIndex(index + 1);
-					queueSetter.pushToQueue(Sku.SoftDrink);
 					queueSetter.addToPending(activeItem);
 					activeItemSetter.setDefaultItem({ sku: Sku.Fries });
 					navigation.push(ScreenKeys.Item, { title: getCopy(Sku.Fries) });
@@ -61,22 +79,17 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 				onPress: () => {
 					activeItemSetter.setDefaultItem({ sku: next });
 					queueSetter.updateIndex(index + 1);
-					queueSetter.shiftFromQueue();
 					queueSetter.addToPending(activeItem);
 					navigation.push(ScreenKeys.Item, { title: getCopy(next) });
 				},
-				text: `Continue to ${next}`,
+				text: `Continue to ${getCopy(next)}`,
 			};
 		}
 
 		return {
 			onPress: () => {
 				orderSetter.addItem(...pending, activeItem);
-				if (navigation.canGoBack()) {
-					navigation.dispatch(StackActions.popToTop());
-				}
-				navigation.replace(ScreenKeys.Cart);
-				queueSetter.clear();
+				advanceToCart();
 			},
 			text: "Add to Order",
 		};

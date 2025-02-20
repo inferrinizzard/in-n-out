@@ -58,7 +58,7 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 					title: burgerCopy,
 				});
 				queueSetter.updateIndex(0);
-				queueSetter.pushToQueue(Sku.Fries, Sku.SoftDrink);
+				queueSetter.setQueue(combo[0], Sku.Fries, Sku.SoftDrink);
 			}}
 		>
 			<Box padding="xs" gap="xs">
