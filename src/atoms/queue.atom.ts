@@ -4,14 +4,21 @@ import type { SkuKey } from "@data/sku";
 
 import type { SkuItem } from "./types";
 
-type QueueAtomState = { queue: SkuKey[]; pending: SkuItem[] };
+type QueueAtomState = { index: number; queue: SkuKey[]; pending: SkuItem[] };
 
-const queueBaseAtom = atom<QueueAtomState>({ queue: [], pending: [] });
+const queueBaseAtom = atom<QueueAtomState>({
+	index: -1,
+	queue: [],
+	pending: [],
+});
 queueBaseAtom.debugLabel = "queueAtom";
 
 export const queueAtom = atom(
 	(get) => get(queueBaseAtom),
 	(get, set) => ({
+		updateIndex: (index: number) =>
+			set(queueBaseAtom, (prev) => ({ ...prev, index })),
+
 		pushToQueue: (...ids: SkuKey[]) =>
 			set(queueBaseAtom, (prev) => ({
 				...prev,
@@ -30,6 +37,6 @@ export const queueAtom = atom(
 				pending: [...prev.pending, item],
 			})),
 
-		clear: () => set(queueBaseAtom, { queue: [], pending: [] }),
+		clear: () => set(queueBaseAtom, { index: -1, queue: [], pending: [] }),
 	}),
 );

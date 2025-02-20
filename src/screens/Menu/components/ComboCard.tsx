@@ -10,7 +10,7 @@ import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 import type { Theme } from "@src/styles/theme";
 
-import { Menu, MenuComboMap, type MenuComboKey } from "@data/menu";
+import { MenuComboMap, type MenuComboKey } from "@data/menu";
 import calories from "@data/calories";
 import prices from "@data/prices";
 
@@ -56,6 +56,7 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 				navigation.push(ScreenKeys.Item, {
 					title: burgerCopy,
 				});
+				queue.updateIndex(0);
 				queue.pushToQueue(Sku.Fries, Sku.SoftDrink);
 			}}
 		>

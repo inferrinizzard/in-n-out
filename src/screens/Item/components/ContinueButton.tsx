@@ -23,7 +23,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const theme = useTheme<Theme>();
 
 	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
-	const [{ pending, queue }, queueSetter] = useAtom(queueAtom);
+	const [{ index, pending, queue }, queueSetter] = useAtom(queueAtom);
 	const { addItem } = useSetAtom(orderAtom)();
 
 	const next = queue[0];
@@ -41,6 +41,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 			return {
 				text: "Make it a combo",
 				onPress: () => {
+					queueSetter().updateIndex(index + 1);
 					queueSetter().pushToQueue(Sku.SoftDrink);
 					queueSetter().addToPending(activeItem);
 					activeItemSetter().setDefaultItem({ sku: Sku.Fries });
@@ -56,6 +57,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 			return {
 				onPress: () => {
 					activeItemSetter().setDefaultItem({ sku: next });
+					queueSetter().updateIndex(index + 1);
 					queueSetter().shiftFromQueue();
 					queueSetter().addToPending(activeItem);
 					navigation.push(ScreenKeys.Item, { title: getCopy(next) });
@@ -71,6 +73,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 					navigation.dispatch(StackActions.popToTop());
 				}
 				navigation.replace(ScreenKeys.Cart);
+				queueSetter().clear();
 			},
 			text: "Add to Order",
 		};

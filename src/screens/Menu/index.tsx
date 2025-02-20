@@ -40,17 +40,13 @@ const Menu = ({
 	const theme = useTheme<Theme>();
 
 	const { setDefaultItem } = useSetAtom(activeItemAtom)();
-	const { clear } = useSetAtom(queueAtom)();
+	const { updateIndex } = useSetAtom(queueAtom)();
 
 	const menuConfig = MenuSkuMap[activeMenu];
 
 	const subMenus = Object.keys(MenuSkuMap).filter(
 		(menu) => menu !== DataMenu.Main,
 	) as MenuKey[];
-
-	useEffect(() => {
-		clear();
-	}, [clear]);
 
 	return (
 		<ScreenContainer Footer={<CheckoutBanner navigation={navigation} />}>
@@ -89,6 +85,7 @@ const Menu = ({
 						subtext={"subtext" in item ? item.subtext : undefined}
 						onPress={() => {
 							setDefaultItem(item);
+							updateIndex(0);
 							navigation.push(ScreenKeys.Item, {
 								title: getCopy(item.sku.replace("Combo", "")),
 							});
