@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { FlatList } from "react-native";
 import { useTheme } from "@shopify/restyle";
-import { useSetAtom } from "jotai";
+
+import { useAtomSetter } from "@src/atoms";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
@@ -39,8 +40,8 @@ const Menu = ({
 }: MenuProps) => {
 	const theme = useTheme<Theme>();
 
-	const { setDefaultItem } = useSetAtom(activeItemAtom)();
-	const { updateIndex } = useSetAtom(queueAtom)();
+	const activeItemSetter = useAtomSetter(activeItemAtom);
+	const queueSetter = useAtomSetter(queueAtom);
 
 	const menuConfig = MenuSkuMap[activeMenu];
 
@@ -84,8 +85,8 @@ const Menu = ({
 						supertext={"supertext" in item ? item.supertext : undefined}
 						subtext={"subtext" in item ? item.subtext : undefined}
 						onPress={() => {
-							setDefaultItem(item);
-							updateIndex(0);
+							activeItemSetter.setDefaultItem(item);
+							queueSetter.updateIndex(0);
 							navigation.push(ScreenKeys.Item, {
 								title: getCopy(item.sku.replace("Combo", "")),
 							});

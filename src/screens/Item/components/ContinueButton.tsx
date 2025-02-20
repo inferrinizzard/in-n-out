@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Button } from "react-native-paper";
 import { StackActions } from "@react-navigation/native";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { useTheme } from "@shopify/restyle";
 
 import { ScreenKeys, type StackScreenProps } from "@src/navigation";
@@ -10,6 +10,7 @@ import { Box, Text } from "@src/components";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { orderAtom } from "@src/atoms/order.atom";
+import { useAtomSetter } from "@src/atoms";
 import type { Theme } from "@src/styles/theme";
 
 import { Sku } from "@data/sku";
@@ -22,9 +23,11 @@ interface ContinueButtonProps
 const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const theme = useTheme<Theme>();
 
-	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
-	const [{ index, pending, queue }, queueSetter] = useAtom(queueAtom);
-	const { addItem } = useSetAtom(orderAtom)();
+	const activeItem = useAtomValue(activeItemAtom);
+	const activeItemSetter = useAtomSetter(activeItemAtom);
+	const { index, pending, queue } = useAtomValue(queueAtom);
+	const queueSetter = useAtomSetter(queueAtom);
+	const orderSetter = useAtomSetter(orderAtom);
 
 	const next = queue[0];
 
@@ -41,10 +44,10 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 			return {
 				text: "Make it a combo",
 				onPress: () => {
-					queueSetter().updateIndex(index + 1);
-					queueSetter().pushToQueue(Sku.SoftDrink);
-					queueSetter().addToPending(activeItem);
-					activeItemSetter().setDefaultItem({ sku: Sku.Fries });
+					queueSetter.updateIndex(index + 1);
+					queueSetter.pushToQueue(Sku.SoftDrink);
+					queueSetter.addToPending(activeItem);
+					activeItemSetter.setDefaultItem({ sku: Sku.Fries });
 					navigation.push(ScreenKeys.Item, { title: getCopy(Sku.Fries) });
 				},
 			};
@@ -56,10 +59,10 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 		if (next) {
 			return {
 				onPress: () => {
-					activeItemSetter().setDefaultItem({ sku: next });
-					queueSetter().updateIndex(index + 1);
-					queueSetter().shiftFromQueue();
-					queueSetter().addToPending(activeItem);
+					activeItemSetter.setDefaultItem({ sku: next });
+					queueSetter.updateIndex(index + 1);
+					queueSetter.shiftFromQueue();
+					queueSetter.addToPending(activeItem);
 					navigation.push(ScreenKeys.Item, { title: getCopy(next) });
 				},
 				text: `Continue to ${next}`,
@@ -68,12 +71,12 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 
 		return {
 			onPress: () => {
-				addItem(...pending, activeItem);
+				orderSetter.addItem(...pending, activeItem);
 				if (navigation.canGoBack()) {
 					navigation.dispatch(StackActions.popToTop());
 				}
 				navigation.replace(ScreenKeys.Cart);
-				queueSetter().clear();
+				queueSetter.clear();
 			},
 			text: "Add to Order",
 		};
