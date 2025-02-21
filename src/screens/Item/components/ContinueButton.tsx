@@ -64,6 +64,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 			return {
 				text: "Make it a combo",
 				onPress: () => {
+					queueSetter.setQueue(activeItem.sku, Sku.Fries, Sku.SoftDrink);
 					queueSetter.addToPending(activeItem);
 					queueSetter.updateIndex(index + 1);
 					activeItemSetter.setDefaultItem({ sku: Sku.Fries });
