@@ -13,6 +13,7 @@ import type {
 	OptionInstance,
 	OptionKey,
 } from "@data/options";
+import { SkuItemMap } from "@data/sku";
 
 export interface CartItemProps extends SkuItem {
 	uuid: string;
@@ -40,8 +41,10 @@ const CartItem = ({
 		if (!(item in ItemOptionMap)) {
 			return true;
 		}
-		const defaultOptions =
-			ItemOptionMap[item as keyof typeof ItemOptionMap].default;
+		const defaultOptions = {
+			...ItemOptionMap[item as keyof typeof ItemOptionMap].default,
+			...(SkuItemMap[sku] as { override?: object }).override,
+		};
 
 		if (!(optionKey in defaultOptions)) {
 			return true;
