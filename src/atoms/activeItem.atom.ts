@@ -19,13 +19,14 @@ import { getBurgerName } from "./utils/burger";
 
 interface ActiveItemAtomState extends SkuItem {}
 
-const baseAtom = atom<ActiveItemAtomState>({} as unknown as SkuItem);
+const activeItemBaseAtom = atom<ActiveItemAtomState>({} as unknown as SkuItem);
+activeItemBaseAtom.debugLabel = "activeItemAtom";
 
 export const activeItemAtom = atom(
-	(get) => get(baseAtom),
+	(get) => get(activeItemBaseAtom),
 	(get, set) => ({
 		setItem: (item: ActiveItemAtomState) => {
-			set(baseAtom, item);
+			set(activeItemBaseAtom, item);
 		},
 
 		setDefaultItem: ({ sku }: Pick<ActiveItemAtomState, "sku">) => {
@@ -42,7 +43,7 @@ export const activeItemAtom = atom(
 			const price = prices.base[sku];
 			const numCalories = calories.base[sku];
 			const name = getCopy(sku);
-			set(baseAtom, {
+			set(activeItemBaseAtom, {
 				sku,
 				item: item.id,
 				name,
@@ -53,7 +54,7 @@ export const activeItemAtom = atom(
 		},
 
 		toggleFlag: (key: OptionKey, flag: OptionFlagKey) => {
-			const prev = get(baseAtom);
+			const prev = get(activeItemBaseAtom);
 
 			if (!prev) {
 				return;
@@ -70,13 +71,13 @@ export const activeItemAtom = atom(
 			};
 
 			set(
-				baseAtom,
+				activeItemBaseAtom,
 				(prev) => ({ ...prev, options: newOptions }) as ActiveItemAtomState,
 			);
 		},
 
 		updateOption: (key: OptionKey, value: OptionInstance) => {
-			const prev = get(baseAtom);
+			const prev = get(activeItemBaseAtom);
 
 			if (!prev) {
 				return;
@@ -96,7 +97,7 @@ export const activeItemAtom = atom(
 				: getCopy(prev.sku);
 
 			set(
-				baseAtom,
+				activeItemBaseAtom,
 				(prev) =>
 					({
 						...prev,

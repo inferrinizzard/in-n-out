@@ -1,6 +1,7 @@
 import { Image } from "react-native";
-import { useSetAtom } from "jotai";
 import { useTheme } from "@shopify/restyle";
+
+import { useAtomSetter } from "@src/atoms";
 
 import { ScreenKeys } from "@src/navigation";
 import { queueAtom } from "@src/atoms/queue.atom";
@@ -10,7 +11,7 @@ import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 import type { Theme } from "@src/styles/theme";
 
-import { Menu, MenuComboMap, type MenuComboKey } from "@data/menu";
+import { MenuComboMap, type MenuComboKey } from "@data/menu";
 import calories from "@data/calories";
 import prices from "@data/prices";
 
@@ -25,8 +26,8 @@ interface ComboCardProps extends Pick<MenuProps, "navigation"> {
 export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 	const theme = useTheme<Theme>();
 
-	const queue = useSetAtom(queueAtom)();
-	const { setDefaultItem } = useSetAtom(activeItemAtom)();
+	const queueSetter = useAtomSetter(queueAtom);
+	const activeItemSetter = useAtomSetter(activeItemAtom);
 
 	const combo = MenuComboMap[comboKey];
 	const image = getImage(comboKey);
@@ -52,11 +53,12 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			borderWidth={2}
 			style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
 			onPointerDown={() => {
-				setDefaultItem({ sku: combo[0] });
+				activeItemSetter.setDefaultItem({ sku: combo[0] });
 				navigation.push(ScreenKeys.Item, {
 					title: burgerCopy,
 				});
-				queue.pushToQueue(Sku.Fries, Sku.SoftDrink);
+				queueSetter.updateIndex(0);
+				queueSetter.setQueue(combo[0], Sku.Fries, Sku.SoftDrink);
 			}}
 		>
 			<Box padding="xs" gap="xs">

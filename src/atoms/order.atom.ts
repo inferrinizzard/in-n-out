@@ -5,13 +5,14 @@ import type { SkuItem } from "./types";
 
 type OrderAtomState = Record<string, SkuItem>;
 
-const baseAtom = atom<OrderAtomState>({});
+const orderBaseAtom = atom<OrderAtomState>({});
+orderBaseAtom.debugLabel = "orderAtom";
 
 export const orderAtom = atom(
-	(get) => get(baseAtom),
+	(get) => get(orderBaseAtom),
 	(get, set) => ({
 		addItem: (...items: SkuItem[]) =>
-			set(baseAtom, (prev) => ({
+			set(orderBaseAtom, (prev) => ({
 				...prev,
 				...items.reduce(
 					(acc, item) => Object.assign(acc, { [uuidV4()]: item }),
@@ -20,11 +21,11 @@ export const orderAtom = atom(
 			})),
 
 		removeItem: (key: string) =>
-			set(baseAtom, (prev) => {
+			set(orderBaseAtom, (prev) => {
 				delete prev[key];
 				return prev;
 			}),
 
-		getNumItems: () => Object.keys(get(baseAtom)).length,
+		getNumItems: () => Object.keys(get(orderBaseAtom)).length,
 	}),
 );

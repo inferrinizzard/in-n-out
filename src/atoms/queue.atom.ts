@@ -4,28 +4,55 @@ import type { SkuKey } from "@data/sku";
 
 import type { SkuItem } from "./types";
 
-type QueueAtomState = { queue: SkuKey[]; pending: SkuItem[] };
+type QueueAtomState = {
+	index: number;
+	queue: SkuKey[];
+	pending: Record<number, SkuItem>;
+};
 
-const baseAtom = atom<QueueAtomState>({ queue: [], pending: [] });
+const queueBaseAtom = atom<QueueAtomState>({
+	index: -1,
+	queue: [],
+	pending: {},
+});
+queueBaseAtom.debugLabel = "queueAtom";
 
 export const queueAtom = atom(
-	(get) => get(baseAtom),
+	(get) => get(queueBaseAtom),
 	(get, set) => ({
-		pushToQueue: (...ids: SkuKey[]) =>
-			set(baseAtom, (prev) => ({ ...prev, queue: prev.queue.concat(ids) })),
+		updateIndex: (index: number) =>
+			set(queueBaseAtom, (prev) => ({ ...prev, index })),
 
-		shiftFromQueue: () =>
-			set(baseAtom, (prev) => ({
+		setQueue: (...ids: SkuKey[]) =>
+			set(queueBaseAtom, (prev) => ({
 				...prev,
-				queue: prev.queue.slice(1),
+				queue: prev.queue.concat(ids),
 			})),
 
 		addToPending: (item: SkuItem) =>
-			set(baseAtom, (prev) => ({
+			set(queueBaseAtom, (prev) => ({
 				...prev,
-				pending: [...prev.pending, item],
+				pending: { ...prev.pending, [prev.index]: item },
 			})),
 
-		clear: () => set(baseAtom, { queue: [], pending: [] }),
+		popFromPending: (index: number) => {
+			const prevPending = get(queueBaseAtom).pending;
+
+			if (!(index in prevPending)) {
+				return;
+			}
+
+			const item = { ...prevPending[index] };
+			delete prevPending[index];
+
+			set(queueBaseAtom, (prev) => ({
+				...prev,
+				pending: prevPending,
+			}));
+
+			return item;
+		},
+
+		clear: () => set(queueBaseAtom, { index: -1, queue: [], pending: [] }),
 	}),
 );
