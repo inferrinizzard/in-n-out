@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import { Button, Icon } from "react-native-paper";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 
+import { activeItemAtom, useAtomSetter } from "@src/atoms";
 import { queueAtom } from "@src/atoms/queue.atom";
 
 import type { HeaderProps } from "./index";
@@ -9,17 +10,27 @@ import type { HeaderProps } from "./index";
 export interface HeaderButtonProps extends Pick<HeaderProps, "navigation"> {}
 
 const HeaderButton = ({ navigation }: HeaderButtonProps) => {
-	const [{ index }, getQueueSetter] = useAtom(queueAtom);
+	const { index, queue } = useAtomValue(queueAtom);
+	const queueSetter = useAtomSetter(queueAtom);
+	const activeItemSetter = useAtomSetter(activeItemAtom);
 
 	const handlePress = useCallback(() => {
 		navigation.goBack();
 
 		if (index === 0) {
-			getQueueSetter().clear();
+			queueSetter.clear();
 		} else {
-			getQueueSetter().updateIndex(index - 1);
+			const prevIndex = index - 1;
+			queueSetter.updateIndex(prevIndex);
+			const prevItem = queueSetter.popFromPending(prevIndex);
+
+			if (prevItem) {
+				activeItemSetter.setItem(prevItem);
+			} else {
+				activeItemSetter.setDefaultItem({ sku: queue[prevIndex] });
+			}
 		}
-	}, [index, navigation.goBack, getQueueSetter]);
+	}, [queue, index, navigation.goBack, queueSetter, activeItemSetter]);
 
 	return (
 		<Button onPress={handlePress}>

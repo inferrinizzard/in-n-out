@@ -30,6 +30,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 	const orderSetter = useAtomSetter(orderAtom);
 
 	const next = queue[index + 1];
+	const pendingList = Object.values(pending);
 
 	const advanceToCart = useCallback(() => {
 		if (navigation.canGoBack()) {
@@ -41,12 +42,12 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const secondaryButtonInfo = useMemo(() => {
-		if (queue.length || pending.length) {
+		if (queue.length || pendingList.length) {
 			return {
 				text: `Skip ${getCopy(activeItem.sku)}`,
 				onPress: () => {
 					if (!next) {
-						orderSetter.addItem(...pending);
+						orderSetter.addItem(...pendingList);
 
 						advanceToCart();
 						return;
@@ -63,8 +64,8 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 			return {
 				text: "Make it a combo",
 				onPress: () => {
-					queueSetter.updateIndex(index + 1);
 					queueSetter.addToPending(activeItem);
+					queueSetter.updateIndex(index + 1);
 					activeItemSetter.setDefaultItem({ sku: Sku.Fries });
 					navigation.push(ScreenKeys.Item, { title: getCopy(Sku.Fries) });
 				},
@@ -78,8 +79,8 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 			return {
 				onPress: () => {
 					activeItemSetter.setDefaultItem({ sku: next });
-					queueSetter.updateIndex(index + 1);
 					queueSetter.addToPending(activeItem);
+					queueSetter.updateIndex(index + 1);
 					navigation.push(ScreenKeys.Item, { title: getCopy(next) });
 				},
 				text: `Continue to ${getCopy(next)}`,
@@ -88,7 +89,7 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 
 		return {
 			onPress: () => {
-				orderSetter.addItem(...pending, activeItem);
+				orderSetter.addItem(...pendingList, activeItem);
 				advanceToCart();
 			},
 			text: "Add to Order",
