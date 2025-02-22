@@ -13,6 +13,7 @@ import type {
 	OptionInstance,
 	OptionKey,
 } from "@data/options";
+import { SkuItemMap } from "@data/sku";
 
 export interface CartItemProps extends SkuItem {
 	uuid: string;
@@ -31,6 +32,11 @@ const CartItem = ({
 	const image = getImage(sku);
 	const itemText = getCopy(sku).toUpperCase();
 
+	const defaultOptions = {
+		...ItemOptionMap[item as keyof typeof ItemOptionMap].default,
+		...(SkuItemMap[sku] as { override?: object }).override,
+	};
+
 	const customisationData = (
 		Object.entries(options ?? {}) as [
 			OptionKey,
@@ -40,8 +46,6 @@ const CartItem = ({
 		if (!(item in ItemOptionMap)) {
 			return true;
 		}
-		const defaultOptions =
-			ItemOptionMap[item as keyof typeof ItemOptionMap].default;
 
 		if (!(optionKey in defaultOptions)) {
 			return true;
@@ -88,8 +92,17 @@ const CartItem = ({
 				<Text variant="header">{itemText}</Text>
 				{customisationData.map(([key, val]) => (
 					<React.Fragment key={`${uuid}-${key}`}>
-						<Text>{`${key}: ${val.value}`}</Text>
-						{"count" in val && <Text>{`${key}: ${val.count}`}</Text>}
+						{
+							// @ts-expect-error
+							defaultOptions[key].value !== val.value && (
+								<Text>{`${key}: ${val.value}`}</Text>
+							)
+						}
+						{"count" in val &&
+							// @ts-expect-error
+							defaultOptions[key].count !== val.count && (
+								<Text>{`${key}: ${val.count}`}</Text>
+							)}
 						{val.flags &&
 							Object.entries(val.flags).map(([flagKey, flagValue]) =>
 								flagValue ? <Text key={flagKey}>{`- ${flagKey}`}</Text> : null,
