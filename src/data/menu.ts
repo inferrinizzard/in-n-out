@@ -34,7 +34,7 @@ export const MenuSkuMap = Object.freeze({
 			{ sku: Sku["3X3"], subtext: "Triple Meat, Triple Cheese" },
 			{ sku: Sku["4X4"], subtext: "Quad Meat, Quad Cheese" },
 			{ sku: Sku.AnimalFries, subtext: "Topped with Classic Spread" },
-			{ sku: Sku.GrilledCheese },
+			{ sku: Sku.GrilledCheese, subtext: "Vegetarian Friendly" },
 			{ sku: Sku.DoubleMeat },
 			{
 				sku: Sku.FlyingDutchman,
