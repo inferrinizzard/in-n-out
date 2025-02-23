@@ -1,5 +1,5 @@
 import type { OptionKey, OptionInstance } from "@data/options";
-import type { ItemConfig, ItemKey, ItemOptionMap } from "@data/items";
+import type { ItemKey, ItemOptionMap } from "@data/items";
 import type { SkuItemMap, SkuKey } from "@data/sku";
 
 export type SkuOptions<
@@ -7,7 +7,7 @@ export type SkuOptions<
 	Option extends OptionKey = Item extends keyof typeof ItemOptionMap
 		? (typeof ItemOptionMap)[Item]["options"][number]
 		: never,
-> = Record<Option, OptionInstance<Option>>;
+> = { [O in Option]: OptionInstance<O> };
 
 export interface SkuItem<
 	Sku extends SkuKey,

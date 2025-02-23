@@ -124,7 +124,7 @@ export const getBurgerCalories = (
 		0,
 	);
 
-	if (options[Option.Burger]?.flags?.[OptionFlag.AnimalStyle]) {
+	if (options[Option.Burger]?.flags[OptionFlag.AnimalStyle]) {
 		numCalories += calories.misc.AnimalStyle;
 	}
 
