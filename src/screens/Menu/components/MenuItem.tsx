@@ -28,7 +28,7 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>
 			<Image
 				source={image}
-				style={{ height: 48, width: 64, flexGrow: 0, flexShrink: 1 }}
+				style={{ minHeight: 48, minWidth: 64, flexGrow: 0, flexShrink: 1 }}
 				resizeMode="contain"
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
