@@ -29,20 +29,27 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 		"flags" in OptionConfigMap[option] ? OptionConfigMap[option].flags : [];
 
 	return (
-		<Box gap="s" padding="s">
+		<Box>
 			{options.map((optionValue) => {
 				const isActive = activeItem.options?.[option]?.value === optionValue;
 				return (
 					<Box
 						key={optionValue}
 						flexDirection="row"
+						padding="xs"
+						backgroundColor={isActive ? "greyLight" : undefined}
 						onPointerDown={() =>
 							activeItemSetter().updateOption(option, {
 								value: optionValue,
 							} as OptionInstance<typeof option>)
 						}
 					>
-						<Text style={{ flexGrow: 1 }}>{getCopy(optionValue)}</Text>
+						<Text
+							variant={isActive ? "bold" : undefined}
+							style={{ flexGrow: 1, letterSpacing: 0 }}
+						>
+							{getCopy(optionValue)}
+						</Text>
 						<Icon
 							source={isActive ? "radiobox-marked" : "radiobox-blank"}
 							size={16}
@@ -52,21 +59,27 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 			})}
 
 			{flags.map((flag) => {
+				const isActive =
+					activeItemFlags &&
+					flag in activeItemFlags &&
+					activeItemFlags[flag as keyof typeof activeItemFlags];
+
 				return (
 					<Box
 						key={flag}
 						flexDirection="row"
+						padding="xs"
+						backgroundColor={isActive ? "greyLight" : undefined}
 						onPointerDown={() => activeItemSetter().toggleFlag(option, flag)}
 					>
-						<Text style={{ flexGrow: 1 }}>{getCopy(flag)}</Text>
+						<Text
+							variant={isActive ? "bold" : undefined}
+							style={{ flexGrow: 1, letterSpacing: 0 }}
+						>
+							{getCopy(flag)}
+						</Text>
 						<Icon
-							source={
-								activeItemFlags &&
-								flag in activeItemFlags &&
-								activeItemFlags[flag as keyof typeof activeItemFlags]
-									? "checkbox-marked"
-									: "checkbox-blank-outline"
-							}
+							source={isActive ? "checkbox-marked" : "checkbox-blank-outline"}
 							size={16}
 						/>
 					</Box>
