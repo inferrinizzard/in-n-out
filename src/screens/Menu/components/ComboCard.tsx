@@ -33,7 +33,6 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 	const image = getImage(comboKey);
 
 	const burgerCopy = getCopy(combo[0]);
-	const text = `${burgerCopy}, French Fries, and Medium Drink`.replace("®", ""); // temp, figure out text replacement util
 
 	const price = prices.base[comboKey];
 	const calorieCount = calories.base[comboKey];
@@ -97,7 +96,11 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 					}}
 					resizeMode="contain"
 				/>
-				<Text variant="bold">{text}</Text>
+				<Box>
+					<Text variant="bold">{`${burgerCopy},`}</Text>
+					<Text variant="bold">{"French Fries, and"}</Text>
+					<Text variant="bold">{"Medium Drink"}</Text>
+				</Box>
 				<Box
 					flexDirection="row"
 					justifyContent="space-between"

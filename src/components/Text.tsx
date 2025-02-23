@@ -40,7 +40,7 @@ export const Text = ({ children, ...props }: Parameters<typeof _Text>[0]) => {
 	return (
 		<Box flexDirection="row" flexWrap="nowrap" style={{ gap: "0.04em" }}>
 			{slugs.map((slug, i) => (
-				<React.Fragment key={i}>
+				<React.Fragment key={slug}>
 					{i ? (
 						<_Text {...props} style={rStyle}>
 							{"®"}

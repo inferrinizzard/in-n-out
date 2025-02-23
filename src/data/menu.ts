@@ -21,7 +21,14 @@ export const MenuSkuMap = Object.freeze({
 		],
 	},
 	[Menu.HotDrink]: {
-		items: [{ sku: Sku.Coffee }, { sku: Sku.Milk }, { sku: Sku.HotCocoa }],
+		items: [
+			{ sku: Sku.Coffee },
+			{ sku: Sku.Milk },
+			{
+				sku: Sku.HotCocoa,
+				subtext: "Made with premium Ghirardelli® Chocolate",
+			},
+		],
 	},
 	[Menu.SecretMenu]: {
 		supertext: "Not So",
