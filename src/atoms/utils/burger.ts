@@ -1,13 +1,8 @@
 import calories from "@data/calories";
 import prices from "@data/prices";
 import type { SkuKey } from "@data/sku";
-import { ItemOptionMap } from "@data/items";
-import {
-	type CountOptionInstance,
-	Option,
-	OptionFlag,
-	OptionValue,
-} from "@data/options";
+import { type Item, ItemOptionMap } from "@data/items";
+import { Option, OptionFlag, OptionValue } from "@data/options";
 
 import type { SkuOptions } from "../types";
 
@@ -82,11 +77,9 @@ export const getBurgerName = (meat: number, cheese: number) => {
 
 export const getBurgerPrice = (
 	id: SkuKey,
-	options: Partial<
-		Pick<
-			SkuOptions,
-			typeof Option.Meat | typeof Option.Cheese | typeof Option.Burger
-		>
+	options: Pick<
+		SkuOptions<typeof Item.Burger>,
+		typeof Option.Meat | typeof Option.Cheese | typeof Option.Burger
 	>,
 ) => {
 	let price = prices.base[id] as number;
@@ -94,18 +87,13 @@ export const getBurgerPrice = (
 	const defaults = ItemOptionMap.Burger.default;
 
 	const meatDelta = Math.max(
-		(options[Option.Meat] as CountOptionInstance).count - defaults.Meat.count,
+		options[Option.Meat].count - defaults.Meat.count,
 		0,
 	);
 	const cheeseDelta = Math.max(
-		(options[Option.Cheese] as CountOptionInstance).count -
-			defaults.Cheese.count,
+		options[Option.Cheese].count - defaults.Cheese.count,
 		0,
 	);
-
-	if (options[Option.Burger]?.flags?.[OptionFlag.AnimalStyle]) {
-		price += prices.misc.AnimalStyle;
-	}
 
 	price += meatDelta * prices.misc.Meat;
 	price += cheeseDelta * prices.misc.Cheese;
@@ -115,14 +103,12 @@ export const getBurgerPrice = (
 
 export const getBurgerCalories = (
 	id: SkuKey,
-	options: Partial<
-		Pick<
-			SkuOptions,
-			| typeof Option.Meat
-			| typeof Option.Cheese
-			| typeof Option.Burger
-			| typeof Option.Bun
-		>
+	options: Pick<
+		SkuOptions<typeof Item.Burger>,
+		| typeof Option.Meat
+		| typeof Option.Cheese
+		| typeof Option.Burger
+		| typeof Option.Bun
 	>,
 ) => {
 	let numCalories = calories.base[id];
@@ -130,12 +116,11 @@ export const getBurgerCalories = (
 	const defaults = ItemOptionMap.Burger.default;
 
 	const meatDelta = Math.max(
-		(options[Option.Meat] as CountOptionInstance).count - defaults.Meat.count,
+		options[Option.Meat].count - defaults.Meat.count,
 		0,
 	);
 	const cheeseDelta = Math.max(
-		(options[Option.Cheese] as CountOptionInstance).count -
-			defaults.Cheese.count,
+		options[Option.Cheese].count - defaults.Cheese.count,
 		0,
 	);
 

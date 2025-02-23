@@ -1,5 +1,6 @@
+import type { ValueOf } from "@src/types/util";
+
 import { Option, OptionValue, type OptionKey } from "./options";
-import type { OptionInstance } from "./options";
 
 export const Item = Object.freeze({
 	Burger: "Burger",
@@ -61,12 +62,4 @@ export const ItemOptionMap = Object.freeze({
 	},
 });
 
-ItemOptionMap satisfies Partial<
-	Record<
-		ItemKey,
-		{
-			options: OptionKey[];
-			default: Partial<Record<OptionKey, OptionInstance>>;
-		}
-	>
->;
+export type ItemConfig = ValueOf<typeof ItemOptionMap>;

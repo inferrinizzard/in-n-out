@@ -1,11 +1,6 @@
-import { Item, type ItemKey } from "./items";
-import {
-	Option,
-	OptionValue,
-	OptionFlag,
-	type OptionKey,
-	type OptionInstance,
-} from "./options";
+import type { ValueOf } from "@src/types/util";
+import { Item } from "./items";
+import { Option, OptionValue, OptionFlag } from "./options";
 
 export const Sku = Object.freeze({
 	DblDbl: "DblDbl",
@@ -186,7 +181,4 @@ export const SkuItemMap = Object.freeze({
 	},
 } as const);
 
-// SkuItemMap satisfies Record<
-// 	SkuKey,
-// 	{ id: ItemKey; override?: Partial<Record<OptionKey, OptionInstance>> }
-// >;
+export type SkuConfig = ValueOf<typeof SkuItemMap>;
