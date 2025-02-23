@@ -5,7 +5,11 @@ import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { Box, Text } from "@src/components";
 import { getCopy } from "@src/utils/getCopy";
 
-import { OptionConfigMap, type OptionKey } from "@data/options";
+import {
+	OptionConfigMap,
+	type OptionInstance,
+	type OptionKey,
+} from "@data/options";
 
 interface CustomisationDropdownProps<Option extends OptionKey> {
 	option: Option;
@@ -15,6 +19,9 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 	option,
 }: CustomisationDropdownProps<Option>) => {
 	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
+
+	const activeItemOptions = activeItem.options?.[option];
+	const activeItemFlags = activeItemOptions?.flags;
 
 	const optionConfig = OptionConfigMap[option];
 	const options = "options" in optionConfig ? optionConfig.options : [];
@@ -30,7 +37,9 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 						key={optionValue}
 						flexDirection="row"
 						onPointerDown={() =>
-							activeItemSetter().updateOption(option, { value: optionValue })
+							activeItemSetter().updateOption(option, {
+								value: optionValue,
+							} as OptionInstance<typeof option>)
 						}
 					>
 						<Text style={{ flexGrow: 1 }}>{getCopy(optionValue)}</Text>
@@ -52,7 +61,9 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 						<Text style={{ flexGrow: 1 }}>{getCopy(flag)}</Text>
 						<Icon
 							source={
-								activeItem.options?.[option].flags?.[flag]
+								activeItemFlags &&
+								flag in activeItemFlags &&
+								activeItemFlags[flag as keyof typeof activeItemFlags]
 									? "checkbox-marked"
 									: "checkbox-blank-outline"
 							}

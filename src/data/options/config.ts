@@ -1,12 +1,12 @@
 import {
 	DrinkOption,
+	type DrinkOptionKey,
 	Option,
 	OptionFlag,
-	type OptionKey,
 	OptionValue,
 	ShakeOption,
+	type ShakeOptionKey,
 } from "./consts";
-import type { OptionConfig } from "./types";
 
 export const DrinkSizes = [
 	OptionValue.Small,
@@ -97,9 +97,9 @@ export const OptionConfigMap = Object.freeze({
 		flags: [OptionFlag.ColdCheese],
 	},
 	[Option.Shake]: {
-		options: Object.keys(ShakeOption),
+		options: Object.keys(ShakeOption) as ShakeOptionKey[],
 	},
 	[Option.Drink]: {
-		options: Object.keys(DrinkOption),
+		options: Object.keys(DrinkOption) as DrinkOptionKey[],
 	},
 } as const);
