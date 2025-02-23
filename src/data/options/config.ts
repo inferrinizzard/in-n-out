@@ -77,7 +77,6 @@ export const OptionConfigMap = Object.freeze({
 		options: DrinkSizes,
 	},
 	[Option.Burger]: {
-		options: [],
 		flags: [OptionFlag.AnimalStyle, OptionFlag.CutInHalf],
 	},
 	[Option.Fries]: {
@@ -89,11 +88,12 @@ export const OptionConfigMap = Object.freeze({
 		flags: [OptionFlag.NoSalt],
 	},
 	[Option.Meat]: {
+		count: true,
 		options: [OptionValue.MediumRare, OptionValue.Medium, OptionValue.WellDone],
 		flags: [OptionFlag.NoSalt, OptionFlag.MustardGrilled],
 	},
 	[Option.Cheese]: {
-		options: [],
+		count: true,
 		flags: [OptionFlag.ColdCheese],
 	},
 	[Option.Shake]: {
@@ -103,8 +103,3 @@ export const OptionConfigMap = Object.freeze({
 		options: Object.keys(DrinkOption),
 	},
 } as const);
-
-OptionConfigMap satisfies Record<
-	OptionKey,
-	OptionConfig<readonly string[], readonly string[]>
->;

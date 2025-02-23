@@ -1,22 +1,25 @@
-export interface OptionConfig<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> {
-	options: Options;
-	flags?: Flags;
-}
+import type { ValueOf } from "@src/types/util";
+import type { OptionConfigMap } from "./config";
+import type { OptionFlagKey } from "./consts";
 
-export interface OptionInstance<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> {
-	value: Options[number];
-	flags?: { [F in Flags[number]]?: boolean };
-}
+export type OptionConfig = ValueOf<typeof OptionConfigMap>;
 
-export interface CountOptionInstance<
-	Options extends readonly string[] = readonly string[],
-	Flags extends readonly string[] = readonly string[],
-> extends OptionInstance<Options, Flags> {
-	count: number;
-}
+export type OptionInstance<Config extends OptionConfig> = {
+	value: Config extends {
+		options: Readonly<Array<infer Option>>;
+	}
+		? Option
+		: never;
+
+	count: Config extends {
+		count: true;
+	}
+		? number
+		: never;
+
+	flags: Config extends {
+		flags: Readonly<Array<infer Flag extends OptionFlagKey>>;
+	}
+		? Record<Flag, boolean | undefined>
+		: never;
+};

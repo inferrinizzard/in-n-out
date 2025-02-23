@@ -7,16 +7,17 @@ import { getCopy } from "@src/utils/getCopy";
 
 import { OptionConfigMap, type OptionKey } from "@data/options";
 
-interface CustomisationDropdownProps {
-	option: OptionKey;
+interface CustomisationDropdownProps<Option extends OptionKey> {
+	option: Option;
 }
 
-export const CustomisationDropdown = ({
+export const CustomisationDropdown = <Option extends OptionKey>({
 	option,
-}: CustomisationDropdownProps) => {
+}: CustomisationDropdownProps<Option>) => {
 	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
 
-	const options = OptionConfigMap[option].options;
+	const optionConfig = OptionConfigMap[option];
+	const options = "options" in optionConfig ? optionConfig.options : [];
 	const flags =
 		"flags" in OptionConfigMap[option] ? OptionConfigMap[option].flags : [];
 
