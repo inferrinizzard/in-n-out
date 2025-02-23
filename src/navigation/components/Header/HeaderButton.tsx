@@ -26,7 +26,7 @@ const HeaderButton = ({ navigation }: HeaderButtonProps) => {
 
 			if (prevItem) {
 				activeItemSetter.setItem(prevItem);
-			} else {
+			} else if (queue[prevIndex]) {
 				activeItemSetter.setDefaultItem({ sku: queue[prevIndex] });
 			}
 		}
