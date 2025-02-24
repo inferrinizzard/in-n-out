@@ -57,7 +57,7 @@ export const activeItemAtom = atom(
 				return;
 			}
 
-			const prevFlags = prev.options?.[key].flags;
+			const prevFlags = prev.options?.[key]?.flags;
 			const prevFlagValue =
 				prevFlags && flag in prevFlags
 					? prevFlags[flag as keyof typeof prevFlags]
@@ -67,7 +67,7 @@ export const activeItemAtom = atom(
 				...prev?.options,
 				[key]: {
 					...prev.options?.[key],
-					flags: { ...prev.options?.[key].flags, [flag]: !prevFlagValue },
+					flags: { ...prevFlags, [flag]: !prevFlagValue },
 				},
 			};
 

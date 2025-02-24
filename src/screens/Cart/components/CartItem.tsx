@@ -89,25 +89,33 @@ const CartItem = <Sku extends SkuKey>({
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				<Text variant="header">{itemText}</Text>
-				{customisationData.map(([key, val]) => (
-					<React.Fragment key={`${uuid}-${key}`}>
-						{
-							// @ts-expect-error
-							defaultOptions[key].value !== val.value && (
-								<Text>{`${key}: ${val.value}`}</Text>
-							)
-						}
-						{"count" in val &&
-							// @ts-expect-error
-							defaultOptions[key].count !== val.count && (
-								<Text>{`${key}: ${val.count}`}</Text>
-							)}
-						{val.flags &&
-							Object.entries(val.flags).map(([flagKey, flagValue]) =>
-								flagValue ? <Text key={flagKey}>{`- ${flagKey}`}</Text> : null,
-							)}
-					</React.Fragment>
-				))}
+				{customisationData.map(([key, val]) => {
+					return (
+						<React.Fragment key={`${uuid}-${key}`}>
+							{
+								// @ts-expect-error
+								defaultOptions[key]?.value &&
+									// @ts-expect-error
+									defaultOptions[key].value !== val.value && (
+										<Text>{`${key}: ${val.value}`}</Text>
+									)
+							}
+							{"count" in val &&
+								// @ts-expect-error
+								defaultOptions[key]?.count &&
+								// @ts-expect-error
+								defaultOptions[key].count !== val.count && (
+									<Text>{`${key}: ${val.count}`}</Text>
+								)}
+							{val.flags &&
+								Object.entries(val.flags).map(([flagKey, flagValue]) =>
+									flagValue ? (
+										<Text key={flagKey}>{`- ${flagKey}`}</Text>
+									) : null,
+								)}
+						</React.Fragment>
+					);
+				})}
 			</View>
 
 			<View

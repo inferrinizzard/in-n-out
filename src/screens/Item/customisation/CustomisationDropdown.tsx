@@ -27,7 +27,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 
 	const activeItemOptions = activeItem.options?.[option];
 	const activeItemFlags = activeItemOptions?.flags;
-	const activeItemCount = activeItem.options?.[option].count ?? 0;
+	const activeItemCount = activeItem.options?.[option]?.count ?? 0;
 
 	const optionConfig = OptionConfigMap[option];
 	const hasCountOption = "count" in optionConfig ? optionConfig.count : false;

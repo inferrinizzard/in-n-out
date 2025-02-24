@@ -15,28 +15,6 @@ const _Text = ({
 }: Parameters<typeof ThemeText>[0]) => {
 	const theme = useTheme<Theme>();
 
-	if (!children) {
-		return null;
-	}
-
-	if (typeof children !== "string") {
-		return (
-			<ThemeText {...props} style={style}>
-				{children}
-			</ThemeText>
-		);
-	}
-
-	const slugs = children.split("®");
-
-	if (slugs.length <= 1) {
-		return (
-			<ThemeText {...props} style={style}>
-				{children}
-			</ThemeText>
-		);
-	}
-
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const textStyle: StyleProp<TextStyle> = useMemo(() => {
 		const variantTheme = props.variant
@@ -58,6 +36,28 @@ const _Text = ({
 
 		return { fontSize, lineHeight, letterSpacing };
 	}, [props.variant, style]);
+
+	if (!children) {
+		return null;
+	}
+
+	if (typeof children !== "string") {
+		return (
+			<ThemeText {...props} style={style}>
+				{children}
+			</ThemeText>
+		);
+	}
+
+	const slugs = children.split("®");
+
+	if (slugs.length <= 1) {
+		return (
+			<ThemeText {...props} style={style}>
+				{children}
+			</ThemeText>
+		);
+	}
 
 	const rStyle: StyleProp<TextStyle> = {
 		fontSize: (textStyle.fontSize ?? 0) * 0.6 || undefined,
