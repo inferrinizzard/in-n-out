@@ -27,7 +27,7 @@ const CartItem = <Sku extends SkuKey>({
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const image = getImage(sku);
-	const itemText = name || getCopy(sku).toUpperCase();
+	const itemText = (name || getCopy(sku)).toUpperCase();
 
 	const defaultOptions = {
 		...ItemOptionMap[item as keyof typeof ItemOptionMap].default,
