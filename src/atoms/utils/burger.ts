@@ -6,7 +6,7 @@ import { Option, OptionFlag, OptionValue } from "@data/options";
 
 import type { SkuOptions } from "../types";
 
-export const getBurgerName = (meat: number, cheese: number) => {
+const _getBurgerName = (meat: number, cheese: number) => {
 	const meatTerm = ["", "Single", "Double", "Triple"][meat] ?? meat.toString();
 	const cheeseTerm =
 		["", "Single", "Double", "Triple"][cheese] ?? cheese.toString();
@@ -73,6 +73,15 @@ export const getBurgerName = (meat: number, cheese: number) => {
 	}
 
 	return `${left}${join}${right}`;
+};
+
+export const getBurgerName = (...args: Parameters<typeof _getBurgerName>) => {
+	const name = _getBurgerName(...args);
+	if (["4x4", "3x3", "Triple-Triple", "Double-Double"].includes(name)) {
+		return `${name}®`;
+	}
+
+	return name;
 };
 
 export const getBurgerPrice = (
