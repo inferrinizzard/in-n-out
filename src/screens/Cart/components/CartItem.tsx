@@ -11,11 +11,11 @@ import { ItemOptionMap } from "@data/items";
 import type { OptionInstance, OptionKey } from "@data/options";
 import { SkuItemMap, type SkuKey } from "@data/sku";
 
-export interface CartItemProps extends SkuItem<SkuKey> {
+export interface CartItemProps<Sku extends SkuKey> extends SkuItem<Sku> {
 	uuid: string;
 }
 
-const CartItem = ({
+const CartItem = <Sku extends SkuKey>({
 	uuid,
 	sku,
 	item,
@@ -23,7 +23,7 @@ const CartItem = ({
 	price,
 	calories,
 	options,
-}: CartItemProps) => {
+}: CartItemProps<Sku>) => {
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const image = getImage(sku);
@@ -34,32 +34,36 @@ const CartItem = ({
 		...(SkuItemMap[sku] as { override?: object }).override,
 	};
 
-	const customisationData = Object.entries(options ?? {}).filter(
-		([optionKey, optionValue]) => {
-			if (!(item in ItemOptionMap)) {
-				return true;
-			}
+	const customisationData = (
+		Object.entries(options ?? {}) as {
+			[O in OptionKey]: [O, OptionInstance<O>];
+		}[OptionKey][]
+	).filter(([optionKey, optionValue]) => {
+		if (!(item in ItemOptionMap)) {
+			return true;
+		}
 
-			if (!(optionKey in defaultOptions)) {
-				return true;
-			}
+		if (!(optionKey in defaultOptions)) {
+			return true;
+		}
 
-			if (Object.values(optionValue.flags ?? {}).some((x) => x)) {
-				return true;
-			}
+		if (Object.values(optionValue.flags ?? {}).some((x) => x)) {
+			return true;
+		}
 
-			const defaultValue =
-				optionKey in defaultOptions
-					? defaultOptions[optionKey as keyof typeof defaultOptions]
-					: undefined;
+		const defaultValue =
+			optionKey in defaultOptions
+				? (defaultOptions[
+						optionKey as keyof typeof defaultOptions
+					] as OptionInstance<typeof optionKey>)
+				: undefined;
 
-			if (defaultValue && "count" in defaultValue && "count" in optionValue) {
-				return defaultValue.count !== optionValue.count;
-			}
+		if (defaultValue && "count" in defaultValue && "count" in optionValue) {
+			return defaultValue.count !== optionValue.count;
+		}
 
-			return defaultValue.value !== optionValue.value;
-		},
-	);
+		return defaultValue?.value !== optionValue.value;
+	});
 
 	const editCartItem = () => {
 		// dispatch(editItem(uuid));
