@@ -2,7 +2,12 @@ import { atom } from "jotai";
 
 import { getCopy } from "@src/utils/getCopy";
 
-import type { OptionKey, OptionFlagKey, OptionInstance } from "@data/options";
+import {
+	type OptionKey,
+	type OptionFlagKey,
+	type OptionInstance,
+	OptionConfigMap,
+} from "@data/options";
 import { SkuItemMap, type SkuKey } from "@data/sku";
 import { Item, ItemOptionMap } from "@data/items";
 import prices from "@data/prices";
@@ -12,11 +17,13 @@ import { getCalories, getPrice, isBurger } from "./utils";
 import type { SkuItem, SkuOptions } from "./types";
 import { getBurgerName } from "./utils/burger";
 
-interface ActiveItemAtomState extends SkuItem<SkuKey> {}
+interface ActiveItemAtomState extends SkuItem<SkuKey> {
+	isValid: boolean;
+}
 
-const activeItemBaseAtom = atom<ActiveItemAtomState>(
-	{} as unknown as ActiveItemAtomState,
-);
+const activeItemBaseAtom = atom<ActiveItemAtomState>({
+	isValid: false,
+} as unknown as ActiveItemAtomState);
 activeItemBaseAtom.debugLabel = "activeItemAtom";
 
 export const activeItemAtom = atom(
@@ -33,14 +40,24 @@ export const activeItemAtom = atom(
 				item.id in ItemOptionMap
 					? {
 							...ItemOptionMap[item.id as keyof typeof ItemOptionMap].default,
-							// @ts-expect-error
-							...SkuItemMap[sku].override,
+							...("override" in item ? item.override : undefined),
 						}
 					: undefined;
 			const price = prices.base[sku];
 			const numCalories = calories.base[sku];
 			const name = getCopy(sku);
+			const isValid =
+				item.id in ItemOptionMap
+					? ItemOptionMap[item.id as keyof typeof ItemOptionMap].options.every(
+							(option) =>
+								options &&
+								option in options &&
+								!!options[option as keyof typeof options],
+						)
+					: true;
+
 			set(activeItemBaseAtom, {
+				isValid,
 				sku,
 				item: item.id,
 				name,
@@ -82,6 +99,7 @@ export const activeItemAtom = atom(
 			value: OptionInstance<Option>,
 		) => {
 			const prev = get(activeItemBaseAtom);
+			const item = prev.item;
 
 			if (!prev) {
 				return;
@@ -108,11 +126,22 @@ export const activeItemAtom = atom(
 					)
 				: getCopy(prev.sku);
 
+			const isValid =
+				item in ItemOptionMap
+					? ItemOptionMap[item as keyof typeof ItemOptionMap].options.every(
+							(option) =>
+								newOptions &&
+								option in newOptions &&
+								!!newOptions[option as keyof typeof newOptions],
+						)
+					: true;
+
 			set(
 				activeItemBaseAtom,
 				(prev) =>
 					({
 						...prev,
+						isValid,
 						name,
 						price,
 						calories: numCalories,
