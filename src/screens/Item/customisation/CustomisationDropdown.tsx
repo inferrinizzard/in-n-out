@@ -1,5 +1,6 @@
-import { Icon } from "react-native-paper";
+import { Button, Icon, TextInput } from "react-native-paper";
 import { useAtom } from "jotai";
+import { useTheme } from "@shopify/restyle";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { Box, Text } from "@src/components";
@@ -10,6 +11,7 @@ import {
 	type OptionInstance,
 	type OptionKey,
 } from "@data/options";
+import type { Theme } from "@src/styles/theme";
 
 interface CustomisationDropdownProps<Option extends OptionKey> {
 	option: Option;
@@ -18,18 +20,44 @@ interface CustomisationDropdownProps<Option extends OptionKey> {
 export const CustomisationDropdown = <Option extends OptionKey>({
 	option,
 }: CustomisationDropdownProps<Option>) => {
+	const theme = useTheme<Theme>();
+
 	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
 
 	const activeItemOptions = activeItem.options?.[option];
 	const activeItemFlags = activeItemOptions?.flags;
 
 	const optionConfig = OptionConfigMap[option];
+	const hasCountOption = "count" in optionConfig ? optionConfig.count : false;
 	const options = "options" in optionConfig ? optionConfig.options : [];
 	const flags =
 		"flags" in OptionConfigMap[option] ? OptionConfigMap[option].flags : [];
 
 	return (
 		<Box>
+			{hasCountOption && (
+				<Box flexDirection="row" padding="xs" alignItems="center">
+					<Text style={{ flexGrow: 1 }}>{`Num ${option}`}</Text>
+					<Box flexDirection="row" gap="xs">
+						<Button style={{ backgroundColor: theme.colors.greyLight }}>
+							<Icon source={"minus"} size={12} />
+						</Button>
+						<TextInput
+							inputMode="numeric"
+							value={(activeItem.options?.[option].count ?? 0).toString()}
+							style={{
+								height: 30,
+								width: 30,
+							}}
+							onChange={() => {}}
+						/>
+						<Button style={{ backgroundColor: theme.colors.greyLight }}>
+							<Icon source={"plus"} size={12} />
+						</Button>
+					</Box>
+				</Box>
+			)}
+
 			{options.map((optionValue) => {
 				const isActive = activeItem.options?.[option]?.value === optionValue;
 				return (
