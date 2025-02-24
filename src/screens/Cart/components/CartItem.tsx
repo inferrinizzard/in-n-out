@@ -8,14 +8,10 @@ import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 import { ItemOptionMap } from "@data/items";
-import type {
-	CountOptionInstance,
-	OptionInstance,
-	OptionKey,
-} from "@data/options";
-import { SkuItemMap } from "@data/sku";
+import type { OptionInstance, OptionKey } from "@data/options";
+import { SkuItemMap, type SkuKey } from "@data/sku";
 
-export interface CartItemProps extends SkuItem {
+export interface CartItemProps extends SkuItem<SkuKey> {
 	uuid: string;
 }
 
@@ -23,6 +19,7 @@ const CartItem = ({
 	uuid,
 	sku,
 	item,
+	name,
 	price,
 	calories,
 	options,
@@ -30,41 +27,39 @@ const CartItem = ({
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const image = getImage(sku);
-	const itemText = getCopy(sku).toUpperCase();
+	const itemText = name || getCopy(sku).toUpperCase();
 
 	const defaultOptions = {
 		...ItemOptionMap[item as keyof typeof ItemOptionMap].default,
 		...(SkuItemMap[sku] as { override?: object }).override,
 	};
 
-	const customisationData = (
-		Object.entries(options ?? {}) as [
-			OptionKey,
-			OptionInstance | CountOptionInstance,
-		][]
-	).filter(([optionKey, optionValue]) => {
-		if (!(item in ItemOptionMap)) {
-			return true;
-		}
+	const customisationData = Object.entries(options ?? {}).filter(
+		([optionKey, optionValue]) => {
+			if (!(item in ItemOptionMap)) {
+				return true;
+			}
 
-		if (!(optionKey in defaultOptions)) {
-			return true;
-		}
+			if (!(optionKey in defaultOptions)) {
+				return true;
+			}
 
-		if (Object.values(optionValue.flags ?? {}).some((x) => x)) {
-			return true;
-		}
+			if (Object.values(optionValue.flags ?? {}).some((x) => x)) {
+				return true;
+			}
 
-		const defaultValue = defaultOptions[
-			optionKey as keyof typeof defaultOptions
-		] as OptionInstance | CountOptionInstance;
+			const defaultValue =
+				optionKey in defaultOptions
+					? defaultOptions[optionKey as keyof typeof defaultOptions]
+					: undefined;
 
-		if ("count" in defaultValue && "count" in optionValue) {
-			return defaultValue.count !== optionValue.count;
-		}
+			if (defaultValue && "count" in defaultValue && "count" in optionValue) {
+				return defaultValue.count !== optionValue.count;
+			}
 
-		return defaultValue.value !== optionValue.value;
-	});
+			return defaultValue.value !== optionValue.value;
+		},
+	);
 
 	const editCartItem = () => {
 		// dispatch(editItem(uuid));
