@@ -1,8 +1,8 @@
 import { Button, Icon, TextInput } from "react-native-paper";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { useTheme } from "@shopify/restyle";
 
-import { activeItemAtom } from "@src/atoms/activeItem.atom";
+import { activeItemAtom, useAtomSetter } from "@src/atoms";
 import { Box, Text } from "@src/components";
 import { getCopy } from "@src/utils/getCopy";
 
@@ -22,10 +22,12 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 }: CustomisationDropdownProps<Option>) => {
 	const theme = useTheme<Theme>();
 
-	const [activeItem, activeItemSetter] = useAtom(activeItemAtom);
+	const activeItemSetter = useAtomSetter(activeItemAtom);
+	const activeItem = useAtomValue(activeItemAtom);
 
 	const activeItemOptions = activeItem.options?.[option];
 	const activeItemFlags = activeItemOptions?.flags;
+	const activeItemCount = activeItem.options?.[option].count ?? 0;
 
 	const optionConfig = OptionConfigMap[option];
 	const hasCountOption = "count" in optionConfig ? optionConfig.count : false;
@@ -39,19 +41,39 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 				<Box flexDirection="row" padding="xs" alignItems="center">
 					<Text style={{ flexGrow: 1 }}>{`Num ${option}`}</Text>
 					<Box flexDirection="row" gap="xs">
-						<Button style={{ backgroundColor: theme.colors.greyLight }}>
+						<Button
+							style={{ backgroundColor: theme.colors.greyLight }}
+							disabled={activeItemCount <= 0}
+							onPress={() =>
+								activeItemSetter.updateOption(option, {
+									count: activeItemCount - 1,
+								} as OptionInstance<typeof option>)
+							}
+						>
 							<Icon source={"minus"} size={12} />
 						</Button>
 						<TextInput
 							inputMode="numeric"
-							value={(activeItem.options?.[option].count ?? 0).toString()}
+							keyboardType="numeric"
+							value={activeItemCount.toString()}
 							style={{
 								height: 30,
 								width: 30,
 							}}
-							onChange={() => {}}
+							onChangeText={(text) =>
+								activeItemSetter.updateOption(option, {
+									count: +text,
+								} as OptionInstance<typeof option>)
+							}
 						/>
-						<Button style={{ backgroundColor: theme.colors.greyLight }}>
+						<Button
+							style={{ backgroundColor: theme.colors.greyLight }}
+							onPress={() =>
+								activeItemSetter.updateOption(option, {
+									count: activeItemCount + 1,
+								} as OptionInstance<typeof option>)
+							}
+						>
 							<Icon source={"plus"} size={12} />
 						</Button>
 					</Box>
@@ -67,7 +89,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 						padding="xs"
 						backgroundColor={isActive ? "greyLight" : undefined}
 						onPointerDown={() =>
-							activeItemSetter().updateOption(option, {
+							activeItemSetter.updateOption(option, {
 								value: optionValue,
 							} as OptionInstance<typeof option>)
 						}
@@ -98,7 +120,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 						flexDirection="row"
 						padding="xs"
 						backgroundColor={isActive ? "greyLight" : undefined}
-						onPointerDown={() => activeItemSetter().toggleFlag(option, flag)}
+						onPointerDown={() => activeItemSetter.toggleFlag(option, flag)}
 					>
 						<Text
 							variant={isActive ? "bold" : undefined}
