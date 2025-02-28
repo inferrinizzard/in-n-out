@@ -96,10 +96,18 @@ export const OptionConfigMap = Object.freeze({
 		count: true,
 		flags: [OptionFlag.ColdCheese],
 	},
-	[Option.Shake]: {
-		options: Object.keys(ShakeOption) as ShakeOptionKey[],
-	},
 	[Option.Drink]: {
 		options: Object.keys(DrinkOption) as DrinkOptionKey[],
+	},
+	[Option.Float]: {
+		options: [
+			OptionValue.None,
+			ShakeOption.Vanilla,
+			ShakeOption.Chocolate,
+			ShakeOption.Strawberry,
+		],
+	},
+	[Option.Shake]: {
+		options: Object.keys(ShakeOption) as ShakeOptionKey[],
 	},
 } as const);
