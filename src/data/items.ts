@@ -1,6 +1,11 @@
 import type { ValueOf } from "@src/types/util";
 
-import { Option, OptionValue, type OptionKey } from "./options";
+import {
+	Option,
+	type OptionInstance,
+	type OptionKey,
+	OptionValue,
+} from "./options";
 
 export const Item = Object.freeze({
 	Burger: "Burger",
@@ -29,7 +34,7 @@ export const ItemOptionMap = Object.freeze({
 		],
 		default: {
 			[Option.Meat]: { count: 1, value: OptionValue.Medium },
-			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+			[Option.Cheese]: { count: 1 },
 			[Option.Onions]: { value: OptionValue.Regular },
 			[Option.Lettuce]: { value: OptionValue.Regular },
 			[Option.Tomato]: { value: OptionValue.Regular },
@@ -44,7 +49,7 @@ export const ItemOptionMap = Object.freeze({
 	[Item.Fries]: {
 		options: [Option.Fries, Option.Doneness],
 		default: {
-			[Option.Doneness]: { value: OptionValue.Medium },
+			[Option.Doneness]: { value: OptionValue.Regular },
 			[Option.Fries]: { value: OptionValue.Regular },
 		},
 	},
@@ -52,6 +57,7 @@ export const ItemOptionMap = Object.freeze({
 		options: [Option.Size, Option.Drink, Option.Shake],
 		default: {
 			[Option.Size]: { value: OptionValue.Medium },
+			[Option.Shake]: { value: OptionValue.None },
 		},
 	},
 	[Item.Shake]: {
@@ -61,5 +67,15 @@ export const ItemOptionMap = Object.freeze({
 		},
 	},
 });
+
+ItemOptionMap satisfies Partial<
+	Record<
+		ItemKey,
+		{
+			options: OptionKey[];
+			default: Partial<{ [O in OptionKey]: Partial<OptionInstance<O>> }>;
+		}
+	>
+>;
 
 export type ItemConfig = ValueOf<typeof ItemOptionMap>;

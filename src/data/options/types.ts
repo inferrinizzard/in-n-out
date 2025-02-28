@@ -21,7 +21,7 @@ export type OptionInstance<
 		: never;
 
 	flags: Config extends {
-		flags: Readonly<Array<infer Flag extends OptionFlagKey>>;
+		flags?: Readonly<Array<infer Flag extends OptionFlagKey>>;
 	}
 		? Record<Flag, boolean | undefined>
 		: never;
