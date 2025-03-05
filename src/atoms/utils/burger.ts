@@ -88,9 +88,8 @@ export const getBurgerPrice = (
 	id: SkuKey,
 	options: Pick<
 		SkuOptions<typeof Item.Burger>,
-		typeof Option.Meat | typeof Option.Cheese
-	> &
-		Partial<Pick<SkuOptions<typeof Item.Burger>, typeof Option.Burger>>,
+		typeof Option.Meat | typeof Option.Cheese | typeof Option.Burger
+	>,
 ) => {
 	let price = prices.base[id] as number;
 
@@ -115,9 +114,11 @@ export const getBurgerCalories = (
 	id: SkuKey,
 	options: Pick<
 		SkuOptions<typeof Item.Burger>,
-		typeof Option.Meat | typeof Option.Cheese | typeof Option.Bun
-	> &
-		Partial<Pick<SkuOptions<typeof Item.Burger>, typeof Option.Burger>>,
+		| typeof Option.Meat
+		| typeof Option.Cheese
+		| typeof Option.Bun
+		| typeof Option.Burger
+	>,
 ) => {
 	let numCalories = calories.base[id];
 

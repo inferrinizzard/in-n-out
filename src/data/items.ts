@@ -2,6 +2,7 @@ import type { ValueOf } from "@src/types/util";
 
 import {
 	Option,
+	OptionFlag,
 	type OptionInstance,
 	type OptionKey,
 	OptionValue,
@@ -44,6 +45,12 @@ export const ItemOptionMap = Object.freeze({
 			[Option.GrilledOnions]: { value: OptionValue.None },
 			[Option.Pickles]: { value: OptionValue.None },
 			[Option.Chilis]: { value: OptionValue.None },
+			[Option.Burger]: {
+				flags: {
+					[OptionFlag.AnimalStyle]: false,
+					[OptionFlag.CutInHalf]: false,
+				},
+			},
 		},
 	},
 	[Item.Fries]: {
