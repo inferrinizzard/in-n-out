@@ -14,7 +14,7 @@ import { useAtomSetter } from "@src/atoms";
 import type { Theme } from "@src/styles/theme";
 
 import { Sku } from "@data/sku";
-import { Item } from "@data/items";
+import { Item, ItemOptionMap } from "@data/items";
 import { getCopy } from "@src/utils/getCopy";
 
 interface ContinueButtonProps
@@ -76,6 +76,22 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const primaryButtonInfo = useMemo(() => {
+		if (!activeItem.isValid) {
+			return {
+				text: `Required: ${ItemOptionMap[
+					activeItem.item as keyof typeof ItemOptionMap
+				].options
+					.filter(
+						(option) =>
+							activeItem.options &&
+							(!(option in activeItem.options) || !activeItem.options[option]),
+					)
+					.map(getCopy)
+					.join(", ")}`,
+				onPress: () => {},
+			};
+		}
+
 		if (next) {
 			return {
 				onPress: () => {
@@ -114,8 +130,11 @@ const ContinueButton = ({ navigation }: ContinueButtonProps) => {
 				</Button>
 			)}
 			<Button
+				disabled={!activeItem.isValid}
 				style={{
-					backgroundColor: theme.colors.redLight,
+					backgroundColor: activeItem.isValid
+						? theme.colors.redLight
+						: theme.colors.greyDark,
 					flexGrow: 1,
 					flexBasis: 0,
 				}}

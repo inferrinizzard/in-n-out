@@ -16,13 +16,19 @@ export const isShake = (id: SkuKey) => SkuItemMap[id].id === Item.Shake;
 export const isVariable = (id: SkuKey) =>
 	isBurger(id) || isFries(id) || isDrink(id) || isShake(id);
 
-export const getPrice = (id: SkuKey, options?: Partial<SkuOptions>): number => {
+export const getPrice = <Sku extends SkuKey>(
+	id: Sku,
+	options?: Partial<SkuOptions<(typeof SkuItemMap)[Sku]["id"]>>,
+): number => {
 	if (!isVariable(id)) {
 		return prices.base[id];
 	}
 
 	if (isBurger(id)) {
-		return getBurgerPrice(id, options ?? ItemOptionMap[Item.Burger].default);
+		return getBurgerPrice(id, {
+			...ItemOptionMap[Item.Burger].default,
+			...options,
+		});
 	}
 
 	if (isFries(id)) {
@@ -36,13 +42,19 @@ export const getPrice = (id: SkuKey, options?: Partial<SkuOptions>): number => {
 	throw new Error(`Unknown price: ${id}`);
 };
 
-export const getCalories = (id: SkuKey, options?: SkuOptions) => {
+export const getCalories = <Sku extends SkuKey>(
+	id: Sku,
+	options?: Partial<SkuOptions<(typeof SkuItemMap)[Sku]["id"]>>,
+) => {
 	if (!isVariable(id)) {
 		return calories.base[id];
 	}
 
 	if (isBurger(id)) {
-		return getBurgerCalories(id, options ?? ItemOptionMap[Item.Burger].default);
+		return getBurgerCalories(id, {
+			...ItemOptionMap[Item.Burger].default,
+			...options,
+		});
 	}
 
 	if (isFries(id)) {

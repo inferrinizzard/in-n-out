@@ -1,5 +1,12 @@
-import { Option, OptionValue, type OptionKey } from "./options";
-import type { OptionInstance } from "./options";
+import type { ValueOf } from "@src/types/util";
+
+import {
+	Option,
+	OptionFlag,
+	type OptionInstance,
+	type OptionKey,
+	OptionValue,
+} from "./options";
 
 export const Item = Object.freeze({
 	Burger: "Burger",
@@ -28,7 +35,7 @@ export const ItemOptionMap = Object.freeze({
 		],
 		default: {
 			[Option.Meat]: { count: 1, value: OptionValue.Medium },
-			[Option.Cheese]: { count: 1, value: OptionValue.Regular },
+			[Option.Cheese]: { count: 1 },
 			[Option.Onions]: { value: OptionValue.Regular },
 			[Option.Lettuce]: { value: OptionValue.Regular },
 			[Option.Tomato]: { value: OptionValue.Regular },
@@ -38,19 +45,26 @@ export const ItemOptionMap = Object.freeze({
 			[Option.GrilledOnions]: { value: OptionValue.None },
 			[Option.Pickles]: { value: OptionValue.None },
 			[Option.Chilis]: { value: OptionValue.None },
+			[Option.Burger]: {
+				flags: {
+					[OptionFlag.AnimalStyle]: false,
+					[OptionFlag.CutInHalf]: false,
+				},
+			},
 		},
 	},
 	[Item.Fries]: {
 		options: [Option.Fries, Option.Doneness],
 		default: {
-			[Option.Doneness]: { value: OptionValue.Medium },
+			[Option.Doneness]: { value: OptionValue.Regular },
 			[Option.Fries]: { value: OptionValue.Regular },
 		},
 	},
 	[Item.Drink]: {
-		options: [Option.Size, Option.Drink, Option.Shake],
+		options: [Option.Size, Option.Drink, Option.Float],
 		default: {
 			[Option.Size]: { value: OptionValue.Medium },
+			[Option.Float]: { value: OptionValue.None },
 		},
 	},
 	[Item.Shake]: {
@@ -66,7 +80,9 @@ ItemOptionMap satisfies Partial<
 		ItemKey,
 		{
 			options: OptionKey[];
-			default: Partial<Record<OptionKey, OptionInstance>>;
+			default: Partial<{ [O in OptionKey]: Partial<OptionInstance<O>> }>;
 		}
 	>
 >;
+
+export type ItemConfig = ValueOf<typeof ItemOptionMap>;

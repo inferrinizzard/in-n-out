@@ -51,6 +51,7 @@ export const Option = Object.freeze({
 	Cheese: "Cheese",
 	Drink: "Drink",
 	Shake: "Shake",
+	Float: "Float",
 } as const);
 
 export type OptionKey = keyof typeof Option;

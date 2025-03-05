@@ -1,12 +1,12 @@
 import {
 	DrinkOption,
+	type DrinkOptionKey,
 	Option,
 	OptionFlag,
-	type OptionKey,
 	OptionValue,
 	ShakeOption,
+	type ShakeOptionKey,
 } from "./consts";
-import type { OptionConfig } from "./types";
 
 export const DrinkSizes = [
 	OptionValue.Small,
@@ -77,7 +77,6 @@ export const OptionConfigMap = Object.freeze({
 		options: DrinkSizes,
 	},
 	[Option.Burger]: {
-		options: [],
 		flags: [OptionFlag.AnimalStyle, OptionFlag.CutInHalf],
 	},
 	[Option.Fries]: {
@@ -89,22 +88,26 @@ export const OptionConfigMap = Object.freeze({
 		flags: [OptionFlag.NoSalt],
 	},
 	[Option.Meat]: {
+		count: true,
 		options: [OptionValue.MediumRare, OptionValue.Medium, OptionValue.WellDone],
 		flags: [OptionFlag.NoSalt, OptionFlag.MustardGrilled],
 	},
 	[Option.Cheese]: {
-		options: [],
+		count: true,
 		flags: [OptionFlag.ColdCheese],
 	},
-	[Option.Shake]: {
-		options: Object.keys(ShakeOption),
-	},
 	[Option.Drink]: {
-		options: Object.keys(DrinkOption),
+		options: Object.keys(DrinkOption) as DrinkOptionKey[],
+	},
+	[Option.Float]: {
+		options: [
+			OptionValue.None,
+			ShakeOption.Vanilla,
+			ShakeOption.Chocolate,
+			ShakeOption.Strawberry,
+		],
+	},
+	[Option.Shake]: {
+		options: Object.keys(ShakeOption) as ShakeOptionKey[],
 	},
 } as const);
-
-OptionConfigMap satisfies Record<
-	OptionKey,
-	OptionConfig<readonly string[], readonly string[]>
->;

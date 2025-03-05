@@ -2,14 +2,14 @@ import { atom } from "jotai";
 
 import { getCopy } from "@src/utils/getCopy";
 
-import type {
-	OptionKey,
-	OptionInstance,
-	CountOptionInstance,
-	OptionFlagKey,
+import {
+	type OptionKey,
+	type OptionFlagKey,
+	type OptionInstance,
+	OptionConfigMap,
 } from "@data/options";
-import { SkuItemMap } from "@data/sku";
-import { ItemOptionMap } from "@data/items";
+import { SkuItemMap, type SkuKey } from "@data/sku";
+import { Item, ItemOptionMap } from "@data/items";
 import prices from "@data/prices";
 import calories from "@data/calories";
 
@@ -17,9 +17,13 @@ import { getCalories, getPrice, isBurger } from "./utils";
 import type { SkuItem, SkuOptions } from "./types";
 import { getBurgerName } from "./utils/burger";
 
-interface ActiveItemAtomState extends SkuItem {}
+interface ActiveItemAtomState extends SkuItem<SkuKey> {
+	isValid: boolean;
+}
 
-const activeItemBaseAtom = atom<ActiveItemAtomState>({} as unknown as SkuItem);
+const activeItemBaseAtom = atom<ActiveItemAtomState>({
+	isValid: false,
+} as unknown as ActiveItemAtomState);
 activeItemBaseAtom.debugLabel = "activeItemAtom";
 
 export const activeItemAtom = atom(
@@ -36,14 +40,24 @@ export const activeItemAtom = atom(
 				item.id in ItemOptionMap
 					? {
 							...ItemOptionMap[item.id as keyof typeof ItemOptionMap].default,
-							// @ts-expect-error
-							...SkuItemMap[sku].override,
+							...("override" in item ? item.override : undefined),
 						}
 					: undefined;
 			const price = prices.base[sku];
 			const numCalories = calories.base[sku];
 			const name = getCopy(sku);
+			const isValid =
+				item.id in ItemOptionMap
+					? ItemOptionMap[item.id as keyof typeof ItemOptionMap].options.every(
+							(option) =>
+								options &&
+								option in options &&
+								!!options[option as keyof typeof options],
+						)
+					: true;
+
 			set(activeItemBaseAtom, {
+				isValid,
 				sku,
 				item: item.id,
 				name,
@@ -60,13 +74,17 @@ export const activeItemAtom = atom(
 				return;
 			}
 
-			const prevFlagValue = prev.options?.[key].flags?.[flag];
+			const prevFlags = prev.options?.[key]?.flags;
+			const prevFlagValue =
+				prevFlags && flag in prevFlags
+					? prevFlags[flag as keyof typeof prevFlags]
+					: undefined;
 
 			const newOptions = {
 				...prev?.options,
 				[key]: {
 					...prev.options?.[key],
-					flags: { ...prev.options?.[key].flags, [flag]: !prevFlagValue },
+					flags: { ...prevFlags, [flag]: !prevFlagValue },
 				},
 			};
 
@@ -76,8 +94,12 @@ export const activeItemAtom = atom(
 			);
 		},
 
-		updateOption: (key: OptionKey, value: OptionInstance) => {
+		updateOption: <Option extends OptionKey>(
+			key: Option,
+			value: OptionInstance<Option>,
+		) => {
 			const prev = get(activeItemBaseAtom);
+			const item = prev.item;
 
 			if (!prev) {
 				return;
@@ -87,20 +109,39 @@ export const activeItemAtom = atom(
 				...prev?.options,
 				[key]: { ...prev.options?.[key], ...value },
 			};
-			const price = getPrice(prev.sku, newOptions as SkuOptions);
-			const numCalories = getCalories(prev.sku, newOptions as SkuOptions);
+			const price = getPrice(
+				prev.sku,
+				newOptions as SkuOptions<typeof prev.item>,
+			);
+			const numCalories = getCalories(
+				prev.sku,
+				newOptions as SkuOptions<typeof prev.item>,
+			);
 			const name = isBurger(prev.sku)
 				? getBurgerName(
-						(newOptions.Meat as CountOptionInstance)?.count,
-						(newOptions.Cheese as CountOptionInstance)?.count,
+						newOptions.Meat?.count ??
+							ItemOptionMap[Item.Burger].default.Meat.count,
+						newOptions.Cheese?.count ??
+							ItemOptionMap[Item.Burger].default.Cheese.count,
 					)
 				: getCopy(prev.sku);
+
+			const isValid =
+				item in ItemOptionMap
+					? ItemOptionMap[item as keyof typeof ItemOptionMap].options.every(
+							(option) =>
+								newOptions &&
+								option in newOptions &&
+								!!newOptions[option as keyof typeof newOptions],
+						)
+					: true;
 
 			set(
 				activeItemBaseAtom,
 				(prev) =>
 					({
 						...prev,
+						isValid,
 						name,
 						price,
 						calories: numCalories,

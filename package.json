@@ -12,7 +12,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eas": "eas",
-    "expo": "expo"
+    "expo": "expo",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",

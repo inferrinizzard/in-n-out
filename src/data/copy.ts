@@ -56,6 +56,7 @@ export const OptionCopy = Object.freeze({
 	Cheese: "Cheese",
 	Drink: "Drink",
 	Shake: "Shake",
+	Float: "Float",
 	Coke: "Coca-Cola®",
 	DietCoke: "Diet-Coke®",
 	CherryCoke: "Cherry-Coke®",

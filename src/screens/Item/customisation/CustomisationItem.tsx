@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Image } from "react-native";
 import { Icon } from "react-native-paper";
 import { useAtom } from "jotai";
@@ -22,7 +22,9 @@ export const CustomisationRow = ({ option }: CustomisationRowProps) => {
 
 	const image = getImage(option);
 
-	const endText = activeItem.options?.[option]?.value;
+	const activeOption = activeItem.options?.[option];
+	const endText =
+		activeOption && "value" in activeOption && activeOption?.value;
 
 	return (
 		<>

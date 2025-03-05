@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { FlatList } from "react-native";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { orderAtom } from "@src/atoms/order.atom";
@@ -15,7 +15,8 @@ import { PriceTotal } from "./components/PriceTotal";
 export interface CartProps extends StackScreenProps<typeof ScreenKeys.Cart> {}
 
 const Cart = ({ navigation }: CartProps) => {
-	const [order, getOrderSetter] = useAtom(orderAtom);
+	const order = useAtomValue(orderAtom);
+
 	const orderItems = useMemo(() => Object.entries(order), [order]);
 
 	const cartBody = useMemo(() => {

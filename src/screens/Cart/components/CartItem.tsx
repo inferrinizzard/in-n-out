@@ -8,29 +8,26 @@ import { Box, Text } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 import { ItemOptionMap } from "@data/items";
-import type {
-	CountOptionInstance,
-	OptionInstance,
-	OptionKey,
-} from "@data/options";
-import { SkuItemMap } from "@data/sku";
+import type { OptionInstance, OptionKey } from "@data/options";
+import { SkuItemMap, type SkuKey } from "@data/sku";
 
-export interface CartItemProps extends SkuItem {
+export interface CartItemProps<Sku extends SkuKey> extends SkuItem<Sku> {
 	uuid: string;
 }
 
-const CartItem = ({
+const CartItem = <Sku extends SkuKey>({
 	uuid,
 	sku,
 	item,
+	name,
 	price,
 	calories,
 	options,
-}: CartItemProps) => {
+}: CartItemProps<Sku>) => {
 	const navigation = useNavigation<StackNavigationProps>();
 
 	const image = getImage(sku);
-	const itemText = getCopy(sku).toUpperCase();
+	const itemText = (name || getCopy(sku)).toUpperCase();
 
 	const defaultOptions = {
 		...ItemOptionMap[item as keyof typeof ItemOptionMap].default,
@@ -38,10 +35,9 @@ const CartItem = ({
 	};
 
 	const customisationData = (
-		Object.entries(options ?? {}) as [
-			OptionKey,
-			OptionInstance | CountOptionInstance,
-		][]
+		Object.entries(options ?? {}) as {
+			[O in OptionKey]: [O, OptionInstance<O>];
+		}[OptionKey][]
 	).filter(([optionKey, optionValue]) => {
 		if (!(item in ItemOptionMap)) {
 			return true;
@@ -55,15 +51,23 @@ const CartItem = ({
 			return true;
 		}
 
-		const defaultValue = defaultOptions[
-			optionKey as keyof typeof defaultOptions
-		] as OptionInstance | CountOptionInstance;
+		const defaultValue =
+			optionKey in defaultOptions
+				? (defaultOptions[
+						optionKey as keyof typeof defaultOptions
+					] as OptionInstance<typeof optionKey>)
+				: undefined;
 
-		if ("count" in defaultValue && "count" in optionValue) {
+		if (defaultValue && "count" in defaultValue && "count" in optionValue) {
 			return defaultValue.count !== optionValue.count;
 		}
 
-		return defaultValue.value !== optionValue.value;
+		return (
+			defaultValue &&
+			"value" in defaultValue &&
+			"value" in optionValue &&
+			defaultValue?.value !== optionValue.value
+		);
 	});
 
 	const editCartItem = () => {
@@ -90,25 +94,37 @@ const CartItem = ({
 			/>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				<Text variant="header">{itemText}</Text>
-				{customisationData.map(([key, val]) => (
-					<React.Fragment key={`${uuid}-${key}`}>
-						{
-							// @ts-expect-error
-							defaultOptions[key].value !== val.value && (
-								<Text>{`${key}: ${val.value}`}</Text>
-							)
-						}
-						{"count" in val &&
-							// @ts-expect-error
-							defaultOptions[key].count !== val.count && (
-								<Text>{`${key}: ${val.count}`}</Text>
-							)}
-						{val.flags &&
-							Object.entries(val.flags).map(([flagKey, flagValue]) =>
-								flagValue ? <Text key={flagKey}>{`- ${flagKey}`}</Text> : null,
-							)}
-					</React.Fragment>
-				))}
+				{customisationData.map(([key, val]) => {
+					const defaultOption =
+						key in defaultOptions
+							? (defaultOptions[
+									key as keyof typeof defaultOptions
+								] as OptionInstance<typeof key>)
+							: undefined;
+
+					return (
+						<React.Fragment key={`${uuid}-${key}`}>
+							{defaultOption &&
+								"value" in defaultOption &&
+								"value" in val &&
+								defaultOption.value !== val.value && (
+									<Text>{`${key}: ${val.value}`}</Text>
+								)}
+							{defaultOption &&
+								"count" in defaultOption &&
+								"count" in val &&
+								defaultOption.count !== val.count && (
+									<Text>{`${key}: ${val.count}`}</Text>
+								)}
+							{val.flags &&
+								Object.entries(val.flags).map(([flagKey, flagValue]) =>
+									flagValue ? (
+										<Text key={flagKey}>{`- ${flagKey}`}</Text>
+									) : null,
+								)}
+						</React.Fragment>
+					);
+				})}
 			</View>
 
 			<View

@@ -7,7 +7,7 @@ import type { SkuItem } from "./types";
 type QueueAtomState = {
 	index: number;
 	queue: SkuKey[];
-	pending: Record<number, SkuItem>;
+	pending: Record<number, SkuItem<SkuKey>>;
 };
 
 const queueBaseAtom = atom<QueueAtomState>({
@@ -29,7 +29,7 @@ export const queueAtom = atom(
 				queue: prev.queue.concat(ids),
 			})),
 
-		addToPending: (item: SkuItem) =>
+		addToPending: (item: SkuItem<SkuKey>) =>
 			set(queueBaseAtom, (prev) => ({
 				...prev,
 				pending: { ...prev.pending, [prev.index]: item },

@@ -1,9 +1,11 @@
 import { atom } from "jotai";
 import { v4 as uuidV4 } from "uuid";
 
+import type { SkuKey } from "@data/sku";
+
 import type { SkuItem } from "./types";
 
-type OrderAtomState = Record<string, SkuItem>;
+type OrderAtomState = Record<string, SkuItem<SkuKey>>;
 
 const orderBaseAtom = atom<OrderAtomState>({});
 orderBaseAtom.debugLabel = "orderAtom";
@@ -11,7 +13,7 @@ orderBaseAtom.debugLabel = "orderAtom";
 export const orderAtom = atom(
 	(get) => get(orderBaseAtom),
 	(get, set) => ({
-		addItem: (...items: SkuItem[]) =>
+		addItem: (...items: SkuItem<SkuKey>[]) =>
 			set(orderBaseAtom, (prev) => ({
 				...prev,
 				...items.reduce(
