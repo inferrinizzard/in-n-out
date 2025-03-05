@@ -62,7 +62,12 @@ const CartItem = <Sku extends SkuKey>({
 			return defaultValue.count !== optionValue.count;
 		}
 
-		return defaultValue?.value !== optionValue.value;
+		return (
+			defaultValue &&
+			"value" in defaultValue &&
+			"value" in optionValue &&
+			defaultValue?.value !== optionValue.value
+		);
 	});
 
 	const editCartItem = () => {
@@ -90,21 +95,25 @@ const CartItem = <Sku extends SkuKey>({
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				<Text variant="header">{itemText}</Text>
 				{customisationData.map(([key, val]) => {
+					const defaultOption =
+						key in defaultOptions
+							? (defaultOptions[
+									key as keyof typeof defaultOptions
+								] as OptionInstance<typeof key>)
+							: undefined;
+
 					return (
 						<React.Fragment key={`${uuid}-${key}`}>
-							{
-								// @ts-expect-error
-								defaultOptions[key]?.value &&
-									// @ts-expect-error
-									defaultOptions[key].value !== val.value && (
-										<Text>{`${key}: ${val.value}`}</Text>
-									)
-							}
-							{"count" in val &&
-								// @ts-expect-error
-								defaultOptions[key]?.count &&
-								// @ts-expect-error
-								defaultOptions[key].count !== val.count && (
+							{defaultOption &&
+								"value" in defaultOption &&
+								"value" in val &&
+								defaultOption.value !== val.value && (
+									<Text>{`${key}: ${val.value}`}</Text>
+								)}
+							{defaultOption &&
+								"count" in defaultOption &&
+								"count" in val &&
+								defaultOption.count !== val.count && (
 									<Text>{`${key}: ${val.count}`}</Text>
 								)}
 							{val.flags &&

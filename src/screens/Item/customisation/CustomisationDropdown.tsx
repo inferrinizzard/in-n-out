@@ -27,7 +27,10 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 
 	const activeItemOptions = activeItem.options?.[option];
 	const activeItemFlags = activeItemOptions?.flags;
-	const activeItemCount = activeItem.options?.[option]?.count ?? 0;
+	const activeItemCount =
+		activeItemOptions && "count" in activeItemOptions
+			? activeItemOptions.count
+			: 0;
 
 	const optionConfig = OptionConfigMap[option];
 	const hasCountOption = "count" in optionConfig ? optionConfig.count : false;
@@ -81,7 +84,11 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 			)}
 
 			{options.map((optionValue) => {
-				const isActive = activeItem.options?.[option]?.value === optionValue;
+				const activeItemOptions = activeItem.options?.[option];
+				const isActive =
+					activeItemOptions &&
+					"value" in activeItemOptions &&
+					activeItemOptions?.value === optionValue;
 				return (
 					<Box
 						key={optionValue}
