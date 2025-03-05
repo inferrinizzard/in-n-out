@@ -1,19 +1,17 @@
-import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { SafeAreaView } from "react-native";
 import { PaperProvider, adaptNavigationTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { ThemeProvider } from "@shopify/restyle";
 import { DevTools } from "jotai-devtools";
 
-import theme, { type Theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 import MainNavigator from "./src/navigation/StackNavigator";
 import { navigationRef } from "./src/navigation/navigatorRef";
 import { BottomTabs } from "./src/navigation/components/BottomTabs";
 import { theme as paperTheme, navigationTheme } from "./src/styles/paper-theme";
-
-import "jotai-devtools/styles.css";
 
 const { LightTheme } = adaptNavigationTheme({
 	reactNavigationLight: navigationTheme,
@@ -28,13 +26,17 @@ const App = () => {
 		HelveticaNeueRegular: require("./assets/fonts/helvetica-neue/HelveticaNeue-Roman.otf"),
 	});
 
+	useEffect(() => {
+		if (process.env.NODE_ENV === "development") {
+			// @ts-ignore
+			import("jotai-devtools/styles.css");
+		}
+	}, []);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<PaperProvider theme={paperTheme}>
-				<SafeAreaView
-					id="providerRoot"
-					style={{ flex: 1, ...styles.androidSafeArea }}
-				>
+				<SafeAreaView id="providerRoot" style={{ flexGrow: 1 }}>
 					<DevTools position="top-right" />
 					<NavigationContainer theme={LightTheme} ref={navigationRef}>
 						<MainNavigator />
@@ -47,9 +49,3 @@ const App = () => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-	androidSafeArea: {
-		// paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-	},
-});
