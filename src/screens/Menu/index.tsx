@@ -8,7 +8,7 @@ import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
 import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { Box, DividerLine, Text } from "@src/components";
+import { Anchor, Box, DividerLine, Text } from "@src/components";
 import type { Theme } from "@src/styles/theme";
 import { getCopy } from "@src/utils/getCopy";
 
@@ -126,9 +126,9 @@ const Menu = ({
 				{
 					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request. More details can be found on the "
 				}
-				<Link to="https://www.in-n-out.com/menu/nutrition-info">
-					{"In-n-Out Website"}
-				</Link>
+				<Anchor href="https://www.in-n-out.com/menu/nutrition-info">
+					<Text>{"In-n-Out Website"}</Text>
+				</Anchor>
 				{"."}
 			</Text>
 		</ScreenContainer>

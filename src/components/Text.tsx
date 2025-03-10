@@ -8,11 +8,9 @@ import { Box } from "./base";
 
 export const ThemeText = createText<Theme>();
 
-const _Text = ({
-	children,
-	style,
-	...props
-}: Parameters<typeof ThemeText>[0]) => {
+export type TextProps = Parameters<typeof ThemeText>[0];
+
+const _Text = ({ children, style, ...props }: TextProps) => {
 	const theme = useTheme<Theme>();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
