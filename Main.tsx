@@ -24,6 +24,7 @@ const App = () => {
 		HelveticaNeueCondensedBold: require("./assets/fonts/helvetica-neue/HelveticaNeueCondensedBold.ttf"),
 		HelveticaNeueMedium: require("./assets/fonts/helvetica-neue/HelveticaNeueMedium.ttf"),
 		HelveticaNeueRegular: require("./assets/fonts/helvetica-neue/HelveticaNeue-Roman.otf"),
+		BrushScriptMT: require("./assets/fonts/brush-script-mt/BRUSHSCI.ttf"),
 	});
 
 	// useEffect(() => {
