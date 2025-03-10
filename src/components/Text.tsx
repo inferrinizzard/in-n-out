@@ -4,11 +4,12 @@ import { createText, useTheme } from "@shopify/restyle";
 
 import type { Theme } from "@src/styles/theme";
 
-import { Box } from "./base";
+import { Box } from "./Box";
 
 export const ThemeText = createText<Theme>();
 
-export type TextProps = Parameters<typeof ThemeText>[0];
+type ThemeTextProps = Parameters<typeof ThemeText>[0];
+export interface TextProps extends ThemeTextProps {}
 
 const _Text = ({ children, style, ...props }: TextProps) => {
 	const theme = useTheme<Theme>();

@@ -51,7 +51,7 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			borderColor="redLight"
 			borderWidth={2}
 			style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
-			onPointerDown={() => {
+			onPress={() => {
 				activeItemSetter.setDefaultItem({ sku: combo[0] });
 				navigation.push(ScreenKeys.Item, {
 					title: burgerCopy,

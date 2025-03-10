@@ -95,7 +95,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 						flexDirection="row"
 						padding="xs"
 						backgroundColor={isActive ? "greyLight" : undefined}
-						onPointerDown={() =>
+						onPress={() =>
 							activeItemSetter.updateOption(option, {
 								value: optionValue,
 							} as OptionInstance<typeof option>)
@@ -127,7 +127,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 						flexDirection="row"
 						padding="xs"
 						backgroundColor={isActive ? "greyLight" : undefined}
-						onPointerDown={() => activeItemSetter.toggleFlag(option, flag)}
+						onPress={() => activeItemSetter.toggleFlag(option, flag)}
 					>
 						<Text
 							variant={isActive ? "bold" : undefined}

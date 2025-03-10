@@ -25,7 +25,7 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 	const calorie = id in calories.base ? calories.base[id as SkuKey] : undefined;
 
 	return (
-		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>
+		<Box flexDirection="row" gap="s" paddingBottom="s" onPress={onPress}>
 			<Image
 				source={image}
 				style={{

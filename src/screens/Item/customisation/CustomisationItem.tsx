@@ -33,7 +33,7 @@ export const CustomisationRow = ({ option }: CustomisationRowProps) => {
 				paddingBottom="s"
 				gap="s"
 				alignItems="center"
-				onPointerDown={() => setIsOpen(!isOpen)}
+				onPress={() => setIsOpen(!isOpen)}
 			>
 				<Image
 					source={image}
