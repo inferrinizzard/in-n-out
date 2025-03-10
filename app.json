@@ -37,20 +37,6 @@
     },
     "updates": {
       "url": "https://u.expo.dev/3c193648-bae8-40aa-8b6f-86607875c625"
-    },
-    "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/helvetica-neue/HelveticaNeueBold.ttf",
-            "./assets/fonts/helvetica-neue/HelveticaNeueBoldItalic.ttf",
-            "./assets/fonts/helvetica-neue/HelveticaNeueCondensedBold.ttf",
-            "./assets/fonts/helvetica-neue/HelveticaNeueMedium.ttf",
-            "./assets/fonts/helvetica-neue/HelveticaNeue-Roman.otf"
-          ]
-        }
-      ]
-    ]
+    }
   }
 }
