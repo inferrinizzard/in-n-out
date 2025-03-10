@@ -1,4 +1,4 @@
-import { Image } from "react-native";
+import { Alert, Image } from "react-native";
 import { useTheme } from "@shopify/restyle";
 
 import { useAtomSetter } from "@src/atoms";
@@ -64,8 +64,10 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 				<Image
 					source={require("@images/Triangle.svg")}
 					style={{
-						minHeight: 55,
-						minWidth: 35,
+						// minHeight: 55,
+						height: 55,
+						// minWidth: 35,
+						width: 35,
 						flexGrow: 1,
 						position: "absolute",
 						top: theme.spacing.xs,
@@ -77,8 +79,10 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 				<Image
 					source={numbers[index - 1]}
 					style={{
-						minHeight: 22,
-						minWidth: 16,
+						// minHeight: 22,
+						// minWidth: 16,
+						height: 22,
+						width: 16,
 						flexGrow: 1,
 						position: "absolute",
 						top: theme.spacing.xs + 5,
@@ -90,8 +94,10 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 				<Image
 					source={image}
 					style={{
-						minHeight: 80,
-						minWidth: 100,
+						// minHeight: 80,
+						// minWidth: 100,
+						height: 80,
+						width: 100,
 						flexGrow: 1,
 					}}
 					resizeMode="contain"
