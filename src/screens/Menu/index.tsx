@@ -23,6 +23,7 @@ import {
 import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
 import { ComboCard } from "./components/ComboCard";
+import { Link } from "@react-navigation/native";
 
 export interface MenuScreenParams {
 	activeMenu?: MenuKey;
@@ -125,9 +126,9 @@ const Menu = ({
 				{
 					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request. More details can be found on the "
 				}
-				<a href="https://www.in-n-out.com/menu/nutrition-info">
+				<Link to="https://www.in-n-out.com/menu/nutrition-info">
 					{"In-n-Out Website"}
-				</a>
+				</Link>
 				{"."}
 			</Text>
 		</ScreenContainer>

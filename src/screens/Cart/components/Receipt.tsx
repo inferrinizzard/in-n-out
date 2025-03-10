@@ -4,6 +4,7 @@ import { Button } from "react-native-paper";
 import { Box, Text } from "@src/components";
 
 import { TAX_RATE } from "./PriceTotal";
+import { Link } from "@react-navigation/native";
 
 const leftPadZeroes = (num: number) =>
 	`00${num.toFixed(0).toString()}`.slice(-2);
@@ -79,9 +80,9 @@ export const Receipt = ({
 				</Text>
 				<Text fontFamily="monospace">{"Help us end Human Trafficking."}</Text>
 				<Text fontFamily="monospace">{"To donate, please visit:"}</Text>
-				<a href="www.slave2nothing.org">
+				<Link to="www.slave2nothing.org">
 					<Text fontFamily="monospace">{"www.slave2nothing.org"}</Text>
-				</a>
+				</Link>
 				<Text fontFamily="monospace">{"THANK YOU"}</Text>
 				<Text fontFamily="monospace">
 					{"Questions/Comments: Call 800-786-1000"}

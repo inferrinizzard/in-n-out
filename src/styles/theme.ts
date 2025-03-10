@@ -30,13 +30,13 @@ const theme = createTheme({
 			fontWeight: "bold",
 			fontSize: 24,
 			fontFamily: "HelveticaNeueCondensedBold",
-			letterSpacing: "-0.06em",
+			// letterSpacing: "-0.06em",
 		},
 		bold: {
 			fontWeight: "bold",
 			fontSize: 14,
 			fontFamily: "HelveticaNeueBold",
-			letterSpacing: "-0.06em",
+			// letterSpacing: "-0.06em",
 		},
 		boldItalic: {
 			fontWeight: "bold",
@@ -46,7 +46,7 @@ const theme = createTheme({
 		medium: {
 			fontSize: 12,
 			fontFamily: "HelveticaNeueMedium",
-			letterSpacing: "-0.01em",
+			// letterSpacing: "-0.01em",
 		},
 		body: {
 			fontSize: 12,
