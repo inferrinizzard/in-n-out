@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { v4 as uuidV4 } from "uuid";
+import uuid from "react-native-uuid";
 
 import type { SkuKey } from "@data/sku";
 
@@ -17,7 +17,7 @@ export const orderAtom = atom(
 			set(orderBaseAtom, (prev) => ({
 				...prev,
 				...items.reduce(
-					(acc, item) => Object.assign(acc, { [uuidV4()]: item }),
+					(acc, item) => Object.assign(acc, { [uuid.v4()]: item }),
 					{},
 				),
 			})),
