@@ -1043,7 +1043,7 @@
     xcode "^3.0.1"
     xml2js "0.6.0"
 
-"@expo/config-plugins@~9.0.15", "@expo/config-plugins@~9.0.16":
+"@expo/config-plugins@~9.0.0", "@expo/config-plugins@~9.0.15", "@expo/config-plugins@~9.0.16":
   version "9.0.16"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-9.0.16.tgz#f018d418ec24d80866ccd3f4277f7502a641cb5d"
   integrity sha512-AnJzmFB7ztM0JZBn+Ut6BQYC2WeGDzfIhBZVOIPMQbdBqvwJ7TmFEsGTGSxdwU/VqJaJK2sWxyt1zbWkpIYCEA==

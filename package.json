@@ -11,8 +11,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eas": "eas",
-    "expo": "expo",
+    "_eas": "eas",
+    "_expo": "expo",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@biomejs/biome": "^1.9.4",
+    "@expo/config-plugins": "~9.0.0",
     "@expo/webpack-config": "^19.0.0",
     "@tsconfig/react-native": "^3.0.2",
     "@types/react": "^18.2.34",
@@ -50,5 +51,12 @@
     "jotai-devtools": "^0.11.0",
     "typescript": "^5.2.2"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
+  }
 }
