@@ -27,21 +27,21 @@ const theme = createTheme({
 	},
 	textVariants: {
 		header: {
-			fontWeight: "bold",
+			// fontWeight: "bold",
 			fontSize: 24,
 			fontFamily: "HelveticaNeueCondensedBold",
 			letterSpacing: 24 * -0.06,
 			// letterSpacing: "-0.06em",
 		},
 		bold: {
-			fontWeight: "bold",
+			// fontWeight: "bold",
 			fontSize: 14,
 			fontFamily: "HelveticaNeueBold",
 			letterSpacing: 14 * -0.06,
 			// letterSpacing: "-0.06em",
 		},
 		boldItalic: {
-			fontWeight: "bold",
+			// fontWeight: "bold",
 			fontSize: 24,
 			fontFamily: "HelveticaNeueBoldItalic",
 		},
@@ -57,7 +57,7 @@ const theme = createTheme({
 			fontFamily: "HelveticaNeueRegular",
 		},
 		script: {
-			fontWeight: 500,
+			// fontWeight: 500,
 			fontSize: 16,
 			lineHeight: 12,
 			fontFamily: "BrushScriptMT",
