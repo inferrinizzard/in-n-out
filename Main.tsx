@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Platform, SafeAreaView } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { PaperProvider, adaptNavigationTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -27,17 +27,17 @@ const App = () => {
 		BrushScriptMT: require("./assets/fonts/brush-script-mt/BRUSHSCI.ttf"),
 	});
 
-	useEffect(() => {
-		if (process.env.NODE_ENV === "development" && Platform.OS === "web") {
-			// @ts-ignore
-			import("jotai-devtools/styles.css");
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (process.env.NODE_ENV === "development" && Platform.OS === "web") {
+	// 		// @ts-ignore
+	// 		import("jotai-devtools/styles.css");
+	// 	}
+	// }, []);
 
 	return (
 		<ThemeProvider theme={theme}>
 			<PaperProvider theme={paperTheme}>
-				<SafeAreaView id="providerRoot" style={{ flexGrow: 1 }}>
+				<SafeAreaView id="providerRoot" style={topLevelStyles.safeArea}>
 					{process.env.NODE_ENV === "development" && Platform.OS === "web" && (
 						<DevTools position="top-right" />
 					)}
@@ -52,3 +52,11 @@ const App = () => {
 };
 
 export default App;
+
+const topLevelStyles = StyleSheet.create({
+	safeArea: {
+		flexGrow: 1,
+		backgroundColor: "white",
+		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+	},
+});

@@ -18,9 +18,9 @@ export const Header = ({ back, navigation, route }: HeaderProps) => {
 		<View>
 			<Image
 				source={require("@images/banner.png")}
-				height={48}
-				resizeMode="repeat"
-				style={{ height: 48 }}
+				height={50}
+				resizeMode="cover"
+				style={{ height: 50, flexGrow: 1 }}
 			/>
 			{back && (
 				<Box flexDirection="row" alignItems="center">
