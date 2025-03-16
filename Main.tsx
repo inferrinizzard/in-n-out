@@ -27,12 +27,12 @@ const App = () => {
 		BrushScriptMT: require("./assets/fonts/brush-script-mt/BRUSHSCI.ttf"),
 	});
 
-	// useEffect(() => {
-	// 	if (process.env.NODE_ENV === "development" && Platform.OS === "web") {
-	// 		// @ts-ignore
-	// 		import("jotai-devtools/styles.css");
-	// 	}
-	// }, []);
+	useEffect(() => {
+		if (process.env.NODE_ENV === "development" && Platform.OS === "web") {
+			// @ts-ignore
+			import("jotai-devtools/styles.css");
+		}
+	}, []);
 
 	return (
 		<ThemeProvider theme={theme}>

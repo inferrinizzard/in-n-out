@@ -46,16 +46,14 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 	return (
 		<Box
 			flexGrow={1}
-			flexBasis={0}
+			// flexBasis={0}
 			borderRadius={4}
 			borderColor="redLight"
 			borderWidth={2}
 			style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
 			onPress={() => {
 				activeItemSetter.setDefaultItem({ sku: combo[0] });
-				navigation.push(ScreenKeys.Item, {
-					title: burgerCopy,
-				});
+				navigation.push(ScreenKeys.Item, { title: burgerCopy });
 				queueSetter.updateIndex(0);
 				queueSetter.setQueue(combo[0], Sku.Fries, Sku.SoftDrink);
 			}}
