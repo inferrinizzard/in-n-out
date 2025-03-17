@@ -1,7 +1,6 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 
-import { Box, Text } from "@src/components";
-
+import { Box, Text, ResponsiveImage } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 
@@ -25,12 +24,14 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 	const calorie = id in calories.base ? calories.base[id as SkuKey] : undefined;
 
 	return (
-		<Box flexDirection="row" gap="s" paddingBottom="s" onPointerDown={onPress}>
-			<Image
-				source={image}
-				style={{ minHeight: 48, minWidth: 64, flexGrow: 0, flexShrink: 1 }}
-				resizeMode="contain"
-			/>
+		<Box
+			flexDirection="row"
+			gap="s"
+			alignItems="center"
+			paddingVertical="s"
+			onPress={onPress}
+		>
+			<ResponsiveImage source={image} minHeight={48} minWidth={64} />
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				{supertext && <Text variant="script">{supertext}</Text>}
 				<Text variant="header">{itemText}</Text>

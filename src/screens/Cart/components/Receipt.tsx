@@ -1,9 +1,9 @@
 import { Modal } from "react-native";
 import { Button } from "react-native-paper";
 
-import { Box, Text } from "@src/components";
+import { Anchor, Box, Text } from "@src/components";
 
-import { TAX_RATE } from "./PriceTotal";
+export const TAX_RATE = 10.25; // Francisquito -> Baldwin Park -> LA County
 
 const leftPadZeroes = (num: number) =>
 	`00${num.toFixed(0).toString()}`.slice(-2);
@@ -79,9 +79,9 @@ export const Receipt = ({
 				</Text>
 				<Text fontFamily="monospace">{"Help us end Human Trafficking."}</Text>
 				<Text fontFamily="monospace">{"To donate, please visit:"}</Text>
-				<a href="www.slave2nothing.org">
+				<Anchor href="www.slave2nothing.org">
 					<Text fontFamily="monospace">{"www.slave2nothing.org"}</Text>
-				</a>
+				</Anchor>
 				<Text fontFamily="monospace">{"THANK YOU"}</Text>
 				<Text fontFamily="monospace">
 					{"Questions/Comments: Call 800-786-1000"}

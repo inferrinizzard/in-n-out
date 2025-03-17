@@ -1,42 +1,42 @@
 {
-	"expo": {
-		"name": "in-n-out",
-		"slug": "in-n-out",
-		"version": "0.0.3",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "light",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true,
-			"bundleIdentifier": "com.inferrinizzard.innout"
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			},
-			"package": "com.inferrinizzard.innout"
-		},
-		"web": {
-			"favicon": "./assets/favicon.png"
-		},
-		"extra": {
-			"eas": {
-				"projectId": "3c193648-bae8-40aa-8b6f-86607875c625"
-			}
-		},
-		"owner": "inferrinizzard",
-		"runtimeVersion": {
-			"policy": "appVersion"
-		},
-		"updates": {
-			"url": "https://u.expo.dev/3c193648-bae8-40aa-8b6f-86607875c625"
-		}
-	}
+  "expo": {
+    "name": "in-n-out",
+    "slug": "in-n-out",
+    "version": "0.1.0a",
+    "orientation": "portrait",
+    "icon": "./assets/logo/logo-solid.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.inferrinizzard.innout"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo/logo-full.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.inferrinizzard.innout"
+    },
+    "web": {
+      "favicon": "./assets/logo/logo-full.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3c193648-bae8-40aa-8b6f-86607875c625"
+      }
+    },
+    "owner": "inferrinizzard",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/3c193648-bae8-40aa-8b6f-86607875c625"
+    }
+  }
 }

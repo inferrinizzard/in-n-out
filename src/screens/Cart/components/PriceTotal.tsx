@@ -5,9 +5,7 @@ import { useAtomValue } from "jotai";
 import { orderAtom } from "@src/atoms/order.atom";
 import { Box, Text } from "@src/components";
 
-import { Receipt } from "./Receipt";
-
-export const TAX_RATE = 10.25; // Francisquito -> Baldwin Park -> LA County
+import { Receipt, TAX_RATE } from "./Receipt";
 
 export const PriceTotal = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);

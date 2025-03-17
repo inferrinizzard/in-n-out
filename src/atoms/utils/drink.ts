@@ -39,7 +39,7 @@ export const getDrinkCalories = (
 	}
 
 	if (id === Sku.Shake) {
-		return calories;
+		return calories.misc[`${Sku.Shake}${options[Option.Size]?.value}`];
 	}
 
 	// coffee small

@@ -1,5 +1,5 @@
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
-import ScreenContainer from "@src/components/layout/ScreenContainer";
+import { ScreenContainer } from "@src/components";
 
 import { ItemHeader } from "./components/ItemHeader";
 import ContinueButton from "./components/ContinueButton";

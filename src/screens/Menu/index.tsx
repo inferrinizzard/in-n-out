@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
-import { FlatList } from "react-native";
-import { useTheme } from "@shopify/restyle";
+import React from "react";
 
 import { useAtomSetter } from "@src/atoms";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
-import { type StackScreenProps, ScreenKeys } from "@src/navigation";
-import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { Box, DividerLine, Text } from "@src/components";
-import type { Theme } from "@src/styles/theme";
+import type { StackScreenProps } from "@src/navigation";
+import { ScreenKeys } from "@src/navigation/screens"; // Needed to prevent dep cycle
+
+import {
+	Anchor,
+	Box,
+	DividerLine,
+	Text,
+	ScreenContainer,
+	ListView,
+} from "@src/components";
 import { getCopy } from "@src/utils/getCopy";
 
 import {
@@ -38,8 +43,6 @@ const Menu = ({
 		params: { activeMenu = DataMenu.Main } = {},
 	},
 }: MenuProps) => {
-	const theme = useTheme<Theme>();
-
 	const activeItemSetter = useAtomSetter(activeItemAtom);
 	const queueSetter = useAtomSetter(queueAtom);
 
@@ -75,11 +78,10 @@ const Menu = ({
 					</Box>
 				</Box>
 			)}
-			<FlatList
+			<ListView
 				data={menuConfig.items as readonly MenuSkuConfig[]}
-				contentContainerStyle={{ gap: theme.spacing.s }}
-				ItemSeparatorComponent={DividerLine}
-				renderItem={({ item }) => (
+				SeparatorComponent={DividerLine}
+				renderItem={(item) => (
 					<MenuItem
 						id={item.sku}
 						supertext={"supertext" in item ? item.supertext : undefined}
@@ -97,11 +99,10 @@ const Menu = ({
 			{activeMenu === DataMenu.Main && (
 				<React.Fragment>
 					<DividerLine />
-					<FlatList
+					<ListView
 						data={subMenus}
-						contentContainerStyle={{ gap: theme.spacing.s }}
-						ItemSeparatorComponent={DividerLine}
-						renderItem={({ item: menu }) => {
+						SeparatorComponent={DividerLine}
+						renderItem={(menu) => {
 							const menuConfig = MenuSkuMap[menu];
 							return (
 								<MenuItem
@@ -125,9 +126,9 @@ const Menu = ({
 				{
 					"2,000 calories a day is used for general nutrition advice, but calorie needs vary, Additional nutritional information is available upon request. More details can be found on the "
 				}
-				<a href="https://www.in-n-out.com/menu/nutrition-info">
-					{"In-n-Out Website"}
-				</a>
+				<Anchor href="https://www.in-n-out.com/menu/nutrition-info">
+					<Text>{"In-n-Out Website"}</Text>
+				</Anchor>
 				{"."}
 			</Text>
 		</ScreenContainer>

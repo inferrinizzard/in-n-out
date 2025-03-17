@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Button } from "react-native-paper";
 
 import { Box, Text } from "@src/components";
-import { ScreenKeys } from "@src/navigation";
+import { ScreenKeys } from "@src/navigation/screens";
 
 import type { CartProps } from "..";
 

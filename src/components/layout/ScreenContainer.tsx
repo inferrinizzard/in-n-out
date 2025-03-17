@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { ScrollView, type StyleProp, type ViewStyle } from "react-native";
 
-import { Box } from "../base";
+import Box from "../Box";
 
 export interface ScreenContainerProps {
 	style?: StyleProp<ViewStyle>;
@@ -18,7 +18,7 @@ const ScreenContainer = ({
 	return (
 		<Box id="screen-container" flexGrow={1} height="100%">
 			{Header}
-			<ScrollView style={{ flexGrow: 1 }}>
+			<ScrollView horizontal={false} style={{ flexGrow: 1 }}>
 				<Box padding="m" style={style}>
 					{children}
 				</Box>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { PaperProvider, adaptNavigationTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -24,20 +24,25 @@ const App = () => {
 		HelveticaNeueCondensedBold: require("./assets/fonts/helvetica-neue/HelveticaNeueCondensedBold.ttf"),
 		HelveticaNeueMedium: require("./assets/fonts/helvetica-neue/HelveticaNeueMedium.ttf"),
 		HelveticaNeueRegular: require("./assets/fonts/helvetica-neue/HelveticaNeue-Roman.otf"),
+		BrushScriptMT: require("./assets/fonts/brush-script-mt/BRUSHSCI.ttf"),
 	});
 
 	useEffect(() => {
-		if (process.env.NODE_ENV === "development") {
-			// @ts-ignore
-			import("jotai-devtools/styles.css");
+		if (process.env.NODE_ENV === "development" && Platform.OS === "web") {
+			try {
+				// @ts-ignore
+				import("jotai-devtools/styles.css");
+			} catch {}
 		}
 	}, []);
 
 	return (
 		<ThemeProvider theme={theme}>
 			<PaperProvider theme={paperTheme}>
-				<SafeAreaView id="providerRoot" style={{ flexGrow: 1 }}>
-					<DevTools position="top-right" />
+				<SafeAreaView id="providerRoot" style={topLevelStyles.safeArea}>
+					{process.env.NODE_ENV === "development" && Platform.OS === "web" && (
+						<DevTools position="top-right" />
+					)}
 					<NavigationContainer theme={LightTheme} ref={navigationRef}>
 						<MainNavigator />
 						<BottomTabs />
@@ -49,3 +54,11 @@ const App = () => {
 };
 
 export default App;
+
+const topLevelStyles = StyleSheet.create({
+	safeArea: {
+		flexGrow: 1,
+		backgroundColor: "white",
+		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+	},
+});

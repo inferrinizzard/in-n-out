@@ -14,7 +14,7 @@ export const ItemHeader = () => {
 		<Box alignItems="center" gap="s" marginBottom="m">
 			<Image
 				source={image}
-				style={{ height: 160, width: 320 }}
+				style={{ height: 100, minWidth: 100, aspectRatio: 1 }}
 				resizeMode="contain"
 			/>
 			<Text variant="bold" style={{ fontSize: 24 }}>

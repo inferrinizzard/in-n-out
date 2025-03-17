@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Image } from "react-native";
 import { Icon } from "react-native-paper";
 import { useAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { Box, Text } from "@src/components";
+import { Box, Text, ResponsiveImage } from "@src/components";
 import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 
@@ -33,13 +32,9 @@ export const CustomisationRow = ({ option }: CustomisationRowProps) => {
 				paddingBottom="s"
 				gap="s"
 				alignItems="center"
-				onPointerDown={() => setIsOpen(!isOpen)}
+				onPress={() => setIsOpen(!isOpen)}
 			>
-				<Image
-					source={image}
-					style={{ minHeight: 40, minWidth: 60 }}
-					resizeMode="contain"
-				/>
+				<ResponsiveImage source={image} minHeight={40} minWidth={60} />
 				<Box flexGrow={1}>
 					<Text variant="bold">{getCopy(option)}</Text>
 				</Box>
