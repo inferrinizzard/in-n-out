@@ -28,6 +28,10 @@ const MiscCaloriesData = Object.freeze({
 	[`${Sku.SoftDrink}${OptionValue.Medium}`]: 190,
 	[`${Sku.SoftDrink}${OptionValue.Large}`]: 270,
 	[`${Sku.SoftDrink}${OptionValue.XtraLarge}`]: 350,
+	[`${Sku.Shake}${OptionValue.Small}`]: 480,
+	[`${Sku.Shake}${OptionValue.Medium}`]: 600,
+	[`${Sku.Shake}${OptionValue.Large}`]: 880,
+	[`${Sku.Shake}${OptionValue.XtraLarge}`]: 1160,
 	AnimalStyle: 160,
 	ProteinStyle: -100,
 } as const);
