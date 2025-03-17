@@ -76,8 +76,8 @@ export const BottomTabs = () => {
 							style: { width: "20%" },
 						}}
 						borderRadius={theme.spacing.s}
-						marginVertical="xs"
-						marginHorizontal="s"
+						margin="xs"
+						// marginHorizontal="s"
 						backgroundColor={isActive ? "redLight" : undefined}
 						onPress={() => {
 							if (navigationRef.canGoBack()) {
