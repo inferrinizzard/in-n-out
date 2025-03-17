@@ -13,10 +13,13 @@ export interface ResponsiveImageProps
 }
 
 export const ResponsiveImage = ({
+	// Special Props
+	baseAxis = "width",
+	// Box Props
 	minHeight,
 	minWidth,
+	// Image Props
 	style,
-	baseAxis = "width",
 	...props
 }: ResponsiveImageProps) => {
 	return (

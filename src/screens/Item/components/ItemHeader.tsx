@@ -1,8 +1,8 @@
+import { Image } from "react-native";
 import { useAtomValue } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { Box, Text } from "@src/components";
-import { ResponsiveImage } from "@src/components/ResponsiveImage";
 import { getImage } from "@src/utils/getImage";
 
 export const ItemHeader = () => {
@@ -12,11 +12,10 @@ export const ItemHeader = () => {
 
 	return (
 		<Box alignItems="center" gap="s" marginBottom="m">
-			<ResponsiveImage
+			<Image
 				source={image}
-				baseAxis="height"
-				minHeight={160}
-				minWidth={320}
+				style={{ height: 100, minWidth: 100, aspectRatio: 1 }}
+				resizeMode="contain"
 			/>
 			<Text variant="bold" style={{ fontSize: 24 }}>
 				{name}
