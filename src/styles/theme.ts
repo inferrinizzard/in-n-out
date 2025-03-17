@@ -1,4 +1,5 @@
 import { createTheme } from "@shopify/restyle";
+import { ValueOf } from "@src/types/util";
 
 const palette = {
 	redLight: "#E02A27",
@@ -27,21 +28,16 @@ const theme = createTheme({
 	},
 	textVariants: {
 		header: {
-			// fontWeight: "bold",
 			fontSize: 24,
 			fontFamily: "HelveticaNeueCondensedBold",
 			letterSpacing: 24 * -0.06,
-			// letterSpacing: "-0.06em",
 		},
 		bold: {
-			// fontWeight: "bold",
 			fontSize: 14,
 			fontFamily: "HelveticaNeueBold",
 			letterSpacing: 14 * -0.06,
-			// letterSpacing: "-0.06em",
 		},
 		boldItalic: {
-			// fontWeight: "bold",
 			fontSize: 24,
 			fontFamily: "HelveticaNeueBoldItalic",
 		},
@@ -49,7 +45,6 @@ const theme = createTheme({
 			fontSize: 12,
 			fontFamily: "HelveticaNeueMedium",
 			letterSpacing: 12 * -0.06,
-			// letterSpacing: "-0.01em",
 		},
 		body: {
 			fontSize: 12,
@@ -57,7 +52,6 @@ const theme = createTheme({
 			fontFamily: "HelveticaNeueRegular",
 		},
 		script: {
-			// fontWeight: 500,
 			fontSize: 16,
 			lineHeight: 16,
 			fontFamily: "BrushScriptMT",

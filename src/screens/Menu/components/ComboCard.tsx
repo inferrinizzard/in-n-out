@@ -46,7 +46,6 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 	return (
 		<Box
 			flexGrow={1}
-			// flexBasis={0}
 			borderRadius={4}
 			borderColor="redLight"
 			borderWidth={2}
@@ -56,6 +55,12 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 				navigation.push(ScreenKeys.Item, { title: burgerCopy });
 				queueSetter.updateIndex(0);
 				queueSetter.setQueue(combo[0], Sku.Fries, Sku.SoftDrink);
+			}}
+			touchableProps={{
+				style: {
+					flexBasis: 0,
+					flexGrow: 1,
+				},
 			}}
 		>
 			<Box padding="xs" gap="xs">
@@ -96,9 +101,13 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 					minWidth={80}
 				/>
 				<Box>
-					<Text variant="bold">{`${burgerCopy},`}</Text>
-					<Text variant="bold">{"French Fries, and"}</Text>
-					<Text variant="bold">{"Medium Drink"}</Text>
+					<Text variant="bold" fontSize={13}>{`${burgerCopy},`}</Text>
+					<Text variant="bold" fontSize={13}>
+						{"French Fries, and"}
+					</Text>
+					<Text variant="bold" fontSize={13}>
+						{"Medium Drink"}
+					</Text>
 				</Box>
 				<Box
 					flexDirection="row"
@@ -114,10 +123,10 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 						>
 							{"$"}
 						</Text>
-						<Text variant="bold" fontSize={16}>{`${(price).toFixed(2)}`}</Text>
+						<Text variant="bold" fontSize={14}>{`${(price).toFixed(2)}`}</Text>
 					</Box>
 
-					<Text variant="body" lineHeight={16}>{`${calorieCount} Cal`}</Text>
+					<Text variant="body" lineHeight={14}>{`${calorieCount} Cal`}</Text>
 				</Box>
 			</Box>
 		</Box>
