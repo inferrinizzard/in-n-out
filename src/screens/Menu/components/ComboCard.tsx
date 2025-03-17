@@ -1,4 +1,4 @@
-import { Alert, Image } from "react-native";
+import { useMemo } from "react";
 import { useTheme } from "@shopify/restyle";
 
 import { useAtomSetter } from "@src/atoms";
@@ -15,6 +15,11 @@ import calories from "@data/calories";
 import { MenuComboMap, type MenuComboKey } from "@data/menu";
 import prices from "@data/prices";
 import { Sku } from "@data/sku";
+
+import TriangleSvg from "@src/svg/triangle";
+import ComboOneSvg from "@src/svg/combo1";
+import ComboTwoSvg from "@src/svg/combo2";
+import ComboThreeSvg from "@src/svg/combo3";
 
 import type { MenuProps } from "../index";
 
@@ -37,11 +42,10 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 	const price = prices.base[comboKey];
 	const calorieCount = calories.base[comboKey];
 
-	const numbers = [
-		require("@images/Combo1.svg"),
-		require("@images/Combo2.svg"),
-		require("@images/Combo3.svg"),
-	];
+	const ComboNumber = useMemo(
+		() => [ComboOneSvg, ComboTwoSvg, ComboThreeSvg][index - 1],
+		[index],
+	);
 
 	return (
 		<Box
@@ -64,35 +68,28 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 			}}
 		>
 			<Box padding="xs" gap="xs">
-				<Image
-					source={require("@images/Triangle.svg")}
+				<Box
 					style={{
-						// minHeight: 55,
 						height: 55,
-						// minWidth: 35,
 						width: 35,
-						flexGrow: 1,
 						position: "absolute",
 						top: theme.spacing.xs,
 						left: theme.spacing.xs,
 					}}
-					resizeMode="contain"
-				/>
-
-				<Image
-					source={numbers[index - 1]}
+				>
+					<TriangleSvg />
+				</Box>
+				<Box
 					style={{
-						// minHeight: 22,
-						// minWidth: 16,
 						height: 22,
 						width: 16,
-						flexGrow: 1,
 						position: "absolute",
 						top: theme.spacing.xs + 5,
 						left: theme.spacing.xs + 3,
 					}}
-					resizeMode="contain"
-				/>
+				>
+					<ComboNumber />
+				</Box>
 
 				<ResponsiveImage
 					source={image}
