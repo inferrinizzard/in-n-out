@@ -1,6 +1,7 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 
 import { Box, Text } from "@src/components";
+import { ResponsiveImage } from "@src/components/ResponsiveImage";
 
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
@@ -33,23 +34,7 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 			alignItems="center"
 			// height={"min-content"}
 		>
-			<Box
-				flexGrow={0}
-				flexShrink={1}
-				flexBasis={0}
-				minHeight={48}
-				minWidth={64}
-			>
-				<Image
-					source={image}
-					style={{
-						height: "auto",
-						aspectRatio: 1,
-						width: "100%",
-					}}
-					resizeMode="contain"
-				/>
-			</Box>
+			<ResponsiveImage source={image} minHeight={48} minWidth={64} />
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				{supertext && <Text variant="script">{supertext}</Text>}
 				<Text variant="header">{itemText}</Text>
