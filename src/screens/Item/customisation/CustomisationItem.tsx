@@ -3,8 +3,7 @@ import { Icon } from "react-native-paper";
 import { useAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { Box, Text } from "@src/components";
-import { ResponsiveImage } from "@src/components/ResponsiveImage";
+import { Box, Text, ResponsiveImage } from "@src/components";
 import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 

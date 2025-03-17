@@ -3,9 +3,7 @@ import { useAtomValue } from "jotai";
 
 import type { StackScreenProps, ScreenKeys } from "@src/navigation";
 import { orderAtom } from "@src/atoms/order.atom";
-import { Box, DividerLine } from "@src/components";
-import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { ListView } from "@src/components/layout/ListView";
+import { Box, DividerLine, ListView, ScreenContainer } from "@src/components";
 
 import CartItem from "./components/CartItem";
 import CartLocation from "./components/CartLocation";

@@ -1,8 +1,7 @@
 import { useAtomValue } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
-import { DividerLine } from "@src/components";
-import { ListView } from "@src/components/layout/ListView";
+import { DividerLine, ListView } from "@src/components";
 import { ItemOptionMap } from "@data/items";
 
 import { CustomisationRow } from "./CustomisationItem";

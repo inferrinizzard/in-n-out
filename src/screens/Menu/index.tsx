@@ -6,8 +6,15 @@ import { useAtomSetter } from "@src/atoms";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { type StackScreenProps, ScreenKeys } from "@src/navigation";
-import ScreenContainer from "@src/components/layout/ScreenContainer";
-import { Anchor, Box, DividerLine, Text } from "@src/components";
+
+import {
+	Anchor,
+	Box,
+	DividerLine,
+	Text,
+	ScreenContainer,
+	ListView,
+} from "@src/components";
 import type { Theme } from "@src/styles/theme";
 import { getCopy } from "@src/utils/getCopy";
 
@@ -22,8 +29,6 @@ import {
 import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
 import { ComboCard } from "./components/ComboCard";
-import { Link } from "@react-navigation/native";
-import { ListView } from "@src/components/layout/ListView";
 
 export interface MenuScreenParams {
 	activeMenu?: MenuKey;

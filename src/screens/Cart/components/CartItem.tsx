@@ -4,8 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import type { StackNavigationProps } from "@src/navigation/StackNavigator";
 import type { SkuItem } from "@src/atoms/types";
-import { Box, Text } from "@src/components";
-import { ResponsiveImage } from "@src/components/ResponsiveImage";
+import { Box, Text, ResponsiveImage } from "@src/components";
+
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 import { ItemOptionMap } from "@data/items";

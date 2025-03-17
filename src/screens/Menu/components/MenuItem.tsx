@@ -1,8 +1,6 @@
 import { View } from "react-native";
 
-import { Box, Text } from "@src/components";
-import { ResponsiveImage } from "@src/components/ResponsiveImage";
-
+import { Box, Text, ResponsiveImage } from "@src/components";
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 
