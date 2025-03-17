@@ -10,16 +10,14 @@ export interface ListViewProps<
 	data: Items;
 	SeparatorComponent?: React.ComponentType;
 	renderItem: (item: Item) => JSX.Element;
-	containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const ListView = <Items extends Readonly<Array<unknown>>>({
 	data,
 	renderItem,
 	SeparatorComponent,
-	containerStyle,
 }: ListViewProps<Items>) => (
-	<Box style={containerStyle}>
+	<Box>
 		{data.map((item, i) => (
 			// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 			<React.Fragment key={i}>

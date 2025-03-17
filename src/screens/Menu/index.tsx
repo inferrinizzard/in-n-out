@@ -78,7 +78,6 @@ const Menu = ({
 			)}
 			<ListView
 				data={menuConfig.items as readonly MenuSkuConfig[]}
-				containerStyle={{ gap: theme.spacing.s }}
 				SeparatorComponent={DividerLine}
 				renderItem={(item) => (
 					<MenuItem
@@ -100,7 +99,6 @@ const Menu = ({
 					<DividerLine />
 					<ListView
 						data={subMenus}
-						containerStyle={{ gap: theme.spacing.s }}
 						SeparatorComponent={DividerLine}
 						renderItem={(menu) => {
 							const menuConfig = MenuSkuMap[menu];
