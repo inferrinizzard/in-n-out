@@ -1,5 +1,4 @@
 import React from "react";
-import { useTheme } from "@shopify/restyle";
 
 import { useAtomSetter } from "@src/atoms";
 
@@ -16,7 +15,6 @@ import {
 	ScreenContainer,
 	ListView,
 } from "@src/components";
-import type { Theme } from "@src/styles/theme";
 import { getCopy } from "@src/utils/getCopy";
 
 import {
@@ -45,8 +43,6 @@ const Menu = ({
 		params: { activeMenu = DataMenu.Main } = {},
 	},
 }: MenuProps) => {
-	const theme = useTheme<Theme>();
-
 	const activeItemSetter = useAtomSetter(activeItemAtom);
 	const queueSetter = useAtomSetter(queueAtom);
 
