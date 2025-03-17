@@ -4,7 +4,8 @@ import { StackActions } from "@react-navigation/native";
 import { useAtomValue } from "jotai";
 import { useTheme } from "@shopify/restyle";
 
-import { ScreenKeys, type StackScreenProps } from "@src/navigation";
+import type { StackScreenProps } from "@src/navigation";
+import { ScreenKeys } from "@src/navigation/screens";
 import { Box, Text } from "@src/components";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
@@ -12,10 +13,10 @@ import { queueAtom } from "@src/atoms/queue.atom";
 import { orderAtom } from "@src/atoms/order.atom";
 import { useAtomSetter } from "@src/atoms";
 import type { Theme } from "@src/styles/theme";
+import { getCopy } from "@src/utils/getCopy";
 
 import { Sku } from "@data/sku";
 import { Item, ItemOptionMap } from "@data/items";
-import { getCopy } from "@src/utils/getCopy";
 
 interface ContinueButtonProps
 	extends Pick<StackScreenProps<typeof ScreenKeys.Item>, "navigation"> {}

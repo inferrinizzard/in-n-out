@@ -3,7 +3,7 @@ import { useTheme } from "@shopify/restyle";
 
 import { useAtomSetter } from "@src/atoms";
 
-import { ScreenKeys } from "@src/navigation";
+import { ScreenKeys } from "@src/navigation/screens";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { Box, Text, ResponsiveImage } from "@src/components";
