@@ -1,5 +1,5 @@
 import { Box, Text } from "@src/components";
-import { Image } from "react-native";
+import LogoSvg from "@src/svg/logo";
 
 const CartLocation = () => {
 	return (
@@ -11,11 +11,9 @@ const CartLocation = () => {
 			borderBottomColor="greyLight"
 			borderBottomWidth={1}
 		>
-			<Image
-				source={require("@images/logo.svg")}
-				style={{ height: 48, width: 72 }}
-				resizeMode="contain"
-			/>
+			<Box style={{ height: 48, width: 72 }}>
+				<LogoSvg />
+			</Box>
 			<Box flexGrow={1} style={{ gap: 4 }}>
 				<Text>{"Your Local In-n-Out:"}</Text>
 				<Text>{"13766 Francisquito Ave,"}</Text>
