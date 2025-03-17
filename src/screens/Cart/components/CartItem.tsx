@@ -1,10 +1,11 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import type { StackNavigationProps } from "@src/navigation/StackNavigator";
 import type { SkuItem } from "@src/atoms/types";
 import { Box, Text } from "@src/components";
+import { ResponsiveImage } from "@src/components/ResponsiveImage";
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 import { ItemOptionMap } from "@data/items";
@@ -87,11 +88,7 @@ const CartItem = <Sku extends SkuKey>({
 			paddingBottom="s"
 			alignItems={customisationData.length ? "flex-start" : "center"}
 		>
-			<Image
-				source={image}
-				style={{ height: 48, width: 64, flexGrow: 0, flexShrink: 1 }}
-				resizeMode="contain"
-			/>
+			<ResponsiveImage source={image} minHeight={48} minWidth={64} />
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				<Text variant="header">{itemText}</Text>
 				{customisationData.map(([key, val]) => {

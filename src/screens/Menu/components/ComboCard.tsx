@@ -7,16 +7,17 @@ import { ScreenKeys } from "@src/navigation";
 import { queueAtom } from "@src/atoms/queue.atom";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { Box, Text } from "@src/components";
+import { ResponsiveImage } from "@src/components/ResponsiveImage";
 import { getCopy } from "@src/utils/getCopy";
 import { getImage } from "@src/utils/getImage";
 import type { Theme } from "@src/styles/theme";
 
-import { MenuComboMap, type MenuComboKey } from "@data/menu";
 import calories from "@data/calories";
+import { MenuComboMap, type MenuComboKey } from "@data/menu";
 import prices from "@data/prices";
+import { Sku } from "@data/sku";
 
 import type { MenuProps } from "../index";
-import { Sku } from "@data/sku";
 
 interface ComboCardProps extends Pick<MenuProps, "navigation"> {
 	comboKey: MenuComboKey;
@@ -89,16 +90,11 @@ export const ComboCard = ({ navigation, comboKey, index }: ComboCardProps) => {
 					resizeMode="contain"
 				/>
 
-				<Image
+				<ResponsiveImage
 					source={image}
-					style={{
-						// minHeight: 80,
-						// minWidth: 100,
-						height: 80,
-						width: 100,
-						flexGrow: 1,
-					}}
-					resizeMode="contain"
+					baseAxis="height"
+					minHeight={80}
+					minWidth={80}
 				/>
 				<Box>
 					<Text variant="bold">{`${burgerCopy},`}</Text>

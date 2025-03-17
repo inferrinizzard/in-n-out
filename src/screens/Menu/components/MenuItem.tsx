@@ -29,10 +29,9 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 		<Box
 			flexDirection="row"
 			gap="s"
+			alignItems="center"
 			paddingVertical="s"
 			onPress={onPress}
-			alignItems="center"
-			// height={"min-content"}
 		>
 			<ResponsiveImage source={image} minHeight={48} minWidth={64} />
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
