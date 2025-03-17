@@ -1,6 +1,6 @@
 {
   "name": "in-n-out",
-  "version": "0.1.0w",
+  "version": "0.1.0a",
   "main": "node_modules/expo/AppEntry.js",
   "repository": {
     "type": "git",
