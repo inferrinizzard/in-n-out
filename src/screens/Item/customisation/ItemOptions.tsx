@@ -1,10 +1,10 @@
-import { FlatList } from "react-native";
 import { useAtomValue } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { DividerLine } from "@src/components";
-
+import { ListView } from "@src/components/layout/ListView";
 import { ItemOptionMap } from "@data/items";
+
 import { CustomisationRow } from "./CustomisationItem";
 
 export const ItemOptions = () => {
@@ -17,12 +17,10 @@ export const ItemOptions = () => {
 	const { options } = ItemOptionMap[item as keyof typeof ItemOptionMap];
 
 	return (
-		<FlatList
+		<ListView
 			data={options}
-			ItemSeparatorComponent={DividerLine}
-			renderItem={({ item: option }) => (
-				<CustomisationRow key={option} option={option} />
-			)}
+			SeparatorComponent={DividerLine}
+			renderItem={(option) => <CustomisationRow key={option} option={option} />}
 		/>
 	);
 };

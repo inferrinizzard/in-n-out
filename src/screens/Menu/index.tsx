@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { FlatList } from "react-native";
 import { useTheme } from "@shopify/restyle";
 
 import { useAtomSetter } from "@src/atoms";
@@ -24,6 +23,7 @@ import MenuItem from "./components/MenuItem";
 import { CheckoutBanner } from "./components/CheckoutBanner";
 import { ComboCard } from "./components/ComboCard";
 import { Link } from "@react-navigation/native";
+import { ListView } from "@src/components/layout/ListView";
 
 export interface MenuScreenParams {
 	activeMenu?: MenuKey;
@@ -76,11 +76,11 @@ const Menu = ({
 					</Box>
 				</Box>
 			)}
-			<FlatList
+			<ListView
 				data={menuConfig.items as readonly MenuSkuConfig[]}
-				contentContainerStyle={{ gap: theme.spacing.s }}
-				ItemSeparatorComponent={DividerLine}
-				renderItem={({ item }) => (
+				containerStyle={{ gap: theme.spacing.s }}
+				SeparatorComponent={DividerLine}
+				renderItem={(item) => (
 					<MenuItem
 						id={item.sku}
 						supertext={"supertext" in item ? item.supertext : undefined}
@@ -98,11 +98,11 @@ const Menu = ({
 			{activeMenu === DataMenu.Main && (
 				<React.Fragment>
 					<DividerLine />
-					<FlatList
+					<ListView
 						data={subMenus}
-						contentContainerStyle={{ gap: theme.spacing.s }}
-						ItemSeparatorComponent={DividerLine}
-						renderItem={({ item: menu }) => {
+						containerStyle={{ gap: theme.spacing.s }}
+						SeparatorComponent={DividerLine}
+						renderItem={(menu) => {
 							const menuConfig = MenuSkuMap[menu];
 							return (
 								<MenuItem
