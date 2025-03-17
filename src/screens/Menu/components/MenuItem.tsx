@@ -25,19 +25,31 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 	const calorie = id in calories.base ? calories.base[id as SkuKey] : undefined;
 
 	return (
-		<Box flexDirection="row" gap="s" paddingBottom="s" onPress={onPress}>
-			<Image
-				source={image}
-				style={{
-					// minHeight: 48,
-					// minWidth: 64,
-					height: 48,
-					width: 64,
-					flexGrow: 0,
-					flexShrink: 1,
-				}}
-				resizeMode="contain"
-			/>
+		<Box
+			flexDirection="row"
+			gap="s"
+			paddingVertical="s"
+			onPress={onPress}
+			alignItems="center"
+			// height={"min-content"}
+		>
+			<Box
+				flexGrow={0}
+				flexShrink={1}
+				flexBasis={0}
+				minHeight={48}
+				minWidth={64}
+			>
+				<Image
+					source={image}
+					style={{
+						height: "auto",
+						aspectRatio: 1,
+						width: "100%",
+					}}
+					resizeMode="contain"
+				/>
+			</Box>
 			<View style={{ flexGrow: 1, justifyContent: "center" }}>
 				{supertext && <Text variant="script">{supertext}</Text>}
 				<Text variant="header">{itemText}</Text>
