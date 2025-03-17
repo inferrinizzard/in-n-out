@@ -59,7 +59,7 @@ const theme = createTheme({
 		script: {
 			// fontWeight: 500,
 			fontSize: 16,
-			lineHeight: 12,
+			lineHeight: 16,
 			fontFamily: "BrushScriptMT",
 		},
 		defaults: {
