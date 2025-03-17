@@ -3,7 +3,7 @@ import { Button } from "react-native-paper";
 
 import { Anchor, Box, Text } from "@src/components";
 
-import { TAX_RATE } from "./PriceTotal";
+export const TAX_RATE = 10.25; // Francisquito -> Baldwin Park -> LA County
 
 const leftPadZeroes = (num: number) =>
 	`00${num.toFixed(0).toString()}`.slice(-2);

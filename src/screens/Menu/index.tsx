@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTheme } from "@shopify/restyle";
 
 import { useAtomSetter } from "@src/atoms";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
-import { type StackScreenProps, ScreenKeys } from "@src/navigation";
+import type { StackScreenProps } from "@src/navigation";
+import { ScreenKeys } from "@src/navigation/screens"; // Needed to prevent dep cycle
 
 import {
 	Anchor,
