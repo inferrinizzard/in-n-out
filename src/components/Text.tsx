@@ -11,7 +11,7 @@ export const ThemeText = createText<Theme>();
 type ThemeTextProps = Parameters<typeof ThemeText>[0];
 export interface TextProps extends ThemeTextProps {}
 
-const _Text = ({ children, style, ...props }: TextProps) => {
+const Text = ({ children, style, ...props }: TextProps) => {
 	const theme = useTheme<Theme>();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -59,8 +59,8 @@ const _Text = ({ children, style, ...props }: TextProps) => {
 	}
 
 	const rStyle: StyleProp<TextStyle> = {
-		fontSize: (textStyle.fontSize ?? 0) * 0.6 || undefined,
-		lineHeight: (textStyle.lineHeight ?? 0) * 0.7 || undefined,
+		fontSize: (textStyle?.fontSize ?? 0) * 0.6 || undefined,
+		lineHeight: (textStyle?.lineHeight ?? 0) * 0.7 || undefined,
 		letterSpacing: 0,
 		alignSelf: "flex-start",
 	};
@@ -89,4 +89,4 @@ const _Text = ({ children, style, ...props }: TextProps) => {
 	);
 };
 
-export const Text = React.memo(_Text);
+export default React.memo(Text);
