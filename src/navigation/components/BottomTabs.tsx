@@ -37,6 +37,7 @@ export const BottomTabs = () => {
 			flexDirection="row"
 			justifyContent="space-evenly"
 			paddingVertical="xs"
+			height={64}
 			style={{ boxShadow: "0px -4px 8px 0px rgba(0, 0, 0, 0.05)" }}
 		>
 			{Object.entries(tabsIcons).map(([screen, icon]) => {
@@ -49,7 +50,7 @@ export const BottomTabs = () => {
 						alignItems="center"
 						flexGrow={1}
 						flexBasis={0}
-						onTouchStart={() => {
+						onPress={() => {
 							if (navigationRef.canGoBack()) {
 								navigationRef.dispatch(StackActions.popToTop());
 							}

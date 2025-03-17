@@ -3,7 +3,7 @@ import { Button } from "react-native-paper";
 import { useAtomValue } from "jotai";
 
 import { orderAtom } from "@src/atoms/order.atom";
-import { ScreenKeys } from "@src/navigation";
+import { ScreenKeys } from "@src/navigation/screens";
 import { Box, Text } from "@src/components";
 
 import type { MenuProps } from "../index";
