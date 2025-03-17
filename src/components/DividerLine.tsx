@@ -1,3 +1,3 @@
-import { Box } from "./Box";
+import Box from "./Box";
 
 export const DividerLine = () => <Box backgroundColor="greyDark" height={1} />;

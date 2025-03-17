@@ -12,7 +12,7 @@ export interface BoxProps extends ThemeBoxProps {
 	// touchable?:
 }
 
-const _Box = ({ onPress, children, ...props }: BoxProps) => {
+const Box = ({ onPress, children, ...props }: BoxProps) => {
 	if (!onPress) {
 		return <ThemeBox {...props}>{children}</ThemeBox>;
 	}
@@ -24,4 +24,4 @@ const _Box = ({ onPress, children, ...props }: BoxProps) => {
 	);
 };
 
-export const Box = React.memo(_Box);
+export default React.memo(Box);

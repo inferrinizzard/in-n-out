@@ -1,7 +1,6 @@
 import React from "react";
-import type { StyleProp, ViewStyle } from "react-native";
 
-import { Box } from "../Box";
+import Box from "../Box";
 
 export interface ListViewProps<
 	Items extends Readonly<Array<unknown>>,

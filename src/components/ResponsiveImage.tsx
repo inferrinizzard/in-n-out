@@ -4,7 +4,7 @@ import {
 	type StyleProp,
 	type ImageProps,
 } from "react-native";
-import { Box, type BoxProps } from "./Box";
+import Box, { type BoxProps } from "./Box";
 
 export interface ResponsiveImageProps
 	extends ImageProps,
