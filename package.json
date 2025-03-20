@@ -13,7 +13,9 @@
     "web": "expo start --web",
     "_eas": "eas",
     "_expo": "expo",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:web": "expo export -p web",
+    "serve": "expo serve"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
