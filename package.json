@@ -52,6 +52,7 @@
     "@types/uuid": "^9.0.7",
     "babel-plugin-module-resolver": "^5.0.2",
     "eas-cli": "^15.0.14",
+    "gh-pages": "^6.3.0",
     "jotai-devtools": "^0.11.0",
     "typescript": "^5.2.2"
   },
