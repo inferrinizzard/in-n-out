@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useAtomValue } from "jotai";
 
-import type { StackScreenProps, ScreenKeys } from "@src/navigation";
+import type { StackScreenProps } from "@src/navigation";
+import type { ScreenKeys } from "@src/navigation/screens";
 import { orderAtom } from "@src/atoms/order.atom";
 import { Box, DividerLine, ListView, ScreenContainer } from "@src/components";
 

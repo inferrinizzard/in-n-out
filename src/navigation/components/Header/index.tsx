@@ -15,7 +15,7 @@ export const Header = ({ back, navigation, route }: HeaderProps) => {
 			: undefined) ?? route.name;
 
 	return (
-		<View>
+		<View style={{ maxWidth: "100%", overflow: "hidden" }}>
 			<Image
 				source={require("@images/banner.png")}
 				height={50}

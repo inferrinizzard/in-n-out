@@ -1,4 +1,5 @@
-import type { StackScreenProps, ScreenKeys } from "@src/navigation";
+import type { StackScreenProps } from "@src/navigation";
+import type { ScreenKeys } from "@src/navigation/screens";
 import { ScreenContainer } from "@src/components";
 
 import { ItemHeader } from "./components/ItemHeader";

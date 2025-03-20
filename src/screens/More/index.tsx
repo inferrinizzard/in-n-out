@@ -1,6 +1,7 @@
 import { Icon, List } from "react-native-paper";
 
-import type { StackScreenProps, ScreenKeys } from "@src/navigation";
+import type { StackScreenProps } from "@src/navigation";
+import type { ScreenKeys } from "@src/navigation/screens";
 
 import ScreenContainer from "../../components/layout/ScreenContainer";
 
