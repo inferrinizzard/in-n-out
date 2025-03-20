@@ -15,7 +15,8 @@
     "_expo": "expo",
     "typecheck": "tsc --noEmit",
     "build:web": "expo export -p web",
-    "serve": "expo serve"
+    "serve": "expo serve",
+    "deploy:web": "yarn build:web && gh-pages --nojekyll -d dist"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
