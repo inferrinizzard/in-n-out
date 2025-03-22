@@ -25,6 +25,8 @@ const App = () => {
 		HelveticaNeueMedium: require("./assets/fonts/helvetica-neue/HelveticaNeueMedium.ttf"),
 		HelveticaNeueRegular: require("./assets/fonts/helvetica-neue/HelveticaNeue-Roman.otf"),
 		BrushScriptMT: require("./assets/fonts/brush-script-mt/BRUSHSCI.ttf"),
+
+		MaterialCommunityIcons: require("./node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"),
 	});
 
 	useEffect(() => {

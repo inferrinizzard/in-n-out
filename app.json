@@ -2,7 +2,7 @@
   "expo": {
     "name": "in-n-out",
     "slug": "in-n-out",
-    "version": "0.1.0a",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/logo/logo-solid.png",
     "userInterfaceStyle": "light",
@@ -24,19 +24,16 @@
       "package": "com.inferrinizzard.innout"
     },
     "web": {
-      "favicon": "./assets/logo/logo-full.png"
+      "favicon": "./assets/logo/logo-full.png",
+      "output": "single",
+      "bundler": "metro"
     },
-    "extra": {
-      "eas": {
-        "projectId": "3c193648-bae8-40aa-8b6f-86607875c625"
-      }
-    },
+    "extra": { "eas": { "projectId": "3c193648-bae8-40aa-8b6f-86607875c625" } },
     "owner": "inferrinizzard",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+    "runtimeVersion": { "policy": "appVersion" },
     "updates": {
       "url": "https://u.expo.dev/3c193648-bae8-40aa-8b6f-86607875c625"
-    }
+    },
+    "experiments": { "baseUrl": "" }
   }
 }

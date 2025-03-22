@@ -28,3 +28,6 @@ jobs:
 
       - name: 🚀 Create update
         run: eas update --auto --platform=all
+
+      - name: 🕸 Deploy Web
+        run: yarn deploy

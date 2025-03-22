@@ -1,6 +1,6 @@
 {
   "name": "in-n-out",
-  "version": "0.1.0a",
+  "version": "0.1.1",
   "main": "node_modules/expo/AppEntry.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,11 @@
     "web": "expo start --web",
     "_eas": "eas",
     "_expo": "expo",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:web": "npx tsx ./scripts/build.web.ts",
+    "serve": "expo serve",
+    "predeploy": "yarn build:web",
+    "deploy": "gh-pages --nojekyll -d dist"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
@@ -43,12 +47,14 @@
     "@babel/core": "^7.20.0",
     "@biomejs/biome": "^1.9.4",
     "@expo/config-plugins": "~9.0.0",
+    "@expo/metro-runtime": "^4.0.1",
     "@expo/webpack-config": "^19.0.0",
     "@tsconfig/react-native": "^3.0.2",
     "@types/react": "^18.2.34",
     "@types/uuid": "^9.0.7",
     "babel-plugin-module-resolver": "^5.0.2",
     "eas-cli": "^15.0.14",
+    "gh-pages": "^6.3.0",
     "jotai-devtools": "^0.11.0",
     "typescript": "^5.2.2"
   },

@@ -5,7 +5,7 @@ import { useAtomSetter } from "@src/atoms";
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
 import { queueAtom } from "@src/atoms/queue.atom";
 import type { StackScreenProps } from "@src/navigation";
-import { ScreenKeys } from "@src/navigation/screens"; // Needed to prevent dep cycle
+import { ScreenKeys } from "@src/navigation/screens";
 
 import {
 	Anchor,
