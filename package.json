@@ -14,7 +14,7 @@
     "_eas": "eas",
     "_expo": "expo",
     "typecheck": "tsc --noEmit",
-    "build:web": "expo export -p web",
+    "build:web": "npx rimraf dist && expo export -p web",
     "serve": "expo serve",
     "predeploy": "yarn build:web",
     "deploy": "gh-pages --nojekyll -d dist"
