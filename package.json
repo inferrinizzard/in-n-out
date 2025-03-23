@@ -1,6 +1,6 @@
 {
   "name": "in-n-out",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "node_modules/expo/AppEntry.js",
   "repository": {
     "type": "git",
@@ -16,8 +16,7 @@
     "typecheck": "tsc --noEmit",
     "build:web": "npx tsx ./scripts/build.web.ts",
     "serve": "expo serve",
-    "predeploy": "yarn build:web",
-    "deploy": "gh-pages --nojekyll -d dist"
+    "deploy": "bash -c \"COMMIT_HASH=$(git log -1 --pretty=format:%h); gh-pages --nojekyll -d dist -m \\\"base: $COMMIT_HASH\\\"\""
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",

@@ -6,6 +6,8 @@ on:
 
 jobs:
   update:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -29,5 +31,9 @@ jobs:
       - name: 🚀 Create update
         run: eas update --auto --platform=all
 
-      - name: 🕸 Deploy Web
-        run: yarn deploy
+      - name: 🕸 Deploy Web with gh-pages
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          yarn deploy -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
