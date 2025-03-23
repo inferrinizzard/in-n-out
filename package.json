@@ -17,7 +17,7 @@
     "build:web": "npx tsx ./scripts/build.web.ts",
     "serve": "expo serve",
     "predeploy": "yarn build:web",
-    "deploy": "gh-pages --nojekyll -d dist"
+    "deploy": "gh-pages --nojekyll -d dist -m \"base: (git log -1 --pretty=format:%h)\""
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
