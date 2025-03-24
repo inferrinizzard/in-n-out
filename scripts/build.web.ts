@@ -2,19 +2,19 @@ import { rm } from "node:fs/promises";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { exec } from "node:child_process";
 
-const appJson = JSON.parse(readFileSync("./app.json").toString());
+const appJsonString = readFileSync("./app.json").toString();
+const appJson = JSON.parse(appJsonString);
+const baseAppJson = JSON.parse(appJsonString);
 
-const baseAppJson = { ...appJson };
 if (!process.env.CI) {
 	console.log(process.cwd());
 	if (existsSync("./dist")) {
 		rm("./dist", { recursive: true });
 	}
 
-	const newAppJson = { ...appJson };
-	newAppJson.expo.experiments.baseUrl = "";
+	appJson.expo.experiments.baseUrl = "";
 
-	writeFileSync("./app.json", JSON.stringify(newAppJson));
+	writeFileSync("./app.json", JSON.stringify(appJson));
 }
 
 exec("expo export -p web");
@@ -22,3 +22,5 @@ exec("expo export -p web");
 if (!process.env.CI) {
 	writeFileSync("./app.json", JSON.stringify(baseAppJson));
 }
+
+exec("npx prettier --write app.json");
