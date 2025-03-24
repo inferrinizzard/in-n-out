@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit",
     "build:web": "npx tsx ./scripts/build.web.ts",
     "serve": "expo serve",
-    "deploy": "bash -c \"COMMIT_HASH=$(git log -1 --pretty=format:%h); gh-pages --nojekyll -d dist -m \\\"base: $COMMIT_HASH\\\"\""
+    "deploy": "npx tsx ./scripts/deploy.web.ts"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
