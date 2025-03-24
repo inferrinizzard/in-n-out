@@ -17,6 +17,14 @@ if (!process.env.CI) {
 	appJson.expo.experiments.baseUrl = "";
 
 	writeFileSync("./app.json", JSON.stringify(appJson));
+
+	// Update index.html
+	let indexTemplate = readFileSync("./public/index.html").toString();
+	indexTemplate = indexTemplate.replace(
+		/(?<=href=")(.*)(?=[/]manifest.json)/,
+		"",
+	);
+	writeFileSync("./public/index.html", indexTemplate);
 }
 
 exec("expo export -p web")
@@ -24,6 +32,15 @@ exec("expo export -p web")
 		if (!process.env.CI) {
 			console.log("Reverting app.json");
 			writeFileSync("./app.json", JSON.stringify(baseAppJson));
+
+			// Update index.html
+			let indexTemplate = readFileSync("./public/index.html").toString();
+			indexTemplate = indexTemplate.replace(
+				/href=".*[/]manifest.json/,
+				(match) =>
+					match.replace('"', `"/${baseAppJson.expo.experiments.baseUrl}`),
+			);
+			writeFileSync("./public/index.html", indexTemplate);
 		}
 	})
 	.finally(() => exec("npx prettier --write app.json"));
