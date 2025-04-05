@@ -1,11 +1,14 @@
 import { useCallback } from "react";
+import { BackHandler } from "react-native";
 import { Button, Icon } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 import { useAtomValue } from "jotai";
 
 import { activeItemAtom, useAtomSetter } from "@src/atoms";
 import { queueAtom } from "@src/atoms/queue.atom";
 
 import type { HeaderProps } from "./index";
+import { ScreenKeys } from "@src/navigation/screens";
 
 export interface HeaderButtonProps extends Pick<HeaderProps, "navigation"> {}
 
@@ -31,6 +34,30 @@ const HeaderButton = ({ navigation }: HeaderButtonProps) => {
 			}
 		}
 	}, [queue, index, navigation.goBack, queueSetter, activeItemSetter]);
+
+	useFocusEffect(
+		useCallback(() => {
+			const handleGoBack = () => {
+				if (navigation.canGoBack()) {
+					handlePress();
+					return true;
+				}
+				if (navigation.getState().routes[0].name !== ScreenKeys.Menu) {
+					navigation.replace(ScreenKeys.Menu);
+					return true;
+				}
+
+				return false;
+			};
+
+			const subscription = BackHandler.addEventListener(
+				"hardwareBackPress",
+				handleGoBack,
+			);
+
+			return () => subscription.remove();
+		}, [handlePress, navigation]),
+	);
 
 	return (
 		<Button onPress={handlePress}>
