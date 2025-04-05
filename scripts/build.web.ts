@@ -38,7 +38,7 @@ exec("expo export -p web")
 			indexTemplate = indexTemplate.replace(
 				/href=".*[/]manifest.json/,
 				(match) =>
-					match.replace('"', `"/${baseAppJson.expo.experiments.baseUrl}`),
+					match.replace('"/', `"${baseAppJson.expo.experiments.baseUrl}/`),
 			);
 			writeFileSync("./public/index.html", indexTemplate);
 		}
