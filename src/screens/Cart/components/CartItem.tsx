@@ -4,12 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 
 import type { StackNavigationProps } from "@src/navigation/StackNavigator";
 import type { SkuItem } from "@src/atoms/types";
+import { getCustomisationData } from "@src/atoms/utils/options";
 import { Box, Text, ResponsiveImage } from "@src/components";
 
 import { getImage } from "@src/utils/getImage";
 import { getCopy } from "@src/utils/getCopy";
 import { ItemOptionMap } from "@data/items";
-import type { OptionInstance, OptionKey } from "@data/options";
+import type { OptionInstance } from "@data/options";
 import { SkuItemMap, type SkuKey } from "@data/sku";
 
 export interface CartItemProps<Sku extends SkuKey> extends SkuItem<Sku> {
@@ -35,41 +36,7 @@ const CartItem = <Sku extends SkuKey>({
 		...(SkuItemMap[sku] as { override?: object }).override,
 	};
 
-	const customisationData = (
-		Object.entries(options ?? {}) as {
-			[O in OptionKey]: [O, OptionInstance<O>];
-		}[OptionKey][]
-	).filter(([optionKey, optionValue]) => {
-		if (!(item in ItemOptionMap)) {
-			return true;
-		}
-
-		if (!(optionKey in defaultOptions)) {
-			return true;
-		}
-
-		if (Object.values(optionValue.flags ?? {}).some((x) => x)) {
-			return true;
-		}
-
-		const defaultValue =
-			optionKey in defaultOptions
-				? (defaultOptions[
-						optionKey as keyof typeof defaultOptions
-					] as OptionInstance<typeof optionKey>)
-				: undefined;
-
-		if (defaultValue && "count" in defaultValue && "count" in optionValue) {
-			return defaultValue.count !== optionValue.count;
-		}
-
-		return (
-			defaultValue &&
-			"value" in defaultValue &&
-			"value" in optionValue &&
-			defaultValue?.value !== optionValue.value
-		);
-	});
+	const customisationData = getCustomisationData<Sku>({ item, sku, options });
 
 	const editCartItem = () => {
 		// dispatch(editItem(uuid));
