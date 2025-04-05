@@ -5,7 +5,7 @@ import { useAtomValue } from "jotai";
 import { orderAtom } from "@src/atoms/order.atom";
 import { Box, Text } from "@src/components";
 
-import { Receipt, TAX_RATE } from "./Receipt";
+import { Receipt, TAX_RATE } from "../receipt";
 
 export const PriceTotal = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
