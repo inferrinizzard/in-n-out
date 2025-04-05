@@ -2,7 +2,8 @@ import React from "react";
 
 import { Anchor, Box, Text } from "@src/components";
 
-import { leftPadZeroes, type ReceiptProps, TAX_RATE } from "./index";
+import type { ReceiptProps } from "./index";
+import { leftPadZeroes, TAX_RATE } from "./misc";
 
 export const ReceiptBR = () => (
 	<Text fontFamily="monospace">

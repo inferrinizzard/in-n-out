@@ -1,22 +1,16 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Modal } from "react-native";
 import { Button } from "react-native-paper";
-import { useAtomValue } from "jotai";
 
-import { orderAtom } from "@src/atoms";
 import { Box, Text } from "@src/components";
-import { getCustomisationData } from "@src/atoms/utils/options";
 import {
 	ReceiptBR,
 	ReceiptFooter,
 	ReceiptHeader,
 	ReceiptTotal,
 } from "./components";
-
-export const TAX_RATE = 10.25; // Francisquito -> Baldwin Park -> LA County
-
-export const leftPadZeroes = (num: number) =>
-	`00${num.toFixed(0).toString()}`.slice(-2);
+import { ReceiptItemList } from "./items";
+import { leftPadZeroes } from "./misc";
 
 export interface ReceiptProps {
 	isVisible: boolean;
@@ -34,11 +28,7 @@ export const Receipt = ({
 	taxesAndFees,
 	total,
 }: ReceiptProps) => {
-	const date = new Date();
 	const orderNumber = leftPadZeroes(40);
-
-	const order = useAtomValue(orderAtom);
-	const orderItems = useMemo(() => Object.entries(order), [order]);
 
 	return (
 		<Modal visible={isVisible}>
@@ -61,46 +51,7 @@ export const Receipt = ({
 				</Text>
 				<ReceiptBR />
 
-				<Box width="100%" flexDirection="column" paddingBottom="m">
-					{orderItems.map(([uuid, item]) => {
-						const customisationData = getCustomisationData(item);
-
-						return (
-							<React.Fragment key={uuid}>
-								<Text
-									fontFamily="monospace"
-									textAlign="left"
-									style={{ width: "100%" }}
-								>
-									{`  ${item.sku}`}
-								</Text>
-								{customisationData.map(([optionKey, optionInstance]) => {
-									const optionText =
-										"value" in optionInstance
-											? optionInstance.value
-											: "count" in optionInstance
-												? optionInstance.count
-												: undefined;
-
-									if (!optionText) {
-										return;
-									}
-
-									return (
-										<Text
-											key={optionKey}
-											fontFamily="monospace"
-											textAlign="left"
-											style={{ width: "100%" }}
-										>
-											{`  - ${optionText} ${optionKey}`}
-										</Text>
-									);
-								})}
-							</React.Fragment>
-						);
-					})}
-				</Box>
+				<ReceiptItemList />
 
 				<ReceiptTotal
 					subtotal={subtotal}
@@ -113,3 +64,5 @@ export const Receipt = ({
 		</Modal>
 	);
 };
+
+export * from "./misc";
