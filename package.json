@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit",
     "build:web": "npx tsx ./scripts/build.web.ts",
     "serve": "expo serve",
+    "predeploy": "yarn build:web",
     "deploy": "npx tsx ./scripts/deploy.web.ts"
   },
   "dependencies": {
