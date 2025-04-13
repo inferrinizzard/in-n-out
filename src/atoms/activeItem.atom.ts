@@ -13,9 +13,10 @@ import { Item, ItemOptionMap } from "@data/items";
 import prices from "@data/prices";
 import calories from "@data/calories";
 
-import { getCalories, getPrice, isBurger } from "./utils";
+import { getCalories, getPrice, isBurger, isDrink } from "./utils";
 import type { SkuItem, SkuOptions } from "./types";
 import { getBurgerName } from "./utils/burger";
+import { getDrinkName } from "./utils/drink";
 
 interface ActiveItemAtomState extends SkuItem<SkuKey> {
 	isValid: boolean;
@@ -64,6 +65,7 @@ export const activeItemAtom = atom(
 				options,
 				price,
 				calories: numCalories,
+				quantity: 1,
 			} as ActiveItemAtomState);
 		},
 
@@ -124,7 +126,9 @@ export const activeItemAtom = atom(
 						newOptions.Cheese?.count ??
 							ItemOptionMap[Item.Burger].default.Cheese.count,
 					)
-				: getCopy(prev.sku);
+				: isDrink(prev.sku)
+					? getDrinkName(prev.sku, newOptions)
+					: getCopy(prev.sku);
 
 			const isValid =
 				item in ItemOptionMap

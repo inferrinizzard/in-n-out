@@ -19,4 +19,5 @@ export interface SkuItem<
 	options?: SkuOptions<Item>;
 	price: number;
 	calories: number;
+	quantity: number;
 }

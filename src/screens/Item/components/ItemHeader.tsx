@@ -17,7 +17,7 @@ export const ItemHeader = () => {
 				style={{ height: 100, minWidth: 100, aspectRatio: 1 }}
 				resizeMode="contain"
 			/>
-			<Text variant="bold" style={{ fontSize: 24 }}>
+			<Text variant="bold" textAlign="center" style={{ fontSize: 24 }}>
 				{name}
 			</Text>
 			<Box flexDirection="row">

@@ -2,6 +2,7 @@ import { Icon, List } from "react-native-paper";
 
 import type { StackScreenProps } from "@src/navigation";
 import type { ScreenKeys } from "@src/navigation/screens";
+import { Text } from "@src/components";
 
 import ScreenContainer from "../../components/layout/ScreenContainer";
 
@@ -14,37 +15,37 @@ const More = ({ navigation }: MoreProps) => {
 			// title="Welcome, <Name>"
 			>
 				<List.Item
-					title={"Locations"}
+					title={<Text>{"Locations"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
 				<List.Item
-					title={"History"}
+					title={<Text>{"History"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
 				<List.Item
-					title={"Careers"}
+					title={<Text>{"Careers"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
 				<List.Item
-					title={"Merchandise"}
+					title={<Text>{"Merchandise"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
 				<List.Item
-					title={"Foundations"}
+					title={<Text>{"Foundations"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
 				<List.Item
-					title={"Catering"}
+					title={<Text>{"Catering"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
 				<List.Item
-					title={"Gift Cards"}
+					title={<Text>{"Gift Cards"}</Text>}
 					// left={() => <Icon source={'cog'} size={24} />}
 					right={() => <Icon source={"chevron-right"} size={24} />}
 				/>
