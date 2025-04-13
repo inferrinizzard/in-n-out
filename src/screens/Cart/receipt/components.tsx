@@ -65,7 +65,7 @@ export const ReceiptFooter = () => {
 				{"Questions/Comments: Call 800-786-1000"}
 			</Text>
 			<Box width="100%" flexDirection="row" justifyContent="space-evenly">
-				<Text fontFamily="monospace">{`${date.getFullYear()}-${leftPadZeroes(date.getMonth())}-${leftPadZeroes(date.getDate())}`}</Text>
+				<Text fontFamily="monospace">{`${date.getFullYear()}-${leftPadZeroes(date.getMonth() + 1)}-${leftPadZeroes(date.getDate())}`}</Text>
 				<Text fontFamily="monospace">{"L1 L2"}</Text>
 				<Text fontFamily="monospace">{`${leftPadZeroes(date.getHours() % 12)}:${leftPadZeroes(date.getMinutes())} ${date.getHours() > 12 ? "PM" : "AM"}`}</Text>
 			</Box>

@@ -46,7 +46,7 @@ const ReceiptItem = <Sku extends SkuKey>({ item }: { item: SkuItem<Sku> }) => {
 				<Text fontFamily="monospace">{`  ${item.sku}`}</Text>
 				{item.options && <ReceiptSkuOptions<Sku> item={item} />}
 			</Box>
-			<Text fontFamily="monospace">{item.price}</Text>
+			<Text fontFamily="monospace">{item.price.toFixed(2)}</Text>
 		</Box>
 	);
 };
