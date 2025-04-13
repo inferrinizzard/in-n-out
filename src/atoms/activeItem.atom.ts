@@ -65,6 +65,7 @@ export const activeItemAtom = atom(
 				options,
 				price,
 				calories: numCalories,
+				quantity: 1,
 			} as ActiveItemAtomState);
 		},
 

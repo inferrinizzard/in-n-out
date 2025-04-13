@@ -13,18 +13,14 @@ import { ItemOptionMap } from "@data/items";
 import type { OptionInstance } from "@data/options";
 import { SkuItemMap, type SkuKey } from "@data/sku";
 
-export interface CartItemProps<Sku extends SkuKey> extends SkuItem<Sku> {
+export interface CartItemProps<Sku extends SkuKey> {
 	uuid: string;
+	item: SkuItem<Sku>;
 }
 
 const CartItem = <Sku extends SkuKey>({
 	uuid,
-	sku,
-	item,
-	name,
-	price,
-	calories,
-	options,
+	item: { item, sku, name, price, calories, options, quantity },
 }: CartItemProps<Sku>) => {
 	const navigation = useNavigation<StackNavigationProps>();
 
@@ -100,10 +96,10 @@ const CartItem = <Sku extends SkuKey>({
 				}}
 			>
 				<Text>
-					<Text variant="bold">{`$${Number(price).toFixed(2)}`}</Text>
+					<Text variant="bold">{`$${Number(price * quantity).toFixed(2)}`}</Text>
 					{!!calories && <Text variant="medium">{` | ${calories} Cal`}</Text>}
 				</Text>
-				<Text>{`Quantity: ${1}`}</Text>
+				<Text>{`Quantity: ${quantity}`}</Text>
 				<Text gap="s" style={{ display: "flex" }}>
 					<Text>{"Edit"}</Text>
 					<Text>{"Remove"}</Text>

@@ -28,7 +28,7 @@ const Cart = ({ navigation }: CartProps) => {
 				data={orderItems}
 				SeparatorComponent={DividerLine}
 				renderItem={([uuid, item]) => (
-					<CartItem key={uuid} uuid={uuid} {...item} />
+					<CartItem key={uuid} uuid={uuid} item={item} />
 				)}
 			/>
 		);
