@@ -60,7 +60,12 @@ const MainNavigator = () => {
 			screenOptions={{ header: Header, contentStyle: { overflow: "hidden" } }}
 		>
 			{routes.map(([screen, Component]) => (
-				<Stack.Screen key={screen} name={screen} component={Component} />
+				<Stack.Screen
+					key={screen}
+					name={screen}
+					component={Component}
+					options={{ title: `In-n-Out | ${screen}` }}
+				/>
 			))}
 		</Stack.Navigator>
 	);
