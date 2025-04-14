@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Icon } from "react-native-paper";
+import Icon from "@react-native-vector-icons/material-icons";
 import { useAtom } from "jotai";
 
 import { activeItemAtom } from "@src/atoms/activeItem.atom";
@@ -40,7 +40,10 @@ export const CustomisationRow = ({ option }: CustomisationRowProps) => {
 				</Box>
 				<Box flexDirection="row" alignItems="center">
 					<Box>{endText && <Text>{getCopy(endText)}</Text>}</Box>
-					<Icon source={isOpen ? "chevron-up" : "chevron-down"} size={24} />
+					<Icon
+						name={isOpen ? "keyboard-arrow-up" : "keyboard-arrow-down"}
+						size={24}
+					/>
 				</Box>
 			</Box>
 			{isOpen && <CustomisationDropdown option={option} />}

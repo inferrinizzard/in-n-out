@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { BackHandler } from "react-native";
-import { Button, Icon } from "react-native-paper";
+import { Button } from "react-native-paper";
+import Icon from "@react-native-vector-icons/material-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAtomValue } from "jotai";
 
@@ -61,7 +62,11 @@ const HeaderButton = ({ navigation }: HeaderButtonProps) => {
 
 	return (
 		<Button onPress={handlePress}>
-			<Icon source={index === 0 ? "close" : "chevron-left"} size={36} />
+			<Icon
+				name={index === 0 ? "close" : "chevron-left"}
+				size={36}
+				style={{ display: "flex", alignItems: "center" }}
+			/>
 		</Button>
 	);
 };
