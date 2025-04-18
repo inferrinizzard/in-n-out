@@ -41,7 +41,7 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 				<View
 					style={{
 						flexGrow: 0,
-						flexShrink: 1,
+						flexShrink: 0,
 						alignItems: "flex-end",
 						justifyContent: "center",
 					}}
@@ -49,7 +49,9 @@ const MenuItem = ({ id, supertext, subtext, onPress }: MenuItemProps) => {
 					{price && (
 						<Text variant="bold">{`$${Number(price).toFixed(2)}`}</Text>
 					)}
-					{!!calorie && <Text variant="medium">{`${calorie} Cal`}</Text>}
+					{!!calorie && (
+						<Text variant="medium" numberOfLines={1}>{`${calorie} Cal`}</Text>
+					)}
 				</View>
 			)}
 		</Box>

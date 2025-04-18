@@ -1,4 +1,5 @@
-import { Button, Icon, TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
+import Icon from "@react-native-vector-icons/material-icons";
 import { useAtomValue } from "jotai";
 import { useTheme } from "@shopify/restyle";
 
@@ -53,7 +54,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 								} as OptionInstance<typeof option>)
 							}
 						>
-							<Icon source={"minus"} size={12} />
+							<Icon name="minimize" size={12} />
 						</Button>
 						<TextInput
 							inputMode="numeric"
@@ -77,7 +78,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 								} as OptionInstance<typeof option>)
 							}
 						>
-							<Icon source={"plus"} size={12} />
+							<Icon name="add" size={12} />
 						</Button>
 					</Box>
 				</Box>
@@ -108,7 +109,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 							{getCopy(optionValue)}
 						</Text>
 						<Icon
-							source={isActive ? "radiobox-marked" : "radiobox-blank"}
+							name={isActive ? "radio-button-on" : "radio-button-off"}
 							size={16}
 						/>
 					</Box>
@@ -136,7 +137,7 @@ export const CustomisationDropdown = <Option extends OptionKey>({
 							{getCopy(flag)}
 						</Text>
 						<Icon
-							source={isActive ? "checkbox-marked" : "checkbox-blank-outline"}
+							name={isActive ? "check-box" : "check-box-outline-blank"}
 							size={16}
 						/>
 					</Box>

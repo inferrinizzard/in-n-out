@@ -1,4 +1,5 @@
-import { Icon, List } from "react-native-paper";
+import { List } from "react-native-paper";
+import Icon from "@react-native-vector-icons/material-icons";
 
 import type { StackScreenProps } from "@src/navigation";
 import type { ScreenKeys } from "@src/navigation/screens";
@@ -17,19 +18,19 @@ const Account = ({ navigation }: AccountProps) => {
 			>
 				<List.Item
 					title={<Text>{"Settings"}</Text>}
-					right={() => <Icon source={"chevron-right"} size={24} />}
+					right={() => <Icon name="chevron-right" size={24} />}
 				/>
 				<List.Item
 					title={<Text>{"Privacy"}</Text>}
-					right={() => <Icon source={"chevron-right"} size={24} />}
+					right={() => <Icon name="chevron-right" size={24} />}
 				/>
 				<List.Item
 					title={<Text>{"Payment Methods"}</Text>}
-					right={() => <Icon source={"chevron-right"} size={24} />}
+					right={() => <Icon name="chevron-right" size={24} />}
 				/>
 				<List.Item
 					title={<Text>{"Notifications"}</Text>}
-					right={() => <Icon source={"chevron-right"} size={24} />}
+					right={() => <Icon name="chevron-right" size={24} />}
 				/>
 			</List.Section>
 		</ScreenContainer>

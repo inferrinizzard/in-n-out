@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Icon } from "react-native-paper";
+import Icon from "@react-native-vector-icons/material-icons";
 import { type NavigationState, StackActions } from "@react-navigation/native";
 import { useTheme } from "@shopify/restyle";
 
@@ -11,11 +11,11 @@ import { type ScreenKey, ScreenKeys, ScreenCopy } from "../screens";
 import { navigationRef } from "../navigatorRef";
 
 const tabsIcons: Record<string, string> = {
-	[ScreenKeys.Menu]: "silverware",
-	[ScreenKeys.Cart]: "cart-outline",
-	[ScreenKeys.QrCode]: "qrcode",
-	[ScreenKeys.Account]: "account",
-	[ScreenKeys.More]: "dots-horizontal",
+	[ScreenKeys.Menu]: "restaurant-menu",
+	[ScreenKeys.Cart]: "shopping-cart",
+	[ScreenKeys.QrCode]: "qr-code",
+	[ScreenKeys.Account]: "person",
+	[ScreenKeys.More]: "more-horiz",
 };
 
 export const BottomTabs = () => {
@@ -87,7 +87,7 @@ export const BottomTabs = () => {
 						}}
 					>
 						<Icon
-							source={icon}
+							name={icon as Parameters<typeof Icon>[0]["name"]}
 							size={24}
 							color={isActive ? "white" : undefined}
 						/>
