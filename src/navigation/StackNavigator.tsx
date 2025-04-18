@@ -4,6 +4,9 @@ import {
 	type NativeStackScreenProps,
 	createNativeStackNavigator,
 } from "@react-navigation/native-stack";
+import { useAtomValue } from "jotai";
+
+import { activeItemAtom } from "@src/atoms";
 
 import Menu, { type MenuScreenParams } from "../screens/Menu";
 import Item from "../screens/Item";
@@ -54,6 +57,8 @@ const MainNavigator = () => {
 		[],
 	);
 
+	const activeItem = useAtomValue(activeItemAtom);
+
 	return (
 		<Stack.Navigator
 			initialRouteName={ScreenKeys.Menu}
@@ -64,7 +69,9 @@ const MainNavigator = () => {
 					key={screen}
 					name={screen}
 					component={Component}
-					options={{ title: `In-n-Out | ${screen}` }}
+					options={{
+						title: `In-n-Out | ${screen === ScreenKeys.Item ? activeItem.name || screen : screen}`,
+					}}
 				/>
 			))}
 		</Stack.Navigator>
